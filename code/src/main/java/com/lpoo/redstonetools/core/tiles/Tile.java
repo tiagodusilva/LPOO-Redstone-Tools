@@ -25,4 +25,16 @@ public abstract class Tile {
 
     abstract public String getName();
 
+    abstract public boolean isSource(Side side);
+
+    public boolean isSource() {
+        for (Side side : Side.values())
+            if (isSource(side))
+                return true;
+
+        return false;
+    }
+
+    abstract public String getInfo();
+
 }

@@ -17,22 +17,34 @@ public class WireTile extends Tile {
 
     @Override
     public void update(Circuit circuit, int power, Side side) {
-        if (power != this.power) {
-            onChange(circuit, power, side);
-            circuit.updateAllNeighbourTiles(position, this.power);
-        }
+        onChange(circuit, power, side);
     }
 
     @Override
     protected void onChange(Circuit circuit, int power, Side side) {
+//        System.out.println(power + " " + side);
         if (circuit.getTick() > updateTick || power > this.power) {
-            this.power = Math.max(0, power - 1);
+            if (circuit.getTile(position.getNeighbour(side)) instanceof WireTile)
+                this.power = Math.max(0, power - 1);
+            else
+                this.power = power;
             this.updateTick = circuit.getTick();
+            circuit.updateAllNeighbourTilesExcept(position, this.power, side);
         }
     }
 
     @Override
     public String getName() {
         return "wire";
+    }
+
+    @Override
+    public boolean isSource(Side side) {
+        return false;
+    }
+
+    @Override
+    public String getInfo() {
+        return "Power : " + this.power;
     }
 }

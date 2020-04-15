@@ -4,10 +4,14 @@ import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 
-public class NullTile extends Tile {
+public class ConstantSourceTile extends Tile implements SourceTile {
 
-    public NullTile(Position position) {
+    public ConstantSourceTile(Position position) {
         super(position);
+    }
+
+    public void nextTick(Circuit circuit) {
+        circuit.updateAllNeighbourTiles(position, 15);
     }
 
     @Override
@@ -22,17 +26,17 @@ public class NullTile extends Tile {
 
     @Override
     public String getName() {
-        return "null";
+        return "Source";
     }
 
     @Override
     public boolean isSource(Side side) {
-        return false;
+        return true;
     }
 
     @Override
     public String getInfo() {
-        return "";
+        return "Power : " + 15;
     }
 
 }
