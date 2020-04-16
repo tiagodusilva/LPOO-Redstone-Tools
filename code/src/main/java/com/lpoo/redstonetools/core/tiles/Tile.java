@@ -35,6 +35,8 @@ public abstract class Tile {
         return false;
     }
 
+    abstract public int getPower(Side side);
+
     abstract public String getInfo();
 
 }

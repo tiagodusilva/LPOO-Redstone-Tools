@@ -31,6 +31,11 @@ public class NullTile extends Tile {
     }
 
     @Override
+    public int getPower(Side side) {
+        return 0;
+    }
+
+    @Override
     public String getInfo() {
         return "";
     }

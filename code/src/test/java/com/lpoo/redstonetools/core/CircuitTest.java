@@ -151,4 +151,36 @@ public class CircuitTest {
         assertEquals("Power : 11", circuit.getTile(4, 1).getInfo());
     }
 
+    @Test
+    public void testWirePripagationDissipation() {
+        circuit.addTile(new ConstantSourceTile(new Position(19, 0)));
+        circuit.addTile(new WireTile(new Position(1, 0)));
+        circuit.addTile(new WireTile(new Position(2, 0)));
+        circuit.addTile(new WireTile(new Position(3, 0)));
+        circuit.addTile(new WireTile(new Position(4, 0)));
+        circuit.addTile(new WireTile(new Position(5, 0)));
+        circuit.addTile(new WireTile(new Position(6, 0)));
+        circuit.addTile(new WireTile(new Position(7, 0)));
+        circuit.addTile(new WireTile(new Position(8, 0)));
+        circuit.addTile(new WireTile(new Position(9, 0)));
+        circuit.addTile(new WireTile(new Position(10, 0)));
+        circuit.addTile(new WireTile(new Position(11, 0)));
+        circuit.addTile(new WireTile(new Position(12, 0)));
+        circuit.addTile(new WireTile(new Position(13, 0)));
+        circuit.addTile(new WireTile(new Position(14, 0)));
+        circuit.addTile(new WireTile(new Position(15, 0)));
+        circuit.addTile(new WireTile(new Position(16, 0)));
+        circuit.addTile(new WireTile(new Position(17, 0)));
+        circuit.addTile(new WireTile(new Position(18, 0)));
+
+        circuit.advanceTick();
+
+        assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
+        assertEquals("Power : 0", circuit.getTile(3, 0).getInfo());
+        assertEquals("Power : 1", circuit.getTile(4, 0).getInfo());
+        assertEquals("Power : 2", circuit.getTile(5, 0).getInfo());
+        assertEquals("Power : 3", circuit.getTile(6, 0).getInfo());
+    }
+
 }

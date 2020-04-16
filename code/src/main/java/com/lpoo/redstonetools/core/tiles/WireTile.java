@@ -44,6 +44,11 @@ public class WireTile extends Tile {
     }
 
     @Override
+    public int getPower(Side side) {
+        return power;
+    }
+
+    @Override
     public String getInfo() {
         return "Power : " + this.power;
     }
