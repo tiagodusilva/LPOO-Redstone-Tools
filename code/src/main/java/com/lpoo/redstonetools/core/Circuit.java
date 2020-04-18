@@ -53,6 +53,14 @@ public class Circuit {
         return tick;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private boolean isInBounds(Position position) {
         return  position.getX() >= 0 &&
                 position.getX() < width &&

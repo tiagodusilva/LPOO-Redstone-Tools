@@ -3,11 +3,8 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
-import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public abstract class Tile {
-
-    protected TileRenderer tr;
 
     protected Position position;
 
