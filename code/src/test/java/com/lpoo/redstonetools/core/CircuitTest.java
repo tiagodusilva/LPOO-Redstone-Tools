@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.core;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.tiles.ConstantSourceTile;
 import com.lpoo.redstonetools.core.tiles.RepeaterTile;
+import com.lpoo.redstonetools.core.tiles.LeverTile;
 import com.lpoo.redstonetools.core.tiles.WireTile;
 import com.lpoo.redstonetools.core.tiles.NullTile;
 import com.lpoo.redstonetools.core.utils.Position;
@@ -311,6 +312,69 @@ public class CircuitTest {
         assertEquals("Power : 0", circuit.getTile(13, 6).getInfo());
         assertEquals("Active : false", circuit.getTile(14, 6).getInfo());
         assertEquals("Power : 0", circuit.getTile(15, 6).getInfo());
+    }
+
+    @Test
+    public void testLever() {
+
+        circuit.addTile(new LeverTile(new Position(0, 0)));
+        circuit.addTile(new WireTile(new Position(1, 0)));
+        circuit.addTile(new WireTile(new Position(2, 0)));
+
+        circuit.advanceTick();
+
+        assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
+
+        ((LeverTile) circuit.getTile(0, 0)).toggle();
+        circuit.advanceTick();
+
+        assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
+
+        ((LeverTile) circuit.getTile(0, 0)).toggle();
+        circuit.advanceTick();
+
+        assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
+    }
+
+    @Test
+    public void testDoubleSources() {
+        circuit.addTile(new LeverTile(new Position(0, 0)));
+        circuit.addTile(new WireTile(new Position(1, 0)));
+        circuit.addTile(new WireTile(new Position(2, 0)));
+        circuit.addTile(new WireTile(new Position(3, 0)));
+        circuit.addTile(new WireTile(new Position(4, 0)));
+        circuit.addTile(new WireTile(new Position(5, 0)));
+        circuit.addTile(new ConstantSourceTile(new Position(6, 0)));
+
+        circuit.advanceTick();
+
+        assertEquals("Power : 11", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 12", circuit.getTile(2, 0).getInfo());
+        assertEquals("Power : 13", circuit.getTile(3, 0).getInfo());
+        assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
+        assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
+
+        ((LeverTile) circuit.getTile(0, 0)).toggle();
+        circuit.advanceTick();
+
+        assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
+        assertEquals("Power : 13", circuit.getTile(3, 0).getInfo());
+        assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
+        assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
+
+        ((LeverTile) circuit.getTile(0, 0)).toggle();
+        circuit.advanceTick();
+
+        assertEquals("Power : 11", circuit.getTile(1, 0).getInfo());
+        assertEquals("Power : 12", circuit.getTile(2, 0).getInfo());
+        assertEquals("Power : 13", circuit.getTile(3, 0).getInfo());
+        assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
+        assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
+
     }
 
 }
