@@ -42,7 +42,7 @@ public class LeverTile extends Tile implements SourceTile {
 
     @Override
     public String getInfo() {
-        return activated ? "power : 15" : "power : 0";
+        return activated ? "Power : 15" : "Power : 0";
     }
 
     @Override
