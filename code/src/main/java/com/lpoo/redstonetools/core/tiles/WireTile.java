@@ -50,6 +50,16 @@ public class WireTile extends Tile {
     }
 
     @Override
+    public boolean acceptsPower(Side side) {
+        return true;
+    }
+
+    @Override
+    public boolean outputsPower(Side side) {
+        return true;
+    }
+
+    @Override
     public String getInfo() {
         return "Power : " + this.power;
     }

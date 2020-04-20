@@ -1,6 +1,5 @@
 package com.lpoo.redstonetools.core;
 
-import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.tiles.ConstantSourceTile;
 import com.lpoo.redstonetools.core.tiles.RepeaterTile;
 import com.lpoo.redstonetools.core.tiles.LeverTile;
@@ -225,42 +224,42 @@ public class CircuitTest {
     @Test
     public void testOrientedTileRotation() {
         RepeaterTile repeater = new RepeaterTile(new Position(0, 0));
-        assertEquals(true, repeater.isInput(Side.LEFT));
-        assertEquals(false, repeater.isInput(Side.RIGHT));
-        assertEquals(false, repeater.isInput(Side.UP));
-        assertEquals(false, repeater.isInput(Side.DOWN));
+        assertEquals(true, repeater.acceptsPower(Side.LEFT));
+        assertEquals(false, repeater.acceptsPower(Side.RIGHT));
+        assertEquals(false, repeater.acceptsPower(Side.UP));
+        assertEquals(false, repeater.acceptsPower(Side.DOWN));
 
 
-        assertEquals(false, repeater.isOutput(Side.LEFT));
-        assertEquals(true, repeater.isOutput(Side.RIGHT));
-        assertEquals(false, repeater.isOutput(Side.UP));
-        assertEquals(false, repeater.isOutput(Side.DOWN));
+        assertEquals(false, repeater.outputsPower(Side.LEFT));
+        assertEquals(true, repeater.outputsPower(Side.RIGHT));
+        assertEquals(false, repeater.outputsPower(Side.UP));
+        assertEquals(false, repeater.outputsPower(Side.DOWN));
 
         repeater.rotateRight();
 
-        assertEquals(false, repeater.isInput(Side.LEFT));
-        assertEquals(false, repeater.isInput(Side.RIGHT));
-        assertEquals(true, repeater.isInput(Side.UP));
-        assertEquals(false, repeater.isInput(Side.DOWN));
+        assertEquals(false, repeater.acceptsPower(Side.LEFT));
+        assertEquals(false, repeater.acceptsPower(Side.RIGHT));
+        assertEquals(true, repeater.acceptsPower(Side.UP));
+        assertEquals(false, repeater.acceptsPower(Side.DOWN));
 
 
-        assertEquals(false, repeater.isOutput(Side.LEFT));
-        assertEquals(false, repeater.isOutput(Side.RIGHT));
-        assertEquals(false, repeater.isOutput(Side.UP));
-        assertEquals(true, repeater.isOutput(Side.DOWN));
+        assertEquals(false, repeater.outputsPower(Side.LEFT));
+        assertEquals(false, repeater.outputsPower(Side.RIGHT));
+        assertEquals(false, repeater.outputsPower(Side.UP));
+        assertEquals(true, repeater.outputsPower(Side.DOWN));
 
         repeater.rotateLeft(); repeater.rotateLeft();
 
-        assertEquals(false, repeater.isInput(Side.LEFT));
-        assertEquals(false, repeater.isInput(Side.RIGHT));
-        assertEquals(false, repeater.isInput(Side.UP));
-        assertEquals(true, repeater.isInput(Side.DOWN));
+        assertEquals(false, repeater.acceptsPower(Side.LEFT));
+        assertEquals(false, repeater.acceptsPower(Side.RIGHT));
+        assertEquals(false, repeater.acceptsPower(Side.UP));
+        assertEquals(true, repeater.acceptsPower(Side.DOWN));
 
 
-        assertEquals(false, repeater.isOutput(Side.LEFT));
-        assertEquals(false, repeater.isOutput(Side.RIGHT));
-        assertEquals(true, repeater.isOutput(Side.UP));
-        assertEquals(false, repeater.isOutput(Side.DOWN));
+        assertEquals(false, repeater.outputsPower(Side.LEFT));
+        assertEquals(false, repeater.outputsPower(Side.RIGHT));
+        assertEquals(true, repeater.outputsPower(Side.UP));
+        assertEquals(false, repeater.outputsPower(Side.DOWN));
     }
 
     @Test

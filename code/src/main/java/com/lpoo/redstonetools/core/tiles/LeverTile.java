@@ -42,6 +42,16 @@ public class LeverTile extends Tile implements SourceTile {
     }
 
     @Override
+    public boolean acceptsPower(Side side) {
+        return false;
+    }
+
+    @Override
+    public boolean outputsPower(Side side) {
+        return true;
+    }
+
+    @Override
     public String getInfo() {
         return activated ? "Power : " + Power.getMax() : "Power : " + Power.getMin();
     }

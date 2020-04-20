@@ -37,6 +37,10 @@ public abstract class Tile {
 
     abstract public int getPower(Side side);
 
+    abstract public boolean acceptsPower(Side side);
+
+    abstract public boolean outputsPower(Side side);
+
     abstract public String getInfo();
 
 }

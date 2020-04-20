@@ -47,6 +47,16 @@ public class ConstantSourceTile extends Tile implements SourceTile {
     }
 
     @Override
+    public boolean acceptsPower(Side side) {
+        return false;
+    }
+
+    @Override
+    public boolean outputsPower(Side side) {
+        return true;
+    }
+
+    @Override
     public String getInfo() {
         return "Power : " + Power.getMax();
     }

@@ -21,7 +21,7 @@ public class RepeaterTile extends OrientedTile implements ComponentTile {
     @Override
     public void update(Circuit circuit, int power, Side side) {
         boolean next_status = power != 0;
-        if (isInput(side) && (next_status != this.active)) {
+        if (acceptsPower(side) && (next_status != this.active)) {
             onChange(circuit, power, side);
         }
     }
@@ -45,7 +45,7 @@ public class RepeaterTile extends OrientedTile implements ComponentTile {
 
     @Override
     public int getPower(Side side) {
-        if (isOutput(side)) return (this.active) ? 15 : 0;
+        if (outputsPower(side)) return (this.active) ? 15 : 0;
         return 0;
     }
 
