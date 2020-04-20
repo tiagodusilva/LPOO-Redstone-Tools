@@ -2,6 +2,7 @@ package com.lpoo.redstonetools.core.tiles;
 
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
 
 public class ConstantSourceTile extends Tile implements SourceTile {
@@ -42,12 +43,12 @@ public class ConstantSourceTile extends Tile implements SourceTile {
 
     @Override
     public int getPower(Side side) {
-        return 15;
+        return Power.getMax();
     }
 
     @Override
     public String getInfo() {
-        return "Power : " + 15;
+        return "Power : " + Power.getMax();
     }
 
 }

@@ -2,6 +2,7 @@ package com.lpoo.redstonetools.core.tiles;
 
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
 
 public class LeverTile extends Tile implements SourceTile {
@@ -37,12 +38,12 @@ public class LeverTile extends Tile implements SourceTile {
 
     @Override
     public int getPower(Side side) {
-        return activated ? 15 : 0;
+        return activated ? Power.getMax() : Power.getMin();
     }
 
     @Override
     public String getInfo() {
-        return activated ? "Power : 15" : "Power : 0";
+        return activated ? "Power : " + Power.getMax() : "Power : " + Power.getMin();
     }
 
     @Override
@@ -50,10 +51,10 @@ public class LeverTile extends Tile implements SourceTile {
         if (activated != lastTickState) {
             lastTickState = activated;
             if (activated) {
-                circuit.updateAllNeighbourTiles(position, 15);
+                circuit.updateAllNeighbourTiles(position, Power.getMax());
             }
             else {
-                circuit.updateAllNeighbourTiles(position, 0);
+                circuit.updateAllNeighbourTiles(position, Power.getMin());
             }
         }
     }
