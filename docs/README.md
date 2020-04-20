@@ -1,0 +1,20 @@
+# Features
+- [ ] Create/load circuits
+- [ ] CRUD methods on tiles
+- [ ] Support default combinational logic gates:
+ - [ ] AND gate
+ - [ ] OR gate
+ - [ ] NOT gate
+ - [ ] NAND gate
+ - [ ] NOR gate
+ - [ ] XOR gate
+ - [ ] XNOR gate
+- [ ] Support default sequential gates:
+ - [ ] Repeater (signal extender)
+ - [ ] Comparator (compares strength of two signals)
+ - [ ] Counter (emits signal every N pulses received)
+ - [ ] Timer (emits signal every N ticks)
+- [ ] Support custom gates (reduce circuit into a tile)
+- [ ] Support two types of circuit simulation:
+ - [ ] Variable strength signals (0-15), loosing strength at each wire travelled
+ - [ ] Lossless two state signals
