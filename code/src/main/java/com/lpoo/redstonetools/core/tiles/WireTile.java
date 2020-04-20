@@ -2,6 +2,7 @@ package com.lpoo.redstonetools.core.tiles;
 
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
 
 public class WireTile extends Tile {
@@ -11,7 +12,7 @@ public class WireTile extends Tile {
 
     public WireTile(Position position) {
         super(position);
-        this.power = 0;
+        this.power = Power.getMin();
         this.updateTick = -1;
     }
 
@@ -25,7 +26,7 @@ public class WireTile extends Tile {
 //        System.out.println(power + " " + side);
         if (circuit.getTick() > updateTick || power > this.power) {
             if (circuit.getTile(position.getNeighbour(side)) instanceof WireTile)
-                this.power = Math.max(0, power - 1);
+                this.power = Power.decrease(power);
             else
                 this.power = power;
             this.updateTick = circuit.getTick();

@@ -7,6 +7,7 @@ import com.lpoo.redstonetools.core.tiles.LeverTile;
 import com.lpoo.redstonetools.core.tiles.WireTile;
 import com.lpoo.redstonetools.core.tiles.NullTile;
 import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,10 @@ public class CircuitTest {
     }
 
     @Before
-    public void create() { this.circuit = new Circuit(WIDTH, HEIGHT); }
+    public void create() {
+        this.circuit = new Circuit(WIDTH, HEIGHT);
+        Power.setRedstoneMode();
+    }
 
 
     @Test
