@@ -40,6 +40,14 @@ public class Circuit {
         this.tick = 0;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void advanceTick() {
         this.tick++;
 
