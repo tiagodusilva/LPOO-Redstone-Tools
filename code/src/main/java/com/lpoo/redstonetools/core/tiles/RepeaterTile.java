@@ -4,14 +4,15 @@ import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.core.utils.SideType;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public class RepeaterTile extends OrientedTile implements ComponentTile {
 
     private long updateTick;
     private boolean active;
 
-    public RepeaterTile(Position position) {
-        super(position);
+    public RepeaterTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         this.sides.put(Side.LEFT, SideType.INPUT);
         this.sides.put(Side.RIGHT, SideType.OUTPUT);
         this.active = false;

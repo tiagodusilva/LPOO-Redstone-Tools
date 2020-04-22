@@ -3,14 +3,15 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public class WireTile extends Tile {
 
     private int power;
     private long updateTick;
 
-    public WireTile(Position position) {
-        super(position);
+    public WireTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         this.power = 0;
         this.updateTick = -1;
     }

@@ -9,6 +9,8 @@ import com.lpoo.redstonetools.core.tiles.Tile;
 import com.lpoo.redstonetools.core.tiles.NullTile;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.CircuitRenderer;
+import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaNullTileRenderer;
 
 import javax.xml.transform.Source;
 
@@ -20,18 +22,20 @@ public class Circuit {
 
     private int width;
     private int height;
-
     private long tick;
 
-    public Circuit(int width, int height) {
+    private CircuitRenderer renderer;
+
+    public Circuit(int width, int height, CircuitRenderer renderer) {
         this.width = width;
         this.height = height;
+        this.renderer = renderer;
 
         this.tiles = new Tile[height][width];
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.tiles[i][j] = new NullTile(new Position(j, i));
+                this.tiles[i][j] = new NullTile(new Position(j, i), renderer.getNullTileRenderer());
             }
         }
 
@@ -59,14 +63,6 @@ public class Circuit {
 
     public long getTick() {
         return tick;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     private boolean isInBounds(Position position) {
@@ -115,12 +111,12 @@ public class Circuit {
     }
 
     public void removeTile(Position position) {
-        addTile(new NullTile(position));
+        addTile(new NullTile(position, renderer.getNullTileRenderer()));
     }
 
     public Tile getTile(Position position) {
         if (!isInBounds(position))
-            return new NullTile(position);
+            return new NullTile(position, renderer.getNullTileRenderer());
 
         return this.tiles[position.getY()][position.getX()];
     }

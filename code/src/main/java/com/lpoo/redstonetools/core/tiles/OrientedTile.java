@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.core.utils.SideType;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +12,8 @@ public abstract class OrientedTile extends Tile {
 
     protected Map<Side, SideType> sides;
 
-    public OrientedTile(Position position) {
-        super(position);
+    public OrientedTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         sides = new HashMap<>();
         for (Side side : Side.values())
             sides.put(side, SideType.DEFAULT);

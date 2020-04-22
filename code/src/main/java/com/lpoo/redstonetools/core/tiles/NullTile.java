@@ -3,11 +3,12 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public class NullTile extends Tile {
 
-    public NullTile(Position position) {
-        super(position);
+    public NullTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
     }
 
     @Override

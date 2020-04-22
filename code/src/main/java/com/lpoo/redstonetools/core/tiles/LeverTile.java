@@ -3,14 +3,15 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public class LeverTile extends Tile implements SourceTile {
 
     boolean activated;
     boolean lastTickState;
 
-    public LeverTile(Position position) {
-        super(position);
+    public LeverTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         activated = false;
         lastTickState = false;
     }

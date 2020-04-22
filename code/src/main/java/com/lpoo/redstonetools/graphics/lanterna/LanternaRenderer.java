@@ -1,6 +1,5 @@
 package com.lpoo.redstonetools.graphics.lanterna;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -8,19 +7,16 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import com.lpoo.redstonetools.core.Circuit;
-import com.lpoo.redstonetools.core.tiles.NullTile;
-import com.lpoo.redstonetools.core.tiles.Tile;
-
 import com.lpoo.redstonetools.graphics.Renderer;
 
 import java.io.IOException;
 
-public class LanternaRenderer implements Renderer {
+public class LanternaRenderer {
 
     private Terminal terminal;
     private Screen screen;
     private TextGraphics graphics;
-    private LanternaTileRenderer tileRenderer;
+    private LanternaCircuitRenderer circuitRenderer;
 
     public LanternaRenderer() {
         try {
@@ -34,9 +30,18 @@ public class LanternaRenderer implements Renderer {
             e.printStackTrace();
         }
 
-        tileRenderer = new LanternaTileRenderer();
+        circuitRenderer = new LanternaCircuitRenderer(screen, screen.newTextGraphics());
     }
 
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public LanternaCircuitRenderer getCircuitRenderer() {
+        return circuitRenderer;
+    }
+
+    /*
     public void renderCircuit(Circuit circuit) {
         graphics.setBackgroundColor(TextColor.ANSI.BLACK);
         graphics.setForegroundColor(TextColor.ANSI.WHITE);
@@ -45,15 +50,13 @@ public class LanternaRenderer implements Renderer {
                 tileRenderer.renderTile(circuit.getTile(i, j), j*3, i*3);
             }
         }
-    }
+    }*/
 
-    @Override
     public void render(Circuit circuit) {
         try {
             graphics = screen.newTextGraphics();
             screen.clear();
-            tileRenderer.setGraphics(graphics);
-            renderCircuit(circuit);
+            circuitRenderer.render(circuit, 0, 0);
             screen.refresh();
         }
         catch (IOException e) {
