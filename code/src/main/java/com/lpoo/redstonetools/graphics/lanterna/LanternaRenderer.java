@@ -13,6 +13,7 @@ import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.graphics.Renderer;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class LanternaRenderer {
@@ -24,11 +25,12 @@ public class LanternaRenderer {
 
     public LanternaRenderer() {
         try {
-            Font font = new Font("Consolas", Font.PLAIN, 15);
+            loadCustomFont();
+
             AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(
                     true,
                     AWTTerminalFontConfiguration.BoldMode.NOTHING,
-                    font);
+                    new Font("Unifont", Font.PLAIN,14));
 
             this.terminal = new DefaultTerminalFactory()
                                 .setInitialTerminalSize(new TerminalSize(100, 40))
@@ -44,6 +46,17 @@ public class LanternaRenderer {
         }
 
         circuitRenderer = new LanternaCircuitRenderer(screen, screen.newTextGraphics());
+    }
+
+    private void loadCustomFont(){
+        try {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\main\\resources\\unifont-13.0.01.ttf")));
+        } catch (IOException|FontFormatException e) {
+            //Handle exception
+            e.printStackTrace();
+        }
     }
 
     public Screen getScreen() {
