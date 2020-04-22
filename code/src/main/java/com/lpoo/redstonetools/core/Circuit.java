@@ -125,4 +125,11 @@ public class Circuit {
         return getTile(new Position(x, y));
     }
 
+    public boolean canTilesConnect(Position position, Side side) {
+        Tile a = getTile(position);
+        Tile b = getTile(position.getNeighbour(side));
+        return (a.acceptsPower(side) && b.outputsPower(side.opposite())) ||
+                (a.outputsPower(side) && b.acceptsPower(side.opposite()));
+    }
+
 }

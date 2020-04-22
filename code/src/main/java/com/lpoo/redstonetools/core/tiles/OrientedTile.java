@@ -38,11 +38,11 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.DOWN, rightType);
     }
 
-    public boolean isInput(Side side) {
+    public boolean acceptsPower(Side side) {
         return sides.getOrDefault(side, SideType.DEFAULT).isInput();
     }
 
-    public boolean isOutput(Side side) {
+    public boolean outputsPower(Side side) {
         return sides.getOrDefault(side, SideType.DEFAULT).isOutput();
     }
 }
