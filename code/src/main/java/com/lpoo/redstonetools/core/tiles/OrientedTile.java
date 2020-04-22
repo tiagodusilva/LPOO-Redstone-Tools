@@ -19,6 +19,7 @@ public abstract class OrientedTile extends Tile {
             sides.put(side, SideType.DEFAULT);
     }
 
+    @Override
     public void rotateLeft() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
@@ -28,6 +29,7 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.UP, rightType);
     }
 
+    @Override
     public void rotateRight() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
@@ -37,11 +39,7 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.DOWN, rightType);
     }
 
-    public boolean acceptsPower(Side side) {
-        return sides.getOrDefault(side, SideType.DEFAULT).isInput();
-    }
+    public boolean acceptsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isInput(); }
 
-    public boolean outputsPower(Side side) {
-        return sides.getOrDefault(side, SideType.DEFAULT).isOutput();
-    }
+    public boolean outputsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isOutput(); }
 }

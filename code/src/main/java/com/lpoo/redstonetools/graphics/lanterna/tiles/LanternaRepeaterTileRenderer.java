@@ -17,7 +17,7 @@ public class LanternaRepeaterTileRenderer extends LanternaTileRenderer<RepeaterT
     public void render(RepeaterTile tile, int row, int column) {
         TextGraphics graphics = screen.newTextGraphics();
 
-        renderPowerSensitiveFrame(graphics, tile, row, column);
+        renderPowerSensitiveFrame(graphics, tile, column, row);
 
         graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));
         graphics.setCharacter(column + 1, row + 1, 'R');

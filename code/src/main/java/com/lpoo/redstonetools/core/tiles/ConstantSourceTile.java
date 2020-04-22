@@ -10,7 +10,7 @@ public class ConstantSourceTile extends Tile implements SourceTile {
 
     private boolean firstTick;
 
-    public ConstantSourceTile(Position position, TileRenderer<? extends Tile> renderer) {
+    public ConstantSourceTile(Position position, TileRenderer renderer) {
         super(position, renderer);
         firstTick = true;
     }

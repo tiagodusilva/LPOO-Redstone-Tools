@@ -13,7 +13,6 @@ import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaConstantSourceTile
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaLeverTileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaRepeaterTileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaWireTileRenderer;
-import javafx.geometry.Pos;
 
 public class Controller {
 
@@ -35,7 +34,6 @@ public class Controller {
 
 
         Circuit circuit = new Circuit(20, 20, renderer.getCircuitRenderer());
-
 
         circuit.addTile(new ConstantSourceTile(new Position(0, 0), constantSourceTileRenderer));
         circuit.addTile(new WireTile(new Position(1, 0), wireRenderer));
@@ -63,11 +61,15 @@ public class Controller {
         circuit.addTile(new LeverTile(new Position(7, 5), leverTileRenderer));
         circuit.addTile(new LeverTile(new Position(4, 1), leverTileRenderer));
 
-        ((LeverTile)circuit.getTile(4, 1)).toggle();
+        //((LeverTile)circuit.getTile(4, 1)).toggle();
 
         circuit.addTile(new WireTile(new Position(3, 1), wireRenderer));
 
-        circuit.addTile(new RepeaterTile(new Position(10, 10), repeaterRenderer));
+        circuit.addTile(new RepeaterTile(new Position(6, 5), repeaterRenderer));
+        circuit.addTile(new RepeaterTile(new Position(6, 3), repeaterRenderer));
+
+        circuit.rotateTileRight(circuit.getTile(6, 5));
+        circuit.rotateTileRight(circuit.getTile(6, 3));
 
         while (true) {
             circuit.advanceTick();

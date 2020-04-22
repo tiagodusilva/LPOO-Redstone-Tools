@@ -36,6 +36,10 @@ public abstract class Tile {
         return false;
     }
 
+    public void rotateLeft() { }
+
+    public void rotateRight() { }
+
     abstract public int getPower(Side side);
 
     abstract public boolean acceptsPower(Side side);

@@ -17,11 +17,11 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
     }
 
     public String getOutputColor() {
-        return "#3497E2";
+        return "#CC6E1C";
     }
 
     public String getInputColor() {
-        return "#CC6E1C";
+        return "#3497E2";
     }
 
     public String getPowerColor(int power) {
@@ -53,35 +53,35 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
         // Code smell, but the alternative would be quite more costly
         if (tile.acceptsPower(Side.UP)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 1, row, '\u25bc');
+            graphics.setCharacter(column + 1, row, '\u2565');
         } else if (tile.outputsPower(Side.UP)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
-            graphics.setCharacter(column + 1, row, '\u25b2');
+            graphics.setCharacter(column + 1, row, '\u2568');
         }
 
         if (tile.acceptsPower(Side.DOWN)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 1, row + 2, '\u25b2');
+            graphics.setCharacter(column + 1, row + 2, '\u2568');
         } else if (tile.outputsPower(Side.DOWN)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
-            graphics.setCharacter(column + 1, row + 2, '\u25bc');
+            graphics.setCharacter(column + 1, row + 2, '\u2565');
         }
 
         if (tile.acceptsPower(Side.RIGHT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 2, row + 1, '\u25c0');
+            graphics.setCharacter(column + 2, row + 1, '\u2561');
         } else if (tile.outputsPower(Side.RIGHT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
-            graphics.setCharacter(column + 2, row + 1, '\u25b6');
+            graphics.setCharacter(column + 2, row + 1, '\u255e');
         }
 
         if (tile.acceptsPower(Side.LEFT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column, row + 1, '\u25b6');
+            graphics.setCharacter(column, row + 1, '\u255e');
         }
         else if (tile.outputsPower(Side.LEFT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
-            graphics.setCharacter(column, row + 1, '\u25c0');
+            graphics.setCharacter(column, row + 1, '\u2561');
         }
     }
 

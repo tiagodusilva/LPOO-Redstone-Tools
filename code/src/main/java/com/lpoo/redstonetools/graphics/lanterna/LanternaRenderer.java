@@ -25,17 +25,16 @@ public class LanternaRenderer {
 
     public LanternaRenderer() {
         try {
-            loadCustomFont();
-
+            Font font = new Font("Consolas", Font.PLAIN, 15);
             AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(
                     true,
                     AWTTerminalFontConfiguration.BoldMode.NOTHING,
-                    new Font("Unifont", Font.PLAIN,14));
+                    font);
 
             this.terminal = new DefaultTerminalFactory()
-                                .setInitialTerminalSize(new TerminalSize(100, 40))
-                                .setTerminalEmulatorFontConfiguration(cfg)
-                                .createTerminal();
+                    .setInitialTerminalSize(new TerminalSize(100, 40))
+                    .setTerminalEmulatorFontConfiguration(cfg)
+                    .createTerminal();
             this.screen = new TerminalScreen(terminal);
 
             this.screen.setCursorPosition(null);   // we don't need a cursor

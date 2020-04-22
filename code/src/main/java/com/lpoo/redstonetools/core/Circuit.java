@@ -112,6 +112,24 @@ public class Circuit {
         notifyNeighbourWires(tile.getPosition());
     }
 
+    public void rotateTileLeft(Tile tile) {
+        if (!isInBounds(tile.getPosition()))
+            return;
+
+        tile.rotateLeft();
+        tile.updateConnections(this);
+        notifyNeighbourWires(tile.getPosition());
+    }
+
+    public void rotateTileRight(Tile tile) {
+        if (!isInBounds(tile.getPosition()))
+            return;
+
+        tile.rotateRight();
+        tile.updateConnections(this);
+        notifyNeighbourWires(tile.getPosition());
+    }
+
     private void notifyNeighbourWires(Position position) {
         for (Side side : Side.values()) {
             getTile(position.getNeighbour(side)).updateConnections(this);

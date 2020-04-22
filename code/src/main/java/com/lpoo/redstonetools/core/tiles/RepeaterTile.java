@@ -37,7 +37,7 @@ public class RepeaterTile extends OrientedTile implements ComponentTile {
     }
 
     @Override
-    public String getName() { return "repeater"; }
+    public String getName() { return "repeater " + sides; }
 
     @Override
     public boolean isSource(Side side) {
