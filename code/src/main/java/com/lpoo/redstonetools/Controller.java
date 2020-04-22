@@ -3,6 +3,7 @@ package com.lpoo.redstonetools;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.tiles.ConstantSourceTile;
 import com.lpoo.redstonetools.core.tiles.LeverTile;
+import com.lpoo.redstonetools.core.tiles.RepeaterTile;
 import com.lpoo.redstonetools.core.tiles.WireTile;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.graphics.Renderer;
@@ -10,7 +11,9 @@ import com.lpoo.redstonetools.graphics.TileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.LanternaRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaConstantSourceTileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaLeverTileRenderer;
+import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaRepeaterTileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaWireTileRenderer;
+import javafx.geometry.Pos;
 
 public class Controller {
 
@@ -28,6 +31,7 @@ public class Controller {
         TileRenderer wireRenderer = new LanternaWireTileRenderer(renderer.getScreen());
         TileRenderer constantSourceTileRenderer = new LanternaConstantSourceTileRenderer(renderer.getScreen());
         TileRenderer leverTileRenderer = new LanternaLeverTileRenderer(renderer.getScreen());
+        TileRenderer repeaterRenderer = new LanternaRepeaterTileRenderer(renderer.getScreen());
 
 
         Circuit circuit = new Circuit(20, 20, renderer.getCircuitRenderer());
@@ -57,11 +61,13 @@ public class Controller {
         circuit.addTile(new WireTile(new Position(5, 4), wireRenderer));
         circuit.addTile(new WireTile(new Position(6, 4), wireRenderer));
         circuit.addTile(new LeverTile(new Position(7, 5), leverTileRenderer));
-        circuit.addTile(new LeverTile(new Position(9, 5), leverTileRenderer));
+        circuit.addTile(new LeverTile(new Position(4, 1), leverTileRenderer));
 
-        ((LeverTile)circuit.getTile(9, 5)).toggle();
+        ((LeverTile)circuit.getTile(4, 1)).toggle();
 
         circuit.addTile(new WireTile(new Position(3, 1), wireRenderer));
+
+        circuit.addTile(new RepeaterTile(new Position(10, 10), repeaterRenderer));
 
         while (true) {
             circuit.advanceTick();

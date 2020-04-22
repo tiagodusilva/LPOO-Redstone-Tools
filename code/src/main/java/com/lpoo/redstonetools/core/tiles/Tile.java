@@ -9,9 +9,9 @@ import com.lpoo.redstonetools.graphics.lanterna.LanternaTileRenderer;
 public abstract class Tile {
 
     protected Position position;
-    protected TileRenderer renderer;
+    protected TileRenderer<Tile> renderer;
 
-    public Tile(Position position, TileRenderer renderer) {
+    public Tile(Position position, TileRenderer<Tile> renderer) {
         this.position = position;
         this.renderer = renderer;
     }
@@ -44,7 +44,7 @@ public abstract class Tile {
 
     abstract public String getInfo();
 
-    public TileRenderer getRenderer() {
+    public TileRenderer<Tile> getRenderer() {
         return renderer;
     }
 

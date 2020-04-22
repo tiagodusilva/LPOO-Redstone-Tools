@@ -3,12 +3,16 @@ package com.lpoo.redstonetools.core.utils;
 public class Power {
     static int mode = 0;
 
-    static public int clamp(int value) {
+    public static int clamp(int value) {
         return Math.min(Math.max(value, getMin()), getMax());
     }
 
-    static public int decrease(int value) {
+    public static int decrease(int value) {
         return mode == 0 ? Math.max(value - 1, getMin()) : value;
+    }
+
+    public static double normalize(int value) {
+        return value / (double) getMax();
     }
 
     public static int getMax() {

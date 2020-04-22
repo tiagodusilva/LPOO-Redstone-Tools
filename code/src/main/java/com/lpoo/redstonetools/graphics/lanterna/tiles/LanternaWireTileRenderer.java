@@ -51,11 +51,7 @@ public class LanternaWireTileRenderer extends LanternaTileRenderer<WireTile> {
     @Override
     public void render(WireTile tile, int row, int column) {
         TextGraphics graphics = screen.newTextGraphics();
-        String red_component = Integer.toHexString(tile.getPower(Side.UP) * 14 + 40);
-        if (red_component.length() == 1)
-            red_component += '0';
-        String color = "#" + red_component + "0000";
-        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(tile.getPower(Side.UP))));
 
         int sides = 0;
         if (tile.isConnected(Side.UP)) {
