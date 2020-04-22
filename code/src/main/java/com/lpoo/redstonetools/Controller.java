@@ -64,7 +64,6 @@ public class Controller {
         circuit.addTile(new WireTile(new Position(3, 1), wireRenderer));
 
         while (true) {
-
             circuit.advanceTick();
             renderer.render(circuit);
 

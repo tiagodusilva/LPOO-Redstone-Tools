@@ -25,7 +25,7 @@ public class Circuit {
     private int height;
     private long tick;
 
-    private CircuitRenderer renderer;
+    private final CircuitRenderer renderer;
 
     public Circuit(int width, int height, CircuitRenderer renderer) {
         this.width = width;

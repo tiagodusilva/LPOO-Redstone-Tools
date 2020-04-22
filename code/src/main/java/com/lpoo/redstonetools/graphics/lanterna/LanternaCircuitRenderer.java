@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.core.Circuit;
+import com.lpoo.redstonetools.core.tiles.Tile;
 import com.lpoo.redstonetools.graphics.CircuitRenderer;
 import com.lpoo.redstonetools.graphics.TileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaConstantSourceTileRenderer;
@@ -36,7 +37,7 @@ public class LanternaCircuitRenderer implements CircuitRenderer {
     }
 
     @Override
-    public TileRenderer getNullTileRenderer() {
+    public TileRenderer<? extends Tile> getNullTileRenderer() {
         return nullTileRenderer;
     }
 }

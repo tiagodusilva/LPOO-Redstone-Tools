@@ -12,14 +12,10 @@ public class NullTile extends Tile {
     }
 
     @Override
-    public void update(Circuit circuit, int power, Side side) {
-
-    }
+    public void update(Circuit circuit, int power, Side side) { }
 
     @Override
-    protected void onChange(Circuit circuit, int power, Side side) {
-
-    }
+    protected void onChange(Circuit circuit, int power, Side side) { }
 
     @Override
     public String getName() {

@@ -26,7 +26,6 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.RIGHT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));
         sides.put(Side.DOWN, leftType);
         sides.put(Side.UP, rightType);
-
     }
 
     public void rotateRight() {
