@@ -67,6 +67,7 @@ public class Controller {
 
         circuit.addTile(new RepeaterTile(new Position(6, 5), repeaterRenderer));
         circuit.addTile(new RepeaterTile(new Position(6, 3), repeaterRenderer));
+        circuit.addTile(new RepeaterTile(new Position(6, 6), repeaterRenderer));
 
         circuit.rotateTileRight(circuit.getTile(6, 5));
         circuit.rotateTileRight(circuit.getTile(6, 3));
