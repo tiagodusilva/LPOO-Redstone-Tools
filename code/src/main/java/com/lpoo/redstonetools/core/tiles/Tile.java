@@ -47,4 +47,6 @@ public abstract class Tile {
     public TileRenderer getRenderer() {
         return renderer;
     }
+
+    public void updateConnections(Circuit circuit) { }
 }

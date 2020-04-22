@@ -17,6 +17,10 @@ public class LeverTile extends Tile implements SourceTile {
         lastTickState = false;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
     @Override
     public void update(Circuit circuit, int power, Side side) {
 

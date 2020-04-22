@@ -6,15 +6,17 @@ import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.graphics.CircuitRenderer;
 import com.lpoo.redstonetools.graphics.TileRenderer;
+import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaConstantSourceTileRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaNullTileRenderer;
-
-import java.util.HashMap;
+import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaWireTileRenderer;
 
 public class LanternaCircuitRenderer implements CircuitRenderer {
 
     private final Screen screen;
     private TextGraphics graphics;
     private LanternaNullTileRenderer nullTileRenderer;
+    private LanternaConstantSourceTileRenderer constantSourceRenderer;
+    private LanternaWireTileRenderer wireTileRenderer;
 
     public LanternaCircuitRenderer(Screen screen, TextGraphics graphics) {
         this.screen = screen;

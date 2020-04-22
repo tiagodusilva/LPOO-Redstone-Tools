@@ -1,14 +1,18 @@
 package com.lpoo.redstonetools.graphics.lanterna;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.graphics.Renderer;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class LanternaRenderer {
@@ -20,7 +24,16 @@ public class LanternaRenderer {
 
     public LanternaRenderer() {
         try {
-            this.terminal = new DefaultTerminalFactory().createTerminal();
+            Font font = new Font("Consolas", Font.PLAIN, 15);
+            AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(
+                    true,
+                    AWTTerminalFontConfiguration.BoldMode.NOTHING,
+                    font);
+
+            this.terminal = new DefaultTerminalFactory()
+                                .setInitialTerminalSize(new TerminalSize(100, 40))
+                                .setTerminalEmulatorFontConfiguration(cfg)
+                                .createTerminal();
             this.screen = new TerminalScreen(terminal);
 
             this.screen.setCursorPosition(null);   // we don't need a cursor
@@ -40,17 +53,6 @@ public class LanternaRenderer {
     public LanternaCircuitRenderer getCircuitRenderer() {
         return circuitRenderer;
     }
-
-    /*
-    public void renderCircuit(Circuit circuit) {
-        graphics.setBackgroundColor(TextColor.ANSI.BLACK);
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
-        for (int i = 0; i < screen.getTerminalSize().getColumns() / 3; i++) {
-            for (int j = 0; j < screen.getTerminalSize().getRows() / 3; j++) {
-                tileRenderer.renderTile(circuit.getTile(i, j), j*3, i*3);
-            }
-        }
-    }*/
 
     public void render(Circuit circuit) {
         try {

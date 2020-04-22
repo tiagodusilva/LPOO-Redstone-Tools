@@ -7,6 +7,7 @@ import java.util.List;
 import com.lpoo.redstonetools.core.tiles.SourceTile;
 import com.lpoo.redstonetools.core.tiles.Tile;
 import com.lpoo.redstonetools.core.tiles.NullTile;
+import com.lpoo.redstonetools.core.tiles.WireTile;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.graphics.CircuitRenderer;
@@ -107,7 +108,14 @@ public class Circuit {
         this.tiles[tile.getPosition().getY()][tile.getPosition().getX()] = tile;
         if (tile.isSource())
             this.sources.add(tile.getPosition());
+        tile.updateConnections(this);
+        notifyNeighbourWires(tile.getPosition());
+    }
 
+    private void notifyNeighbourWires(Position position) {
+        for (Side side : Side.values()) {
+            getTile(position.getNeighbour(side)).updateConnections(this);
+        }
     }
 
     public void removeTile(Position position) {
