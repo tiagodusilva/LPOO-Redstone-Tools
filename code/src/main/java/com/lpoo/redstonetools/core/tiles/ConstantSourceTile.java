@@ -4,13 +4,14 @@ import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 public class ConstantSourceTile extends Tile implements SourceTile {
 
     private boolean firstTick;
 
-    public ConstantSourceTile(Position position) {
-        super(position);
+    public ConstantSourceTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         firstTick = true;
     }
 

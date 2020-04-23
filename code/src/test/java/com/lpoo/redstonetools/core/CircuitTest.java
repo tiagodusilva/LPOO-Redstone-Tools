@@ -8,6 +8,8 @@ import com.lpoo.redstonetools.core.tiles.NullTile;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
+import com.lpoo.redstonetools.graphics.CircuitRenderer;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -18,6 +20,30 @@ public class CircuitTest {
     private final int WIDTH = 20;
     private final int HEIGHT = 20;
 
+    private TileRenderer tileRenderer;
+    private CircuitRenderer circuitRenderer;
+
+    private class StubTileRenderer extends TileRenderer {
+        @Override
+        public void render(Object object, int row, int column) { }
+    }
+
+    private class StubCircuitRenderer implements CircuitRenderer {
+
+        @Override
+        public TileRenderer getNullTileRenderer() {
+            return null;
+        }
+
+        @Override
+        public void render(Circuit object, int row, int column) { }
+    }
+
+    public CircuitTest() {
+        this.tileRenderer = new StubTileRenderer();
+        this.circuitRenderer = new StubCircuitRenderer();
+    }
+
     private void addWires(Position position, Side direction, int howMany) {
         int p_x = position.getX();
         int p_y = position.getY();
@@ -25,25 +51,25 @@ public class CircuitTest {
             case UP:
                 for (int y = p_y, i = 0; i < howMany && y >= 0; i++, y--) {
                     Position new_pos = new Position(p_x, y);
-                    circuit.addTile(new WireTile(new_pos));
+                    circuit.addTile(new WireTile(new_pos, tileRenderer));
                 }
                 break;
             case DOWN:
                 for (int y = p_y, i = 0; i < howMany && y < circuit.getHeight(); i++, y++) {
                     Position new_pos = new Position(p_x, y);
-                    circuit.addTile(new WireTile(new_pos));
+                    circuit.addTile(new WireTile(new_pos, tileRenderer));
                 }
                 break;
             case LEFT:
                 for (int x = p_x, i = 0; i < howMany && x >= 0; i++, x--) {
                     Position new_pos = new Position(x, p_y);
-                    circuit.addTile(new WireTile(new_pos));
+                    circuit.addTile(new WireTile(new_pos, tileRenderer));
                 }
                 break;
             case RIGHT:
                 for (int x = p_x, i = 0; i < howMany && x < circuit.getWidth(); i++, x++) {
                     Position new_pos = new Position(x, p_y);
-                    circuit.addTile(new WireTile(new_pos));
+                    circuit.addTile(new WireTile(new_pos, tileRenderer));
                 }
                 break;
         }
@@ -69,7 +95,7 @@ public class CircuitTest {
     public void addTileTest() {
         Position pos = new Position(4, 7);
         assertEquals(NullTile.class, circuit.getTile(pos).getClass());
-        circuit.addTile(new WireTile(pos));
+        circuit.addTile(new WireTile(pos, tileRenderer));
         assertEquals(WireTile.class, circuit.getTile(pos).getClass());
     }
 
@@ -77,7 +103,7 @@ public class CircuitTest {
     public void removeTileTest() {
         Position pos = new Position(4, 7);
         assertEquals(NullTile.class, circuit.getTile(pos).getClass());
-        circuit.addTile(new WireTile(pos));
+        circuit.addTile(new WireTile(pos, tileRenderer));
         assertEquals(WireTile.class, circuit.getTile(pos).getClass());
         circuit.removeTile(pos);
         assertEquals(NullTile.class, circuit.getTile(pos).getClass());
@@ -92,7 +118,7 @@ public class CircuitTest {
 
     @Test
     public void testConstantSourceOutput() {
-        circuit.addTile(new ConstantSourceTile(new Position(2, 6)));
+        circuit.addTile(new ConstantSourceTile(new Position(2, 6), tileRenderer));
 
         circuit.advanceTick();
 
@@ -101,11 +127,11 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagation() {
-        circuit.addTile(new WireTile(new Position(4, 4)));
-        circuit.addTile(new WireTile(new Position(3, 4)));
-        circuit.addTile(new WireTile(new Position(2, 4)));
-        circuit.addTile(new WireTile(new Position(2, 5)));
-        circuit.addTile(new ConstantSourceTile(new Position(2, 6)));
+        circuit.addTile(new WireTile(new Position(4, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 5), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(2, 6), tileRenderer));
 
         circuit.advanceTick();
 
@@ -117,12 +143,12 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationDoubleEnded() {
-        circuit.addTile(new WireTile(new Position(4, 4)));
-        circuit.addTile(new WireTile(new Position(3, 4)));
-        circuit.addTile(new WireTile(new Position(2, 4)));
-        circuit.addTile(new WireTile(new Position(2, 5)));
-        circuit.addTile(new ConstantSourceTile(new Position(2, 6)));
-        circuit.addTile(new ConstantSourceTile(new Position(5, 4)));
+        circuit.addTile(new WireTile(new Position(4, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 4), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 5), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(2, 6), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(5, 4), tileRenderer));
 
         circuit.advanceTick();
 
@@ -134,18 +160,18 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationBlock() {
-        circuit.addTile(new WireTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(0, 1)));
-        circuit.addTile(new WireTile(new Position(0, 2)));
-        circuit.addTile(new WireTile(new Position(0, 3)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(1, 1)));
-        circuit.addTile(new WireTile(new Position(1, 2)));
-        circuit.addTile(new WireTile(new Position(1, 3)));
-        circuit.addTile(new WireTile(new Position(0, 4)));
-        circuit.addTile(new ConstantSourceTile(new Position(0, 5)));
-        circuit.addTile(new WireTile(new Position(2, 3)));
-        circuit.addTile(new ConstantSourceTile(new Position(3, 3)));
+        circuit.addTile(new WireTile(new Position(0, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(0, 1), tileRenderer));
+        circuit.addTile(new WireTile(new Position(0, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(0, 3), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 1), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 3), tileRenderer));
+        circuit.addTile(new WireTile(new Position(0, 4), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(0, 5), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 3), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(3, 3), tileRenderer));
 
         circuit.advanceTick();
 
@@ -163,16 +189,16 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationCycle() {
-        circuit.addTile(new ConstantSourceTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
-        circuit.addTile(new WireTile(new Position(3, 0)));
-        circuit.addTile(new WireTile(new Position(4, 0)));
-        circuit.addTile(new WireTile(new Position(2, 1)));
-        circuit.addTile(new WireTile(new Position(2, 2)));
-        circuit.addTile(new WireTile(new Position(3, 2)));
-        circuit.addTile(new WireTile(new Position(4, 2)));
-        circuit.addTile(new WireTile(new Position(4, 1)));
+        circuit.addTile(new ConstantSourceTile(new Position(0, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(4, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 1), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(4, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(4, 1), tileRenderer));
 
         circuit.advanceTick();
 
@@ -189,7 +215,7 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationDissipation() {
-        circuit.addTile(new ConstantSourceTile(new Position(19, 0)));
+        circuit.addTile(new ConstantSourceTile(new Position(19, 0), tileRenderer));
         addWires(new Position(1, 0), Side.RIGHT, 18);
         /*
         circuit.addTile(new WireTile(new Position(1, 0)));
@@ -264,36 +290,36 @@ public class CircuitTest {
 
     @Test
     public void testRepeaterCircuit() {
-        circuit.addTile(new ConstantSourceTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
-        circuit.addTile(new RepeaterTile(new Position(3, 0))); // oriented from left to right
-        circuit.addTile(new WireTile(new Position(4, 0)));
-        circuit.addTile(new WireTile(new Position(5, 0)));
-        circuit.addTile(new WireTile(new Position(5, 1)));
-        circuit.addTile(new WireTile(new Position(5, 2)));
-        circuit.addTile(new WireTile(new Position(4, 2)));
-        circuit.addTile(new WireTile(new Position(3, 2)));
-        RepeaterTile repeater2 = new RepeaterTile(new Position(2, 2));
+        circuit.addTile(new ConstantSourceTile(new Position(0, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
+        circuit.addTile(new RepeaterTile(new Position(3, 0), tileRenderer)); // oriented from left to right
+        circuit.addTile(new WireTile(new Position(4, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(5, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(5, 1), tileRenderer));
+        circuit.addTile(new WireTile(new Position(5, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(4, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 2), tileRenderer));
+        RepeaterTile repeater2 = new RepeaterTile(new Position(2, 2), tileRenderer);
         repeater2.rotateLeft(); repeater2.rotateLeft(); // oriented from right to left
         circuit.addTile(repeater2);
-        circuit.addTile(new WireTile(new Position(1, 2)));
-        circuit.addTile(new WireTile(new Position(0, 2)));
-        RepeaterTile repeater3 = new RepeaterTile(new Position(0, 3));
+        circuit.addTile(new WireTile(new Position(1, 2), tileRenderer));
+        circuit.addTile(new WireTile(new Position(0, 2), tileRenderer));
+        RepeaterTile repeater3 = new RepeaterTile(new Position(0, 3), tileRenderer);
         repeater3.rotateRight(); // oriented from up to down
         circuit.addTile(repeater3);
         addWires(new Position(0, 4), Side.RIGHT, 8);
-        circuit.addTile(new WireTile(new Position(0, 5)));
+        circuit.addTile(new WireTile(new Position(0, 5), tileRenderer));
         addWires(new Position(0, 6), Side.RIGHT, 14);
-        RepeaterTile repeater4 = new RepeaterTile(new Position(14, 6)); // oriented left to right
+        RepeaterTile repeater4 = new RepeaterTile(new Position(14, 6), tileRenderer); // oriented left to right
         circuit.addTile(repeater4);
-        circuit.addTile(new WireTile(new Position(15, 6)));
-        circuit.addTile(new WireTile(new Position(7, 3)));
-        RepeaterTile repeater5 = new RepeaterTile(new Position(7, 2));
+        circuit.addTile(new WireTile(new Position(15, 6), tileRenderer));
+        circuit.addTile(new WireTile(new Position(7, 3), tileRenderer));
+        RepeaterTile repeater5 = new RepeaterTile(new Position(7, 2), tileRenderer);
         repeater5.rotateLeft(); // oriented from down to up
         circuit.addTile(repeater5);
-        circuit.addTile(new WireTile(new Position(7, 1)));
-        circuit.addTile(new WireTile(new Position(7, 0)));
+        circuit.addTile(new WireTile(new Position(7, 1), tileRenderer));
+        circuit.addTile(new WireTile(new Position(7, 0), tileRenderer));
 
         circuit.advanceTick();
 
@@ -320,9 +346,9 @@ public class CircuitTest {
     @Test
     public void testLever() {
 
-        circuit.addTile(new LeverTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
+        circuit.addTile(new LeverTile(new Position(0, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
 
         circuit.advanceTick();
 
@@ -344,13 +370,13 @@ public class CircuitTest {
 
     @Test
     public void testDoubleSources() {
-        circuit.addTile(new LeverTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
-        circuit.addTile(new WireTile(new Position(3, 0)));
-        circuit.addTile(new WireTile(new Position(4, 0)));
-        circuit.addTile(new WireTile(new Position(5, 0)));
-        circuit.addTile(new ConstantSourceTile(new Position(6, 0)));
+        circuit.addTile(new LeverTile(new Position(0, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(3, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(4, 0), tileRenderer));
+        circuit.addTile(new WireTile(new Position(5, 0), tileRenderer));
+        circuit.addTile(new ConstantSourceTile(new Position(6, 0), tileRenderer));
 
         circuit.advanceTick();
 

@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.core.tiles;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.core.utils.SideType;
+import com.lpoo.redstonetools.graphics.TileRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,13 +12,14 @@ public abstract class OrientedTile extends Tile {
 
     protected Map<Side, SideType> sides;
 
-    public OrientedTile(Position position) {
-        super(position);
+    public OrientedTile(Position position, TileRenderer renderer) {
+        super(position, renderer);
         sides = new HashMap<>();
         for (Side side : Side.values())
             sides.put(side, SideType.DEFAULT);
     }
 
+    @Override
     public void rotateLeft() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
@@ -25,9 +27,9 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.RIGHT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));
         sides.put(Side.DOWN, leftType);
         sides.put(Side.UP, rightType);
-
     }
 
+    @Override
     public void rotateRight() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
@@ -37,11 +39,7 @@ public abstract class OrientedTile extends Tile {
         sides.put(Side.DOWN, rightType);
     }
 
-    public boolean acceptsPower(Side side) {
-        return sides.getOrDefault(side, SideType.DEFAULT).isInput();
-    }
+    public boolean acceptsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isInput(); }
 
-    public boolean outputsPower(Side side) {
-        return sides.getOrDefault(side, SideType.DEFAULT).isOutput();
-    }
+    public boolean outputsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isOutput(); }
 }

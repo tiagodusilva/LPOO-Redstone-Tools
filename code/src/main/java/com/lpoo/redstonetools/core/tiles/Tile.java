@@ -4,15 +4,16 @@ import com.lpoo.redstonetools.core.Circuit;
 import com.lpoo.redstonetools.core.utils.Position;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.graphics.TileRenderer;
+import com.lpoo.redstonetools.graphics.lanterna.LanternaTileRenderer;
 
 public abstract class Tile {
 
-    protected TileRenderer tr;
-
     protected Position position;
+    protected TileRenderer<Tile> renderer;
 
-    public Tile(Position position) {
+    public Tile(Position position, TileRenderer<Tile> renderer) {
         this.position = position;
+        this.renderer = renderer;
     }
 
     abstract public void update(Circuit circuit, int power, Side side);
@@ -35,6 +36,10 @@ public abstract class Tile {
         return false;
     }
 
+    public void rotateLeft() { }
+
+    public void rotateRight() { }
+
     abstract public int getPower(Side side);
 
     abstract public boolean acceptsPower(Side side);
@@ -43,4 +48,9 @@ public abstract class Tile {
 
     abstract public String getInfo();
 
+    public TileRenderer<Tile> getRenderer() {
+        return renderer;
+    }
+
+    public void updateConnections(Circuit circuit) { }
 }
