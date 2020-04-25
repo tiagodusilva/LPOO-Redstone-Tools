@@ -77,7 +77,7 @@ public class CircuitTest {
 
     @Before
     public void create() {
-        this.circuit = new Circuit(WIDTH, HEIGHT);
+        this.circuit = new Circuit(WIDTH, HEIGHT, circuitRenderer);
         Power.setRedstoneMode();
     }
 
@@ -249,7 +249,7 @@ public class CircuitTest {
 
     @Test
     public void testOrientedTileRotation() {
-        RepeaterTile repeater = new RepeaterTile(new Position(0, 0));
+        RepeaterTile repeater = new RepeaterTile(new Position(0, 0), tileRenderer);
         assertEquals(true, repeater.acceptsPower(Side.LEFT));
         assertEquals(false, repeater.acceptsPower(Side.RIGHT));
         assertEquals(false, repeater.acceptsPower(Side.UP));
