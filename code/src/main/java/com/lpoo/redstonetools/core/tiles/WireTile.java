@@ -13,13 +13,11 @@ import java.util.Map;
 public class WireTile extends Tile {
 
     private int power;
-    private long updateTick;
     private Map<Side, Boolean> connected;
 
     public WireTile(Position position, TileRenderer renderer) {
         super(position, renderer);
         this.power = Power.getMin();
-        this.updateTick = -1;
         connected = new HashMap<>();
         for (Side side : Side.values())
             connected.put(side, false);
@@ -27,19 +25,15 @@ public class WireTile extends Tile {
 
     @Override
     public void update(Circuit circuit, int power, Side side) {
-        onChange(circuit, power, side);
+        int surroundingPower = circuit.getSurroundingPower(position);
+        if (this.power != surroundingPower)
+            onChange(circuit, surroundingPower, side);
     }
 
     @Override
     protected void onChange(Circuit circuit, int power, Side side) {
-        if (circuit.getTick() > updateTick || power > this.power) {
-            if (circuit.getTile(position.getNeighbour(side)) instanceof WireTile)
-                this.power = Power.decrease(power);
-            else
-                this.power = power;
-            this.updateTick = circuit.getTick();
-            circuit.updateAllNeighbourTilesExcept(position, this.power, side);
-        }
+        this.power = power;
+        circuit.updateAllNeighbourTiles(position, this.power);
     }
 
     @Override
@@ -80,5 +74,10 @@ public class WireTile extends Tile {
     @Override
     public String getInfo() {
         return "Power : " + this.power;
+    }
+
+    @Override
+    public boolean isWire() {
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import com.lpoo.redstonetools.core.tiles.Tile;
 import com.lpoo.redstonetools.core.tiles.NullTile;
 import com.lpoo.redstonetools.core.tiles.WireTile;
 import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.core.utils.Power;
 import com.lpoo.redstonetools.core.utils.Side;
 import com.lpoo.redstonetools.graphics.CircuitRenderer;
 import com.lpoo.redstonetools.graphics.lanterna.tiles.LanternaNullTileRenderer;
@@ -156,6 +157,38 @@ public class Circuit {
         Tile b = getTile(position.getNeighbour(side));
         return (a.acceptsPower(side) && b.outputsPower(side.opposite())) ||
                 (a.outputsPower(side) && b.acceptsPower(side.opposite()));
+    }
+
+    public int getSurroundingPower(Position position) {
+        int maxPower = Power.getMin();
+        for (Side side : Side.values()) {
+            Tile tile = getTile(position.getNeighbour(side));
+            maxPower = Math.max(maxPower, tile.isWire() ?
+                                            tile.getPower(side.opposite()) - 1
+                                          : tile.getPower(side.opposite())
+            );
+        }
+        return maxPower;
+    }
+
+    public int getSurroundingWirePower(Position position) {
+        int maxPower = Power.getMin();
+        for (Side side : Side.values()) {
+            Tile tile = getTile(position.getNeighbour(side));
+            if (tile.isWire())
+                maxPower = Math.max(maxPower, tile.getPower(side.opposite()) - 1);
+        }
+        return maxPower;
+    }
+
+    public int getSurroundingGatePower(Position position) {
+        int maxPower = Power.getMin();
+        for (Side side : Side.values()) {
+            Tile tile = getTile(position.getNeighbour(side));
+            if (!tile.isWire())
+                maxPower = Math.max(maxPower, tile.getPower(side.opposite()));
+        }
+        return maxPower;
     }
 
 }
