@@ -36,6 +36,11 @@ public abstract class Tile {
         return false;
     }
 
+    // It was this or an instanceof call, so deal with it
+    public boolean isWire() {
+        return false;
+    }
+
     public void rotateLeft() { }
 
     public void rotateRight() { }

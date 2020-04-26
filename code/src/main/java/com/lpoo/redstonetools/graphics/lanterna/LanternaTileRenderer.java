@@ -53,7 +53,7 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
         // Code smell, but the alternative would be quite more costly
         if (tile.acceptsPower(Side.UP)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 1, row, '\u2565');
+            graphics.setCharacter(column + 1, row, '\u2568');
         } else if (tile.outputsPower(Side.UP)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
             graphics.setCharacter(column + 1, row, '\u2568');
@@ -61,7 +61,7 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
 
         if (tile.acceptsPower(Side.DOWN)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 1, row + 2, '\u2568');
+            graphics.setCharacter(column + 1, row + 2, '\u2565');
         } else if (tile.outputsPower(Side.DOWN)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
             graphics.setCharacter(column + 1, row + 2, '\u2565');
@@ -69,7 +69,7 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
 
         if (tile.acceptsPower(Side.RIGHT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column + 2, row + 1, '\u2561');
+            graphics.setCharacter(column + 2, row + 1, '\u255e');
         } else if (tile.outputsPower(Side.RIGHT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
             graphics.setCharacter(column + 2, row + 1, '\u255e');
@@ -77,7 +77,7 @@ public abstract class LanternaTileRenderer<T extends Tile> extends TileRenderer<
 
         if (tile.acceptsPower(Side.LEFT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));
-            graphics.setCharacter(column, row + 1, '\u255e');
+            graphics.setCharacter(column, row + 1, '\u2561');
         }
         else if (tile.outputsPower(Side.LEFT)) {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
