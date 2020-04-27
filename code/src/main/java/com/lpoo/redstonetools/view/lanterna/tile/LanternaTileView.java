@@ -29,14 +29,14 @@ public abstract class LanternaTileView {
     }
 
     public void renderFrame(TextGraphics graphics, int column, int row) {
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
         graphics.putString(column, row, "\u250F\u2501\u2513");
         graphics.putString(column, row + 1, "\u2503 \u2503");
         graphics.putString(column, row + 2, "\u2517\u2501\u251B");
     }
 
     public void renderPowerSensitiveFrame(TextGraphics graphics, Tile tile, int column, int row) {
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+        TextColor color = graphics.getForegroundColor();
+
         graphics.putString(column, row, "\u250F\u2501\u2513");
         graphics.putString(column, row + 1, "\u2503 \u2503");
         graphics.putString(column, row + 2, "\u2517\u2501\u251B");
@@ -73,5 +73,7 @@ public abstract class LanternaTileView {
             graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));
             graphics.setCharacter(column, row + 1, '\u2561');
         }
+
+        graphics.setForegroundColor(color);
     }
 }
