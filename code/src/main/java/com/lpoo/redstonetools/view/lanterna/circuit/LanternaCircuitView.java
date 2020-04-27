@@ -9,6 +9,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.View;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +35,13 @@ public class LanternaCircuitView extends View<Circuit> {
 
     @Override
     public void render(Circuit circuit) {
+        screen.clear();
         TextGraphics graphics = screen.newTextGraphics();
 
         // TODO: Refactor this, x is the top x-coordinate of the circuit
-        for (int i = 0, x = 0; i < screen.getTerminalSize().getColumns() / 3; i++, x++) {
+        for (int i = 0, x = 0; i < screen.getTerminalSize().getColumns(); i+=3, x++) {
             // TODO: Refactor this, y is the top y-coordinate of the circuit
-            for (int j = 0, y = 0; i < screen.getTerminalSize().getRows() / 3; j++, y++) {
+            for (int j = 0, y = 0; j < screen.getTerminalSize().getRows(); j+=3, y++) {
                 graphics.setBackgroundColor(TextColor.ANSI.BLACK);
                 graphics.setForegroundColor(TextColor.ANSI.WHITE);
                 Tile tile = circuit.getTile(x, y);
@@ -47,17 +49,13 @@ public class LanternaCircuitView extends View<Circuit> {
             }
         }
 
-        /*
-        graphics = new graphics;
-        for each tile:
-            setbackground -> BLACK
-            setforeground -> WHITE
-            renderTile(tile, graphics);
+        // Render highlighted
 
-        //highlighted
-        setbackground -> HIGHLIGHTED;
-        setForeground -> WHITE
-        render highlighted
-        */
+        try {
+            screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
