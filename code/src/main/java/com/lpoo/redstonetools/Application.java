@@ -16,6 +16,8 @@ import com.lpoo.redstonetools.model.tile.RepeaterTile;
 import com.lpoo.redstonetools.model.tile.WireTile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.lanterna.circuit.LanternaCircuitView;
+import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
+import sun.jvm.hotspot.debugger.ThreadAccess;
 
 import java.awt.*;
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class Application {
     CircuitController circuitController;
 
     LanternaCircuitView lanternaCircuitView;
+
+    LanternaInput lanternaInput;
 
     public Application() {
 
@@ -59,10 +63,13 @@ public class Application {
             e.printStackTrace();
         }
 
-        circuit = new Circuit(20, 20);
+        circuit = new Circuit(7, 4);
         circuitController = new CircuitController();
 
-        lanternaCircuitView = new LanternaCircuitView(screen);
+        lanternaCircuitView = new LanternaCircuitView(screen, circuit);
+
+        lanternaInput = new LanternaInput(lanternaCircuitView);
+        lanternaInput.start();
     }
 
     public void run() {
@@ -108,7 +115,14 @@ public class Application {
 
 
         circuitController.advanceTick(circuit);
-        lanternaCircuitView.render(circuit);
+        while (true) {
+            lanternaCircuitView.render(circuit);
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

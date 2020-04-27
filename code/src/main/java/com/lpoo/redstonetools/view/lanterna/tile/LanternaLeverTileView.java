@@ -15,7 +15,10 @@ public class LanternaLeverTileView extends LanternaTileView {
         renderFrame(graphics, column, row);
         int power = tile.getPower(Side.UP);
         boolean isActive = power > Power.getMin();
+        TextColor oldBg = graphics.getBackgroundColor();
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK);
         graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(power)));
         graphics.setCharacter(column + 1, row + 1, isActive ? '\u2584' : '\u2580');
+        graphics.setBackgroundColor(oldBg);
     }
 }
