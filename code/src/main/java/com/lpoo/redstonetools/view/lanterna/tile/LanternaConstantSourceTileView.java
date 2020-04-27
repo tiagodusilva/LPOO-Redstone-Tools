@@ -12,7 +12,7 @@ public class LanternaConstantSourceTileView extends LanternaTileView {
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
-        renderFrame(graphics, row, column);
+        renderFrame(graphics, column, row);
 
         graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));
         graphics.setCharacter(column + 1, row + 1, '\u0424');
