@@ -1,0 +1,148 @@
+package com.lpoo.redstonetools.controller.circuit;
+
+import com.lpoo.redstonetools.model.circuit.Circuit;
+import com.lpoo.redstonetools.model.tile.SourceTile;
+import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Side;
+
+/**
+ *  <h1>Circuit Controller</h1>
+ *  Circuit controller handles the job of notifying the tiles of updates on a circuit
+ *
+ * @see Circuit
+ *
+ * @author g79
+ */
+public class CircuitController {
+
+    /**
+     * <h1>Adds tile to circuit</h1>
+     * Wrapper of circuit <code>addTile</code> function
+     * On top of adding the tile to the circuit, it handles the process of notifying all neighbour wires of the addition
+     * in order to update the wire connections
+     *
+     * @see Circuit#addTile(Tile)
+     *
+     * @param circuit   Circuit where tile will be added
+     * @param tile      Tile to be added
+     */
+    public void addTile(Circuit circuit, Tile tile) {
+        if (circuit.addTile(tile)) {
+            notifyNeighbourTiles(circuit, tile.getPosition());
+        }
+    }
+
+    /**
+     * <h1>Advances to the next tick of the circuit</h1>
+     * Wrapper of circuit <code>advanceTick</code> function
+     * On top of updating the circuit tick, it handles all the updates that need to be done on each tick
+     *
+     * @see Circuit#advanceTick()
+     *
+     * @param circuit   Circuit to advance the tick
+     */
+    public void advanceTick(Circuit circuit) {
+        circuit.advanceTick();
+
+        for (Position position : circuit.getSources()) {
+            Tile tile = circuit.getTile(position);
+            if (((SourceTile)tile).nextTick()) {
+                updateAllNeighbourTiles(circuit, position);
+            }
+        }
+    }
+
+    /**
+     * <h1>Sends updates to all neighbours tiles</h1>
+     * Sends updates to all neighbour tiles if the tile that originated the update outputs on that side
+     *
+     * @param circuit       Circuit where the updates are being done
+     * @param position      Position of the tile that originated the update
+     */
+    private void updateAllNeighbourTiles(Circuit circuit, Position position) {
+        Tile tile = circuit.getTile(position);
+        for (Side side: Side.values()) {
+            if (tile.outputsPower(side))
+                updateNeighbourTile(circuit, position, tile.getPower(side), side);
+        }
+    }
+
+    /**
+     * <h1>Sends update to a neighbour tile</h1>
+     * Sends update to the neighbour tile of the side specified, if that tile generates an update it will be started a
+     * new chain of updates of the neighbour tiles.
+     *
+     * @param circuit       Circuit where the updates are being done
+     * @param position      Position of the tile that originated the update
+     * @param power         Power level to send on the update
+     * @param side          Side of the tile where the update will be sent to
+     */
+    public void updateNeighbourTile(Circuit circuit, Position position, int power, Side side) {
+        Position neighbour = position.getNeighbour(side);
+        if (circuit.isInBounds(neighbour)) {
+            Tile tile = circuit.getTile(neighbour);
+            if (circuit.getTile(neighbour).update(circuit, power, side.opposite())) {
+                updateAllNeighbourTiles(circuit, neighbour);
+            }
+        }
+    }
+
+    /**
+     * <h1>Notifies all neighbour tiles of change on the tile specified</h1>
+     * Sends a notification to all neighbours of the tile specified to handle the updates on the tile connections
+     * 
+     * @see Tile#updateConnections(Circuit)
+     *
+     * @param circuit       Circuit where updates are being done
+     * @param position      Position of the tile that generated the update
+     */
+    private void notifyNeighbourTiles(Circuit circuit, Position position) {
+        for (Side side : Side.values()) {
+            circuit.getTile(position.getNeighbour(side)).updateConnections(circuit);
+        }
+    }
+
+    /**
+     * <h1>Rotates a tile of the circuit to the left</h1>
+     * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
+     *
+     * @see Tile#rotateLeft()
+     *
+     * @param circuit       Circuit where updates are being done
+     * @param position      Position of the tile to be rotated
+     */
+    public void rotateTileLeft(Circuit circuit, Position position) {
+        if (!circuit.isInBounds(position))
+            return;
+
+        Tile tile = circuit.getTile(position);
+
+        if (tile.rotateLeft()) {
+            tile.updateConnections(circuit);
+            notifyNeighbourTiles(circuit, position);
+        }
+    }
+
+    /**
+     * <h1>Rotates a tile of the circuit to the right</h1>
+     * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
+     *
+     * @see Tile#rotateRight()
+     *
+     * @param circuit       Circuit where updates are being done
+     * @param position      Position of the tile to be rotated
+     */
+    public void rotateTileRight(Circuit circuit, Position position) {
+        if (!circuit.isInBounds(position))
+            return;
+
+        Tile tile = circuit.getTile(position);
+
+        if (tile.rotateRight()) {
+            tile.updateConnections(circuit);
+            notifyNeighbourTiles(circuit, position);
+        }
+    }
+
+}

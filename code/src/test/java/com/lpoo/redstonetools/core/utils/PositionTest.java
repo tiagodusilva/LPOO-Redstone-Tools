@@ -1,6 +1,7 @@
 package com.lpoo.redstonetools.core.utils;
 
-import com.lpoo.redstonetools.core.utils.Position;
+import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Side;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
