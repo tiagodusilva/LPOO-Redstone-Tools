@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.model.tile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 /**
  *  <h1>Empty Tile</h1>
@@ -46,6 +47,16 @@ public class NullTile extends Tile {
      */
     @Override
     public boolean isSource(Side side) { return false; }
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Null type
+     */
+    @Override
+    public TileType getType() { return TileType.NULL; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>

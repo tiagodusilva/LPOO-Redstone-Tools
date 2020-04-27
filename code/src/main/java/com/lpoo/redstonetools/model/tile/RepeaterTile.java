@@ -1,10 +1,7 @@
 package com.lpoo.redstonetools.model.tile;
 
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
-import com.lpoo.redstonetools.model.utils.Side;
-import com.lpoo.redstonetools.model.utils.SideType;
+import com.lpoo.redstonetools.model.utils.*;
 
 /**
  *  <h1>Repeater Tile</h1>
@@ -66,6 +63,16 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     public boolean isSource(Side side) { return false; }
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Repeater type
+     */
+    @Override
+    public TileType getType() { return TileType.REPEATER; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>

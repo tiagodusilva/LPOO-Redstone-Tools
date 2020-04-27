@@ -4,6 +4,7 @@ import com.lpoo.redstonetools.model.Model;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 /**
  *  <h1>Tile</h1>
@@ -47,6 +48,26 @@ public abstract class Tile implements Model {
      * @return  Information of the tile
      */
     public abstract String getInfo();
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Tile type
+     */
+    public abstract TileType getType();
+
+    /**
+     * <h1>Checks if tile is connected to neighbour tile on the side specified</h1>
+     * By default, a tile can't connect to any neighbour tiles
+     *
+     * @param side  Side to test connection
+     * @return  true if tile is connected, false otherwise
+     */
+    public boolean isConnected(Side side) {
+        return false;
+    }
 
     /**
      * ???
