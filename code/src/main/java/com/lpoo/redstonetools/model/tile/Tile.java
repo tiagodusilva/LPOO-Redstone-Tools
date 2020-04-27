@@ -70,26 +70,15 @@ public abstract class Tile implements Model {
     }
 
     /**
-     * ???
-     * @param side
-     * @return
-     */
-    public abstract boolean isSource(Side side);
-
-    /**
      * <h1>Checks if tile is a source of power</h1>
+     * By default a tile isn't a source tile
+     * Must be overridden if tile is a source
      *
      * @see SourceTile
      *
      * @return  true if tile is a source tile, false otherwise
      */
-    public boolean isSource() {
-        for (Side side : Side.values())
-            if (isSource(side))
-                return true;
-
-        return false;
-    }
+    public boolean isSource() { return false; }
 
     /**
      * <h1>Checks if tile is a wire</h1>

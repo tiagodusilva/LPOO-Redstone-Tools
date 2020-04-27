@@ -66,11 +66,12 @@ public class ConstantSourceTile extends Tile implements SourceTile {
     /**
      * <h1>Checks if tile is a source of power</h1>
      *
-     * @param side ????
+     * @see SourceTile
+     *
      * @return  true
      */
     @Override
-    public boolean isSource(Side side) {
+    public boolean isSource() {
         return true;
     }
 

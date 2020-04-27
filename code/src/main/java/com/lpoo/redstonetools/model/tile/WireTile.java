@@ -71,17 +71,6 @@ public class WireTile extends Tile {
     }
 
     /**
-     * <h1>Checks if tile is a source of power</h1>
-     *
-     * @param side ????
-     * @return  false
-     */
-    @Override
-    public boolean isSource(Side side) {
-        return false;
-    }
-
-    /**
      * <h1>Get tile type</h1>
      *
      * @see TileType
