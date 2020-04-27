@@ -4,6 +4,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 /**
  *  <h1>Constant Power Source Tile</h1>
@@ -47,6 +48,16 @@ public class ConstantSourceTile extends Tile implements SourceTile {
     public String getInfo() {
         return "Power : " + Power.getMax();
     }
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Source type
+     */
+    @Override
+    public TileType getType() { return TileType.SOURCE; }
 
     /*
         TODO: Unnecessary Side Argument?

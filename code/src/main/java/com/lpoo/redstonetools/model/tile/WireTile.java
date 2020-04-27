@@ -4,6 +4,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +60,17 @@ public class WireTile extends Tile {
     }
 
     /**
+     * <h1>Checks if wire is connected to neighbour tile on the side specified</h1>
+     *
+     * @param side  Side to test connection
+     * @return  true if wire is connected, false otherwise
+     */
+    @Override
+    public boolean isConnected(Side side) {
+        return connected.getOrDefault(side, false);
+    }
+
+    /**
      * <h1>Checks if tile is a source of power</h1>
      *
      * @param side ????
@@ -68,6 +80,16 @@ public class WireTile extends Tile {
     public boolean isSource(Side side) {
         return false;
     }
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Wire type
+     */
+    @Override
+    public TileType getType() { return TileType.WIRE; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>

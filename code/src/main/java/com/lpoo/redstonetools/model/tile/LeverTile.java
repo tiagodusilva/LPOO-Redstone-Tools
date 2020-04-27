@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.model.tile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 /**
  *  <h1>Lever Tile</h1>
@@ -94,6 +95,16 @@ public class LeverTile extends Tile implements SourceTile {
     public boolean isSource(Side side) {
         return true;
     }
+
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Lever type
+     */
+    @Override
+    public TileType getType() { return TileType.LEVER; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>
