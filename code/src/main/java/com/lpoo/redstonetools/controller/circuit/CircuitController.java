@@ -29,7 +29,8 @@ public class CircuitController {
     private void updateAllNeighbourTiles(Circuit circuit, Position position) {
         Tile tile = circuit.getTile(position);
         for (Side side: Side.values()) {
-            updateNeighbourTile(circuit, position, tile.getPower(side), side);
+            if (tile.outputsPower(side))
+                updateNeighbourTile(circuit, position, tile.getPower(side), side);
         }
     }
 

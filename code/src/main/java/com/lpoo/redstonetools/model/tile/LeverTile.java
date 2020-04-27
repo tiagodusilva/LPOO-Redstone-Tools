@@ -28,12 +28,6 @@ public class LeverTile extends Tile implements SourceTile {
     public boolean nextTick(Circuit circuit) {
         if (activated != lastTickState) {
             lastTickState = activated;
-            /*if (activated) {
-                circuit.updateAllNeighbourTiles(position, Power.getMax());
-            }
-            else {
-                circuit.updateAllNeighbourTiles(position, Power.getMin());
-            }*/
             return true;
         }
         return false;

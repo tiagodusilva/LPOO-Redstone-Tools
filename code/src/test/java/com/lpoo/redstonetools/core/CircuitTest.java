@@ -2,9 +2,7 @@ package com.lpoo.redstonetools.core;
 
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.ConstantSourceTile;
-import com.lpoo.redstonetools.model.tile.NullTile;
-import com.lpoo.redstonetools.model.tile.WireTile;
+import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -103,13 +101,13 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagation() {
-        circuit.addTile(new WireTile(new Position(4, 4)));
-        circuit.addTile(new WireTile(new Position(3, 4)));
-        circuit.addTile(new WireTile(new Position(2, 4)));
-        circuit.addTile(new WireTile(new Position(2, 5)));
-        circuit.addTile(new ConstantSourceTile(new Position(2, 6)));
+        controller.addTile(circuit, new WireTile(new Position(4, 4)));
+        controller.addTile(circuit, new WireTile(new Position(3, 4)));
+        controller.addTile(circuit, new WireTile(new Position(2, 4)));
+        controller.addTile(circuit, new WireTile(new Position(2, 5)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(2, 6)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 15", circuit.getTile(2, 5).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 4).getInfo());
@@ -119,14 +117,14 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationDoubleEnded() {
-        circuit.addTile(new WireTile(new Position(4, 4)));
-        circuit.addTile(new WireTile(new Position(3, 4)));
-        circuit.addTile(new WireTile(new Position(2, 4)));
-        circuit.addTile(new WireTile(new Position(2, 5)));
-        circuit.addTile(new ConstantSourceTile(new Position(2, 6)));
-        circuit.addTile(new ConstantSourceTile(new Position(5, 4)));
+        controller.addTile(circuit, new WireTile(new Position(4, 4)));
+        controller.addTile(circuit, new WireTile(new Position(3, 4)));
+        controller.addTile(circuit, new WireTile(new Position(2, 4)));
+        controller.addTile(circuit, new WireTile(new Position(2, 5)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(2, 6)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(5, 4)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 15", circuit.getTile(2, 5).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 4).getInfo());
@@ -136,20 +134,20 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationBlock() {
-        circuit.addTile(new WireTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(0, 1)));
-        circuit.addTile(new WireTile(new Position(0, 2)));
-        circuit.addTile(new WireTile(new Position(0, 3)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(1, 1)));
-        circuit.addTile(new WireTile(new Position(1, 2)));
-        circuit.addTile(new WireTile(new Position(1, 3)));
-        circuit.addTile(new WireTile(new Position(0, 4)));
-        circuit.addTile(new ConstantSourceTile(new Position(0, 5)));
-        circuit.addTile(new WireTile(new Position(2, 3)));
-        circuit.addTile(new ConstantSourceTile(new Position(3, 3)));
+        controller.addTile(circuit, new WireTile(new Position(0, 0)));
+        controller.addTile(circuit, new WireTile(new Position(0, 1)));
+        controller.addTile(circuit, new WireTile(new Position(0, 2)));
+        controller.addTile(circuit, new WireTile(new Position(0, 3)));
+        controller.addTile(circuit, new WireTile(new Position(1, 0)));
+        controller.addTile(circuit, new WireTile(new Position(1, 1)));
+        controller.addTile(circuit, new WireTile(new Position(1, 2)));
+        controller.addTile(circuit, new WireTile(new Position(1, 3)));
+        controller.addTile(circuit, new WireTile(new Position(0, 4)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(0, 5)));
+        controller.addTile(circuit, new WireTile(new Position(2, 3)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(3, 3)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 11", circuit.getTile(0, 0).getInfo());
         assertEquals("Power : 12", circuit.getTile(0, 1).getInfo());
@@ -165,18 +163,18 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationCycle() {
-        circuit.addTile(new ConstantSourceTile(new Position(0, 0)));
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
-        circuit.addTile(new WireTile(new Position(3, 0)));
-        circuit.addTile(new WireTile(new Position(4, 0)));
-        circuit.addTile(new WireTile(new Position(2, 1)));
-        circuit.addTile(new WireTile(new Position(2, 2)));
-        circuit.addTile(new WireTile(new Position(3, 2)));
-        circuit.addTile(new WireTile(new Position(4, 2)));
-        circuit.addTile(new WireTile(new Position(4, 1)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));
+        controller.addTile(circuit, new WireTile(new Position(1, 0)));
+        controller.addTile(circuit, new WireTile(new Position(2, 0)));
+        controller.addTile(circuit, new WireTile(new Position(3, 0)));
+        controller.addTile(circuit, new WireTile(new Position(4, 0)));
+        controller.addTile(circuit, new WireTile(new Position(2, 1)));
+        controller.addTile(circuit, new WireTile(new Position(2, 2)));
+        controller.addTile(circuit, new WireTile(new Position(3, 2)));
+        controller.addTile(circuit, new WireTile(new Position(4, 2)));
+        controller.addTile(circuit, new WireTile(new Position(4, 1)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
@@ -191,29 +189,10 @@ public class CircuitTest {
 
     @Test
     public void testWirePropagationDissipation() {
-        circuit.addTile(new ConstantSourceTile(new Position(19, 0)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(19, 0)));
         addWires(new Position(1, 0), Side.RIGHT, 18);
-        /*
-        circuit.addTile(new WireTile(new Position(1, 0)));
-        circuit.addTile(new WireTile(new Position(2, 0)));
-        circuit.addTile(new WireTile(new Position(3, 0)));
-        circuit.addTile(new WireTile(new Position(4, 0)));
-        circuit.addTile(new WireTile(new Position(5, 0)));
-        circuit.addTile(new WireTile(new Position(6, 0)));
-        circuit.addTile(new WireTile(new Position(7, 0)));
-        circuit.addTile(new WireTile(new Position(8, 0)));
-        circuit.addTile(new WireTile(new Position(9, 0)));
-        circuit.addTile(new WireTile(new Position(10, 0)));
-        circuit.addTile(new WireTile(new Position(11, 0)));
-        circuit.addTile(new WireTile(new Position(12, 0)));
-        circuit.addTile(new WireTile(new Position(13, 0)));
-        circuit.addTile(new WireTile(new Position(14, 0)));
-        circuit.addTile(new WireTile(new Position(15, 0)));
-        circuit.addTile(new WireTile(new Position(16, 0)));
-        circuit.addTile(new WireTile(new Position(17, 0)));
-        circuit.addTile(new WireTile(new Position(18, 0)));*/
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
@@ -222,10 +201,10 @@ public class CircuitTest {
         assertEquals("Power : 2", circuit.getTile(5, 0).getInfo());
         assertEquals("Power : 3", circuit.getTile(6, 0).getInfo());
     }
-/*
+
     @Test
     public void testOrientedTileRotation() {
-        RepeaterTile repeater = new RepeaterTile(new Position(0, 0), tileRenderer);
+        RepeaterTile repeater = new RepeaterTile(new Position(0, 0));
         assertEquals(true, repeater.acceptsPower(Side.LEFT));
         assertEquals(false, repeater.acceptsPower(Side.RIGHT));
         assertEquals(false, repeater.acceptsPower(Side.UP));
@@ -266,38 +245,38 @@ public class CircuitTest {
 
     @Test
     public void testRepeaterCircuit() {
-        circuit.addTile(new ConstantSourceTile(new Position(0, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
-        circuit.addTile(new RepeaterTile(new Position(3, 0), tileRenderer)); // oriented from left to right
-        circuit.addTile(new WireTile(new Position(4, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(5, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(5, 1), tileRenderer));
-        circuit.addTile(new WireTile(new Position(5, 2), tileRenderer));
-        circuit.addTile(new WireTile(new Position(4, 2), tileRenderer));
-        circuit.addTile(new WireTile(new Position(3, 2), tileRenderer));
-        RepeaterTile repeater2 = new RepeaterTile(new Position(2, 2), tileRenderer);
+        controller.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));
+        controller.addTile(circuit, new WireTile(new Position(1, 0)));
+        controller.addTile(circuit, new WireTile(new Position(2, 0)));
+        controller.addTile(circuit, new RepeaterTile(new Position(3, 0))); // oriented from left to right
+        controller.addTile(circuit, new WireTile(new Position(4, 0)));
+        controller.addTile(circuit, new WireTile(new Position(5, 0)));
+        controller.addTile(circuit, new WireTile(new Position(5, 1)));
+        controller.addTile(circuit, new WireTile(new Position(5, 2)));
+        controller.addTile(circuit, new WireTile(new Position(4, 2)));
+        controller.addTile(circuit, new WireTile(new Position(3, 2)));
+        RepeaterTile repeater2 = new RepeaterTile(new Position(2, 2));
         repeater2.rotateLeft(); repeater2.rotateLeft(); // oriented from right to left
-        circuit.addTile(repeater2);
-        circuit.addTile(new WireTile(new Position(1, 2), tileRenderer));
-        circuit.addTile(new WireTile(new Position(0, 2), tileRenderer));
-        RepeaterTile repeater3 = new RepeaterTile(new Position(0, 3), tileRenderer);
+        controller.addTile(circuit, repeater2);
+        controller.addTile(circuit, new WireTile(new Position(1, 2)));
+        controller.addTile(circuit, new WireTile(new Position(0, 2)));
+        RepeaterTile repeater3 = new RepeaterTile(new Position(0, 3));
         repeater3.rotateRight(); // oriented from up to down
-        circuit.addTile(repeater3);
+        controller.addTile(circuit, repeater3);
         addWires(new Position(0, 4), Side.RIGHT, 8);
-        circuit.addTile(new WireTile(new Position(0, 5), tileRenderer));
+        controller.addTile(circuit, new WireTile(new Position(0, 5)));
         addWires(new Position(0, 6), Side.RIGHT, 14);
-        RepeaterTile repeater4 = new RepeaterTile(new Position(14, 6), tileRenderer); // oriented left to right
-        circuit.addTile(repeater4);
-        circuit.addTile(new WireTile(new Position(15, 6), tileRenderer));
-        circuit.addTile(new WireTile(new Position(7, 3), tileRenderer));
-        RepeaterTile repeater5 = new RepeaterTile(new Position(7, 2), tileRenderer);
+        RepeaterTile repeater4 = new RepeaterTile(new Position(14, 6)); // oriented left to right
+        controller.addTile(circuit, repeater4);
+        controller.addTile(circuit, new WireTile(new Position(15, 6)));
+        controller.addTile(circuit, new WireTile(new Position(7, 3)));
+        RepeaterTile repeater5 = new RepeaterTile(new Position(7, 2));
         repeater5.rotateLeft(); // oriented from down to up
-        circuit.addTile(repeater5);
-        circuit.addTile(new WireTile(new Position(7, 1), tileRenderer));
-        circuit.addTile(new WireTile(new Position(7, 0), tileRenderer));
+        controller.addTile(circuit, repeater5);
+        controller.addTile(circuit, new WireTile(new Position(7, 1)));
+        controller.addTile(circuit, new WireTile(new Position(7, 0)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
         assertEquals("Active : true", circuit.getTile(3, 0).getInfo());
@@ -322,23 +301,23 @@ public class CircuitTest {
     @Test
     public void testLever() {
 
-        circuit.addTile(new LeverTile(new Position(0, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
+        controller.addTile(circuit, new LeverTile(new Position(0, 0)));
+        controller.addTile(circuit, new WireTile(new Position(1, 0)));
+        controller.addTile(circuit, new WireTile(new Position(2, 0)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
 
         ((LeverTile) circuit.getTile(0, 0)).toggle();
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
 
         ((LeverTile) circuit.getTile(0, 0)).toggle();
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
@@ -346,15 +325,15 @@ public class CircuitTest {
 
     @Test
     public void testDoubleSources() {
-        circuit.addTile(new LeverTile(new Position(0, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(1, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(2, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(3, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(4, 0), tileRenderer));
-        circuit.addTile(new WireTile(new Position(5, 0), tileRenderer));
-        circuit.addTile(new ConstantSourceTile(new Position(6, 0), tileRenderer));
+        controller.addTile(circuit, new LeverTile(new Position(0, 0)));
+        controller.addTile(circuit, new WireTile(new Position(1, 0)));
+        controller.addTile(circuit, new WireTile(new Position(2, 0)));
+        controller.addTile(circuit, new WireTile(new Position(3, 0)));
+        controller.addTile(circuit, new WireTile(new Position(4, 0)));
+        controller.addTile(circuit, new WireTile(new Position(5, 0)));
+        controller.addTile(circuit, new ConstantSourceTile(new Position(6, 0)));
 
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 11", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 12", circuit.getTile(2, 0).getInfo());
@@ -363,7 +342,7 @@ public class CircuitTest {
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
         ((LeverTile) circuit.getTile(0, 0)).toggle();
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
@@ -372,7 +351,7 @@ public class CircuitTest {
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
         ((LeverTile) circuit.getTile(0, 0)).toggle();
-        circuit.advanceTick();
+        controller.advanceTick(circuit);
 
         assertEquals("Power : 11", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 12", circuit.getTile(2, 0).getInfo());
@@ -380,6 +359,6 @@ public class CircuitTest {
         assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
-    }*/
+    }
 
 }
