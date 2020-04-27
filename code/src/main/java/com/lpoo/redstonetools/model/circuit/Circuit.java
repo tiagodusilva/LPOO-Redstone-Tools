@@ -78,30 +78,11 @@ public class Circuit {
         if (tile.isSource())
             this.sources.add(tile.getPosition());
         tile.updateConnections(this);
-        //notifyNeighbourWires(tile.getPosition());
         return true;
     }
 
     public void removeTile(Position position) {
         addTile(new NullTile(position));
-    }
-
-    public void rotateTileLeft(Tile tile) {
-        if (!isInBounds(tile.getPosition()))
-            return;
-
-        tile.rotateLeft();
-        //tile.updateConnections(this);
-        //notifyNeighbourWires(tile.getPosition());
-    }
-
-    public void rotateTileRight(Tile tile) {
-        if (!isInBounds(tile.getPosition()))
-            return;
-
-        tile.rotateRight();
-        //tile.updateConnections(this);
-        //notifyNeighbourWires(tile.getPosition());
     }
 
     public int getSurroundingPower(Position position) {

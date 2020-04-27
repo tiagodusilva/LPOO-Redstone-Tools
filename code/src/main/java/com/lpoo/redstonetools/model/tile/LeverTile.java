@@ -49,12 +49,6 @@ public class LeverTile extends Tile implements SourceTile {
     }
 
     @Override
-    public void rotateLeft() { }
-
-    @Override
-    public void rotateRight() { }
-
-    @Override
     public int getPower(Side side) {
         return activated ? Power.getMax() : Power.getMin();
     }
@@ -67,20 +61,5 @@ public class LeverTile extends Tile implements SourceTile {
     @Override
     public boolean outputsPower(Side side) {
         return true;
-    }
-
-    @Override
-    public boolean update(Circuit circuit, int power, Side side) {
-        return false;
-    }
-
-    @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
-        return false;
-    }
-
-    @Override
-    public void updateConnections(Circuit circuit) {
-
     }
 }

@@ -35,9 +35,9 @@ public abstract class Tile implements Model {
 
     public boolean isWire() { return false; }
 
-    public abstract void rotateLeft();
+    public boolean rotateLeft() { return false; }
 
-    public abstract void rotateRight();
+    public boolean rotateRight() { return false; }
 
     public abstract int getPower(Side side);
 
@@ -45,11 +45,15 @@ public abstract class Tile implements Model {
 
     public abstract boolean outputsPower(Side side);
 
-    public abstract boolean update(Circuit circuit, int power, Side side);
+    public boolean update(Circuit circuit, int power, Side side) {
+        return false;
+    }
 
-    protected abstract boolean onChange(Circuit circuit, int power, Side side);
+    protected boolean onChange(Circuit circuit, int power, Side side) {
+        return false;
+    }
 
-    public abstract void updateConnections(Circuit circuit);
+    public void updateConnections(Circuit circuit) { }
 
     @Override
     public boolean equals(Object o) {

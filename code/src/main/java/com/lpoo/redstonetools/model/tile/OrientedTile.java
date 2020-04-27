@@ -20,23 +20,25 @@ public abstract class OrientedTile extends Tile {
     }
 
     @Override
-    public void rotateLeft() {
+    public boolean rotateLeft() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
         sides.put(Side.LEFT, sides.getOrDefault(Side.UP, SideType.DEFAULT));
         sides.put(Side.RIGHT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));
         sides.put(Side.DOWN, leftType);
         sides.put(Side.UP, rightType);
+        return true;
     }
 
     @Override
-    public void rotateRight() {
+    public boolean rotateRight() {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
         sides.put(Side.RIGHT, sides.getOrDefault(Side.UP, SideType.DEFAULT));
         sides.put(Side.LEFT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));
         sides.put(Side.UP, leftType);
         sides.put(Side.DOWN, rightType);
+        return true;
     }
 
     @Override

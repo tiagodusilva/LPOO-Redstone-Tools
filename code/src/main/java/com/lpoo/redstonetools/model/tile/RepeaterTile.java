@@ -52,9 +52,4 @@ public class RepeaterTile extends OrientedTile {
         }
         return false;
     }
-
-    @Override
-    public void updateConnections(Circuit circuit) {
-
-    }
 }

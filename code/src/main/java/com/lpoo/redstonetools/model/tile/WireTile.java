@@ -35,12 +35,6 @@ public class WireTile extends Tile {
     }
 
     @Override
-    public void rotateLeft() { }
-
-    @Override
-    public void rotateRight() { }
-
-    @Override
     public int getPower(Side side) { return power; }
 
     @Override

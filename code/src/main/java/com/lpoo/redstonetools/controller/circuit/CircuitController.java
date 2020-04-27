@@ -4,7 +4,6 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.SourceTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
 public class CircuitController {
@@ -46,6 +45,30 @@ public class CircuitController {
     private void notifyNeighbourWires(Circuit circuit, Position position) {
         for (Side side : Side.values()) {
             circuit.getTile(position.getNeighbour(side)).updateConnections(circuit);
+        }
+    }
+
+    public void rotateTileLeft(Circuit circuit, Position position) {
+        if (!circuit.isInBounds(position))
+            return;
+
+        Tile tile = circuit.getTile(position);
+
+        if (tile.rotateLeft()) {
+            tile.updateConnections(circuit);
+            notifyNeighbourWires(circuit, position);
+        }
+    }
+
+    public void rotateTileRight(Circuit circuit, Position position) {
+        if (!circuit.isInBounds(position))
+            return;
+
+        Tile tile = circuit.getTile(position);
+
+        if (tile.rotateRight()) {
+            tile.updateConnections(circuit);
+            notifyNeighbourWires(circuit, position);
         }
     }
 

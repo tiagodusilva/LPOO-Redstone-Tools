@@ -30,12 +30,6 @@ public class ConstantSourceTile extends Tile implements SourceTile {
     }
 
     @Override
-    public void rotateLeft() { }
-
-    @Override
-    public void rotateRight() { }
-
-    @Override
     public int getPower(Side side) {
         return Power.getMax();
     }
@@ -49,15 +43,6 @@ public class ConstantSourceTile extends Tile implements SourceTile {
     public boolean outputsPower(Side side) {
         return true;
     }
-
-    @Override
-    public boolean update(Circuit circuit, int power, Side side) { return false; }
-
-    @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) { return false; }
-
-    @Override
-    public void updateConnections(Circuit circuit) { }
 
     @Override
     public boolean nextTick(Circuit circuit) {
