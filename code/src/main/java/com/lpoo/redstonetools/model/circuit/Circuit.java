@@ -218,7 +218,7 @@ public class Circuit implements Model {
         for (Side side : Side.values()) {
             Tile tile = getTile(position.getNeighbour(side));
             maxPower = Math.max(maxPower, tile.isWire() ?
-                                                tile.getPower(side.opposite()) - 1
+                                                Power.decrease(tile.getPower(side.opposite()))
                                                 : tile.getPower(side.opposite())
                                 );
         }
@@ -237,7 +237,7 @@ public class Circuit implements Model {
         for (Side side : Side.values()) {
             Tile tile = getTile(position.getNeighbour(side));
             if (tile.isWire())
-                maxPower = Math.max(maxPower, tile.getPower(side.opposite()) - 1);
+                maxPower = Math.max(maxPower, Power.decrease(tile.getPower(side.opposite())));
         }
         return maxPower;
     }

@@ -1,6 +1,5 @@
 package com.lpoo.redstonetools.model.tile;
 
-import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -45,9 +44,7 @@ public class ConstantSourceTile extends Tile implements SourceTile {
      * @return  "Power : " followed by the maximum power level
      */
     @Override
-    public String getInfo() {
-        return "Power : " + Power.getMax();
-    }
+    public String getInfo() { return "Power : " + Power.getMax(); }
 
     /**
      * <h1>Get tile type</h1>
@@ -58,10 +55,6 @@ public class ConstantSourceTile extends Tile implements SourceTile {
      */
     @Override
     public TileType getType() { return TileType.SOURCE; }
-
-    /*
-        TODO: Unnecessary Side Argument?
-     */
 
     /**
      * <h1>Checks if tile is a source of power</h1>
