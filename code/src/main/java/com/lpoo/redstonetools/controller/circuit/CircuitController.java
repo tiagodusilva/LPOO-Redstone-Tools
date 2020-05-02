@@ -82,7 +82,7 @@ public class CircuitController {
         Position neighbour = position.getNeighbour(side);
         if (circuit.isInBounds(neighbour)) {
             Tile tile = circuit.getTile(neighbour);
-            if (circuit.getTile(neighbour).update(circuit, power, side.opposite())) {
+            if (tile.update(circuit, power, side.opposite())) {
                 updateAllNeighbourTiles(circuit, neighbour);
             }
         }

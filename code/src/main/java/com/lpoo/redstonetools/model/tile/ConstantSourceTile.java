@@ -11,7 +11,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
  *
  * @author g79
  */
-public class ConstantSourceTile extends Tile implements SourceTile {
+public class ConstantSourceTile extends SourceTile {
 
     /**
      * <h1>Indicates if it's the first time the block is updated</h1>
@@ -55,18 +55,6 @@ public class ConstantSourceTile extends Tile implements SourceTile {
      */
     @Override
     public TileType getType() { return TileType.SOURCE; }
-
-    /**
-     * <h1>Checks if tile is a source of power</h1>
-     *
-     * @see SourceTile
-     *
-     * @return  true
-     */
-    @Override
-    public boolean isSource() {
-        return true;
-    }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>

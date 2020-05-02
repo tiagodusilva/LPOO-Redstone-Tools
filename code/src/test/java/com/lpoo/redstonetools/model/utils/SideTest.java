@@ -7,6 +7,9 @@ public class SideTest {
 
     @Test
     public void testSideOpposite() {
+        /*
+            https://is.gd/KFKROI
+         */
         Assert.assertEquals(Side.UP, (Side.DOWN).opposite());
         Assert.assertEquals(Side.DOWN, (Side.UP).opposite());
         Assert.assertEquals(Side.LEFT, (Side.RIGHT).opposite());
