@@ -1,6 +1,5 @@
 package com.lpoo.redstonetools.model.tile;
 
-import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -12,7 +11,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
  *
  * @author g79
  */
-public class ConstantSourceTile extends Tile implements SourceTile {
+public class ConstantSourceTile extends SourceTile {
 
     /**
      * <h1>Indicates if it's the first time the block is updated</h1>
@@ -45,9 +44,7 @@ public class ConstantSourceTile extends Tile implements SourceTile {
      * @return  "Power : " followed by the maximum power level
      */
     @Override
-    public String getInfo() {
-        return "Power : " + Power.getMax();
-    }
+    public String getInfo() { return "Power : " + Power.getMax(); }
 
     /**
      * <h1>Get tile type</h1>
@@ -58,21 +55,6 @@ public class ConstantSourceTile extends Tile implements SourceTile {
      */
     @Override
     public TileType getType() { return TileType.SOURCE; }
-
-    /*
-        TODO: Unnecessary Side Argument?
-     */
-
-    /**
-     * <h1>Checks if tile is a source of power</h1>
-     *
-     * @param side ????
-     * @return  true
-     */
-    @Override
-    public boolean isSource(Side side) {
-        return true;
-    }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>

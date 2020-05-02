@@ -56,13 +56,13 @@ public class RepeaterTile extends OrientedTile {
     public String getInfo() { return "Active : " + this.active; }
 
     /**
-     * <h1>Checks if tile is a source of power</h1>
+     * <h1>Set repeater status</h1>
      *
-     * @param side ????
-     * @return  false
+     * @param status    New repeater status
      */
-    @Override
-    public boolean isSource(Side side) { return false; }
+    public void setStatus(boolean status) {
+        this.active = status;
+    }
 
     /**
      * <h1>Get tile type</h1>
@@ -97,7 +97,7 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
-        boolean next_status = power != 0;
+        boolean next_status = power != Power.getMin();
         if (acceptsPower(side) && (next_status != this.active)) {
             return onChange(circuit, power, side);
         }
@@ -115,8 +115,8 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     protected boolean onChange(Circuit circuit, int power, Side side) {
-        if (circuit.getTick() > updateTick || power > 0) {
-            this.active = power != 0;
+        if (circuit.getTick() > updateTick || power > Power.getMin()) {
+            this.setStatus(power != Power.getMin());
             this.updateTick = circuit.getTick();
             return true;
         }

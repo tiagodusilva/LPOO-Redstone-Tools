@@ -11,7 +11,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
  *
  * @author g79
  */
-public class LeverTile extends Tile implements SourceTile {
+public class LeverTile extends SourceTile {
 
     /**
      * <h1>If lever is emitting power or not</h1>
@@ -83,17 +83,6 @@ public class LeverTile extends Tile implements SourceTile {
     @Override
     public String getInfo() {
         return "Power : " + ((activated) ? Power.getMax() : Power.getMin());
-    }
-
-    /**
-     * <h1>Checks if tile is a source of power</h1>
-     *
-     * @param side ????
-     * @return  true
-     */
-    @Override
-    public boolean isSource(Side side) {
-        return true;
     }
 
     /**
