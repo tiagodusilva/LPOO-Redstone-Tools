@@ -1,10 +1,9 @@
 package com.lpoo.redstonetools.view.lanterna.input;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
-import com.lpoo.redstonetools.controller.command.MoveSelectionCommand;
-import com.lpoo.redstonetools.controller.command.MoveViewWindowCommand;
+import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
+import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.view.lanterna.circuit.LanternaCircuitView;
 

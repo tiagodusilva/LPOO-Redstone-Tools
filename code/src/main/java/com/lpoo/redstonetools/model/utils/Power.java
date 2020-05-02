@@ -6,7 +6,7 @@ package com.lpoo.redstonetools.model.utils;
  *
  * @author g79
  */
-public class Power {
+public abstract class Power {
     /**
      * <h1>Power mode</h1>
      * There are two power modes:
