@@ -35,7 +35,6 @@ public class ConstantSourceTileTest {
         Assert.assertEquals("source", source.getName());
         Assert.assertEquals("Power : " + Power.getMax(), source.getInfo());
         Assert.assertEquals(TileType.SOURCE, source.getType());
-        Assert.assertTrue(source.isSource());
     }
 
     @Test
@@ -47,10 +46,4 @@ public class ConstantSourceTileTest {
         }
     }
 
-    @Test
-    public void testConstantSourceUpdateTick() {
-        Assert.assertTrue(source.nextTick());
-        for (int i = 0; i < 5; i++)
-            Assert.assertFalse(source.nextTick());
-    }
 }

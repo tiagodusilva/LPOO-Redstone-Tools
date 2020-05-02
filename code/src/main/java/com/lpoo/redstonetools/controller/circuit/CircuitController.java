@@ -4,6 +4,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.SourceTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
 /**
@@ -29,7 +30,24 @@ public class CircuitController {
      */
     public void addTile(Circuit circuit, Tile tile) {
         if (circuit.addTile(tile)) {
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, tile.getPosition());
+        }
+    }
+
+    /**
+     * <h1>Interacts with the tile at position</h1>
+     * Wrapper of <code>interact</code> function
+     * On top of interacting with the tile, updates the neighbour tiles if needed
+     *
+     * @see Tile#interact()
+     *
+     * @param circuit   Circuit where tile will be added
+     * @param position  Position of the Tile to be interacted with
+     */
+    public void interact(Circuit circuit, Position position) {
+        if (circuit.getTile(position).interact()) {
+            updateAllNeighbourTiles(circuit, position);
         }
     }
 
@@ -60,7 +78,7 @@ public class CircuitController {
      * @param circuit       Circuit where the updates are being done
      * @param position      Position of the tile that originated the update
      */
-    private void updateAllNeighbourTiles(Circuit circuit, Position position) {
+    public void updateAllNeighbourTiles(Circuit circuit, Position position) {
         Tile tile = circuit.getTile(position);
         for (Side side: Side.values()) {
             if (tile.outputsPower(side))
@@ -98,8 +116,11 @@ public class CircuitController {
      * @param position      Position of the tile that generated the update
      */
     private void notifyNeighbourTiles(Circuit circuit, Position position) {
+        Tile tile;
         for (Side side : Side.values()) {
-            circuit.getTile(position.getNeighbour(side)).updateConnections(circuit);
+            tile = circuit.getTile(position.getNeighbour(side));
+            tile.updateConnections(circuit);
+            updateNeighbourTile(circuit, position, tile.getPower(side), side);
         }
     }
 
@@ -120,6 +141,7 @@ public class CircuitController {
 
         if (tile.rotateLeft()) {
             tile.updateConnections(circuit);
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, position);
         }
     }
@@ -141,6 +163,7 @@ public class CircuitController {
 
         if (tile.rotateRight()) {
             tile.updateConnections(circuit);
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, position);
         }
     }

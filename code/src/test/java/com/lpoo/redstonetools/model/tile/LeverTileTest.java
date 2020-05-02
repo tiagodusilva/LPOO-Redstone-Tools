@@ -35,24 +35,24 @@ public class LeverTileTest {
         Assert.assertEquals("lever", lever.getName());
         Assert.assertEquals("Power : " + Power.getMin(), lever.getInfo());
         Assert.assertEquals(TileType.LEVER, lever.getType());
-        Assert.assertTrue(lever.isSource());
+        Assert.assertFalse(lever.isSource());
     }
 
     @Test
-    public void testLeverToggle() {
+    public void testLeverInteract() {
         Assert.assertFalse(lever.isActivated());
-        lever.toggle();
+        lever.interact();
         Assert.assertTrue(lever.isActivated());
-        lever.toggle();
+        lever.interact();
         Assert.assertFalse(lever.isActivated());
 
         for (int i = 0; i < 6; i++) {
-            lever.toggle();
+            lever.interact();
         }
         Assert.assertFalse(lever.isActivated());
 
         for (int i = 0; i < 9; i++) {
-            lever.toggle();
+            lever.interact();
         }
         Assert.assertTrue(lever.isActivated());
     }
@@ -65,7 +65,7 @@ public class LeverTileTest {
             Assert.assertEquals(Power.getMin(), lever.getPower(side));
         }
 
-        lever.toggle();
+        lever.interact();
 
         for (Side side : Side.values()) {
             Assert.assertFalse(lever.acceptsPower(side));
@@ -74,15 +74,4 @@ public class LeverTileTest {
         }
     }
 
-    @Test
-    public void testLeverUpdateTick() {
-        for (int i = 0; i < 5; i++)
-            Assert.assertFalse(lever.nextTick());
-
-        lever.toggle();
-
-        Assert.assertTrue(lever.nextTick());
-        for (int i = 0; i < 5; i++)
-            Assert.assertFalse(lever.nextTick());
-    }
 }
