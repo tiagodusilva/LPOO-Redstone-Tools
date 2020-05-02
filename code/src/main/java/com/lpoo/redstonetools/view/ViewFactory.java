@@ -6,4 +6,6 @@ public interface ViewFactory {
     CircuitView getCircuitView(Circuit circuit);
 
     MenuView getMenuView();
+
+    void terminate();
 }

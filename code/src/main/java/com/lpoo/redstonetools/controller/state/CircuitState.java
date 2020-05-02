@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools.controller.state;
 
+import com.lpoo.redstonetools.MainController;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.command.*;
 import com.lpoo.redstonetools.controller.event.Event;
@@ -17,48 +18,12 @@ public class CircuitState extends State {
     private Circuit circuit;
     private CircuitView circuitView;
 
-    public CircuitState(Circuit circuit, ViewFactory viewFactory) {
-        super();
+    public CircuitState(Circuit circuit, MainController mainController) {
+        super(mainController);
 
         this.circuit = circuit;
         this.circuitController = new CircuitController();
-        this.circuitView = viewFactory.getCircuitView(circuit);
-
-        circuitController.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(2, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(3, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(1, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(4, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(5, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(6, 0)));
-        circuitController.addTile(circuit, new WireTile(new Position(6, 1)));
-        circuitController.addTile(circuit, new WireTile(new Position(6, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(5, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(4, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(3, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(2, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(1, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(0, 2)));
-        circuitController.addTile(circuit, new WireTile(new Position(0, 3)));
-        circuitController.addTile(circuit, new WireTile(new Position(0, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(1, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(2, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(3, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(4, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(5, 4)));
-        circuitController.addTile(circuit, new WireTile(new Position(6, 4)));
-        circuitController.addTile(circuit, new LeverTile(new Position(7, 5)));
-        circuitController.addTile(circuit, new LeverTile(new Position(4, 1)));
-
-        circuitController.addTile(circuit, new WireTile(new Position(3, 1)));
-
-        circuitController.addTile(circuit, new RepeaterTile(new Position(6, 5)));
-        circuitController.addTile(circuit, new RepeaterTile(new Position(6, 3)));
-
-        circuitController.rotateTileRight(circuit, new Position(6, 5));
-        circuitController.rotateTileRight(circuit, new Position(6, 3));
-
-        circuitController.advanceTick(circuit);
+        this.circuitView = mainController.getViewFactory().getCircuitView(circuit);
     }
 
     @Override
@@ -87,16 +52,12 @@ public class CircuitState extends State {
                         break;
                     case QUIT:
                         this.exit = true;
-                        break;
+                        return;
                     default:
                         break;
                 }
             }
-            catch (ClassCastException e) {
-                e.printStackTrace();
-            }
             catch (Exception e) {
-                System.err.println("Big oof");
                 e.printStackTrace();
             }
         }

@@ -1,4 +1,5 @@
 package com.lpoo.redstonetools.view;
 
-public class MenuView {
+public abstract class MenuView extends View {
+
 }

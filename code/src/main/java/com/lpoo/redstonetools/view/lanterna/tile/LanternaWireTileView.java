@@ -8,6 +8,18 @@ import com.lpoo.redstonetools.model.utils.Side;
 
 public class LanternaWireTileView extends LanternaTileView {
 
+    private boolean showPower;
+
+    public LanternaWireTileView() {
+        super();
+
+        showPower = false;
+    }
+
+    public void toggleShowPower() {
+        this.showPower = !this.showPower;
+    }
+
     private final Character[] characters = new Character[]{
             '\u2588',    // No connections
             '\u2551',    // UP
@@ -49,6 +61,12 @@ public class LanternaWireTileView extends LanternaTileView {
             sides += 8;
         }
 
-        graphics.setCharacter(column + 1, row + 1, characters[sides]);
+        if (showPower) {
+            String powerLevel = Integer.toHexString(tile.getPower(Side.UP)).toUpperCase();
+            graphics.putString(column + 1, row + 1, powerLevel);
+        }
+        else {
+            graphics.setCharacter(column + 1, row + 1, characters[sides]);
+        }
     }
 }
