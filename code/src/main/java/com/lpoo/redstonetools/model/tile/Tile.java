@@ -168,4 +168,13 @@ public abstract class Tile implements Model {
      * @param circuit   Circuit where update are taking place
      */
     public void updateConnections(Circuit circuit) { }
+
+    /**
+     * <h1>Interacts with a tile</h1>
+     * By default tile doesn't need to change, not needing to trigger updates, returning false
+     * Must be overridden if tile has interactions
+     *
+     * @return  true if tile was updated, false otherwise
+     */
+    public boolean interact() { return false; }
 }

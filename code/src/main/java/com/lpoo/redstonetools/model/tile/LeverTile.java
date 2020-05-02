@@ -11,17 +11,12 @@ import com.lpoo.redstonetools.model.utils.TileType;
  *
  * @author g79
  */
-public class LeverTile extends SourceTile {
+public class LeverTile extends Tile {
 
     /**
      * <h1>If lever is emitting power or not</h1>
      */
     private boolean activated;
-
-    /**
-     * <h1>State of the lever on the last update</h1>
-     */
-    private boolean lastTickState;
 
     /**
      * <h1>Lever constructor</h1>
@@ -31,7 +26,6 @@ public class LeverTile extends SourceTile {
     public LeverTile(Position position) {
         super(position);
         activated = false;
-        lastTickState = false;
     }
 
     /**
@@ -45,24 +39,13 @@ public class LeverTile extends SourceTile {
 
     /**
      * <h1>Changes lever state</h1>
-     */
-    public void toggle() {
-        activated = !activated;
-    }
-
-    /**
-     * <h1>Updates source and calculates next tick</h1>
-     * Lever tile is updated if the last state is different from the current state
      *
-     * @return true if lever was toggled on this tick, false otherwise
+     * @return true
      */
     @Override
-    public boolean nextTick() {
-        if (activated != lastTickState) {
-            lastTickState = activated;
-            return true;
-        }
-        return false;
+    public boolean interact() {
+        activated = !activated;
+        return true;
     }
 
     /**

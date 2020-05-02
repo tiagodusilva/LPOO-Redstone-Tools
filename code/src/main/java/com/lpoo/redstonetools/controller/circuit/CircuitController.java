@@ -34,6 +34,22 @@ public class CircuitController {
     }
 
     /**
+     * <h1>Interacts with the tile at position</h1>
+     * Wrapper of <code>interact</code> function
+     * On top of interacting with the tile, updates the neighbour tiles if needed
+     *
+     * @see Tile#interact()
+     *
+     * @param circuit   Circuit where tile will be added
+     * @param position  Position of the Tile to be interacted with
+     */
+    public void interact(Circuit circuit, Position position) {
+        if (circuit.getTile(position).interact()) {
+            updateAllNeighbourTiles(circuit, position);
+        }
+    }
+
+    /**
      * <h1>Advances to the next tick of the circuit</h1>
      * Wrapper of circuit <code>advanceTick</code> function
      * On top of updating the circuit tick, it handles all the updates that need to be done on each tick
@@ -60,7 +76,7 @@ public class CircuitController {
      * @param circuit       Circuit where the updates are being done
      * @param position      Position of the tile that originated the update
      */
-    private void updateAllNeighbourTiles(Circuit circuit, Position position) {
+    public void updateAllNeighbourTiles(Circuit circuit, Position position) {
         Tile tile = circuit.getTile(position);
         for (Side side: Side.values()) {
             if (tile.outputsPower(side))
@@ -98,8 +114,11 @@ public class CircuitController {
      * @param position      Position of the tile that generated the update
      */
     private void notifyNeighbourTiles(Circuit circuit, Position position) {
+        Tile tile;
         for (Side side : Side.values()) {
-            circuit.getTile(position.getNeighbour(side)).updateConnections(circuit);
+            tile = circuit.getTile(position.getNeighbour(side));
+            tile.updateConnections(circuit);
+            updateNeighbourTile(circuit, position, tile.getPower(side), side);
         }
     }
 

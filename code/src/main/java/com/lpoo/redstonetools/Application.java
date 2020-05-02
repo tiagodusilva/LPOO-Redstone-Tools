@@ -22,7 +22,7 @@ public class Application {
     }
 
     public void run() {
-        while (true) {
+        while (!state.exit()) {
             state.processEvents();
             state.render();
 
@@ -32,6 +32,8 @@ public class Application {
                 e.printStackTrace();
             }
         }
+
+        state.atExit();
     }
 
 }

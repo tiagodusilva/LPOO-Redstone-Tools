@@ -2,6 +2,9 @@ package com.lpoo.redstonetools.view.lanterna.input;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
+import com.lpoo.redstonetools.controller.event.Event;
+import com.lpoo.redstonetools.controller.event.InputEvent;
+import com.lpoo.redstonetools.model.tile.NullTile;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -22,7 +25,7 @@ public class LanternaInput extends Thread {
     public void run() {
         super.run();
 
-        while (true) {
+        while (!isInterrupted()) {
 
             KeyStroke key = null;
             try {
@@ -41,6 +44,12 @@ public class LanternaInput extends Thread {
                                 break;
                             case 'd':
                                 new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();
+                                break;
+                            case 'i':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));
+                                break;
+                            case 't':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));
                                 break;
                             default:
                                 break;
@@ -61,10 +70,11 @@ public class LanternaInput extends Thread {
                     case Insert:
                         break;
                     case Delete:
+                        lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));
                         break;
                     case Escape:
-                        break;
                     case EOF:
+                        lanternaCircuitView.pushEvent(new Event(InputEvent.QUIT, null));
                         break;
                     default:
                         break;
@@ -72,8 +82,13 @@ public class LanternaInput extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            catch (RuntimeException e) {
+                System.out.println("Ur mom gey");
+                e.printStackTrace();
+            }
 
-            if (isInterrupted()) break;
         }
+
+        System.out.println("Fun is over");
     }
 }

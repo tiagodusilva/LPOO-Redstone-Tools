@@ -85,6 +85,10 @@ public class LanternaCircuitView extends CircuitView {
         return screen;
     }
 
+    public Position getSelectedTile() {
+        return selectedTile;
+    }
+
     public void moveSelectedTile(Side side) {
         Position newPos = selectedTile.getNeighbour(side);
         if (!validHiglightedPosition(newPos))
@@ -169,6 +173,11 @@ public class LanternaCircuitView extends CircuitView {
     @Override
     public void cleanup() {
         lanternaInput.interrupt();
+        try {
+            lanternaInput.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.events.clear();
 
         try {

@@ -16,6 +16,8 @@ public abstract class CircuitView {
 
     public abstract void cleanup();
 
+    public void pushEvent(Event event) { events.add(event); }
+
     public Queue<Event> getEvents() {
         return events;
     }

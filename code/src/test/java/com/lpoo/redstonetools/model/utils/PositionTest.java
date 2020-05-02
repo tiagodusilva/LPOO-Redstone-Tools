@@ -56,7 +56,7 @@ public class PositionTest {
 
     @Test
     public void testPositionClone() {
-        Position position = new Position(5, 5);
+        Position position = new Position(5, 4);
         Position clone = position.clone();
 
         Assert.assertEquals(position, clone);

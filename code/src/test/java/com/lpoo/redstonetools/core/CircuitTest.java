@@ -310,14 +310,12 @@ public class CircuitTest {
         assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
 
-        ((LeverTile) circuit.getTile(0, 0)).toggle();
-        controller.advanceTick(circuit);
+        controller.interact(circuit, new Position(0, 0));
 
         assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
 
-        ((LeverTile) circuit.getTile(0, 0)).toggle();
-        controller.advanceTick(circuit);
+        controller.interact(circuit, new Position(0, 0));
 
         assertEquals("Power : 0", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 0", circuit.getTile(2, 0).getInfo());
@@ -341,8 +339,7 @@ public class CircuitTest {
         assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
-        ((LeverTile) circuit.getTile(0, 0)).toggle();
-        controller.advanceTick(circuit);
+        controller.interact(circuit, new Position(0, 0));
 
         assertEquals("Power : 15", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 14", circuit.getTile(2, 0).getInfo());
@@ -350,8 +347,7 @@ public class CircuitTest {
         assertEquals("Power : 14", circuit.getTile(4, 0).getInfo());
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
-        ((LeverTile) circuit.getTile(0, 0)).toggle();
-        controller.advanceTick(circuit);
+        controller.interact(circuit, new Position(0, 0));
 
         assertEquals("Power : 11", circuit.getTile(1, 0).getInfo());
         assertEquals("Power : 12", circuit.getTile(2, 0).getInfo());

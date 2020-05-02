@@ -1,25 +1,27 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
+import com.lpoo.redstonetools.controller.command.AddTileCommand;
+import com.lpoo.redstonetools.controller.command.AdvanceTickCommand;
+import com.lpoo.redstonetools.controller.command.InteractionCommand;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.ConstantSourceTile;
-import com.lpoo.redstonetools.model.tile.LeverTile;
-import com.lpoo.redstonetools.model.tile.RepeaterTile;
-import com.lpoo.redstonetools.model.tile.WireTile;
+import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.ViewFactory;
 
 import java.util.Queue;
 
-public class CircuitState implements State {
+public class CircuitState extends State {
 
     private CircuitController circuitController;
     private Circuit circuit;
     private CircuitView circuitView;
 
     public CircuitState(Circuit circuit, ViewFactory viewFactory) {
+        super();
+
         this.circuit = circuit;
         this.circuitController = new CircuitController();
         this.circuitView = viewFactory.getCircuitView(circuit);
@@ -50,8 +52,6 @@ public class CircuitState implements State {
         circuitController.addTile(circuit, new LeverTile(new Position(7, 5)));
         circuitController.addTile(circuit, new LeverTile(new Position(4, 1)));
 
-        ((LeverTile)circuit.getTile(4, 1)).toggle();
-
         circuitController.addTile(circuit, new WireTile(new Position(3, 1)));
 
         circuitController.addTile(circuit, new RepeaterTile(new Position(6, 5)));
@@ -69,26 +69,43 @@ public class CircuitState implements State {
         Queue<Event> events = this.circuitView.getEvents();
         while (!events.isEmpty()) {
             Event event = events.remove();
-            // TODO:
-            switch (event.getInputEvent()) {
-                case ADD_TILE:
-                    break;
-                case TOGGLE_LEVER:
-                    break;
-                case ADVANCE_TICK:
-                    break;
-                case QUIT:
-                    break;
-                default:
-                    break;
+            try {
+                // TODO:
+                switch (event.getInputEvent()) {
+                    case ADD_TILE:
+                        new AddTileCommand(circuitController, circuit, (Tile) event.getObject()).execute();
+                        break;
+                    case INTERACT:
+                        new InteractionCommand(circuitController, circuit, (Position) event.getObject()).execute();
+                        break;
+                    case ADVANCE_TICK:
+                        new AdvanceTickCommand(circuitController, circuit).execute();
+                        break;
+                    case QUIT:
+                        this.exit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (ClassCastException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
+                System.err.println("Big oof");
+                e.printStackTrace();
             }
         }
-
     }
 
     @Override
     public void render() {
         circuitView.render();
+    }
+
+    @Override
+    public void atExit() {
+        circuitView.cleanup();
     }
 
 }
