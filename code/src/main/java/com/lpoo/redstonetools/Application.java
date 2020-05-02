@@ -1,12 +1,13 @@
 package com.lpoo.redstonetools;
 
 import com.lpoo.redstonetools.controller.state.CircuitState;
+import com.lpoo.redstonetools.controller.state.MenuState;
 import com.lpoo.redstonetools.controller.state.State;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.view.ViewFactory;
 import com.lpoo.redstonetools.view.lanterna.LanternaViewFactory;
 
-public class Application {
+public class Application implements MainController {
 
     public static void main(String[] args) {
         Application app = new Application();
@@ -18,7 +19,7 @@ public class Application {
 
     public Application() {
         viewFactory = new LanternaViewFactory();
-        state = new CircuitState(new Circuit(20, 10), viewFactory);
+        state = new MenuState(this);
     }
 
     public void run() {
@@ -34,6 +35,18 @@ public class Application {
         }
 
         state.atExit();
+        viewFactory.terminate();
     }
 
+    @Override
+    public ViewFactory getViewFactory() {
+        return viewFactory;
+    }
+
+    @Override
+    public void changeState(State state) {
+        this.state.atExit();
+        this.state = state;
+        System.out.println("Exited");
+    }
 }

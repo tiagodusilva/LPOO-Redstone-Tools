@@ -1,14 +1,8 @@
-package com.lpoo.redstonetools.view.lanterna.circuit;
+package com.lpoo.redstonetools.view.lanterna;
 
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
@@ -18,14 +12,12 @@ import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LanternaCircuitView extends CircuitView {
 
-    private Terminal terminal;
     private Screen screen;
     private Map<TileType, LanternaTileView> renderers;
 
@@ -34,33 +26,13 @@ public class LanternaCircuitView extends CircuitView {
     private Position selectedTile;
     private Position viewWindow; // Top-left corner of it
 
-    LanternaInput lanternaInput;
+    private LanternaInput lanternaInput;
 
-    public LanternaCircuitView(Circuit circuit) {
+    public LanternaCircuitView(Screen screen, Circuit circuit) {
         super();
 
         this.circuit = circuit;
-
-        try {
-            Font font = new Font("Consolas", Font.PLAIN, 15);
-            AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(
-                    true,
-                    AWTTerminalFontConfiguration.BoldMode.NOTHING,
-                    font);
-
-            this.terminal = new DefaultTerminalFactory()
-                    .setInitialTerminalSize(new TerminalSize(100, 40))
-                    .setTerminalEmulatorFontConfiguration(cfg)
-                    .createTerminal();
-            this.screen = new TerminalScreen(terminal);
-
-            this.screen.setCursorPosition(null);   // we don't need a cursor
-            this.screen.startScreen();             // screens must be started
-            this.screen.doResizeIfNecessary();     // resize screen if necessary
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
+        this.screen = screen;
 
         // Init internal vars
         selectedTile = new Position(0, 0);
@@ -87,6 +59,10 @@ public class LanternaCircuitView extends CircuitView {
 
     public Position getSelectedTile() {
         return selectedTile;
+    }
+
+    public void toggleShowPower() {
+        ((LanternaWireTileView) renderers.get(TileType.WIRE)).toggleShowPower();
     }
 
     public void moveSelectedTile(Side side) {
@@ -179,12 +155,5 @@ public class LanternaCircuitView extends CircuitView {
             e.printStackTrace();
         }
         this.events.clear();
-
-        try {
-            terminal.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }

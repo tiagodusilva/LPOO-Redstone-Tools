@@ -1,8 +1,7 @@
 package com.lpoo.redstonetools.controller.circuit;
 
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.SourceTile;
-import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -16,6 +15,50 @@ import com.lpoo.redstonetools.model.utils.Side;
  * @author g79
  */
 public class CircuitController {
+
+    // TODO: Temporary, as the name suggests (ignore the code smells ;D )
+    public static Circuit loadTestCircuit() {
+        CircuitController cc = new CircuitController();
+        Circuit circuit = new Circuit(20, 10);
+
+        cc.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));
+        cc.addTile(circuit, new WireTile(new Position(2, 0)));
+        cc.addTile(circuit, new WireTile(new Position(3, 0)));
+        cc.addTile(circuit, new WireTile(new Position(1, 0)));
+        cc.addTile(circuit, new WireTile(new Position(4, 0)));
+        cc.addTile(circuit, new WireTile(new Position(5, 0)));
+        cc.addTile(circuit, new WireTile(new Position(6, 0)));
+        cc.addTile(circuit, new WireTile(new Position(6, 1)));
+        cc.addTile(circuit, new WireTile(new Position(6, 2)));
+        cc.addTile(circuit, new WireTile(new Position(5, 2)));
+        cc.addTile(circuit, new WireTile(new Position(4, 2)));
+        cc.addTile(circuit, new WireTile(new Position(3, 2)));
+        cc.addTile(circuit, new WireTile(new Position(2, 2)));
+        cc.addTile(circuit, new WireTile(new Position(1, 2)));
+        cc.addTile(circuit, new WireTile(new Position(0, 2)));
+        cc.addTile(circuit, new WireTile(new Position(0, 3)));
+        cc.addTile(circuit, new WireTile(new Position(0, 4)));
+        cc.addTile(circuit, new WireTile(new Position(1, 4)));
+        cc.addTile(circuit, new WireTile(new Position(2, 4)));
+        cc.addTile(circuit, new WireTile(new Position(3, 4)));
+        cc.addTile(circuit, new WireTile(new Position(4, 4)));
+        cc.addTile(circuit, new WireTile(new Position(5, 4)));
+        cc.addTile(circuit, new WireTile(new Position(6, 4)));
+        cc.addTile(circuit, new LeverTile(new Position(7, 5)));
+        cc.addTile(circuit, new LeverTile(new Position(4, 1)));
+
+        cc.addTile(circuit, new WireTile(new Position(3, 1)));
+
+        cc.addTile(circuit, new RepeaterTile(new Position(6, 5)));
+        cc.addTile(circuit, new RepeaterTile(new Position(6, 3)));
+
+        cc.rotateTileRight(circuit, new Position(6, 5));
+        cc.rotateTileRight(circuit, new Position(6, 3));
+
+        cc.advanceTick(circuit);
+
+        return circuit;
+    }
 
     /**
      * <h1>Adds tile to circuit</h1>
