@@ -148,6 +148,19 @@ public abstract class Tile implements Model {
     }
 
     /**
+     *
+     * @param circuit
+     * @return
+     */
+    public boolean update(Circuit circuit) {
+        boolean updated = false;
+        for (Side side : Side.values()) {
+            updated |= update(circuit, circuit.getTile(position.getNeighbour(side)).getPower(side.opposite()), side);
+        }
+        return updated;
+    }
+
+    /**
      * <h1>Updates the tile</h1>
      * By default tile doesn't need any update, returning false
      * Must be overridden if tile needs to be updated

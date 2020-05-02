@@ -51,6 +51,12 @@ public class LanternaInput extends Thread {
                             case 't':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));
                                 break;
+                            case 'q':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_LEFT, lanternaCircuitView.getSelectedTile().clone()));
+                                break;
+                            case 'e':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_RIGHT, lanternaCircuitView.getSelectedTile().clone()));
+                                break;
                             default:
                                 break;
                         }

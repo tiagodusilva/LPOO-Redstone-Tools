@@ -1,9 +1,7 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
-import com.lpoo.redstonetools.controller.command.AddTileCommand;
-import com.lpoo.redstonetools.controller.command.AdvanceTickCommand;
-import com.lpoo.redstonetools.controller.command.InteractionCommand;
+import com.lpoo.redstonetools.controller.command.*;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
@@ -80,6 +78,12 @@ public class CircuitState extends State {
                         break;
                     case ADVANCE_TICK:
                         new AdvanceTickCommand(circuitController, circuit).execute();
+                        break;
+                    case ROTATE_LEFT:
+                        new RotateLeftCommand(circuitController, circuit, (Position) event.getObject()).execute();
+                        break;
+                    case ROTATE_RIGHT:
+                        new RotateRightCommand(circuitController, circuit, (Position) event.getObject()).execute();
                         break;
                     case QUIT:
                         this.exit = true;

@@ -4,6 +4,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.SourceTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
 /**
@@ -29,6 +30,7 @@ public class CircuitController {
      */
     public void addTile(Circuit circuit, Tile tile) {
         if (circuit.addTile(tile)) {
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, tile.getPosition());
         }
     }
@@ -139,6 +141,7 @@ public class CircuitController {
 
         if (tile.rotateLeft()) {
             tile.updateConnections(circuit);
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, position);
         }
     }
@@ -160,6 +163,7 @@ public class CircuitController {
 
         if (tile.rotateRight()) {
             tile.updateConnections(circuit);
+            tile.update(circuit);
             notifyNeighbourTiles(circuit, position);
         }
     }

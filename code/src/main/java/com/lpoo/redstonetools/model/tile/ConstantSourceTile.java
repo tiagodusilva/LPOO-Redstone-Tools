@@ -11,12 +11,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
  *
  * @author g79
  */
-public class ConstantSourceTile extends SourceTile {
-
-    /**
-     * <h1>Indicates if it's the first time the block is updated</h1>
-     */
-    private boolean firstTick;
+public class ConstantSourceTile extends Tile {
 
     /**
      * <h1>Constant Source constructor</h1>
@@ -25,7 +20,6 @@ public class ConstantSourceTile extends SourceTile {
      */
     public ConstantSourceTile(Position position) {
         super(position);
-        firstTick = true;
     }
 
     /**
@@ -89,18 +83,4 @@ public class ConstantSourceTile extends SourceTile {
         return true;
     }
 
-    /**
-     * <h1>Updates source and calculates next tick</h1>
-     * Constant source only needs to be updated one time, as it emits constant power regardless of situation
-     *
-     * @return true if is the first update, false otherwise
-     */
-    @Override
-    public boolean nextTick() {
-        if (firstTick) {
-            firstTick = false;
-            return true;
-        }
-        return false;
-    }
 }
