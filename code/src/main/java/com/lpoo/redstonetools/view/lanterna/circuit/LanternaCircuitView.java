@@ -10,7 +10,6 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.View;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
-import javafx.geometry.Pos;
 
 import java.io.IOException;
 import java.util.HashMap;
