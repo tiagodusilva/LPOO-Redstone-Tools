@@ -23,10 +23,10 @@ public class LanternaViewFactory implements ViewFactory {
     public LanternaViewFactory() {
         try {
             Font font = new Font("Consolas", Font.PLAIN, 15);
-            AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(
+            SwingTerminalFontConfiguration cfg = SwingTerminalFontConfiguration.getDefault();/*new SwingTerminalFontConfiguration(
                     true,
-                    AWTTerminalFontConfiguration.BoldMode.NOTHING,
-                    font);
+                    SwingTerminalFontConfiguration.BoldMode.NOTHING,
+                    font);*/
 
             this.terminal = new DefaultTerminalFactory()
                     .setInitialTerminalSize(new TerminalSize(100, 40))

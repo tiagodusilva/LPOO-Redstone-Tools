@@ -21,7 +21,7 @@ public class LanternaWireTileView extends LanternaTileView {
     }
 
     private final Character[] characters = new Character[]{
-            '\u2588',    // No connections
+            '\u29BE',    // No connections
             '\u2551',    // UP
             '\u2551',    // DOWN
             '\u2551',    // UP & DOWN
