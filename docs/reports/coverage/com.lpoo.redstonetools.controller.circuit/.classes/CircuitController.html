@@ -1,0 +1,298 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CircuitController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.controller.circuit</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CircuitController (com.lpoo.redstonetools.controller.circuit)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CircuitController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70%
+  </span>
+  <span class="absValue">
+    (7/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    34.1%
+  </span>
+  <span class="absValue">
+    (28/ 82)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.controller.circuit;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.*;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; *  &lt;h1&gt;Circuit Controller&lt;/h1&gt;
+<i>11</i>&nbsp; *  Circuit controller handles the job of notifying the tiles of updates on a circuit
+<i>12</i>&nbsp; *
+<i>13</i>&nbsp; * @see Circuit
+<i>14</i>&nbsp; *
+<i>15</i>&nbsp; * @author g79
+<i>16</i>&nbsp; */
+<b class="fc"><i>17</i>&nbsp;public class CircuitController {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    // TODO: Temporary, as the name suggests (ignore the code smells ;D )
+<i>20</i>&nbsp;    public static Circuit loadTestCircuit() {
+<b class="nc"><i>21</i>&nbsp;        CircuitController cc = new CircuitController();</b>
+<b class="nc"><i>22</i>&nbsp;        Circuit circuit = new Circuit(20, 10);</b>
+<i>23</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;        cc.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));</b>
+<b class="nc"><i>25</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(2, 0)));</b>
+<b class="nc"><i>26</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(3, 0)));</b>
+<b class="nc"><i>27</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(1, 0)));</b>
+<b class="nc"><i>28</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(4, 0)));</b>
+<b class="nc"><i>29</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(5, 0)));</b>
+<b class="nc"><i>30</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(6, 0)));</b>
+<b class="nc"><i>31</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(6, 1)));</b>
+<b class="nc"><i>32</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(6, 2)));</b>
+<b class="nc"><i>33</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(5, 2)));</b>
+<b class="nc"><i>34</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(4, 2)));</b>
+<b class="nc"><i>35</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(3, 2)));</b>
+<b class="nc"><i>36</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(2, 2)));</b>
+<b class="nc"><i>37</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(1, 2)));</b>
+<b class="nc"><i>38</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(0, 2)));</b>
+<b class="nc"><i>39</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(0, 3)));</b>
+<b class="nc"><i>40</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(0, 4)));</b>
+<b class="nc"><i>41</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(1, 4)));</b>
+<b class="nc"><i>42</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(2, 4)));</b>
+<b class="nc"><i>43</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(3, 4)));</b>
+<b class="nc"><i>44</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(4, 4)));</b>
+<b class="nc"><i>45</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(5, 4)));</b>
+<b class="nc"><i>46</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(6, 4)));</b>
+<b class="nc"><i>47</i>&nbsp;        cc.addTile(circuit, new LeverTile(new Position(7, 5)));</b>
+<b class="nc"><i>48</i>&nbsp;        cc.addTile(circuit, new LeverTile(new Position(4, 1)));</b>
+<i>49</i>&nbsp;
+<b class="nc"><i>50</i>&nbsp;        cc.addTile(circuit, new WireTile(new Position(3, 1)));</b>
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        cc.addTile(circuit, new RepeaterTile(new Position(6, 5)));</b>
+<b class="nc"><i>53</i>&nbsp;        cc.addTile(circuit, new RepeaterTile(new Position(6, 3)));</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;        cc.rotateTileRight(circuit, new Position(6, 5));</b>
+<b class="nc"><i>56</i>&nbsp;        cc.rotateTileRight(circuit, new Position(6, 3));</b>
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;        cc.advanceTick(circuit);</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;        return circuit;</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * &lt;h1&gt;Adds tile to circuit&lt;/h1&gt;
+<i>65</i>&nbsp;     * Wrapper of circuit &lt;code&gt;addTile&lt;/code&gt; function
+<i>66</i>&nbsp;     * On top of adding the tile to the circuit, it handles the process of notifying all neighbour wires of the addition
+<i>67</i>&nbsp;     * in order to update the wire connections
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @see Circuit#addTile(Tile)
+<i>70</i>&nbsp;     *
+<i>71</i>&nbsp;     * @param circuit   Circuit where tile will be added
+<i>72</i>&nbsp;     * @param tile      Tile to be added
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    public void addTile(Circuit circuit, Tile tile) {
+<b class="fc"><i>75</i>&nbsp;        if (circuit.addTile(tile)) {</b>
+<b class="fc"><i>76</i>&nbsp;            tile.update(circuit);</b>
+<b class="fc"><i>77</i>&nbsp;            notifyNeighbourTiles(circuit, tile.getPosition());</b>
+<i>78</i>&nbsp;        }
+<b class="fc"><i>79</i>&nbsp;    }</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * &lt;h1&gt;Interacts with the tile at position&lt;/h1&gt;
+<i>83</i>&nbsp;     * Wrapper of &lt;code&gt;interact&lt;/code&gt; function
+<i>84</i>&nbsp;     * On top of interacting with the tile, updates the neighbour tiles if needed
+<i>85</i>&nbsp;     *
+<i>86</i>&nbsp;     * @see Tile#interact()
+<i>87</i>&nbsp;     *
+<i>88</i>&nbsp;     * @param circuit   Circuit where tile will be added
+<i>89</i>&nbsp;     * @param position  Position of the Tile to be interacted with
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public void interact(Circuit circuit, Position position) {
+<b class="fc"><i>92</i>&nbsp;        if (circuit.getTile(position).interact()) {</b>
+<b class="fc"><i>93</i>&nbsp;            updateAllNeighbourTiles(circuit, position);</b>
+<i>94</i>&nbsp;        }
+<b class="fc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * &lt;h1&gt;Advances to the next tick of the circuit&lt;/h1&gt;
+<i>99</i>&nbsp;     * Wrapper of circuit &lt;code&gt;advanceTick&lt;/code&gt; function
+<i>100</i>&nbsp;     * On top of updating the circuit tick, it handles all the updates that need to be done on each tick
+<i>101</i>&nbsp;     *
+<i>102</i>&nbsp;     * @see Circuit#advanceTick()
+<i>103</i>&nbsp;     *
+<i>104</i>&nbsp;     * @param circuit   Circuit to advance the tick
+<i>105</i>&nbsp;     */
+<i>106</i>&nbsp;    public void advanceTick(Circuit circuit) {
+<b class="fc"><i>107</i>&nbsp;        circuit.advanceTick();</b>
+<i>108</i>&nbsp;
+<b class="fc"><i>109</i>&nbsp;        for (Position position : circuit.getSources()) {</b>
+<b class="nc"><i>110</i>&nbsp;            Tile tile = circuit.getTile(position);</b>
+<b class="nc"><i>111</i>&nbsp;            if (((SourceTile)tile).nextTick()) {</b>
+<b class="nc"><i>112</i>&nbsp;                updateAllNeighbourTiles(circuit, position);</b>
+<i>113</i>&nbsp;            }
+<b class="nc"><i>114</i>&nbsp;        }</b>
+<b class="fc"><i>115</i>&nbsp;    }</b>
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    /**
+<i>118</i>&nbsp;     * &lt;h1&gt;Sends updates to all neighbours tiles&lt;/h1&gt;
+<i>119</i>&nbsp;     * Sends updates to all neighbour tiles if the tile that originated the update outputs on that side
+<i>120</i>&nbsp;     *
+<i>121</i>&nbsp;     * @param circuit       Circuit where the updates are being done
+<i>122</i>&nbsp;     * @param position      Position of the tile that originated the update
+<i>123</i>&nbsp;     */
+<i>124</i>&nbsp;    public void updateAllNeighbourTiles(Circuit circuit, Position position) {
+<b class="fc"><i>125</i>&nbsp;        Tile tile = circuit.getTile(position);</b>
+<b class="fc"><i>126</i>&nbsp;        for (Side side: Side.values()) {</b>
+<b class="fc"><i>127</i>&nbsp;            if (tile.outputsPower(side))</b>
+<b class="fc"><i>128</i>&nbsp;                updateNeighbourTile(circuit, position, tile.getPower(side), side);</b>
+<i>129</i>&nbsp;        }
+<b class="fc"><i>130</i>&nbsp;    }</b>
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * &lt;h1&gt;Sends update to a neighbour tile&lt;/h1&gt;
+<i>134</i>&nbsp;     * Sends update to the neighbour tile of the side specified, if that tile generates an update it will be started a
+<i>135</i>&nbsp;     * new chain of updates of the neighbour tiles.
+<i>136</i>&nbsp;     *
+<i>137</i>&nbsp;     * @param circuit       Circuit where the updates are being done
+<i>138</i>&nbsp;     * @param position      Position of the tile that originated the update
+<i>139</i>&nbsp;     * @param power         Power level to send on the update
+<i>140</i>&nbsp;     * @param side          Side of the tile where the update will be sent to
+<i>141</i>&nbsp;     */
+<i>142</i>&nbsp;    public void updateNeighbourTile(Circuit circuit, Position position, int power, Side side) {
+<b class="fc"><i>143</i>&nbsp;        Position neighbour = position.getNeighbour(side);</b>
+<b class="fc"><i>144</i>&nbsp;        if (circuit.isInBounds(neighbour)) {</b>
+<b class="fc"><i>145</i>&nbsp;            Tile tile = circuit.getTile(neighbour);</b>
+<b class="fc"><i>146</i>&nbsp;            if (tile.update(circuit, power, side.opposite())) {</b>
+<b class="fc"><i>147</i>&nbsp;                updateAllNeighbourTiles(circuit, neighbour);</b>
+<i>148</i>&nbsp;            }
+<i>149</i>&nbsp;        }
+<b class="fc"><i>150</i>&nbsp;    }</b>
+<i>151</i>&nbsp;
+<i>152</i>&nbsp;    /**
+<i>153</i>&nbsp;     * &lt;h1&gt;Notifies all neighbour tiles of change on the tile specified&lt;/h1&gt;
+<i>154</i>&nbsp;     * Sends a notification to all neighbours of the tile specified to handle the updates on the tile connections
+<i>155</i>&nbsp;     * 
+<i>156</i>&nbsp;     * @see Tile#updateConnections(Circuit)
+<i>157</i>&nbsp;     *
+<i>158</i>&nbsp;     * @param circuit       Circuit where updates are being done
+<i>159</i>&nbsp;     * @param position      Position of the tile that generated the update
+<i>160</i>&nbsp;     */
+<i>161</i>&nbsp;    private void notifyNeighbourTiles(Circuit circuit, Position position) {
+<b class="fc"><i>162</i>&nbsp;        Tile self = circuit.getTile(position);</b>
+<i>163</i>&nbsp;        Tile tile;
+<b class="fc"><i>164</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>165</i>&nbsp;            tile = circuit.getTile(position.getNeighbour(side));</b>
+<b class="fc"><i>166</i>&nbsp;            tile.updateConnections(circuit);</b>
+<b class="fc"><i>167</i>&nbsp;            updateNeighbourTile(circuit, position, self.getPower(side), side);</b>
+<i>168</i>&nbsp;        }
+<b class="fc"><i>169</i>&nbsp;    }</b>
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;    /**
+<i>172</i>&nbsp;     * &lt;h1&gt;Rotates a tile of the circuit to the left&lt;/h1&gt;
+<i>173</i>&nbsp;     * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
+<i>174</i>&nbsp;     *
+<i>175</i>&nbsp;     * @see Tile#rotateLeft()
+<i>176</i>&nbsp;     *
+<i>177</i>&nbsp;     * @param circuit       Circuit where updates are being done
+<i>178</i>&nbsp;     * @param position      Position of the tile to be rotated
+<i>179</i>&nbsp;     */
+<i>180</i>&nbsp;    public void rotateTileLeft(Circuit circuit, Position position) {
+<b class="nc"><i>181</i>&nbsp;        if (!circuit.isInBounds(position))</b>
+<b class="nc"><i>182</i>&nbsp;            return;</b>
+<i>183</i>&nbsp;
+<b class="nc"><i>184</i>&nbsp;        Tile tile = circuit.getTile(position);</b>
+<i>185</i>&nbsp;
+<b class="nc"><i>186</i>&nbsp;        if (tile.rotateLeft()) {</b>
+<b class="nc"><i>187</i>&nbsp;            tile.updateConnections(circuit);</b>
+<b class="nc"><i>188</i>&nbsp;            tile.update(circuit);</b>
+<b class="nc"><i>189</i>&nbsp;            notifyNeighbourTiles(circuit, position);</b>
+<i>190</i>&nbsp;        }
+<b class="nc"><i>191</i>&nbsp;    }</b>
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;    /**
+<i>194</i>&nbsp;     * &lt;h1&gt;Rotates a tile of the circuit to the right&lt;/h1&gt;
+<i>195</i>&nbsp;     * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
+<i>196</i>&nbsp;     *
+<i>197</i>&nbsp;     * @see Tile#rotateRight()
+<i>198</i>&nbsp;     *
+<i>199</i>&nbsp;     * @param circuit       Circuit where updates are being done
+<i>200</i>&nbsp;     * @param position      Position of the tile to be rotated
+<i>201</i>&nbsp;     */
+<i>202</i>&nbsp;    public void rotateTileRight(Circuit circuit, Position position) {
+<b class="nc"><i>203</i>&nbsp;        if (!circuit.isInBounds(position))</b>
+<b class="nc"><i>204</i>&nbsp;            return;</b>
+<i>205</i>&nbsp;
+<b class="nc"><i>206</i>&nbsp;        Tile tile = circuit.getTile(position);</b>
+<i>207</i>&nbsp;
+<b class="nc"><i>208</i>&nbsp;        if (tile.rotateRight()) {</b>
+<b class="nc"><i>209</i>&nbsp;            tile.updateConnections(circuit);</b>
+<b class="nc"><i>210</i>&nbsp;            tile.update(circuit);</b>
+<b class="nc"><i>211</i>&nbsp;            notifyNeighbourTiles(circuit, position);</b>
+<i>212</i>&nbsp;        }
+<b class="nc"><i>213</i>&nbsp;    }</b>
+<i>214</i>&nbsp;
+<i>215</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

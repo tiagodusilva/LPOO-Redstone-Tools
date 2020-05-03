@@ -1,5 +1,5 @@
-# LPOO_79
-The project aimed .... **TODO**
+# LPOO_79 - RedstoneTools
+The project aimed to create an emulation of Minecraft's vanilla [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits) with additional mechanics from prolific Minecraft Mods, such as [ProjectRed](https://github.com/MrTJP/ProjectRed), [RFTools](https://github.com/McJtyMods/RFTools), [Minecraft Circuit Mod](https://github.com/bubble-07/MinecraftCircuitsMod) and [Super Circuit Maker](https://github.com/amadornes/SuperCircuitMaker), providing an interface to manipulate and simulate circuits.
 
 It was developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva) (***T Squad***).
 
@@ -180,7 +180,9 @@ It adds modularity, as every state has its own behaviour and rules, allowing sea
 Given our decision to separate a View into parts, one for each State, we needed a better way to distribute them. This need was highlighted even more whenever we wanted to transition from state A to state B, as we needed to also instanteate the particular view B from the "unrelated" state A.
 
 #### The Pattern
-For this problem we used both the **Factory Pattern** and the **Abstract Factory Pattern**. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the **Single Responsability Pattern** (SRP) and the **Open/Close Principle** (OCP) because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories). 
+For this problem we used both the **Factory Pattern** and the **Abstract Factory Pattern**. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the **Single Responsability Pattern** (SRP) and the **Open/Close Principle** (OCP) because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories).
+
+For this problem we used both the Factory Pattern and the Abstract Factory Pattern. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the SRP and the OCP because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories).
 
 As we also used this to easily link any View to the Model/State, we can also consider it a **Bridge Pattern**. This pattern focuses on linking two different parts of an application in order to make the code more maintainable, as well as working correctly when replacing one of the parts with another.
 
@@ -245,7 +247,7 @@ This came to fruition as our Event System (explained below in Implementation), w
 #### The Implementation
 Using LanternCircuitView mentioned above as an example, whenever the user presses the arrow keys, the view window is moved. The class automatically handles this, as it is exclusive to itself and doesn't require any outside knowledge. Whenever the user presses the hotkey to add a Tile however, LanternaCircuitView would need knowledge on the CircuitController, so it delegates this to the State using the following method:
 
-Every View has a Queue of Events, consisting of an Enum indicating what action needs to be taken (InputEvent) and an Object used to pass additional information on some actions. The need for this will be made more apparent on the following [Commands](#commands) chapter. Every game loop, the GameController calls `State.processEvents()`, in which the State (the mediator) processes every Event in the Queue and handles it (currently the chain of command goes no further, as even the QUIT event is also handled inside the State superclass). 
+Every View has a Queue of Events, consisting of an Enum indicating what action needs to be taken (InputEvent) and an Object used to pass additional information on some actions. The need for this will be made more apparent on the following [Commands](#commands) chapter. Every game loop, the GameController calls `State.processEvents()`, in which the State (the mediator) processes every Event in the Queue and handles it (currently the chain of command goes no further, as even the QUIT event is also handled inside the State superclass).
 
 These patterns can be found in the following files:
 - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java")
@@ -268,7 +270,7 @@ We needed a way to execute small actions without violating the **Single Responsa
 We implemented the **Command Pattern**, which can encapsulate a request as an object, thereby letting us parameterize different requests or operations.
 
 #### The Implementation
-We created a base Command interface with only a `void execute()` as a requirement. 
+We created a base Command interface with only a `void execute()` as a requirement.
 
 This pattern can be found in the following files:
 - Command Interface:
@@ -342,6 +344,20 @@ Really hard to know exactly how many Tile updates an action may have. Removes th
 ## Known Code Smells and Refactoring Suggestions
 
 ## Testing
+Due to the early problems on designing a good *Model-View-Controller* (MVC), the Unit Tests aren't covering all the parts of the *MVC*, at the time, being limited to the Model.
+
+While creating [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) guarantees more safety when applying changes, as it verifies if the components changed are still working as intended, in situations where a single component change of behaviour causes the tests for the previous behaviour to fail doesn't always mean the change is wrong. In our situation, where a simple change of behaviour of a tile can make all the tests made to verify the behaviour fail, it is harder to create concrete tests, limiting the tests on more abstract behaviours.  
+With this we can separate the tests on two parts:
+- *Generic Tests* - These tests mostly verify update triggers and notifications, these tests shouldn't be changed frequently, testing generic concepts.
+- *Concrete Tests* - These tests are the ones responsible for testing concrete behaviour of tiles. Because of their nature, these tests may need to be changed frequently, as a minor change in a tile can change its whole behaviour, thus changing all the expected values.
+
+The next step of Unit Testing is making [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing) in order to test how the tiles behave when put in a group (*circuit*), similar to the Concrete Tests, the integration tests may need to be changed frequently, due to the unit's nature. A small change on a tile's behaviour could cause a completely different circuit behaviour (ex. adding delay to the repeater).
+
+The tests results can be checked below:
+- [Coverage Result](./reports/coverage/index.html)  
+![coverage](./images/testing/coverage.png)
+
+- [Mutation Testing Result](./reports/pitest/model_mutation/index.html) (only has model, for now)
 
 ## Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!

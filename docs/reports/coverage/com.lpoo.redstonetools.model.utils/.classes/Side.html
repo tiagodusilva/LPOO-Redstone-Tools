@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Side</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.model.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Side (com.lpoo.redstonetools.model.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Side</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Side$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/ 9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; *  &lt;h1&gt;Side&lt;/h1&gt;
+<i>5</i>&nbsp; *  Possible sides in 2D coordinate system
+<i>6</i>&nbsp; *
+<i>7</i>&nbsp; * @author g79
+<i>8</i>&nbsp; */
+<b class="fc"><i>9</i>&nbsp;public enum Side {</b>
+<b class="fc"><i>10</i>&nbsp;    UP, DOWN, LEFT, RIGHT;</b>
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * &lt;h1&gt;Get opposite side of the side&lt;/h1&gt;
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @return  Opposite side
+<i>16</i>&nbsp;     */
+<i>17</i>&nbsp;    public Side opposite() {
+<b class="fc"><i>18</i>&nbsp;        switch (this) {</b>
+<i>19</i>&nbsp;            case UP:
+<b class="fc"><i>20</i>&nbsp;                return Side.DOWN;</b>
+<i>21</i>&nbsp;            case DOWN:
+<b class="fc"><i>22</i>&nbsp;                return Side.UP;</b>
+<i>23</i>&nbsp;            case LEFT:
+<b class="fc"><i>24</i>&nbsp;                return Side.RIGHT;</b>
+<i>25</i>&nbsp;            case RIGHT:
+<b class="fc"><i>26</i>&nbsp;                return Side.LEFT;</b>
+<i>27</i>&nbsp;        }
+<b class="nc"><i>28</i>&nbsp;        return Side.UP;</b>
+<i>29</i>&nbsp;    }
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>
