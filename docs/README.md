@@ -1,7 +1,7 @@
 # **LPOO_79 - RedstoneTools**
 The project aimed to create an emulation of Minecraft's vanilla [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits) with additional mechanics from prolific Minecraft Mods, such as [ProjectRed](https://github.com/MrTJP/ProjectRed), [RFTools](https://github.com/McJtyMods/RFTools), [Minecraft Circuit Mod](https://github.com/bubble-07/MinecraftCircuitsMod) and [Super Circuit Maker](https://github.com/amadornes/SuperCircuitMaker), providing an interface to manipulate and simulate circuits.
 
-It was developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva) (***T Squad***).
+Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva).
 
 ## Table of Contents
 1. [Implemented Features](#Implemented-Features)
@@ -375,10 +375,10 @@ With this we can separate the tests on two parts:
 The next step of Unit Testing is making [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing) in order to test how the tiles behave when put in a group (*circuit*), similar to the Concrete Tests, the integration tests may need to be changed frequently, due to the unit's nature. A small change on a tile's behaviour could cause a completely different circuit behaviour (ex. adding delay to the repeater).
 
 The tests results can be checked below:
-- [Coverage Result](./reports/coverage/index.html)  
+- [Coverage Result](./reports/coverage/)  
 ![Coverage Results](./images/testing/coverage.png)
 
-- [Mutation Testing Result](./reports/pitest/model_mutation/index.html) (only has model, for now)
+- [Mutation Testing Result](./reports/pitest/model_mutation/) (only has model, for now)
 
 ## Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!
