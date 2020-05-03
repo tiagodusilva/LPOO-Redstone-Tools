@@ -20,7 +20,7 @@ public class NANDGateStrategy implements LogicGateStrategy {
 
     @Override
     public String getName() {
-        return "and";
+        return "nand_gate";
     }
 
     @Override

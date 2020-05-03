@@ -45,8 +45,8 @@ public class PositionTest {
 
     @Test
     public void testPositionEquals() {
-        Position position1 = new Position(5, 5);
-        Position position2 = new Position(5, 5);
+        Position position1 = new Position(5, 6);
+        Position position2 = new Position(5, 6);
         Position position3 = new Position(5, 4);
 
         Assert.assertEquals(position1, position2);

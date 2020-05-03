@@ -25,7 +25,7 @@ public enum Side {
             case RIGHT:
                 return Side.LEFT;
         }
-        return Side.UP; // << Compiler go BBRRRRRR
+        return Side.UP;
     }
 
 }

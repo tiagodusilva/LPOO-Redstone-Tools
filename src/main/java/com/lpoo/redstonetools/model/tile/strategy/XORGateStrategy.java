@@ -20,7 +20,7 @@ public class XORGateStrategy implements LogicGateStrategy {
 
     @Override
     public String getName() {
-        return "xor";
+        return "xor_gate";
     }
 
     @Override
