@@ -9,7 +9,6 @@ public class MoveSelectionCommand implements Command {
     private LanternaCircuitView lanternaCircuitView;
     private Side side;
 
-    // TODO: Refactor and generalize
     public MoveSelectionCommand(LanternaCircuitView lanternaCircuitView, Side side) {
         this.lanternaCircuitView = lanternaCircuitView;
         this.side = side;

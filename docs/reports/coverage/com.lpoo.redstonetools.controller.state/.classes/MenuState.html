@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MenuState</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.controller.state</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MenuState (com.lpoo.redstonetools.controller.state)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MenuState</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MenuState$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.controller.state;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.MainController;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.controller.circuit.CircuitController;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.controller.command.EnterStateCommand;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.view.MenuView;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.Queue;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public class MenuState extends State {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    private MenuView menuView;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    public MenuState(MainController mainController) {
+<b class="nc"><i>17</i>&nbsp;        super(mainController);</b>
+<i>18</i>&nbsp;
+<b class="nc"><i>19</i>&nbsp;        menuView = mainController.getViewFactory().getMenuView();</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Override
+<i>23</i>&nbsp;    public void processEvents() {
+<b class="nc"><i>24</i>&nbsp;        Queue&lt;Event&gt; events = menuView.getEvents();</b>
+<b class="nc"><i>25</i>&nbsp;        while (!events.isEmpty()) {</b>
+<i>26</i>&nbsp;            try {
+<b class="nc"><i>27</i>&nbsp;                Event event = events.remove();</b>
+<b class="nc"><i>28</i>&nbsp;                switch (event.getInputEvent()) {</b>
+<i>29</i>&nbsp;                    case ENTER_CIRCUIT_STATE:
+<b class="nc"><i>30</i>&nbsp;                        new EnterStateCommand(new CircuitState((Circuit) event.getObject(), mainController), mainController).execute();</b>
+<b class="nc"><i>31</i>&nbsp;                        break;</b>
+<i>32</i>&nbsp;                    case QUIT:
+<b class="nc"><i>33</i>&nbsp;                        this.exit = true;</b>
+<i>34</i>&nbsp;                        return;
+<i>35</i>&nbsp;                    default:
+<i>36</i>&nbsp;                        break;
+<i>37</i>&nbsp;                }
+<i>38</i>&nbsp;            }
+<b class="nc"><i>39</i>&nbsp;            catch (Exception e) {</b>
+<b class="nc"><i>40</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>41</i>&nbsp;            }</b>
+<i>42</i>&nbsp;        }
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public void render() {
+<b class="nc"><i>47</i>&nbsp;        this.menuView.render();</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @Override
+<i>51</i>&nbsp;    public void atExit() {
+<b class="nc"><i>52</i>&nbsp;        this.menuView.cleanup();</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

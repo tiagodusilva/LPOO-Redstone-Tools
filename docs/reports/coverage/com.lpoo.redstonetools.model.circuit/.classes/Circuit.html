@@ -1,0 +1,417 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Circuit</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.model.circuit</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Circuit (com.lpoo.redstonetools.model.circuit)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Circuit</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (59/ 59)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$1dMn6ozu</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$7yj02gEz</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$8zOMEjrM</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$BpESAOWm</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$cte5E0nu</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$Ea82Hboi</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$ERsN8n2g</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$HCg43TWl</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$jMZXSppA</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$Oxi3flJJ</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$QUrBZO1U</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$ROA4CmkB</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$vQ7bebZm</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$WiHAQyui</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$Y1KB3gqO</td>
+  </tr>
+  <tr>
+    <td class="name">Circuit$MockitoMock$1399291306$auxiliary$YW5zIGwk</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (59/ 59)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.circuit;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.model.Model;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.NullTile;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.ArrayList;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; *  &lt;h1&gt;Circuit model class&lt;/h1&gt;
+<i>15</i>&nbsp; *  Circuit is a group of tiles, all the interaction logic of the tiles is handled by the controller
+<i>16</i>&nbsp; *
+<i>17</i>&nbsp; * @see com.lpoo.redstonetools.controller.circuit.CircuitController
+<i>18</i>&nbsp; *
+<i>19</i>&nbsp; * @author g79
+<i>20</i>&nbsp; */
+<i>21</i>&nbsp;public class Circuit implements Model {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * &lt;h1&gt;Tiles of the circuit&lt;/h1&gt;
+<i>25</i>&nbsp;     * Grid of tiles of the circuit
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @see Tile
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    private Tile[][] tiles;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * &lt;h1&gt;List of circuit source tiles&lt;/h1&gt;
+<i>33</i>&nbsp;     * Source tiles of the circuits, capable of generating power on their own
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    private List&lt;Position&gt; sources;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * &lt;h1&gt;Circuit width dimension&lt;/h1&gt;
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    private int width;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * &lt;h1&gt;Circuit height dimension&lt;/h1&gt;
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    private int height;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * &lt;h1&gt;Circuit tick&lt;/h1&gt;
+<i>49</i>&nbsp;     * Simulates the update rate of the circuit
+<i>50</i>&nbsp;     */
+<i>51</i>&nbsp;    private long tick;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * &lt;h1&gt;Circuit constructor&lt;/h1&gt;
+<i>55</i>&nbsp;     * The grid of tiles is filled with empty tiles
+<i>56</i>&nbsp;     * It also sets the initial tick value
+<i>57</i>&nbsp;     * The sources are initially empty
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @param width     Width of the circuit
+<i>60</i>&nbsp;     * @param height    Height of the circuit
+<i>61</i>&nbsp;     */
+<b class="fc"><i>62</i>&nbsp;    public Circuit(int width, int height) {</b>
+<b class="fc"><i>63</i>&nbsp;        this.width = width;</b>
+<b class="fc"><i>64</i>&nbsp;        this.height = height;</b>
+<b class="fc"><i>65</i>&nbsp;        this.tiles = new Tile[height][width];</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;        for (int i = 0; i &lt; this.height; i++) {</b>
+<b class="fc"><i>68</i>&nbsp;            for (int j = 0; j &lt; this.width; j++) {</b>
+<b class="fc"><i>69</i>&nbsp;                this.tiles[i][j] = new NullTile(new Position(j, i));</b>
+<i>70</i>&nbsp;            }
+<i>71</i>&nbsp;        }
+<i>72</i>&nbsp;
+<b class="fc"><i>73</i>&nbsp;        this.sources = new ArrayList&lt;&gt;();</b>
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;        this.tick = 0;</b>
+<b class="fc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * &lt;h1&gt;Gets the value of the circuit width&lt;/h1&gt;
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @return  Circuit width
+<i>82</i>&nbsp;     */
+<b class="fc"><i>83</i>&nbsp;    public int getWidth() { return width; }</b>
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    /**
+<i>86</i>&nbsp;     * &lt;h1&gt;Gets the value of the circuit height&lt;/h1&gt;
+<i>87</i>&nbsp;     *
+<i>88</i>&nbsp;     * @return  Circuit height
+<i>89</i>&nbsp;     */
+<b class="fc"><i>90</i>&nbsp;    public int getHeight() { return height; }</b>
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * &lt;h1&gt;Gets the current tick value of the circuit&lt;/h1&gt;
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @return  Circuit tick value
+<i>96</i>&nbsp;     */
+<b class="fc"><i>97</i>&nbsp;    public long getTick() { return tick; }</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * &lt;h1&gt;Increments the circuit tick&lt;/h1&gt;
+<i>101</i>&nbsp;     *
+<i>102</i>&nbsp;     * All operations to be done on new ticks are handled by the circuit controller
+<i>103</i>&nbsp;     *
+<i>104</i>&nbsp;     * @see com.lpoo.redstonetools.controller.circuit.CircuitController
+<i>105</i>&nbsp;     */
+<b class="fc"><i>106</i>&nbsp;    public void advanceTick() { tick++; }</b>
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * &lt;h1&gt;Gets the list of source tiles&lt;/h1&gt;
+<i>110</i>&nbsp;     *
+<i>111</i>&nbsp;     * @return  Circuit source tiles
+<i>112</i>&nbsp;     */
+<b class="fc"><i>113</i>&nbsp;    public List&lt;Position&gt; getSources() { return sources; }</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    /**
+<i>116</i>&nbsp;     * &lt;h1&gt;Checks validity of a position&lt;/h1&gt;
+<i>117</i>&nbsp;     * Tests if the position given is inside the circuit
+<i>118</i>&nbsp;     *
+<i>119</i>&nbsp;     * @param position  Position to be tested
+<i>120</i>&nbsp;     * @return  true if the position is inside the circuit, false otherwise
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    public boolean isInBounds(Position position) {
+<b class="fc"><i>123</i>&nbsp;        return  position.getX() &gt;= 0 &amp;&amp;</b>
+<b class="fc"><i>124</i>&nbsp;                position.getX() &lt; width &amp;&amp;</b>
+<b class="fc"><i>125</i>&nbsp;                position.getY() &gt;= 0 &amp;&amp;</b>
+<b class="fc"><i>126</i>&nbsp;                position.getY() &lt; height;</b>
+<i>127</i>&nbsp;    }
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    /**
+<i>130</i>&nbsp;     * &lt;h1&gt;Gets the tile in the specified position of the circuit&lt;/h1&gt;
+<i>131</i>&nbsp;     * Gets the tile in the specified position of the circuit if the position is valid
+<i>132</i>&nbsp;     * If the position isn&#39;t valid, it is returned a new empty tile
+<i>133</i>&nbsp;     * 
+<i>134</i>&nbsp;     * @see Circuit#isInBounds(Position)
+<i>135</i>&nbsp;     * @see NullTile
+<i>136</i>&nbsp;     *
+<i>137</i>&nbsp;     * @param position  Position of the tile
+<i>138</i>&nbsp;     * @return  Tile in the position specified if valid, &lt;code&gt;NullTile&lt;/code&gt; on invalid position
+<i>139</i>&nbsp;     */
+<i>140</i>&nbsp;    public Tile getTile(Position position) {
+<b class="fc"><i>141</i>&nbsp;        if (!isInBounds(position))</b>
+<b class="fc"><i>142</i>&nbsp;            return new NullTile(position);</b>
+<i>143</i>&nbsp;
+<b class="fc"><i>144</i>&nbsp;        return this.tiles[position.getY()][position.getX()];</b>
+<i>145</i>&nbsp;    }
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * &lt;h1&gt;Gets the tile in the specified position of the circuit&lt;/h1&gt;
+<i>149</i>&nbsp;     * Wrapper of function &lt;code&gt;getTile(Position)&lt;/code&gt; to accept two integer values instead of a &lt;code&gt;Position&lt;/code&gt; object
+<i>150</i>&nbsp;     *
+<i>151</i>&nbsp;     * @see Circuit#getTile(Position)
+<i>152</i>&nbsp;     * 
+<i>153</i>&nbsp;     * @param x     Position on the horizontal axis
+<i>154</i>&nbsp;     * @param y     Position on the vertical axis
+<i>155</i>&nbsp;     * @return  Tile in the position specified if valid, &lt;code&gt;NullTile&lt;/code&gt; on invalid position
+<i>156</i>&nbsp;     */
+<i>157</i>&nbsp;    public Tile getTile(int x, int y) {
+<b class="fc"><i>158</i>&nbsp;        return getTile(new Position(x, y));</b>
+<i>159</i>&nbsp;    }
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    /**
+<i>162</i>&nbsp;     * &lt;h1&gt;Removes a tile from the sources&lt;/h1&gt;
+<i>163</i>&nbsp;     * Auxiliary function to guarantee the integrity of the source tiles
+<i>164</i>&nbsp;     *
+<i>165</i>&nbsp;     * @param position  Position of the tile to be removed
+<i>166</i>&nbsp;     */
+<i>167</i>&nbsp;    private void safeRemoveTile(Position position) {
+<b class="fc"><i>168</i>&nbsp;        if (getTile(position).isSource())</b>
+<b class="fc"><i>169</i>&nbsp;            sources.remove(position);</b>
+<b class="fc"><i>170</i>&nbsp;    }</b>
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;    /**
+<i>173</i>&nbsp;     * &lt;h1&gt;Adds tile to the circuit&lt;/h1&gt;
+<i>174</i>&nbsp;     * Adds tile to the circuit if tile has a valid position
+<i>175</i>&nbsp;     * To guarantee integrity it removes the previous tile from the sources if needed
+<i>176</i>&nbsp;     * If the tile to be added is also a source, then it is added to the list of sources
+<i>177</i>&nbsp;     * 
+<i>178</i>&nbsp;     * @see Circuit#safeRemoveTile(Position)
+<i>179</i>&nbsp;     *
+<i>180</i>&nbsp;     * @param tile  Tile to be added
+<i>181</i>&nbsp;     * @return  true if the tile was added, false otherwise
+<i>182</i>&nbsp;     */
+<i>183</i>&nbsp;    public boolean addTile(Tile tile) {
+<b class="fc"><i>184</i>&nbsp;        if (!isInBounds(tile.getPosition()))</b>
+<b class="fc"><i>185</i>&nbsp;            return false;</b>
+<i>186</i>&nbsp;
+<b class="fc"><i>187</i>&nbsp;        safeRemoveTile(tile.getPosition());</b>
+<i>188</i>&nbsp;
+<b class="fc"><i>189</i>&nbsp;        this.tiles[tile.getPosition().getY()][tile.getPosition().getX()] = tile;</b>
+<b class="fc"><i>190</i>&nbsp;        if (tile.isSource())</b>
+<b class="fc"><i>191</i>&nbsp;            this.sources.add(tile.getPosition());</b>
+<b class="fc"><i>192</i>&nbsp;        tile.updateConnections(this);</b>
+<b class="fc"><i>193</i>&nbsp;        return true;</b>
+<i>194</i>&nbsp;    }
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;    /**
+<i>197</i>&nbsp;     * &lt;h1&gt;Removes tile from circuit&lt;/h1&gt;
+<i>198</i>&nbsp;     * Removing a tile from the circuit is switching the tile for a empty tile, this is adding a &lt;code&gt;NullTile&lt;/code&gt;
+<i>199</i>&nbsp;     *
+<i>200</i>&nbsp;     * @see NullTile
+<i>201</i>&nbsp;     * @see Circuit#addTile(Tile)
+<i>202</i>&nbsp;     *
+<i>203</i>&nbsp;     * @param position  Position of the tile to be removed
+<i>204</i>&nbsp;     */
+<i>205</i>&nbsp;    public void removeTile(Position position) {
+<b class="fc"><i>206</i>&nbsp;        addTile(new NullTile(position));</b>
+<b class="fc"><i>207</i>&nbsp;    }</b>
+<i>208</i>&nbsp;
+<i>209</i>&nbsp;    /**
+<i>210</i>&nbsp;     * &lt;h1&gt;Get the power level received from the neighbours&lt;/h1&gt;
+<i>211</i>&nbsp;     * Gets the maximum power level received from the neighbour tiles
+<i>212</i>&nbsp;     *
+<i>213</i>&nbsp;     * @param position  Position of the tile to check surroundings
+<i>214</i>&nbsp;     * @return  Maximum power level in the neighbourhood
+<i>215</i>&nbsp;     */
+<i>216</i>&nbsp;    public int getSurroundingPower(Position position) {
+<b class="fc"><i>217</i>&nbsp;        int maxPower = Power.getMin();</b>
+<b class="fc"><i>218</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>219</i>&nbsp;            Tile tile = getTile(position.getNeighbour(side));</b>
+<b class="fc"><i>220</i>&nbsp;            maxPower = Math.max(maxPower, tile.isWire() ?</b>
+<b class="fc"><i>221</i>&nbsp;                                                Power.decrease(tile.getPower(side.opposite()))</b>
+<b class="fc"><i>222</i>&nbsp;                                                : tile.getPower(side.opposite())</b>
+<i>223</i>&nbsp;                                );
+<i>224</i>&nbsp;        }
+<b class="fc"><i>225</i>&nbsp;        return maxPower;</b>
+<i>226</i>&nbsp;    }
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;    /**
+<i>229</i>&nbsp;     * &lt;h1&gt;Get the power level received from the neighbour wires&lt;/h1&gt;
+<i>230</i>&nbsp;     * Gets the maximum power level received from the neighbour wires
+<i>231</i>&nbsp;     *
+<i>232</i>&nbsp;     * @param position  Position of the tile to check surroundings
+<i>233</i>&nbsp;     * @return  Maximum power level in the neighbourhood
+<i>234</i>&nbsp;     */
+<i>235</i>&nbsp;    public int getSurroundingWirePower(Position position) {
+<b class="fc"><i>236</i>&nbsp;        int maxPower = Power.getMin();</b>
+<b class="fc"><i>237</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>238</i>&nbsp;            Tile tile = getTile(position.getNeighbour(side));</b>
+<b class="fc"><i>239</i>&nbsp;            if (tile.isWire())</b>
+<b class="fc"><i>240</i>&nbsp;                maxPower = Math.max(maxPower, Power.decrease(tile.getPower(side.opposite())));</b>
+<i>241</i>&nbsp;        }
+<b class="fc"><i>242</i>&nbsp;        return maxPower;</b>
+<i>243</i>&nbsp;    }
+<i>244</i>&nbsp;
+<i>245</i>&nbsp;    /**
+<i>246</i>&nbsp;     * &lt;h1&gt;Get the power level received from the neighbour non-wire tiles&lt;/h1&gt;
+<i>247</i>&nbsp;     * Gets the maximum power level received from the neighbour non-wire tiles
+<i>248</i>&nbsp;     *
+<i>249</i>&nbsp;     * @param position  Position of the tile to check surroundings
+<i>250</i>&nbsp;     * @return  Maximum power level in the neighbourhood
+<i>251</i>&nbsp;     */
+<i>252</i>&nbsp;    public int getSurroundingGatePower(Position position) {
+<b class="fc"><i>253</i>&nbsp;        int maxPower = Power.getMin();</b>
+<b class="fc"><i>254</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>255</i>&nbsp;            Tile tile = getTile(position.getNeighbour(side));</b>
+<b class="fc"><i>256</i>&nbsp;            if (!tile.isWire())</b>
+<b class="fc"><i>257</i>&nbsp;                maxPower = Math.max(maxPower, tile.getPower(side.opposite()));</b>
+<i>258</i>&nbsp;        }
+<b class="fc"><i>259</i>&nbsp;        return maxPower;</b>
+<i>260</i>&nbsp;    }
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;    /**
+<i>263</i>&nbsp;     * &lt;h1&gt;Tests if tiles can connect&lt;/h1&gt;
+<i>264</i>&nbsp;     * A tile can connect to other if the side of contact of the tiles are output and input or vice-versa
+<i>265</i>&nbsp;     *
+<i>266</i>&nbsp;     * @param position  Position of the tile
+<i>267</i>&nbsp;     * @param side      Side of the neighbour to test with
+<i>268</i>&nbsp;     * @return  true if the tiles are connectable, false otherwise
+<i>269</i>&nbsp;     */
+<i>270</i>&nbsp;    public boolean canTilesConnect(Position position, Side side) {
+<b class="fc"><i>271</i>&nbsp;        Tile a = getTile(position);</b>
+<b class="fc"><i>272</i>&nbsp;        Tile b = getTile(position.getNeighbour(side));</b>
+<b class="fc"><i>273</i>&nbsp;        return (a.acceptsPower(side) &amp;&amp; b.outputsPower(side.opposite())) ||</b>
+<b class="fc"><i>274</i>&nbsp;                (a.outputsPower(side) &amp;&amp; b.acceptsPower(side.opposite()));</b>
+<i>275</i>&nbsp;    }
+<i>276</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

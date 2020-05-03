@@ -20,7 +20,7 @@ public class ORGateStrategy implements LogicGateStrategy {
 
     @Override
     public String getName() {
-        return "or";
+        return "or_gate";
     }
 
     @Override

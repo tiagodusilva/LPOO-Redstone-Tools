@@ -33,7 +33,6 @@ public class CircuitState extends State {
         while (!events.isEmpty()) {
             Event event = events.remove();
             try {
-                // TODO:
                 switch (event.getInputEvent()) {
                     case ADD_TILE:
                         new AddTileCommand(circuitController, circuit, (Tile) event.getObject()).execute();

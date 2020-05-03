@@ -20,7 +20,7 @@ public class NORGateStrategy implements LogicGateStrategy {
 
     @Override
     public String getName() {
-        return "nor";
+        return "nor_gate";
     }
 
     @Override
