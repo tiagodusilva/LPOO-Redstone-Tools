@@ -338,6 +338,8 @@ In our case, whenever the CircuitController adds, removes, rotates or interacts 
 
 As an improvement, our update method only really updates (Tile's method `onChange()`) if it would really changes. As an example, when a not gate receives an update from a non-input side, it doesn't care and ignores it. Whenever the updated Tile's output changes, then the update call returns true, signaling the circuit that its neighboring Tiles should be updated as well. In the case described above, it would return false.
 
+![UML showcasing Observer design](./images/designs/observer/observer.svg)
+
 These patterns can be found in the following files:
 - [CircuitController](../src/main/java/com/lpoo/redstonetools/controller/circuit/CircuitController.java)
 - [Circuit](../src/main/java/com/lpoo/redstonetools/model/circuit/Circuit.java)
