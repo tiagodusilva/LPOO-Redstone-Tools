@@ -14,13 +14,17 @@ It was developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silv
     5. [Screenshots](#screenshots)
         1. [LanternaMenu](#lanterna-menu)
         2. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
-
 2. [Planned Features](#planned-features)
-3. [Design & Patterns](#design)
-    1. [Model View Controller](#model-view-controller-(mvc))
-    2. [Changing the View](#changing-the-view)
-    3. [TODO](#circuit-has-multiple-types-of-tiles)
-    4. [TODO](#logic-gates-behave-similarly-only-changing-functionality)
+3. [Design & Patterns](#design-&-patterns)
+    1. [Used Patterns](#used-patterns)
+    2. [Model View Controller](#model-view-controller-(mvc))
+    3. [Game States](#game-states)
+    4. [Changing the View](#changing-the-view)
+    5. [Logic Gates' Similar Behaviour](#logic_gates'_similar_behaviour)
+    6. [Event System](#event_system)
+    7. [Commands](#commands)
+    8. [So many Renderers](#so_many_renderers)
+    9. [Circuit Updates](#circuit-updates)
 4. [Known Code Smells and Refactoring Suggestions](#known-code-smells-and-refactoring-suggestions)
 5. [Testing](#testing)
 6. [Self-evaluation](#self-evaluation)
@@ -105,9 +109,10 @@ From left to right, top to bottom:
  - [x] Variable strength signals (0-15), loosing strength at each wire travelled
  - [ ] Lossless two state signals
 
-## Design
+## Design & Patterns
 
-### Patterns Used
+ ### Used Patterns
+
 - [Design Patterns](https://refactoring.guru/design-patterns)
     - [Creational Patterns](https://refactoring.guru/design-patterns/creational-patterns)
         - [Abstract Factory](https://refactoring.guru/design-patterns/abstract-factory)
@@ -208,7 +213,7 @@ These patterns can be found in the following files:
 
 Abstract Factory garantees that the rest of the program does not need any more knowledge/dependencies on the View currently being used, as well as giving us more flexibility and allowing shared resources in a given View, such as a Terminal in Lanterna's case or some initialized buffers in an eventual OpenGL View. As far as alternatives go, we didn't have any, as this pattern was a perfect fit.
 
-### Logic Gates Behave Similarly Only Changing Functionality
+### Logic Gates' Similar Behaviour
 #### Problem in Context
 All logic gates share the same behaviour and structure, with the [NotGateTile](#tiles) as the sole exception as it can produce unstable circuit states and has different structure (only one input). One could do a `switch` too select which functionality is currently being used by the logic gate, but this would violate the **Open-Closed Principle** (OCP), as the [LogicGateTile](#LogicGateTile) would need to be changed every time we decided to add a new possible functionality. Another option would be to create a class for each functionality a logic gate can have, creating one class for the *AND* Gate, one for the *OR* Gate, etc, but that would still violate the **Release Reuse Equivalency Principle** (REP), as all the behaviours are the same, and if we had to change the behaviour of the logic gate, it would need to be copied into all the possible classes that were created to accommodate the logic gates different functionalities.
 
