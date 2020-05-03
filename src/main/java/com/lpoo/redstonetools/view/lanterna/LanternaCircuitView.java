@@ -124,17 +124,23 @@ public class LanternaCircuitView extends CircuitView {
         graphics.setBackgroundColor(circuitBackground);
         graphics.setForegroundColor(TextColor.ANSI.WHITE);
 
-        graphics.fillRectangle(new TerminalPosition(-viewWindow.getX()*3, -viewWindow.getY()*3), new TerminalSize(circuit.getWidth()*3, circuit.getHeight()*3), ' ');
+        graphics.fillRectangle(new TerminalPosition(
+                -viewWindow.getX()*3,
+                -viewWindow.getY()*3),
+                new TerminalSize(circuit.getWidth()*3,circuit.getHeight()*3),
+                ' '
+        );
 
-        // TODO: Refactor this, x is the top x-coordinate of the circuit
-        for (int i = 0, x = viewWindow.getX(); i < getColumns() * 3; i+=3, x++) {
-            // TODO: Refactor this, y is the top y-coordinate of the circuit
-            for (int j = 0, y = viewWindow.getY(); j < getRows() * 3; j+=3, y++) {
+        int iStart = Math.max(0, -viewWindow.getX()*3);
+        int jStart = Math.max(0, -viewWindow.getY()*3);
+        int xStart = Math.max(0, viewWindow.getX());
+        int yStart = Math.max(0, viewWindow.getY());
+
+        for (int i = iStart, x = xStart; i < getColumns() * 3 + 2 && x < circuit.getWidth(); i+=3, x++) {
+            for (int j = jStart, y = yStart; j < getRows() * 3 + 2 && y < circuit.getHeight(); j+=3, y++) {
                 graphics.setForegroundColor(TextColor.ANSI.WHITE);
-                if (x >= 0 && y >= 0 && x < circuit.getWidth() && y < circuit.getHeight()) {
                     Tile tile = circuit.getTile(x, y);
                     renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
-                }
             }
         }
 

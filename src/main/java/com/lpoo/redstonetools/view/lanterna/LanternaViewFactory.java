@@ -31,6 +31,7 @@ public class LanternaViewFactory implements ViewFactory {
             this.terminal = new DefaultTerminalFactory()
                     .setInitialTerminalSize(new TerminalSize(100, 40))
                     .setTerminalEmulatorFontConfiguration(cfg)
+                    .setTerminalEmulatorTitle("RedstoneTools")
                     .createTerminal();
             this.screen = new TerminalScreen(terminal);
 
