@@ -1,0 +1,325 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Tile</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.model.tile</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Tile (com.lpoo.redstonetools.model.tile)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Tile</td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (7/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.6%
+  </span>
+  <span class="absValue">
+    (12/ 17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$6EZTuAf5</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$9ZS3Dg5f</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$A0ZiBRAB</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$cP0Swovs</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$fgxQNFm9</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$GL5M5zlv</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$HOCaZwtC</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$HT2urv5S</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$jt9WrPVK</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$JTb9OfCx</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$MFKRBfQp</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$RoCa4Mwj</td>
+  </tr>
+  <tr>
+    <td class="name">Tile$MockitoMock$88284621$auxiliary$zddMv8g2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (7/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.6%
+  </span>
+  <span class="absValue">
+    (12/ 17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.tile;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.model.Model;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.utils.TileType;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; *  &lt;h1&gt;Tile&lt;/h1&gt;
+<i>11</i>&nbsp; *  Tile is a part of the circuit, containing its own functionality
+<i>12</i>&nbsp; *
+<i>13</i>&nbsp; * @author g79
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public abstract class Tile implements Model {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * &lt;h1&gt;Position of the tile&lt;/h1&gt;
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    protected Position position;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * &lt;h1&gt;Tile constructor&lt;/h1&gt;
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @param position  Position of the tile
+<i>26</i>&nbsp;     */
+<b class="fc"><i>27</i>&nbsp;    public Tile(Position position) {</b>
+<b class="fc"><i>28</i>&nbsp;        this.position = position;</b>
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * &lt;h1&gt;Gets the tile position&lt;/h1&gt;
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @return  Position of the tile
+<i>35</i>&nbsp;     */
+<b class="fc"><i>36</i>&nbsp;    public Position getPosition() { return position; }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * &lt;h1&gt;Get name of the tile&lt;/h1&gt;
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @return  Name given to the tile
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    public abstract String getName();
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * &lt;h1&gt;Get tile information&lt;/h1&gt;
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @return  Information of the tile
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public abstract String getInfo();
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * &lt;h1&gt;Get tile type&lt;/h1&gt;
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @see TileType
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @return  Tile type
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    public abstract TileType getType();
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * &lt;h1&gt;Checks if tile is connected to neighbour tile on the side specified&lt;/h1&gt;
+<i>63</i>&nbsp;     * By default, a tile can&#39;t connect to any neighbour tiles
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * @param side  Side to test connection
+<i>66</i>&nbsp;     * @return  true if tile is connected, false otherwise
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public boolean isConnected(Side side) {
+<b class="nc"><i>69</i>&nbsp;        return false;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * &lt;h1&gt;Checks if tile is a source of power&lt;/h1&gt;
+<i>74</i>&nbsp;     * By default a tile isn&#39;t a source tile
+<i>75</i>&nbsp;     * Must be overridden if tile is a source
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @see SourceTile
+<i>78</i>&nbsp;     *
+<i>79</i>&nbsp;     * @return  true if tile is a source tile, false otherwise
+<i>80</i>&nbsp;     */
+<b class="fc"><i>81</i>&nbsp;    public boolean isSource() { return false; }</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * &lt;h1&gt;Checks if tile is a wire&lt;/h1&gt;
+<i>85</i>&nbsp;     * By default a tile isn&#39;t a wire
+<i>86</i>&nbsp;     * Must be overridden if tile is a wire
+<i>87</i>&nbsp;     *
+<i>88</i>&nbsp;     * @see WireTile
+<i>89</i>&nbsp;     *
+<i>90</i>&nbsp;     * @return  true if tile is a wire, false otherwise
+<i>91</i>&nbsp;     */
+<b class="fc"><i>92</i>&nbsp;    public boolean isWire() { return false; }</b>
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    /**
+<i>95</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the left&lt;/h1&gt;
+<i>96</i>&nbsp;     * By default rotating a tile doesn&#39;t affect anything, so by default it returns false as the rotation is meaningless
+<i>97</i>&nbsp;     * Needs to be overridden if tile can be rotated
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @return  true if tile was rotated, false otherwise
+<i>100</i>&nbsp;     */
+<b class="nc"><i>101</i>&nbsp;    public boolean rotateLeft() { return false; }</b>
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the right&lt;/h1&gt;
+<i>105</i>&nbsp;     * By default rotating a tile doesn&#39;t affect anything, so by default it returns false as the rotation is meaningless
+<i>106</i>&nbsp;     * Needs to be overridden if tile can be rotated
+<i>107</i>&nbsp;     *
+<i>108</i>&nbsp;     * @return  true if tile was rotated, false otherwise
+<i>109</i>&nbsp;     */
+<b class="nc"><i>110</i>&nbsp;    public boolean rotateRight() { return false; }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * &lt;h1&gt;Get the power level emitted on the side specified&lt;/h1&gt;
+<i>114</i>&nbsp;     *
+<i>115</i>&nbsp;     * @param side  Side of the tile
+<i>116</i>&nbsp;     * @return  Power level emitted on the side specified of the tile
+<i>117</i>&nbsp;     */
+<i>118</i>&nbsp;    public abstract int getPower(Side side);
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;    /**
+<i>121</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an input of power&lt;/h1&gt;
+<i>122</i>&nbsp;     *
+<i>123</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>124</i>&nbsp;     * @return  true if the tile accepts power from the side specified, false otherwise
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    public abstract boolean acceptsPower(Side side);
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    /**
+<i>129</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an output of power&lt;/h1&gt;
+<i>130</i>&nbsp;     *
+<i>131</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>132</i>&nbsp;     * @return  true if the tile outputs power from the side specified, false otherwise
+<i>133</i>&nbsp;     */
+<i>134</i>&nbsp;    public abstract boolean outputsPower(Side side);
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**
+<i>137</i>&nbsp;     * &lt;h1&gt;Triggers a tile update&lt;/h1&gt;
+<i>138</i>&nbsp;     * By default tile doesn&#39;t need any update, not needing to trigger updates, returning false
+<i>139</i>&nbsp;     * Must be overridden if tile needs to be updated
+<i>140</i>&nbsp;     *
+<i>141</i>&nbsp;     * @param circuit   Circuit where updates are taking place
+<i>142</i>&nbsp;     * @param power     Power received on the update
+<i>143</i>&nbsp;     * @param side      Side from which repeater received an update
+<i>144</i>&nbsp;     * @return  true if tile was updated, false otherwise
+<i>145</i>&nbsp;     */
+<i>146</i>&nbsp;    public boolean update(Circuit circuit, int power, Side side) {
+<b class="fc"><i>147</i>&nbsp;        return false;</b>
+<i>148</i>&nbsp;    }
+<i>149</i>&nbsp;
+<i>150</i>&nbsp;    /**
+<i>151</i>&nbsp;     *
+<i>152</i>&nbsp;     * @param circuit
+<i>153</i>&nbsp;     * @return
+<i>154</i>&nbsp;     */
+<i>155</i>&nbsp;    public boolean update(Circuit circuit) {
+<b class="fc"><i>156</i>&nbsp;        boolean updated = false;</b>
+<b class="fc"><i>157</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>158</i>&nbsp;            updated |= update(circuit, circuit.getTile(position.getNeighbour(side)).getPower(side.opposite()), side);</b>
+<i>159</i>&nbsp;        }
+<b class="fc"><i>160</i>&nbsp;        return updated;</b>
+<i>161</i>&nbsp;    }
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    /**
+<i>164</i>&nbsp;     * &lt;h1&gt;Updates the tile&lt;/h1&gt;
+<i>165</i>&nbsp;     * By default tile doesn&#39;t need any update, returning false
+<i>166</i>&nbsp;     * Must be overridden if tile needs to be updated
+<i>167</i>&nbsp;     *
+<i>168</i>&nbsp;     * @param circuit   Circuit where updates are taking place
+<i>169</i>&nbsp;     * @param power     Power received on the update
+<i>170</i>&nbsp;     * @param side      Side from which repeater received an update
+<i>171</i>&nbsp;     * @return  true if tile was updated, false otherwise
+<i>172</i>&nbsp;     */
+<i>173</i>&nbsp;    protected boolean onChange(Circuit circuit, int power, Side side) {
+<b class="nc"><i>174</i>&nbsp;        return false;</b>
+<i>175</i>&nbsp;    }
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    /**
+<i>178</i>&nbsp;     * &lt;h1&gt;Updates tile connections to other tiles&lt;/h1&gt;
+<i>179</i>&nbsp;     * A tile can connect to other if the side of contact of the tiles are output and input or vice-versa
+<i>180</i>&nbsp;     *
+<i>181</i>&nbsp;     * @param circuit   Circuit where update are taking place
+<i>182</i>&nbsp;     */
+<b class="fc"><i>183</i>&nbsp;    public void updateConnections(Circuit circuit) { }</b>
+<i>184</i>&nbsp;
+<i>185</i>&nbsp;    /**
+<i>186</i>&nbsp;     * &lt;h1&gt;Interacts with a tile&lt;/h1&gt;
+<i>187</i>&nbsp;     * By default tile doesn&#39;t need to change, not needing to trigger updates, returning false
+<i>188</i>&nbsp;     * Must be overridden if tile has interactions
+<i>189</i>&nbsp;     *
+<i>190</i>&nbsp;     * @return  true if tile was updated, false otherwise
+<i>191</i>&nbsp;     */
+<b class="nc"><i>192</i>&nbsp;    public boolean interact() { return false; }</b>
+<i>193</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

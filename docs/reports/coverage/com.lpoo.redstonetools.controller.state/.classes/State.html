@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: State</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.controller.state</a> ]
+</div>
+
+<h1>Coverage Summary for Class: State (com.lpoo.redstonetools.controller.state)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">State</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.controller.state;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.MainController;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.view.ViewFactory;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public abstract class State {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    protected boolean exit;
+<i>9</i>&nbsp;    protected MainController mainController;
+<i>10</i>&nbsp;
+<b class="nc"><i>11</i>&nbsp;    public State(MainController mainController) {</b>
+<b class="nc"><i>12</i>&nbsp;        exit = false;</b>
+<b class="nc"><i>13</i>&nbsp;        this.mainController = mainController;</b>
+<i>14</i>&nbsp;    }
+<i>15</i>&nbsp;
+<b class="nc"><i>16</i>&nbsp;    public boolean exit() { return exit; }</b>
+<i>17</i>&nbsp;    public abstract void processEvents();
+<i>18</i>&nbsp;    public abstract void render(); // Only wrapper to the actual call to View, so SRP is not violated
+<i>19</i>&nbsp;    public abstract void atExit();
+<i>20</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

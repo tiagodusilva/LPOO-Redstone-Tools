@@ -1,5 +1,5 @@
-# LPOO_79
-The project aimed .... **TODO**
+# LPOO_79 - RedstoneTools
+The project aimed to create an emulation of Minecraft's vanilla [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits) with additional mechanics from prolific Minecraft Mods, such as [ProjectRed](https://github.com/MrTJP/ProjectRed), [RFTools](https://github.com/McJtyMods/RFTools), [Minecraft Circuit Mod](https://github.com/bubble-07/MinecraftCircuitsMod) and [Super Circuit Maker](https://github.com/amadornes/SuperCircuitMaker), providing an interface to manipulate and simulate circuits.
 
 It was developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva) (***T Squad***).
 
@@ -133,7 +133,7 @@ TODO: ???
 
 ### STATE STUFF
 #### Problem in Context
-    
+
 
 #### The Pattern
 
@@ -149,7 +149,7 @@ Given our decision to separate a View into parts, one for each State, we needed 
 
 #### The Pattern
 
-For this problem we used both the Factory Pattern and the Abstract Factory Pattern. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the SRP and the OCP because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories). 
+For this problem we used both the Factory Pattern and the Abstract Factory Pattern. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the SRP and the OCP because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories).
 
 
 #### The Implementation
@@ -205,6 +205,20 @@ This pattern required one additional interface, and six new classes, but these c
 ## Known Code Smells and Refactoring Suggestions
 
 ## Testing
+Due to the early problems on designing a good *Model-View-Controller* (MVC), the Unit Tests aren't covering all the parts of the *MVC*, at the time, being limited to the Model.
+
+While creating [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) guarantees more safety when applying changes, as it verifies if the components changed are still working as intended, in situations where a single component change of behaviour causes the tests for the previous behaviour to fail doesn't always mean the change is wrong. In our situation, where a simple change of behaviour of a tile can make all the tests made to verify the behaviour fail, it is harder to create concrete tests, limiting the tests on more abstract behaviours.  
+With this we can separate the tests on two parts:
+- *Generic Tests* - These tests mostly verify update triggers and notifications, these tests shouldn't be changed frequently, testing generic concepts.
+- *Concrete Tests* - These tests are the ones responsible for testing concrete behaviour of tiles. Because of their nature, these tests may need to be changed frequently, as a minor change in a tile can change its whole behaviour, thus changing all the expected values.
+
+The next step of Unit Testing is making [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing) in order to test how the tiles behave when put in a group (*circuit*), similar to the Concrete Tests, the integration tests may need to be changed frequently, due to the unit's nature. A small change on a tile's behaviour could cause a completely different circuit behaviour (ex. adding delay to the repeater).
+
+The tests results can be checked below:
+- [Coverage Result](./reports/coverage/index.html)  
+![coverage](./images/testing/coverage.png)
+
+- [Mutation Testing Result](./reports/pitest/model_mutation/index.html) (only has model, for now)
 
 ## Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!

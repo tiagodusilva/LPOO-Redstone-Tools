@@ -1,0 +1,123 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SourceTile</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.model.tile</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SourceTile (com.lpoo.redstonetools.model.tile)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SourceTile</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.tile;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; *  &lt;h1&gt;Source Tile&lt;/h1&gt;
+<i>7</i>&nbsp; *  Source tile is a tile that can provide power on its own
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * @author g79
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public abstract class SourceTile extends Tile {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * &lt;h1&gt;Tile constructor&lt;/h1&gt;
+<i>15</i>&nbsp;     *
+<i>16</i>&nbsp;     * @param position Position of the tile
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    public SourceTile(Position position) {
+<b class="nc"><i>19</i>&nbsp;        super(position);</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * &lt;h1&gt;Updates source and calculates next tick&lt;/h1&gt;
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @return true if the source was updated, false otherwise
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    public abstract boolean nextTick();
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * &lt;h1&gt;Checks if tile is a source of power&lt;/h1&gt;
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @see SourceTile
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @return  true
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    @Override
+<i>37</i>&nbsp;    public boolean isSource() {
+<b class="nc"><i>38</i>&nbsp;        return true;</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

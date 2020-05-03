@@ -162,25 +162,28 @@ public class LogicGateTileTest {
     }
 
     @Test
-    public void testRepeaterUpdate() {
+    public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.RIGHT));
+        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
         for (Side side : Side.values()) {
             Assert.assertFalse(logicGate.update(circuit, Power.getMin(), side));
         }
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
+        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
         Assert.assertFalse(logicGate.update(circuit, Power.getMax(), Side.DOWN));
         Assert.assertFalse(logicGate.update(circuit, Power.getMax(), Side.UP));
 
+        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+
+        Assert.assertTrue(logicGate.update(circuit, Power.getMax(), Side.LEFT));
+
         Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
 
-        Assert.assertFalse(logicGate.update(circuit, Power.getMax(), Side.LEFT));
+        Assert.assertTrue(logicGate.update(circuit, Power.getMax(), Side.RIGHT));
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
-
+        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
     }
 }

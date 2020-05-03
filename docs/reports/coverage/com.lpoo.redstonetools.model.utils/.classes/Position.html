@@ -1,0 +1,268 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Position</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.model.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Position (com.lpoo.redstonetools.model.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Position</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.3%
+  </span>
+  <span class="absValue">
+    (21/ 23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Position$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$8AdxHNz6</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$9aDpfoOA</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$EYaLArof</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$ldq0uBAw</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$qtNORxGh</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$s1jKlqmH</td>
+  </tr>
+  <tr>
+    <td class="name">Position$MockitoMock$821451073$auxiliary$VvbLmArC</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (22/ 24)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.Objects;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; *  &lt;h1&gt;Position&lt;/h1&gt;
+<i>7</i>&nbsp; *  Position in 2D discrete coordinate system
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * @author g79
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class Position {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * &lt;h1&gt;Coordinate on the X-axis&lt;/h1&gt;
+<i>15</i>&nbsp;     */
+<i>16</i>&nbsp;    private int x;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * &lt;h1&gt;Coordinate on the Y-axis&lt;/h1&gt;
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private int y;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * &lt;h1&gt;Position constructor&lt;/h1&gt;
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * @param x     Coordinate on the x-axis
+<i>27</i>&nbsp;     * @param y     Coordinate on the y-axis
+<i>28</i>&nbsp;     */
+<b class="fc"><i>29</i>&nbsp;    public Position(int x, int y) {</b>
+<b class="fc"><i>30</i>&nbsp;        this.x = x;</b>
+<b class="fc"><i>31</i>&nbsp;        this.y = y;</b>
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * &lt;h1&gt;Get value of the &lt;code&gt;x&lt;/code&gt; coordinate&lt;/h1&gt;
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @return  X coordinate value
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public int getX() {
+<b class="fc"><i>40</i>&nbsp;        return x;</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * &lt;h1&gt;Sets value of the &lt;code&gt;x&lt;/code&gt; coordinate&lt;/h1&gt;
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @param  x    Value of X coordinate to be set to
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    public void setX(int x) {
+<b class="fc"><i>49</i>&nbsp;        this.x = x;</b>
+<b class="fc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * &lt;h1&gt;Get value of the &lt;code&gt;y&lt;/code&gt; coordinate&lt;/h1&gt;
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @return  Y coordinate value
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public int getY() {
+<b class="fc"><i>58</i>&nbsp;        return y;</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * &lt;h1&gt;Sets value of the &lt;code&gt;y&lt;/code&gt; coordinate&lt;/h1&gt;
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param  y    Value of Y coordinate to be set to
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public void setY(int y) {
+<b class="fc"><i>67</i>&nbsp;        this.y = y;</b>
+<b class="fc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * &lt;h1&gt;Get adjacent position on the side specified&lt;/h1&gt;
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param side  Side wanted
+<i>74</i>&nbsp;     * @return  Adjacent position on the side specified
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public Position getNeighbour(Side side) {
+<b class="fc"><i>77</i>&nbsp;        switch (side) {</b>
+<i>78</i>&nbsp;            case UP:
+<b class="fc"><i>79</i>&nbsp;                return new Position(x, y - 1);</b>
+<i>80</i>&nbsp;            case DOWN:
+<b class="fc"><i>81</i>&nbsp;                return new Position(x, y + 1);</b>
+<i>82</i>&nbsp;            case LEFT:
+<b class="fc"><i>83</i>&nbsp;                return new Position(x - 1, y);</b>
+<i>84</i>&nbsp;            case RIGHT:
+<b class="fc"><i>85</i>&nbsp;                return new Position(x + 1, y);</b>
+<i>86</i>&nbsp;        }
+<b class="nc"><i>87</i>&nbsp;        return new Position(-1, -1);</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * &lt;h1&gt;Tests if positions are equal&lt;/h1&gt;
+<i>92</i>&nbsp;     * Position are equal if the X coordinate and Y coordinate are equal
+<i>93</i>&nbsp;     *
+<i>94</i>&nbsp;     * @param o Object to be compared to
+<i>95</i>&nbsp;     * @return true if position are equal, false otherwise
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;    @Override
+<i>98</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>99</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>100</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>101</i>&nbsp;        Position position = (Position) o;</b>
+<b class="fc"><i>102</i>&nbsp;        return x == position.x &amp;&amp;</b>
+<i>103</i>&nbsp;                y == position.y;
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    /**
+<i>107</i>&nbsp;     * &lt;h1&gt;Create hash from the values of the coordinate&lt;/h1&gt;
+<i>108</i>&nbsp;     *
+<i>109</i>&nbsp;     * @return  Value of the hash
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    @Override
+<i>112</i>&nbsp;    public int hashCode() {
+<b class="nc"><i>113</i>&nbsp;        return Objects.hash(x, y);</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * &lt;h1&gt;Transform position to String&lt;/h1&gt;
+<i>118</i>&nbsp;     *
+<i>119</i>&nbsp;     * @return  Position in String form
+<i>120</i>&nbsp;     */
+<i>121</i>&nbsp;    @Override
+<i>122</i>&nbsp;    public String toString() {
+<b class="fc"><i>123</i>&nbsp;        return &quot;Position(&quot; + x + &quot;, &quot; + y + &quot;)&quot;;</b>
+<i>124</i>&nbsp;    }
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    /**
+<i>127</i>&nbsp;     * &lt;h1&gt;Create a copy of a position&lt;/h1&gt;
+<i>128</i>&nbsp;     *
+<i>129</i>&nbsp;     * @return  Clone of the position
+<i>130</i>&nbsp;     */
+<i>131</i>&nbsp;    public Position clone() {
+<b class="fc"><i>132</i>&nbsp;        return new Position(this.x, this.y);</b>
+<i>133</i>&nbsp;    }
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaCircuitView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaCircuitView (com.lpoo.redstonetools.view.lanterna)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaCircuitView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 71)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.TerminalPosition;
+<i>4</i>&nbsp;import com.googlecode.lanterna.TerminalSize;
+<i>5</i>&nbsp;import com.googlecode.lanterna.TextColor;
+<i>6</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>7</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>9</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>10</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>11</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>12</i>&nbsp;import com.lpoo.redstonetools.model.utils.TileType;
+<i>13</i>&nbsp;import com.lpoo.redstonetools.view.CircuitView;
+<i>14</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
+<i>15</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.tile.*;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import java.io.IOException;
+<i>18</i>&nbsp;import java.util.HashMap;
+<i>19</i>&nbsp;import java.util.Map;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;public class LanternaCircuitView extends CircuitView {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private Screen screen;
+<i>24</i>&nbsp;    private Map&lt;TileType, LanternaTileView&gt; renderers;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private Circuit circuit;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    private Position selectedTile;
+<i>29</i>&nbsp;    private Position viewWindow; // Top-left corner of it
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    private LanternaInput lanternaInput;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    private TextColor circuitBackground;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    public LanternaCircuitView(Screen screen, Circuit circuit) {
+<b class="nc"><i>36</i>&nbsp;        super();</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        this.circuit = circuit;</b>
+<b class="nc"><i>39</i>&nbsp;        this.screen = screen;</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;        // Init internal vars
+<b class="nc"><i>42</i>&nbsp;        selectedTile = new Position(0, 0);</b>
+<b class="nc"><i>43</i>&nbsp;        viewWindow = new Position(0, 0);</b>
+<b class="nc"><i>44</i>&nbsp;        this.initRenderers();</b>
+<b class="nc"><i>45</i>&nbsp;        circuitBackground = TextColor.Factory.fromString(&quot;#181818&quot;);</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;        // Init input thread
+<b class="nc"><i>48</i>&nbsp;        lanternaInput = new LanternaInput(this);</b>
+<b class="nc"><i>49</i>&nbsp;        lanternaInput.start();</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    private void initRenderers() {
+<b class="nc"><i>53</i>&nbsp;        renderers = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>54</i>&nbsp;        renderers.put(TileType.NULL, new LanternaNullTileView());</b>
+<b class="nc"><i>55</i>&nbsp;        renderers.put(TileType.WIRE, new LanternaWireTileView());</b>
+<b class="nc"><i>56</i>&nbsp;        renderers.put(TileType.SOURCE, new LanternaConstantSourceTileView());</b>
+<b class="nc"><i>57</i>&nbsp;        renderers.put(TileType.LEVER, new LanternaLeverTileView());</b>
+<b class="nc"><i>58</i>&nbsp;        renderers.put(TileType.REPEATER, new LanternaRepeaterTileView());</b>
+<b class="nc"><i>59</i>&nbsp;        renderers.put(TileType.LOGIC_GATE, new LanternaLogicGateView());</b>
+<b class="nc"><i>60</i>&nbsp;        renderers.put(TileType.NOT_GATE, new LanternaNotGateTileView());</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public Screen getScreen() {
+<b class="nc"><i>64</i>&nbsp;        return screen;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public Position getSelectedTile() {
+<b class="nc"><i>68</i>&nbsp;        return selectedTile;</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public void toggleShowPower() {
+<b class="nc"><i>72</i>&nbsp;        ((LanternaWireTileView) renderers.get(TileType.WIRE)).toggleShowPower();</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    public void moveSelectedTile(Side side) {
+<b class="nc"><i>76</i>&nbsp;        Position newPos = selectedTile.getNeighbour(side);</b>
+<b class="nc"><i>77</i>&nbsp;        if (!validHiglightedPosition(newPos))</b>
+<i>78</i>&nbsp;            return;
+<b class="nc"><i>79</i>&nbsp;        selectedTile = newPos;</b>
+<b class="nc"><i>80</i>&nbsp;        if (!isInsideViewWindow(selectedTile))</b>
+<b class="nc"><i>81</i>&nbsp;            moveViewWindow(side);</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    public void moveViewWindow(Side side) {
+<b class="nc"><i>85</i>&nbsp;        Position newPos = viewWindow.getNeighbour(side);</b>
+<b class="nc"><i>86</i>&nbsp;        if (!validViewWindow(newPos))</b>
+<i>87</i>&nbsp;            return;
+<b class="nc"><i>88</i>&nbsp;        viewWindow = newPos;</b>
+<b class="nc"><i>89</i>&nbsp;        if (!isInsideViewWindow(selectedTile))</b>
+<b class="nc"><i>90</i>&nbsp;            moveSelectedTile(side);</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    private boolean validHiglightedPosition(Position position) {
+<b class="nc"><i>94</i>&nbsp;        return position.getX() &gt;= 0 &amp;&amp;</b>
+<b class="nc"><i>95</i>&nbsp;                position.getX() &lt; circuit.getWidth() &amp;&amp;</b>
+<b class="nc"><i>96</i>&nbsp;                position.getY() &gt;= 0 &amp;&amp;</b>
+<b class="nc"><i>97</i>&nbsp;                position.getY() &lt; circuit.getHeight();</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    private boolean isInsideViewWindow(Position position) {
+<b class="nc"><i>101</i>&nbsp;        return position.getX() &gt;= viewWindow.getX() &amp;&amp;</b>
+<b class="nc"><i>102</i>&nbsp;                position.getX() &lt; viewWindow.getX() + getColumns() &amp;&amp;</b>
+<b class="nc"><i>103</i>&nbsp;                position.getY() &gt;= viewWindow.getY() &amp;&amp;</b>
+<b class="nc"><i>104</i>&nbsp;                position.getY() &lt; viewWindow.getY() + getRows();</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    private boolean validViewWindow(Position position) {
+<b class="nc"><i>108</i>&nbsp;        return position.getX() + getColumns() &gt; 0 &amp;&amp;</b>
+<b class="nc"><i>109</i>&nbsp;                position.getX() &lt; circuit.getWidth() &amp;&amp;</b>
+<b class="nc"><i>110</i>&nbsp;                position.getY() + getRows() &gt; 0 &amp;&amp;</b>
+<b class="nc"><i>111</i>&nbsp;                position.getY() &lt; circuit.getHeight();</b>
+<i>112</i>&nbsp;    }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    private int getColumns() {
+<b class="nc"><i>115</i>&nbsp;        return screen.getTerminalSize().getColumns() / 3;</b>
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    private int getRows() {
+<b class="nc"><i>119</i>&nbsp;        return screen.getTerminalSize().getRows() / 3;</b>
+<i>120</i>&nbsp;    }
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    private void renderCircuit(TextGraphics graphics) {
+<i>123</i>&nbsp;
+<b class="nc"><i>124</i>&nbsp;        graphics.setBackgroundColor(circuitBackground);</b>
+<b class="nc"><i>125</i>&nbsp;        graphics.setForegroundColor(TextColor.ANSI.WHITE);</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;        graphics.fillRectangle(new TerminalPosition(-viewWindow.getX()*3, -viewWindow.getY()*3), new TerminalSize(circuit.getWidth()*3, circuit.getHeight()*3), &#39; &#39;);</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;        // TODO: Refactor this, x is the top x-coordinate of the circuit
+<b class="nc"><i>130</i>&nbsp;        for (int i = 0, x = viewWindow.getX(); i &lt; getColumns() * 3; i+=3, x++) {</b>
+<i>131</i>&nbsp;            // TODO: Refactor this, y is the top y-coordinate of the circuit
+<b class="nc"><i>132</i>&nbsp;            for (int j = 0, y = viewWindow.getY(); j &lt; getRows() * 3; j+=3, y++) {</b>
+<b class="nc"><i>133</i>&nbsp;                graphics.setForegroundColor(TextColor.ANSI.WHITE);</b>
+<b class="nc"><i>134</i>&nbsp;                if (x &gt;= 0 &amp;&amp; y &gt;= 0 &amp;&amp; x &lt; circuit.getWidth() &amp;&amp; y &lt; circuit.getHeight()) {</b>
+<b class="nc"><i>135</i>&nbsp;                    Tile tile = circuit.getTile(x, y);</b>
+<b class="nc"><i>136</i>&nbsp;                    renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);</b>
+<i>137</i>&nbsp;                }
+<i>138</i>&nbsp;            }
+<i>139</i>&nbsp;        }
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;        // Render highlighted
+<b class="nc"><i>142</i>&nbsp;        Tile highlighted = circuit.getTile(selectedTile);</b>
+<b class="nc"><i>143</i>&nbsp;        graphics.setBackgroundColor(TextColor.ANSI.MAGENTA);</b>
+<b class="nc"><i>144</i>&nbsp;        renderers.getOrDefault(highlighted.getType(), new LanternaNullTileView()).render(highlighted,</b>
+<b class="nc"><i>145</i>&nbsp;                (selectedTile.getY() - viewWindow.getY()) * 3,</b>
+<b class="nc"><i>146</i>&nbsp;                (selectedTile.getX() - viewWindow.getX()) * 3, graphics);</b>
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;        try {
+<b class="nc"><i>149</i>&nbsp;            screen.refresh();</b>
+<b class="nc"><i>150</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>151</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>152</i>&nbsp;        }</b>
+<i>153</i>&nbsp;    }
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    @Override
+<i>156</i>&nbsp;    public void render() {
+<b class="nc"><i>157</i>&nbsp;        screen.clear();</b>
+<b class="nc"><i>158</i>&nbsp;        TextGraphics graphics = screen.newTextGraphics();</b>
+<i>159</i>&nbsp;
+<b class="nc"><i>160</i>&nbsp;        renderCircuit(graphics);</b>
+<i>161</i>&nbsp;    }
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    @Override
+<i>164</i>&nbsp;    public void cleanup() {
+<b class="nc"><i>165</i>&nbsp;        lanternaInput.interrupt();</b>
+<i>166</i>&nbsp;        try {
+<b class="nc"><i>167</i>&nbsp;            lanternaInput.join();</b>
+<b class="nc"><i>168</i>&nbsp;        } catch (InterruptedException e) {</b>
+<b class="nc"><i>169</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>170</i>&nbsp;        }</b>
+<b class="nc"><i>171</i>&nbsp;        this.events.clear();</b>
+<i>172</i>&nbsp;    }
+<i>173</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

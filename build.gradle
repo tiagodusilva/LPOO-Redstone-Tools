@@ -18,7 +18,7 @@ repositories {
 }
 
 pitest {
-    targetClasses = ['com.lpoo.redstonetools.model.utils.*']
+    targetClasses = ['com.lpoo.redstonetools.model.*']
 }
 
 dependencies {

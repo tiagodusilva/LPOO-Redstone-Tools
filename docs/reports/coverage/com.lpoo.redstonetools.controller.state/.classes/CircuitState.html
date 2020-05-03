@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CircuitState</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.controller.state</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CircuitState (com.lpoo.redstonetools.controller.state)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CircuitState</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CircuitState$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 26)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.controller.state;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.MainController;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.controller.circuit.CircuitController;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.controller.command.*;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.model.tile.*;
+<i>9</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>10</i>&nbsp;import com.lpoo.redstonetools.view.CircuitView;
+<i>11</i>&nbsp;import com.lpoo.redstonetools.view.ViewFactory;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import java.util.Queue;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;public class CircuitState extends State {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    private CircuitController circuitController;
+<i>18</i>&nbsp;    private Circuit circuit;
+<i>19</i>&nbsp;    private CircuitView circuitView;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public CircuitState(Circuit circuit, MainController mainController) {
+<b class="nc"><i>22</i>&nbsp;        super(mainController);</b>
+<i>23</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;        this.circuit = circuit;</b>
+<b class="nc"><i>25</i>&nbsp;        this.circuitController = new CircuitController();</b>
+<b class="nc"><i>26</i>&nbsp;        this.circuitView = mainController.getViewFactory().getCircuitView(circuit);</b>
+<i>27</i>&nbsp;    }
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Override
+<i>30</i>&nbsp;    public void processEvents() {
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;        Queue&lt;Event&gt; events = this.circuitView.getEvents();</b>
+<b class="nc"><i>33</i>&nbsp;        while (!events.isEmpty()) {</b>
+<b class="nc"><i>34</i>&nbsp;            Event event = events.remove();</b>
+<i>35</i>&nbsp;            try {
+<i>36</i>&nbsp;                // TODO:
+<b class="nc"><i>37</i>&nbsp;                switch (event.getInputEvent()) {</b>
+<i>38</i>&nbsp;                    case ADD_TILE:
+<b class="nc"><i>39</i>&nbsp;                        new AddTileCommand(circuitController, circuit, (Tile) event.getObject()).execute();</b>
+<b class="nc"><i>40</i>&nbsp;                        break;</b>
+<i>41</i>&nbsp;                    case INTERACT:
+<b class="nc"><i>42</i>&nbsp;                        new InteractionCommand(circuitController, circuit, (Position) event.getObject()).execute();</b>
+<b class="nc"><i>43</i>&nbsp;                        break;</b>
+<i>44</i>&nbsp;                    case ADVANCE_TICK:
+<b class="nc"><i>45</i>&nbsp;                        new AdvanceTickCommand(circuitController, circuit).execute();</b>
+<b class="nc"><i>46</i>&nbsp;                        break;</b>
+<i>47</i>&nbsp;                    case ROTATE_LEFT:
+<b class="nc"><i>48</i>&nbsp;                        new RotateLeftCommand(circuitController, circuit, (Position) event.getObject()).execute();</b>
+<b class="nc"><i>49</i>&nbsp;                        break;</b>
+<i>50</i>&nbsp;                    case ROTATE_RIGHT:
+<b class="nc"><i>51</i>&nbsp;                        new RotateRightCommand(circuitController, circuit, (Position) event.getObject()).execute();</b>
+<b class="nc"><i>52</i>&nbsp;                        break;</b>
+<i>53</i>&nbsp;                    case QUIT:
+<b class="nc"><i>54</i>&nbsp;                        this.exit = true;</b>
+<i>55</i>&nbsp;                        return;
+<i>56</i>&nbsp;                    default:
+<i>57</i>&nbsp;                        break;
+<i>58</i>&nbsp;                }
+<i>59</i>&nbsp;            }
+<b class="nc"><i>60</i>&nbsp;            catch (Exception e) {</b>
+<b class="nc"><i>61</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>62</i>&nbsp;            }</b>
+<b class="nc"><i>63</i>&nbsp;        }</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @Override
+<i>67</i>&nbsp;    public void render() {
+<b class="nc"><i>68</i>&nbsp;        circuitView.render();</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    @Override
+<i>72</i>&nbsp;    public void atExit() {
+<b class="nc"><i>73</i>&nbsp;        circuitView.cleanup();</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>

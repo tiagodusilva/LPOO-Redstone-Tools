@@ -1,0 +1,347 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaMenuView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaMenuView (com.lpoo.redstonetools.view.lanterna)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaMenuView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 56)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaMenuView$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuView$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuView$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuView$4</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 84)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.TerminalSize;
+<i>4</i>&nbsp;import com.googlecode.lanterna.TextColor;
+<i>5</i>&nbsp;import com.googlecode.lanterna.gui2.*;
+<i>6</i>&nbsp;import com.googlecode.lanterna.gui2.dialogs.*;
+<i>7</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.controller.circuit.CircuitController;
+<i>9</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
+<i>10</i>&nbsp;import com.lpoo.redstonetools.controller.event.InputEvent;
+<i>11</i>&nbsp;import com.lpoo.redstonetools.controller.state.CircuitState;
+<i>12</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>13</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>14</i>&nbsp;import com.lpoo.redstonetools.view.MenuView;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.io.File;
+<i>17</i>&nbsp;import java.io.IOException;
+<i>18</i>&nbsp;import java.math.BigInteger;
+<i>19</i>&nbsp;import java.util.regex.Pattern;
+<i>20</i>&nbsp;
+<b class="nc"><i>21</i>&nbsp;public class LanternaMenuView extends MenuView {</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private Screen screen;
+<i>24</i>&nbsp;    private Circuit circuit;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private String fileName;
+<i>27</i>&nbsp;    private Button quitButton;
+<i>28</i>&nbsp;    private RadioBoxList&lt;String&gt; radioBoxList;
+<i>29</i>&nbsp;    private final WindowBasedTextGUI textGUI;
+<i>30</i>&nbsp;    private BasicWindow window;
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;    public LanternaMenuView(Screen screen) {</b>
+<i>33</i>&nbsp;        // Setup terminal and screen layers
+<b class="nc"><i>34</i>&nbsp;        this.screen = screen;</b>
+<b class="nc"><i>35</i>&nbsp;        circuit = null;</b>
+<b class="nc"><i>36</i>&nbsp;        fileName = &quot;&quot;;</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;        // Create gui and start gui
+<b class="nc"><i>39</i>&nbsp;        textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;        File input;
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<b class="nc"><i>44</i>&nbsp;        Label fileNameLabel = new Label(&quot;&quot;);</b>
+<b class="nc"><i>45</i>&nbsp;        Label circuitSizeLabel = new Label(&quot;&quot;);</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;        Panel selectPanel = new Panel();</b>
+<b class="nc"><i>48</i>&nbsp;        mainPanel.addComponent(selectPanel.withBorder(Borders.singleLine(&quot;Select a Circuit&quot;)));</b>
+<b class="nc"><i>49</i>&nbsp;        selectPanel.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));</b>
+<i>50</i>&nbsp;
+<b class="nc"><i>51</i>&nbsp;        Panel leftPanel = new Panel();</b>
+<b class="nc"><i>52</i>&nbsp;        selectPanel.addComponent(leftPanel.withBorder(Borders.singleLine(&quot;Load from File&quot;)));</b>
+<i>53</i>&nbsp;
+<b class="nc"><i>54</i>&nbsp;        Panel rightPanel = new Panel();</b>
+<b class="nc"><i>55</i>&nbsp;        selectPanel.addComponent(rightPanel.withBorder(Borders.singleLine(&quot;New Blank Circuit&quot;)));</b>
+<b class="nc"><i>56</i>&nbsp;        rightPanel.setLayoutManager(new GridLayout(2));</b>
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;        leftPanel.addComponent(new Button(&quot;Load from File&quot;, new Runnable() {</b>
+<i>59</i>&nbsp;            @Override
+<i>60</i>&nbsp;            public void run() {
+<b class="nc"><i>61</i>&nbsp;                File input = new FileDialogBuilder()</b>
+<b class="nc"><i>62</i>&nbsp;                        .setTitle(&quot;Open File&quot;)</b>
+<b class="nc"><i>63</i>&nbsp;                        .setDescription(&quot;Choose a file&quot;)</b>
+<b class="nc"><i>64</i>&nbsp;                        .setActionLabel(&quot;Open&quot;)</b>
+<b class="nc"><i>65</i>&nbsp;                        .build()</b>
+<b class="nc"><i>66</i>&nbsp;                        .showDialog(textGUI);</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;                if (input != null) {</b>
+<i>69</i>&nbsp;//                    fileName = input.getName();
+<b class="nc"><i>70</i>&nbsp;                    fileName = &quot;Test circuit&quot;;</b>
+<b class="nc"><i>71</i>&nbsp;                    createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, CircuitController.loadTestCircuit());</b>
+<i>72</i>&nbsp;                }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;            }
+<i>75</i>&nbsp;        }));
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;        rightPanel.addComponent(new Label(&quot;Width&quot;));</b>
+<b class="nc"><i>78</i>&nbsp;        final TextBox widthTxt = new TextBox().setText(&quot;20&quot;).setValidationPattern(Pattern.compile(&quot;[1-9][0-9]*&quot;)).addTo(rightPanel);</b>
+<i>79</i>&nbsp;
+<b class="nc"><i>80</i>&nbsp;        rightPanel.addComponent(new Label(&quot;Height&quot;));</b>
+<b class="nc"><i>81</i>&nbsp;        final TextBox heightTxt = new TextBox().setText(&quot;10&quot;).setValidationPattern(Pattern.compile(&quot;[1-9][0-9]*&quot;)).addTo(rightPanel);</b>
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>84</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<i>85</i>&nbsp;
+<b class="nc"><i>86</i>&nbsp;        Panel radioBoxPanel = new Panel();</b>
+<b class="nc"><i>87</i>&nbsp;        rightPanel.addComponent(radioBoxPanel.withBorder(Borders.singleLine(&quot;Select Mode&quot;)));</b>
+<b class="nc"><i>88</i>&nbsp;        radioBoxList = new RadioBoxList&lt;String&gt;();</b>
+<b class="nc"><i>89</i>&nbsp;        radioBoxList.addItem(&quot;Redstone&quot;);</b>
+<b class="nc"><i>90</i>&nbsp;        radioBoxList.addItem(&quot;Electrical Wire&quot;);</b>
+<b class="nc"><i>91</i>&nbsp;        radioBoxList.setCheckedItemIndex(0);</b>
+<i>92</i>&nbsp;
+<b class="nc"><i>93</i>&nbsp;        radioBoxPanel.addComponent(radioBoxList);</b>
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>96</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>97</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<i>98</i>&nbsp;
+<b class="nc"><i>99</i>&nbsp;        rightPanel.addComponent(new Button(&quot;Create Blank&quot;, new Runnable() {</b>
+<i>100</i>&nbsp;            @Override
+<i>101</i>&nbsp;            public void run() {
+<b class="nc"><i>102</i>&nbsp;                fileName = &quot;&quot;;</b>
+<b class="nc"><i>103</i>&nbsp;                createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText())));</b>
+<i>104</i>&nbsp;            }
+<i>105</i>&nbsp;        }));
+<i>106</i>&nbsp;
+<b class="nc"><i>107</i>&nbsp;        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        // Create window to hold the panel
+<b class="nc"><i>110</i>&nbsp;        window = new BasicWindow();</b>
+<b class="nc"><i>111</i>&nbsp;        window.setComponent(mainPanel);</b>
+<i>112</i>&nbsp;
+<b class="nc"><i>113</i>&nbsp;        quitButton = new Button(&quot;Close game&quot;, new Runnable() {</b>
+<i>114</i>&nbsp;            @Override
+<i>115</i>&nbsp;            public void run() {
+<b class="nc"><i>116</i>&nbsp;                textGUI.removeWindow(window);</b>
+<b class="nc"><i>117</i>&nbsp;                pushEvent(new Event(InputEvent.QUIT, null));</b>
+<i>118</i>&nbsp;            }
+<i>119</i>&nbsp;        });
+<b class="nc"><i>120</i>&nbsp;        mainPanel.addComponent(quitButton);</b>
+<i>121</i>&nbsp;
+<b class="nc"><i>122</i>&nbsp;        textGUI.addWindowAndWait(window);</b>
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;        // This handles the case where the Terminal was closed without any input
+<b class="nc"><i>125</i>&nbsp;        if (events.isEmpty()) {</b>
+<b class="nc"><i>126</i>&nbsp;            pushEvent(new Event(InputEvent.QUIT, null));</b>
+<i>127</i>&nbsp;        }
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    private void createCircuit(Panel panel, Label fileNameLabel, Label circuitSizeLabel, Circuit aCircuit) {
+<b class="nc"><i>131</i>&nbsp;        if (circuit == null) {</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;            panel.removeComponent(quitButton);</b>
+<i>134</i>&nbsp;
+<b class="nc"><i>135</i>&nbsp;            panel.addComponent(fileNameLabel);</b>
+<b class="nc"><i>136</i>&nbsp;            panel.addComponent(circuitSizeLabel);</b>
+<b class="nc"><i>137</i>&nbsp;            panel.addComponent(new Button(&quot;Open Circuit&quot;, new Runnable() {</b>
+<i>138</i>&nbsp;                @Override
+<i>139</i>&nbsp;                public void run() {
+<b class="nc"><i>140</i>&nbsp;                    if (circuit != null) {</b>
+<i>141</i>&nbsp;                        // TODO: Code Smell, this call should not be here
+<b class="nc"><i>142</i>&nbsp;                        if (radioBoxList.isChecked(0))</b>
+<b class="nc"><i>143</i>&nbsp;                            Power.setRedstoneMode();</b>
+<i>144</i>&nbsp;                        else
+<b class="nc"><i>145</i>&nbsp;                            Power.setEletricMode();</b>
+<b class="nc"><i>146</i>&nbsp;                        textGUI.removeWindow(window);</b>
+<b class="nc"><i>147</i>&nbsp;                        pushEvent(new Event(InputEvent.ENTER_CIRCUIT_STATE, circuit));</b>
+<i>148</i>&nbsp;                    }
+<i>149</i>&nbsp;                    else {
+<b class="nc"><i>150</i>&nbsp;                        new MessageDialogBuilder()</b>
+<b class="nc"><i>151</i>&nbsp;                                .setTitle(&quot;Failed&quot;)</b>
+<b class="nc"><i>152</i>&nbsp;                                .setText(&quot;You must select a circuit&quot;)</b>
+<b class="nc"><i>153</i>&nbsp;                                .build()</b>
+<b class="nc"><i>154</i>&nbsp;                                .showDialog(textGUI);</b>
+<i>155</i>&nbsp;                    }
+<i>156</i>&nbsp;                }
+<i>157</i>&nbsp;            }));
+<i>158</i>&nbsp;
+<b class="nc"><i>159</i>&nbsp;            panel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>160</i>&nbsp;            panel.addComponent(quitButton);</b>
+<i>161</i>&nbsp;        }
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;        // TODO: Add Label to indicate the circuit&#39;s power mode
+<b class="nc"><i>164</i>&nbsp;        if (fileName.equals(&quot;&quot;))</b>
+<b class="nc"><i>165</i>&nbsp;            fileNameLabel.setText(&quot;Blank Circuit&quot;);</b>
+<i>166</i>&nbsp;        else
+<b class="nc"><i>167</i>&nbsp;            fileNameLabel.setText(&quot;Loaded from: &quot; + fileName);</b>
+<b class="nc"><i>168</i>&nbsp;        circuitSizeLabel.setText(&quot;Circuit size: &quot; + aCircuit.getWidth() + &quot;x&quot; + aCircuit.getHeight());</b>
+<b class="nc"><i>169</i>&nbsp;        circuit = aCircuit;</b>
+<i>170</i>&nbsp;    }
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;    @Override
+<i>173</i>&nbsp;    public void render() {
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    }
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    @Override
+<i>178</i>&nbsp;    public void cleanup() {
+<b class="nc"><i>179</i>&nbsp;        this.events.clear();</b>
+<i>180</i>&nbsp;    }
+<i>181</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 20:20</div>
+</div>
+</body>
+</html>
