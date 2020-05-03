@@ -4,8 +4,11 @@
 
 > Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva).
 
+## Extensive Report
+[Go to Report](./docs/README.md)
+
 ## Screenshots
-Lanterna Welcome Menu
+Lanterna Welcome Menu  
 ![Lanterna Menu Screenshot](./docs/images/screenshots/lanterna/LanternaMenu.png)
 
 #### Existing Tiles
