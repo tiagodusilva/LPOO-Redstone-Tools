@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.lpoo.redstonetools.core.CircuitTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2020-05-03T00:27:02" hostname="DESKTOP-KR9SQNR" time="0.019">
+  <properties/>
+  <testcase name="testWirePropagationDoubleEnded" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.003"/>
+  <testcase name="testWirePropagationBlock" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="testWirePropagationCycle" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="testLever" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="testConstantSourceOutput" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.0"/>
+  <testcase name="testRepeaterCircuit" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.002"/>
+  <testcase name="testDoubleSources" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="getTileTest" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.0"/>
+  <testcase name="testWirePropagationDissipation" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.002"/>
+  <testcase name="removeTileTest" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="testOrientedTileRotation" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="addTileTest" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <testcase name="testBounds" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.0"/>
+  <testcase name="testWirePropagation" classname="com.lpoo.redstonetools.core.CircuitTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
