@@ -13,7 +13,6 @@ import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
-import javafx.scene.control.TextInputDialog;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -57,6 +56,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.SOURCE, new LanternaConstantSourceTileView());
         renderers.put(TileType.LEVER, new LanternaLeverTileView());
         renderers.put(TileType.REPEATER, new LanternaRepeaterTileView());
+        renderers.put(TileType.LOGIC_GATE, new LanternaLogicGateView());
         renderers.put(TileType.NOT_GATE, new LanternaNotGateTileView());
     }
 
