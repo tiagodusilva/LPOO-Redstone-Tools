@@ -1,4 +1,4 @@
-# LPOO_79 - RedstoneTools
+# **LPOO_79 - RedstoneTools**
 The project aimed to create an emulation of Minecraft's vanilla [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits) with additional mechanics from prolific Minecraft Mods, such as [ProjectRed](https://github.com/MrTJP/ProjectRed), [RFTools](https://github.com/McJtyMods/RFTools), [Minecraft Circuit Mod](https://github.com/bubble-07/MinecraftCircuitsMod) and [Super Circuit Maker](https://github.com/amadornes/SuperCircuitMaker), providing an interface to manipulate and simulate circuits.
 
 It was developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva) (***T Squad***).
@@ -73,10 +73,10 @@ It is via the menu that you can create a new circuit or ~~load existing circuits
 
 ### Screenshots
 #### Lanterna Menu
-![lanternamenu](./images/screenshots/lanterna/LanternaMenu.png)
+![Lanterna Menu Screenshot](./images/screenshots/lanterna/LanternaMenu.png)
 
 #### Existing Tiles
-![existingtiles](./images/screenshots/lanterna/ExistingTiles.png)  
+![Existing Tiles Screenshot](./images/screenshots/lanterna/ExistingTiles.png)  
 From left to right, top to bottom:  
 1. *Wire* and demonstration of all possible connections the wire can have.  
 2. *Constant Source*, *Lever* (not active), *Lever* (active), *Repeater*, *NOT Gate*, *AND Gate*, *OR Gate*, *NAND Gate*, *NOR Gate*, *XOR Gate*, *XNOR Gate*.
@@ -84,7 +84,7 @@ From left to right, top to bottom:
 
 #### Temporary Pre-existing Circuit
 (*Note*: Temporary, as the name indicates, just for test purposes and to ease the visualization while file loading isn't implemented)
-![preexistingcircuit](./images/screenshots/lanterna/PreExistingCircuit.png)
+![Pre-existing Circuit on loading cirucit](./images/screenshots/lanterna/PreExistingCircuit.png)
 
 ## Planned Features
 - [x] Create circuits
@@ -144,7 +144,7 @@ Due to our specific take on the MVC architecture, it also implies a **Bridge Pat
 
 #### The Implementation
 As the implementation of this pattern involves multiple classes, and it's more an abstract idea it will not be provided specific classes, just the packages where each part is contained. The design implemented is show in the following figure:  
-![mvcdesign](./images/designs/mvc/mvc_design.svg)
+![UML showcasing MVC design](./images/designs/mvc/mvc_design.svg)
 
 The three parts of the *MVC* can be found in:
 - [Model](../src/main/java/com/lpoo/redstonetools/model/)
@@ -169,7 +169,7 @@ The MainController has a State, initialized with the MenuState class. This allow
  - atExit() -> Called whenever exiting this State to enter a new one
  - exit() -> Called to know if the program has to exit
 
-![statestrategy](./images/designs/state/state.svg)
+![UML showcasing State design](./images/designs/state/state.svg)
 
 This pattern can be found in the following files:
 - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java)
@@ -194,7 +194,7 @@ As we also used this to easily link any View to the Model/State, we can also con
 #### The Implementation
 The Abstract Factory Pattern allows the Main Controller to simply instantiate the desired View, allowing any State to simply call `ViewFactory.getDesiredView()` and the Concrete Factory, for example LanternaViewFactory, to return the complete View object, which simplifies all our state transitions.
 
-![abstractfactorystrategy](./images/designs/factory/abstractFactory.svg)
+![UML showcasing Abstract-Factory design](./images/designs/factory/abstractFactory.svg)
 
 These patterns can be found in the following files:
 - [Abstract ViewFactory](../src/main/java/com/lpoo/redstonetools/view/ViewFactory.java)
@@ -223,7 +223,7 @@ This problem can be easily solved by using the **Strategy Pattern**, as all the 
 #### The Implementation
 To implement this pattern, we just need to create a interface for the strategy, in this context the strategy is the functionality of the logic gate, this is, the operation done by the logic gate given the values of the powers received.  
 The implementation of this pattern is illustrated in the following figure, simplifying the class *LogicGateTile* as this class extends from other *Tile* class as it is not relevant for this implementation:  
-![logicgatestrategy](./images/designs/strategy/LogicGateStrategy.svg)
+![UML showcasing Logic Gate Strategy design](./images/designs/strategy/LogicGateStrategy.svg)
 
 This pattern can be found in the following files:
 - [LogicGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/LogicGateTile.java)
@@ -347,6 +347,22 @@ These patterns can be found in the following files:
 Really hard to know exactly how many Tile updates an action may have. Removes the dependancy between a Tile and its neighbors, as the CircuitController serves as mediator between them (**Mediator Pattern**).
 
 ## Known Code Smells and Refactoring Suggestions
+### View Shouldn't Handle Changing Power Behaviour
+In the method `createCircuit` of [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java), the function changes the power behaviour calling the methods `Power.setRedstoneMode()` and `Power.setElectricMode()`, this violates the **Single Responsibility Principle** (SRP) as the view isn't the one responsible of handling generic commands, and it should've been directed to a factory or a builder that creates the circuit from the arguments given to it.
+
+### Unnecessary Rendering Iterations
+In the method `renderCircuit` of [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java), the function executes multiple unnecessary iterations, causing it to render parts that aren't from the circuit. By improving the looping conditions it is possible to improve the performance of the rendering process.
+
+This code smell has been refactored, with the advantages of removing the unnecessary renders at the cost of a more complex condition in terms of readability.
+
+### Switch Statement
+Some `switch` statements are used in the program to handle events in order to determine which event is occurring, however refactoring this code smell could bring an even greater number of code smells or add unwanted complexity and abstraction to the program.  
+The statements are also simple and short, thus there's no big payoff on refactoring this code smell.
+
+Classes with `switch` statements:
+- [LanternaInput](../src/main/java/com/lpoo/redstonetools/view/lanterna/input/LanternaInput.java)
+- [CircuitState](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java)
+- [MenuState](../src/main/java/com/lpoo/redstonetools/controller/state/MenuState.java)
 
 ## Testing
 Due to the early problems on designing a good *Model-View-Controller* (MVC), the Unit Tests aren't covering all the parts of the *MVC*, at the time, being limited to the Model.
@@ -360,7 +376,7 @@ The next step of Unit Testing is making [Integration Testing](https://en.wikiped
 
 The tests results can be checked below:
 - [Coverage Result](./reports/coverage/index.html)  
-![coverage](./images/testing/coverage.png)
+![Coverage Results](./images/testing/coverage.png)
 
 - [Mutation Testing Result](./reports/pitest/model_mutation/index.html) (only has model, for now)
 
