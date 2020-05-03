@@ -20,7 +20,7 @@ public class XNORGateStrategy implements LogicGateStrategy {
 
     @Override
     public String getName() {
-        return "xnor";
+        return "xnor_gate";
     }
 
     @Override

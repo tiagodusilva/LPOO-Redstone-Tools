@@ -84,7 +84,7 @@ public class Position {
             case RIGHT:
                 return new Position(x + 1, y);
         }
-        return new Position(0, 0);
+        return new Position(-1, -1);
     }
 
     /**

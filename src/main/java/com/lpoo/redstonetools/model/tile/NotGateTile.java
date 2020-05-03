@@ -32,6 +32,15 @@ public class NotGateTile extends OrientedTile {
     }
 
     /**
+     * <h1>Set not gate status</h1>
+     *
+     * @param status    New not gate status
+     */
+    public void setStatus(boolean status) {
+        this.active = status;
+    }
+
+    /**
      * <h1>Get name of the tile</h1>
      *
      * @return  "not_gate"
@@ -98,7 +107,7 @@ public class NotGateTile extends OrientedTile {
     @Override
     protected boolean onChange(Circuit circuit, int power, Side side) {
         boolean old_status = active;
-        active = !Power.isOn(power);
+        this.setStatus(!Power.isOn(power));
         return old_status != active;
     }
 }
