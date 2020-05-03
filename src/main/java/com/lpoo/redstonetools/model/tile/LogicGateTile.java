@@ -41,6 +41,10 @@ public class LogicGateTile extends OrientedTile {
         return strategy;
     }
 
+    public void setStrategy(LogicGateStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     @Override
     public String getName() {
         return strategy.getName();

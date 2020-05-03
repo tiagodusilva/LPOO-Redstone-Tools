@@ -125,6 +125,41 @@ The three parts of the *MVC* can be found in:
 #### Consequences
 By applying this pattern in a more decent way, it was easier to structure the rest of the functionalities, resulting in a more elegant structure and well defined responsibilities for each part.
 
+TODO: ???
+### Circuit Has Multiple Types of Tiles
+#### Problem in Context
+The circuit contains multiple tiles of various types, thus the circuit needs to be able to handle all these different types of tiles. To not violate the **Open-Closed Principle** (OCP), as the *Tile* would need to be changed each time it needed to modify a certain specific type of tile behaviour or add new type of tile, we need built a tile hierarchy.
+
+#### The Pattern
+To build this tile hierarchy, we can apply the **Composite** pattern.
+
+### Logic Gates Behave Similarly Only Changing Functionality
+#### Problem in Context
+All logic gates share the same behaviour and structure, with the [NotGateTile](#tiles) as the sole exception as it can produce unstable circuit states and has different structure. One could do a `switch` too verify which functionality is currently being used by the logic gate, this would violate the **Open-Closed Principle** (OCP), as the [LogicGateTile](#LogicGateTile) would need to be changed every time we decided to add a new possible functionality. Another option would be to create a class for each functionality a logic gate can have, creating one class for the *AND* Gate, one for the *OR* Gate, etc, but that would still violate the **Release Reuse Equivalency Principle** (REP), as all the behaviours are the same, and if we had to change the behaviour of the logic gate, it would need to be copied into all the possible classes that were created to accommodate the logic gates different functionalities.
+
+#### The Pattern
+This problem can be easily solved by using the **Strategy** pattern, as all the logic gates share behaviour and structure, only changing the functionality, we can implement that functionality as a strategy, and to change the logic gate functionality we just need to change the strategy inserted into it.
+
+#### The Implementation
+To implement this pattern, we just need to create a interface for the strategy, in this context the strategy is the functionality of the logic gate, this is, the operation done by the logic gate given the values of the powers received.  
+The implementation of this pattern is illustrated in the following figure, simplifying the class *LogicGateTile* as this class extends from other *Tile* class as it is not relevant for this implementation:  
+![logicgatestrategy](./images/designs/strategy/LogicGateStrategy.png)
+
+These classes can be found in the following files:
+- [LogicGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/LogicGateTile.java)
+- [LogicGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/LogicGateStrategy.java)
+- [ANDGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/ANDGateStrategy.java)
+- [ORGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/ORGateStrategy.java)
+- [NANDGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/NANDGateStrategy.java)
+- [NORGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/NORGateStrategy.java)
+- [XORGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/XORGateStrategy.java)
+- [XNORGateStrategy](../src/main/java/com/lpoo/redstonetools/model/tile/strategy/XNORGateStrategy.java)
+
+#### Consequences
+This pattern allows more flexibility with the logic gate, making easier to switch the functionality of the logic gate, as it doesn't require to remove the tile and add the another one just to change the functionality. It also prevented a big `switch` statement that could be used to determine the functionality of the logic gate.  
+As the strategy is given to the tile, this pattern also allows now to make Dependency Injections that ease the process of testing this tile.  
+This pattern required one additional interface, and six new classes, but these classes are extremely simple and small, making it easier to maintain compared to the other possibilities described in the problem.
+
 ## Known Code Smells and Refactoring Suggestions
 
 ## Testing
