@@ -131,18 +131,49 @@ By applying this pattern in a more decent way, it was easier to structure the re
 
 TODO: ???
 
-### Changing the View
-
+### STATE STUFF
 #### Problem in Context
+    
 
 #### The Pattern
 
-Factory and Abstract Factory
+STate
 
 #### The Implementation
 
 #### Consequences
 
+### Changing the View
+#### Problem in Context
+Given our decision to separate a View into parts, one for each State, we needed a better way to distribute them. This need was highlighted even more whenever we wanted to transition from state A to state B, as we needed to also instanteate the particular view B from the "unrelated" state A.
+
+#### The Pattern
+
+For this problem we used both the Factory Pattern and the Abstract Factory Pattern. This approach allows for an easy switch between using different Views (by only changing the factory itself) and helps us respect both the SRP and the OCP because the abstract ViewFactory can simply ignore all the dependencies it actually needs (these dependencies are only present in the concrete ViewFactories). 
+
+
+#### The Implementation
+
+The Abstract Factory Pattern allows the Main Controller to simply instantiate the desired View, allowing any State to simply call `ViewFactory.getDesiredView()` and the Concrete Factory, for example LanternaViewFactory, to return the complete View object, which simplifies all our state transitions.
+
+![abstractfactorystrategy](./images/designs/factory/abstractFactory.svg)
+
+These classes can be found in the following files:
+- [Abstract View Factory](../src/main/java/com/lpoo/redstonetools/view/ViewFactory.java)
+- [Lanterna View Factory](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaViewFactory.java)
+- [Lanterna Circuit View](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
+- [Lanterna Menu View](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java)
+- [View](../src/main/java/com/lpoo/redstonetools/view/View.java)
+- [Circuit View](../src/main/java/com/lpoo/redstonetools/view/CircuitView.java)
+- [Menu View](../src/main/java/com/lpoo/redstonetools/view/MenuView.java)
+- [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java)
+- [Circuit State](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java)
+- [Menu State](../src/main/java/com/lpoo/redstonetools/controller/state/MenuState.java)
+- [Main Controller](../src/main/java/com/lpoo/redstonetools/MainController.java)
+
+#### Consequences
+
+Abstract Factory garantees that the rest of the program does not need any more knowledge/dependencies on the View currently being used, as well as giving us more flexibility and allowing shared resources in a given View, such as a Terminal in Lanterna's case or some initialized buffers in an eventual OpenGL View. As far as alternatives go, we didn't have any, as this pattern was a perfect fit.
 
 ### Logic Gates Behave Similarly Only Changing Functionality
 #### Problem in Context
