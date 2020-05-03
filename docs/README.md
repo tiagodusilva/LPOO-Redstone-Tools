@@ -247,9 +247,6 @@ Using LanternCircuitView mentioned above as an example, whenever the user presse
 
 Every View has a Queue of Events, consisting of an Enum indicating what action needs to be taken (InputEvent) and an Object used to pass additional information on some actions. The need for this will be made more apparent on the following [Commands](#commands) chapter. Every game loop, the GameController calls `State.processEvents()`, in which the State (the mediator) processes every Event in the Queue and handles it (currently the chain of command goes no further, as even the QUIT event is also handled inside the State superclass). 
 
-#### Consequences
-Preventing the View from directly altering the Model, separating responsabilities exclusive to the View from the rest of the Model and Controller.
-
 These patterns can be found in the following files:
 - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java")
 - [CircuitState](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java")
@@ -260,6 +257,9 @@ These patterns can be found in the following files:
 - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
 - [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java)
 
+#### Consequences
+Preventing the View from directly altering the Model, separating responsabilities exclusive to the View from the rest of the Model and Controller.
+
 ### Commands
 #### Problem in Context
 We needed a way to execute small actions without violating the **Single Responsability Principle** (SRP) and that was easy to maintain. Such actions include adding a Tile to the Circuit, rotating or interacting with a Tile, among others.
@@ -269,9 +269,6 @@ We implemented the **Command Pattern**, which can encapsulate a request as an ob
 
 #### The Implementation
 We created a base Command interface with only a `void execute()` as a requirement. 
-
-#### Consequences
-The Commands we developed ended up being very versatile, as we used them for both View exclusive actions as well as MVC spanning ones, making the code much more readable and maintanable. It also helped establish both the **Single Responsability Principle** and the **Open/Close Principle**.
 
 This pattern can be found in the following files:
 - Command Interface:
@@ -297,6 +294,9 @@ This pattern can be found in the following files:
 - - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
 - - [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java)
 
+#### Consequences
+The Commands we developed ended up being very versatile, as we used them for both View exclusive actions as well as MVC spanning ones, making the code much more readable and maintanable. It also helped establish both the **Single Responsability Principle** and the **Open/Close Principle**.
+
 ### So many Renderers
 #### Problem in Context
 When developing the Lanterna rendering for the circuit, we quicly came to realize that having a TileRenderer per Tile would be unnecessary and wasteful. Having one TileRenderer per Tile also meant we violated the **Single Responsability Principle** (SRP), so this issue had to be taken care of quickly.
@@ -309,22 +309,35 @@ As a side-effect, our LanternaCircuitView also has a kind of *Hierarchical Model
 #### The Implementation
 The LanternaCircuitView has one instance of every LanternaTileRenderer, mapped to every Tile. When rendering a circuit we simply call the correct Renderer.
 
-#### Consequences
-Less resources taken from the system as well as a better separation of responsabilities. Unlike an usual downside of this pattern, our code ended up much simpler than before.
-
 This pattern can be found in the following file:
 - - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
 
+#### Consequences
+Less resources taken from the system as well as a better separation of responsabilities. Unlike an usual downside of this pattern, our code ended up much simpler than before.
+
 ### Circuit Updates
 #### Problem in Context
-
+Whenever a Tile updates its output, there are almost always changes to be made in the rest of the Circuit. For example, toggling a Lever with a Wire next to it means the Wire's power may change, so we need to try to update it.
 
 #### The Pattern
-Observer
+To solve this problem we used the **Observer Patterm**, which allows objects to be notified of something whenever it may happend.
+
+The **Mediator Pattern** appeared naturally.
 
 #### The Implementation
+In our case, whenever the CircuitController adds, removes, rotates or interacts with a Tile, it triggers an Update to it, as it may require to be changed. Furthermore, it also notifies their neighbours in the Circuit (up, down, left and right). Our updates also contain the Power received and the Side the update comes from. This intends to mimic a basic event-driven circuit simulation (as well as Minecraft's vanilla redstone mechanics).
+
+As an improvement, our update method only really updates (Tile's method `onChange()`) if it would really changes. As an example, when a not gate receives an update from a non-input side, it doesn't care and ignores it. Whenever the updated Tile's output changes, then the update call returns true, signaling the circuit that its neighboring Tiles should be updated as well. In the case described above, it would return false.
+
+These patterns can be found in the following files:
+- [CircuitController](../src/main/java/com/lpoo/redstonetools/controller/circuit/CircuitController.java)
+- [Circuit](../src/main/java/com/lpoo/redstonetools/model/circuit/Circuit.java)
+- [Tile](../src/main/java/com/lpoo/redstonetools/model/tile/Tile.java)
+- All the Tile's subclasses
 
 #### Consequences
+
+Really hard to know exactly how many Tile updates an action may have. Removes the dependancy between a Tile and its neighbors, as the CircuitController serves as mediator between them (**Mediator Pattern**).
 
 ## Known Code Smells and Refactoring Suggestions
 
