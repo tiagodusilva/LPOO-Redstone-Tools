@@ -20,10 +20,10 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
     2. [Model View Controller](#model-view-controller-(mvc))
     3. [Game States](#game-states)
     4. [Changing the View](#changing-the-view)
-    5. [Logic Gates' Similar Behaviour](#logic_gates'_similar_behaviour)
-    6. [Event System](#event_system)
+    5. [Logic Gates' Similar Behaviour](#logic-gates-similar-behaviour)
+    6. [Event System](#event-system)
     7. [Commands](#commands)
-    8. [So many Renderers](#so_many_renderers)
+    8. [So many Renderers](#so-many-renderers)
     9. [Circuit Updates](#circuit-updates)
 4. [Known Code Smells and Refactoring Suggestions](#known-code-smells-and-refactoring-suggestions)
 5. [Testing](#testing)
@@ -277,29 +277,31 @@ We implemented the **Command Pattern**, which can encapsulate a request as an ob
 #### The Implementation
 We created a base Command interface with only a `void execute()` as a requirement.
 
+![UML showcasing Command design](./images/designs/command/command.svg)
+
 This pattern can be found in the following files:
 - Command Interface:
-- - [Command](../src/main/java/com/lpoo/redstonetools/controller/command/Command.java)
+  - [Command](../src/main/java/com/lpoo/redstonetools/controller/command/Command.java)
 - General Commands:
-- - [AddTileCommand](../src/main/java/com/lpoo/redstonetools/controller/command/AddTileCommand.java)
-- - [AdvanceTickCommand](../src/main/java/com/lpoo/redstonetools/controller/command/AdvanceTickCommand.java)
-- - [EnterStateCommand](../src/main/java/com/lpoo/redstonetools/controller/command/EnterStateCommand.java)
-- - [InteractionCommand](../src/main/java/com/lpoo/redstonetools/controller/command/InteractionCommand.java)
-- - [RotateLeftCommand](../src/main/java/com/lpoo/redstonetools/controller/command/RotateLeftCommand.java)
-- - [RotateRightCommand](../src/main/java/com/lpoo/redstonetools/controller/command/RotateRightCommand.java)
+  - [AddTileCommand](../src/main/java/com/lpoo/redstonetools/controller/command/AddTileCommand.java)
+  - [AdvanceTickCommand](../src/main/java/com/lpoo/redstonetools/controller/command/AdvanceTickCommand.java)
+  - [EnterStateCommand](../src/main/java/com/lpoo/redstonetools/controller/command/EnterStateCommand.java)
+  - [InteractionCommand](../src/main/java/com/lpoo/redstonetools/controller/command/InteractionCommand.java)
+  - [RotateLeftCommand](../src/main/java/com/lpoo/redstonetools/controller/command/RotateLeftCommand.java)
+  - [RotateRightCommand](../src/main/java/com/lpoo/redstonetools/controller/command/RotateRightCommand.java)
 - View Exclusive Commands:
-- - [LanternaToggleShowPowerCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/LanternaToggleShowPowerCommand.java)
-- - [MoveSelectionCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/MoveSelectionCommand.java)
-- - [MoveViewWindowCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/MoveViewWindowCommand.java)
+  - [LanternaToggleShowPowerCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/LanternaToggleShowPowerCommand.java)
+  - [MoveSelectionCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/MoveSelectionCommand.java)
+  - [MoveViewWindowCommand](../src/main/java/com/lpoo/redstonetools/view/lanterna/command/MoveViewWindowCommand.java)
 - Used in and by, for example
-- - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java")
-- - [CircuitState](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java")
-- - [MenuState](../src/main/java/com/lpoo/redstonetools/controller/state/MenuState.java")
-- - [Event](../src/main/java/com/lpoo/redstonetools/controller/event/Event.java)
-- - [InputEvent](../src/main/java/com/lpoo/redstonetools/controller/event/InputEvent.java)
-- - [View](../src/main/java/com/lpoo/redstonetools/view/View.java)
-- - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
-- - [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java)
+  - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java")
+  - [CircuitState](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java")
+  - [MenuState](../src/main/java/com/lpoo/redstonetools/controller/state/MenuState.java")
+  - [Event](../src/main/java/com/lpoo/redstonetools/controller/event/Event.java)
+  - [InputEvent](../src/main/java/com/lpoo/redstonetools/controller/event/InputEvent.java)
+  - [View](../src/main/java/com/lpoo/redstonetools/view/View.java)
+  - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
+  - [LanternaMenuView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuView.java)
 
 #### Consequences
 The Commands we developed ended up being very versatile, as we used them for both View exclusive actions as well as MVC spanning ones, making the code much more readable and maintanable. It also helped establish both the **Single Responsability Principle** and the **Open/Close Principle**.
@@ -317,7 +319,7 @@ As a side-effect, our LanternaCircuitView also has a kind of *Hierarchical Model
 The LanternaCircuitView has one instance of every LanternaTileRenderer, mapped to every Tile. When rendering a circuit we simply call the correct Renderer.
 
 This pattern can be found in the following file:
-- - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
+  - [LanternaCircuitView](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaCircuitView.java)
 
 #### Consequences
 Less resources taken from the system as well as a better separation of responsabilities. Unlike an usual downside of this pattern, our code ended up much simpler than before.
