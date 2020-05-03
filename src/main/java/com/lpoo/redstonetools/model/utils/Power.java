@@ -39,6 +39,32 @@ public abstract class Power {
     }
 
     /**
+     * <h1>Returns true if power level is On</h1>
+     * @param value Value to be verified
+     * @return True when power != getMin()
+     *      False otherwise
+     */
+    public static boolean isOn(int value) { return !isOff(value); }
+
+    /**
+     * <h1>Returns true if power level is Off</h1>
+     * @param value Value to be verified
+     * @return True when power == getMin()
+     *      False otherwise
+     */
+    public static boolean isOff(int value) { return value == getMin(); }
+
+    /**
+     *<h1>Compares if a power is On and the other is Off</h1>
+     * @param a Power value 1
+     * @param b Power value 2
+     * @return True when a is On and b is Off, or vice-versa
+     */
+    public static boolean differentStates(int a, int b) {
+        return (isOn(a) && isOff(b)) || (isOff(a) && isOn(b));
+    }
+
+    /**
      * <h1>Normalizes power level</h1>
      * Transforms power level into a number between 0 and 1 (inclusive) as long as the value passed is within the power levels admitted
      *

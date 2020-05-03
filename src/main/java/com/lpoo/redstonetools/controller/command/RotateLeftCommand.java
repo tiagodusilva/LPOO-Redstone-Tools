@@ -17,7 +17,7 @@ public class RotateLeftCommand implements Command {
 
     @Override
     public void execute() {
-        circuitController.rotateTileRight(circuit, position);
+        circuitController.rotateTileLeft(circuit, position);
     }
 
 }
