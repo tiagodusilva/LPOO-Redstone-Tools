@@ -1,6 +1,11 @@
 plugins {
     id 'java'
+    id 'application'
     id 'info.solidsoft.pitest' version '1.4.6'
+}
+
+application {
+    mainClassName = 'com.lpoo.redstonetools.Application'
 }
 
 group 'com.lpoo.redstonetools'
