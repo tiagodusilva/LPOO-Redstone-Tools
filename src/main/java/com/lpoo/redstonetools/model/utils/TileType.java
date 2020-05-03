@@ -24,5 +24,9 @@ public enum TileType {
     /**
      * @see com.lpoo.redstonetools.model.tile.RepeaterTile
      */
-    REPEATER
+    REPEATER,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.NotGateTile
+     */
+    NOT_GATE
 }

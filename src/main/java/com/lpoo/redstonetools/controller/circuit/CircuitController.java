@@ -159,11 +159,12 @@ public class CircuitController {
      * @param position      Position of the tile that generated the update
      */
     private void notifyNeighbourTiles(Circuit circuit, Position position) {
+        Tile self = circuit.getTile(position);
         Tile tile;
         for (Side side : Side.values()) {
             tile = circuit.getTile(position.getNeighbour(side));
             tile.updateConnections(circuit);
-            updateNeighbourTile(circuit, position, tile.getPower(side), side);
+            updateNeighbourTile(circuit, position, self.getPower(side), side);
         }
     }
 

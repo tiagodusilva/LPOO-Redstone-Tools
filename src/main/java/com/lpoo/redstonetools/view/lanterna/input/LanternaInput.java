@@ -67,6 +67,9 @@ public class LanternaInput extends Thread {
                             case '4':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new RepeaterTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
+                            case '5':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NotGateTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
                                 break;

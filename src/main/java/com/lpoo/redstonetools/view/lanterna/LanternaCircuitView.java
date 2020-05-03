@@ -51,6 +51,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.SOURCE, new LanternaConstantSourceTileView());
         renderers.put(TileType.LEVER, new LanternaLeverTileView());
         renderers.put(TileType.REPEATER, new LanternaRepeaterTileView());
+        renderers.put(TileType.NOT_GATE, new LanternaNotGateTileView());
     }
 
     public Screen getScreen() {
