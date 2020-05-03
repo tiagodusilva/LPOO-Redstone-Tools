@@ -115,7 +115,7 @@ We have applied the same pattern, the architectural pattern *MVC*, but now in a 
 
 #### The Implementation
 As the implementation of this pattern involves multiple classes, and it's more an abstract idea it will not be provided specific classes, just the packages where each part is contained. The design implemented is show in the following figure:  
-![mvcdesign](./images/designs/mvc/mvc_design.png)
+![mvcdesign](./images/designs/mvc/mvc_design.svg)
 
 The three parts of the *MVC* can be found in:
 - [Model](../src/main/java/com/lpoo/redstonetools/model/)
@@ -143,7 +143,7 @@ This problem can be easily solved by using the **Strategy** pattern, as all the 
 #### The Implementation
 To implement this pattern, we just need to create a interface for the strategy, in this context the strategy is the functionality of the logic gate, this is, the operation done by the logic gate given the values of the powers received.  
 The implementation of this pattern is illustrated in the following figure, simplifying the class *LogicGateTile* as this class extends from other *Tile* class as it is not relevant for this implementation:  
-![logicgatestrategy](./images/designs/strategy/LogicGateStrategy.png)
+![logicgatestrategy](./images/designs/strategy/LogicGateStrategy.svg)
 
 These classes can be found in the following files:
 - [LogicGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/LogicGateTile.java)
