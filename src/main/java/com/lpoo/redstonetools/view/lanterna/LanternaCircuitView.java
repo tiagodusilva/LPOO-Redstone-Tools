@@ -1,5 +1,7 @@
 package com.lpoo.redstonetools.view.lanterna;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,6 +13,7 @@ import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
+import javafx.scene.control.TextInputDialog;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,6 +31,8 @@ public class LanternaCircuitView extends CircuitView {
 
     private LanternaInput lanternaInput;
 
+    private TextColor circuitBackground;
+
     public LanternaCircuitView(Screen screen, Circuit circuit) {
         super();
 
@@ -38,6 +43,7 @@ public class LanternaCircuitView extends CircuitView {
         selectedTile = new Position(0, 0);
         viewWindow = new Position(0, 0);
         this.initRenderers();
+        circuitBackground = TextColor.Factory.fromString("#181818");
 
         // Init input thread
         lanternaInput = new LanternaInput(this);
@@ -114,14 +120,21 @@ public class LanternaCircuitView extends CircuitView {
     }
 
     private void renderCircuit(TextGraphics graphics) {
+
+        graphics.setBackgroundColor(circuitBackground);
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+
+        graphics.fillRectangle(new TerminalPosition(-viewWindow.getX()*3, -viewWindow.getY()*3), new TerminalSize(circuit.getWidth()*3, circuit.getHeight()*3), ' ');
+
         // TODO: Refactor this, x is the top x-coordinate of the circuit
         for (int i = 0, x = viewWindow.getX(); i < getColumns() * 3; i+=3, x++) {
             // TODO: Refactor this, y is the top y-coordinate of the circuit
             for (int j = 0, y = viewWindow.getY(); j < getRows() * 3; j+=3, y++) {
-                graphics.setBackgroundColor(TextColor.ANSI.BLACK);
                 graphics.setForegroundColor(TextColor.ANSI.WHITE);
-                Tile tile = circuit.getTile(x, y);
-                renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
+                if (x >= 0 && y >= 0 && x < circuit.getWidth() && y < circuit.getHeight()) {
+                    Tile tile = circuit.getTile(x, y);
+                    renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
+                }
             }
         }
 
