@@ -15,7 +15,7 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
         1. [LanternaMenu](#lanterna-menu)
         2. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
 2. [Planned Features](#planned-features)
-3. [Design & Patterns](#design-&-patterns)
+3. [Design](#design)
     1. [Used Patterns](#used-patterns)
     2. [Model View Controller](#model-view-controller-(mvc))
     3. [Game States](#game-states)
@@ -109,7 +109,7 @@ From left to right, top to bottom:
  - [x] Variable strength signals (0-15), loosing strength at each wire travelled
  - [ ] Lossless two state signals
 
-## Design & Patterns
+## Design
 
  ### Used Patterns
 
