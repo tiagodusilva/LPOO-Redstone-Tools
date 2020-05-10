@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools;
 
+import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.state.CircuitState;
 import com.lpoo.redstonetools.controller.state.MenuState;
 import com.lpoo.redstonetools.controller.state.State;
@@ -14,8 +15,8 @@ public class Application implements MainController {
         app.run();
     }
 
-    ViewFactory viewFactory;
-    State state;
+    private ViewFactory viewFactory;
+    private State state;
 
     public Application() {
         viewFactory = new LanternaViewFactory();
@@ -48,5 +49,10 @@ public class Application implements MainController {
         this.state.atExit();
         this.state = state;
         System.out.println("Exited");
+    }
+
+    @Override
+    public CircuitController getCircuitController() {
+        return new CircuitController();
     }
 }

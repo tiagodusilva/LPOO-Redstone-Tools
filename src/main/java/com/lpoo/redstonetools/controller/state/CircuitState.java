@@ -22,7 +22,7 @@ public class CircuitState extends State {
         super(mainController);
 
         this.circuit = circuit;
-        this.circuitController = new CircuitController();
+        this.circuitController = mainController.getCircuitController();
         this.circuitView = mainController.getViewFactory().getCircuitView(circuit);
     }
 
