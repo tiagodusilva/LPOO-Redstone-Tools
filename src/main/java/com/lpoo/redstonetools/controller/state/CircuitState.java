@@ -51,6 +51,7 @@ public class CircuitState extends State {
                         break;
                     case QUIT:
                         this.exit = true;
+                        events.clear();
                         return;
                     default:
                         break;

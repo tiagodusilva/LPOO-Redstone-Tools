@@ -8,7 +8,7 @@ import java.util.Queue;
 public abstract class View {
     protected Queue<Event> events;
     public View() {
-        events = new LinkedList<Event>();
+        events = new LinkedList<>();
     }
 
     public abstract void render();

@@ -31,6 +31,7 @@ public class MenuState extends State {
                         break;
                     case QUIT:
                         this.exit = true;
+                        events.clear();
                         return;
                     default:
                         break;
