@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ANDGateStrategyTest {
+public class NANDGateStrategyTest {
 
     @Test
     public void testLogic() {
@@ -23,9 +23,9 @@ public class ANDGateStrategyTest {
         }
         //
 
-        ANDGateStrategy strategy = new ANDGateStrategy();
+        NANDGateStrategy strategy = new NANDGateStrategy();
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // All side outputs
         for (Side side : Side.values()) {
@@ -35,29 +35,29 @@ public class ANDGateStrategyTest {
         inputs.put(Side.LEFT, Power.getMax());
         inputs.put(Side.DOWN, Power.getMax());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // Input doesn't have power
         sideTypes.put(Side.RIGHT, SideType.INPUT);
         sideTypes.put(Side.UP, SideType.INPUT);
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // Input sides have power
         inputs.put(Side.RIGHT, Power.getMax());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.UP, Power.getMax());
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         sideTypes.put(Side.LEFT, SideType.INPUT);
         inputs.put(Side.LEFT, Power.getMin());
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.LEFT, 1);
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assert.assertFalse(strategy.logic(inputs, sideTypes));
     }
 }
