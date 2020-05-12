@@ -62,12 +62,54 @@ public class LanternaSaveStrategy implements SaveStrategy {
     }
 
     @Override
-    public void notifySuccess() {
+    public void notifySuccess(String filename) {
+        Screen screen = lanternaCircuitView.getScreen();
+        AtomicBoolean windowNotClosed = new AtomicBoolean(true);
 
+        MultiWindowTextGUI textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
+        Panel mainPanel = new Panel();
+
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel);
+
+        mainPanel.addComponent(new Label("Circuit saved successfully as:"));
+        mainPanel.addComponent(new Label(filename));
+
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        Button acceptButton = new Button("Ok", () -> {
+            windowNotClosed.set(false);
+            textGUI.removeWindow(window);
+        });
+        mainPanel.addComponent(acceptButton.withBorder(Borders.doubleLine()));
+
+        window.setFocusedInteractable(acceptButton);
+        textGUI.addWindowAndWait(window);
     }
 
     @Override
-    public void notifyFailure() {
+    public void notifyFailure(String filename) {
+        Screen screen = lanternaCircuitView.getScreen();
+        AtomicBoolean windowNotClosed = new AtomicBoolean(true);
 
+        MultiWindowTextGUI textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
+        Panel mainPanel = new Panel();
+
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel);
+
+        mainPanel.addComponent(new Label("Failed to save circuit as:"));
+        mainPanel.addComponent(new Label(filename));
+
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        Button acceptButton = new Button("Ok", () -> {
+            windowNotClosed.set(false);
+            textGUI.removeWindow(window);
+        });
+        mainPanel.addComponent(acceptButton.withBorder(Borders.doubleLine()));
+
+        window.setFocusedInteractable(acceptButton);
+        textGUI.addWindowAndWait(window);
     }
 }
