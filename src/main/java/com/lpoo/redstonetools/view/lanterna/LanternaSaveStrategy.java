@@ -10,7 +10,6 @@ import com.lpoo.redstonetools.view.SaveStrategy;
 
 import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class LanternaSaveStrategy implements SaveStrategy {
 
@@ -42,7 +41,6 @@ public class LanternaSaveStrategy implements SaveStrategy {
 
         mainPanel.addComponent(new Button("Save Circuit", () -> {
             windowNotClosed.set(false);
-            System.out.println(fileTextbox.getLine(0));
             filename = new File("circuits/" + fileTextbox.getLine(0)).getAbsolutePath();
             textGUI.removeWindow(window);
         }).withBorder(Borders.doubleLine()));
