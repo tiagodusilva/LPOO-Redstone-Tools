@@ -25,6 +25,8 @@ public class NANDGateStrategyTest {
 
         NANDGateStrategy strategy = new NANDGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.NAND, strategy.getType());
+
         Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // All side outputs

@@ -25,6 +25,8 @@ public class XORGateStrategyTest {
 
         XORGateStrategy strategy = new XORGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.XOR, strategy.getType());
+
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         // All side outputs

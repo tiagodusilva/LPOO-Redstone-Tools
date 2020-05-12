@@ -25,6 +25,8 @@ public class XNORGateStrategyTest {
 
         XNORGateStrategy strategy = new XNORGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.XNOR, strategy.getType());
+
         Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // All side outputs

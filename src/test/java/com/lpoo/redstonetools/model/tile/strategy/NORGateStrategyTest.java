@@ -25,6 +25,8 @@ public class NORGateStrategyTest {
 
         NORGateStrategy strategy = new NORGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.NOR, strategy.getType());
+
         Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // All side outputs

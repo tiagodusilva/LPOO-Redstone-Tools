@@ -63,6 +63,32 @@ public class MenuStateTest {
     }
 
     @Test
+    public void testProcessEventsShortCircuit() {
+        Event e1 = Mockito.mock(Event.class);
+        Event e2 = Mockito.mock(Event.class);
+
+        Queue<Event> events = new LinkedList<>();
+        events.add(e1); events.add(e2);
+
+        Mockito.when(view.getEvents()).thenReturn(events);
+
+        Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.QUIT);
+        Mockito.when(e2.getInputEvent()).thenReturn(InputEvent.ADD_TILE);
+
+        Assert.assertFalse(state.exit());
+
+        state.processEvents();
+
+        Mockito.verify(view, Mockito.times(1)).getEvents();
+        Assert.assertTrue(events.isEmpty());
+
+        Mockito.verify(e1, Mockito.times(1)).getInputEvent();
+        Mockito.verify(e2, Mockito.times(0)).getInputEvent();
+
+        Assert.assertTrue(state.exit());
+    }
+
+    @Test
     public void testProcessEvents() {
         Event e1 = Mockito.mock(Event.class);
         Event e2 = Mockito.mock(Event.class);
@@ -80,22 +106,11 @@ public class MenuStateTest {
         state.processEvents();
 
         Mockito.verify(view, Mockito.times(1)).getEvents();
-        Assert.assertEquals(0, events.size());
+        Assert.assertTrue(events.isEmpty());
 
         Mockito.verify(e1, Mockito.times(1)).getInputEvent();
         Mockito.verify(e2, Mockito.times(1)).getInputEvent();
 
         Assert.assertTrue(state.exit());
-
-        events.add(e2); events.add(e1);
-
-        state.processEvents();
-
-        Mockito.verify(view, Mockito.times(2)).getEvents();
-        Assert.assertTrue(events.isEmpty());
-
-        Mockito.verify(e1, Mockito.times(1)).getInputEvent();
-        Mockito.verify(e2, Mockito.times(2)).getInputEvent();
-
     }
 }

@@ -36,7 +36,6 @@ public class RepeaterTileTest {
         Assert.assertEquals("repeater", repeater.getName());
         Assert.assertEquals("Active : false", repeater.getInfo());
         Assert.assertEquals(TileType.REPEATER, repeater.getType());
-        Assert.assertFalse(repeater.isSource());
     }
 
     @Test

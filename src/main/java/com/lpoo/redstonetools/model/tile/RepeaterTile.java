@@ -56,6 +56,15 @@ public class RepeaterTile extends OrientedTile {
     public String getInfo() { return "Active : " + this.active; }
 
     /**
+     * <h1>Get repeater status</h1>
+     *
+     * @return  Repeater status
+     */
+    public boolean getStatus() {
+        return this.active;
+    }
+
+    /**
      * <h1>Set repeater status</h1>
      *
      * @param status    New repeater status

@@ -25,6 +25,8 @@ public class ANDGateStrategyTest {
 
         ANDGateStrategy strategy = new ANDGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.AND, strategy.getType());
+
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         // All side outputs

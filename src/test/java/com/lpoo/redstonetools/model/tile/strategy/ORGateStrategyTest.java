@@ -25,6 +25,8 @@ public class ORGateStrategyTest {
 
         ORGateStrategy strategy = new ORGateStrategy();
 
+        Assert.assertEquals(LogicGateStrategyType.OR, strategy.getType());
+
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         // All side outputs
