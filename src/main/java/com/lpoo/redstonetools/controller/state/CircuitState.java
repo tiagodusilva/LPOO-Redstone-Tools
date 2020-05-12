@@ -82,10 +82,12 @@ public class CircuitState extends State {
     private void saveCircuit(SaveStrategy saveStrategy) {
         circuitView.stopInputs();
         String filename = saveStrategy.getFileName();
-        if (filename != null && CircuitController.saveCircuit(circuit, filename))
-            saveStrategy.notifySuccess(filename);
-        else
-            saveStrategy.notifyFailure(filename);
+        if (filename != null) {
+            if (CircuitController.saveCircuit(circuit, filename))
+                saveStrategy.notifySuccess(filename);
+            else
+                saveStrategy.notifyFailure(filename);
+        }
         circuitView.startInputs();
     }
 
