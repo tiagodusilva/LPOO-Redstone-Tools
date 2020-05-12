@@ -3,7 +3,6 @@ package com.lpoo.redstonetools.controller.circuit;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
 /**
@@ -106,9 +105,8 @@ public class CircuitController {
     public void advanceTick(Circuit circuit) {
         circuit.advanceTick();
 
-        for (Position position : circuit.getSources()) {
-            Tile tile = circuit.getTile(position);
-            if (((SourceTile)tile).nextTick()) {
+        for (Position position : circuit.getTickedTiles()) {
+            if (circuit.getTile(position).nextTick()) {
                 updateAllNeighbourTiles(circuit, position);
             }
         }
@@ -158,7 +156,7 @@ public class CircuitController {
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile that generated the update
      */
-    private void notifyNeighbourTiles(Circuit circuit, Position position) {
+    public void notifyNeighbourTiles(Circuit circuit, Position position) {
         Tile self = circuit.getTile(position);
         Tile tile;
         for (Side side : Side.values()) {
