@@ -32,12 +32,10 @@ public class LanternaSaveStrategy implements SaveStrategy {
 
         mainPanel.setLayoutManager(new GridLayout(2));
 
-        mainPanel.addComponent(new Label("Circuits will be created in the 'circuits' directory"));
-        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 2)));
-
         TextBox fileTextbox = new TextBox(new TerminalSize(45, 1), "circuit.ser");
-        mainPanel.addComponent(fileTextbox);
-        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 2)));
+        Border borderedTextBox = fileTextbox.withBorder(Borders.singleLine("Circuits will be created in the 'circuits' directory"));
+        mainPanel.addComponent(borderedTextBox);
+        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 4)));
 
         Window window = new BasicWindow();
         window.setComponent(mainPanel);
