@@ -45,8 +45,8 @@ public class LanternaCircuitView extends CircuitView {
         circuitBackground = TextColor.Factory.fromString("#181818");
 
         // Init input thread
-        lanternaInput = new LanternaInput(this);
-        lanternaInput.start();
+        lanternaInput = null;
+        startInputs();
     }
 
     private void initRenderers() {
@@ -168,12 +168,26 @@ public class LanternaCircuitView extends CircuitView {
 
     @Override
     public void cleanup() {
+        stopInputs();
+        this.events.clear();
+    }
+
+    @Override
+    public void stopInputs() {
         lanternaInput.interrupt();
         try {
             lanternaInput.join();
+            lanternaInput = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.events.clear();
+    }
+
+    @Override
+    public void startInputs() {
+        if (lanternaInput == null) {
+            lanternaInput = new LanternaInput(this);
+            lanternaInput.start();
+        }
     }
 }

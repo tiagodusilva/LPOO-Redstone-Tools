@@ -7,6 +7,7 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author g79
  */
-public class Circuit implements Model {
+public class Circuit implements Model, Serializable {
 
     /**
      * <h1>Tiles of the circuit</h1>
