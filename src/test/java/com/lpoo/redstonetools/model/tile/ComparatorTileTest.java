@@ -313,4 +313,31 @@ public class ComparatorTileTest {
         Assert.assertTrue(comparator.interact());
         Assert.assertFalse(comparator.getSubtractMode());
     }
+
+    @Test
+    public void testUpdateOnModeChange() {
+        comparator.setSubtractMode(false);
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        Mockito.when(comparator.outputsPower(Mockito.any(Side.class))).thenReturn(false);
+        Mockito.when(comparator.outputsPower(Side.RIGHT)).thenReturn(true);
+        comparator.updateRear();
+        Assert.assertEquals(Side.LEFT, comparator.getRear());
+
+        Mockito.when(comparator.acceptsPower(Mockito.any(Side.class))).thenReturn(false);
+        Mockito.when(comparator.acceptsPower(Side.LEFT)).thenReturn(true);
+        Mockito.when(comparator.acceptsPower(Side.UP)).thenReturn(true);
+
+        Assert.assertTrue(comparator.update(circuit, Power.getMax(), Side.LEFT));
+        Assert.assertFalse(comparator.update(circuit, Power.getMax(), Side.UP));
+
+        Assert.assertEquals(Power.getMax(), comparator.getPower(Side.RIGHT));
+
+        Assert.assertTrue(comparator.interact());
+
+        Assert.assertTrue(comparator.getSubtractMode());
+
+        Assert.assertTrue(comparator.update(circuit, Power.getMax(), Side.LEFT));
+        Assert.assertEquals(Power.getMin(), comparator.getPower(Side.RIGHT));
+    }
 }

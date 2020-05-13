@@ -16,6 +16,12 @@ public class ComparatorTile extends OrientedTile {
     private boolean subtractMode;
 
     /**
+     * <h1>Force update to take place</h1>
+     * Forces an update even if the inputs haven't changed, in case the comparator changes modes
+     */
+    private boolean forceUpdate;
+
+    /**
      * <h1>Power being outputted</h1>
      * Comparator outputs power if:
      *  - In comparison mode: rear signal is greater than the side signals, then outputs the rear signal
@@ -50,6 +56,8 @@ public class ComparatorTile extends OrientedTile {
         this.sides.put(Side.RIGHT, SideType.OUTPUT);
 
         updateRear();
+
+        this.forceUpdate = false;
 
         this.powers = new HashMap<>();
         this.powers.put(Side.UP, Power.getMin());
@@ -200,7 +208,7 @@ public class ComparatorTile extends OrientedTile {
      */
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
-        boolean needs_update = powers.getOrDefault(side, Power.getMin()) != power;
+        boolean needs_update = forceUpdate || powers.getOrDefault(side, Power.getMin()) != power;
         if (acceptsPower(side) && needs_update) {
             return onChange(circuit, power, side);
         }
@@ -219,6 +227,7 @@ public class ComparatorTile extends OrientedTile {
     @Override
     protected boolean onChange(Circuit circuit, int power, Side side) {
         this.powers.put(side, power);
+        this.forceUpdate = false;
         if (rear == null) return false;
 
         int old_power = this.power;
@@ -246,6 +255,7 @@ public class ComparatorTile extends OrientedTile {
     @Override
     public boolean interact() {
         this.setSubtractMode(!this.subtractMode);
+        this.forceUpdate = true;
         return true;
     }
 }
