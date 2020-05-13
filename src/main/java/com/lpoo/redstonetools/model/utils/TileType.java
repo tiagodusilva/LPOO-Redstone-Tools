@@ -34,6 +34,10 @@ public enum TileType {
      */
     NOT_GATE,
     /**
+     * @see com.lpoo.redstonetools.model.tile.ComparatorTile
+     */
+    COMPARATOR,
+    /**
      * @see com.lpoo.redstonetools.model.tile.TimerTile
      */
     TIMER

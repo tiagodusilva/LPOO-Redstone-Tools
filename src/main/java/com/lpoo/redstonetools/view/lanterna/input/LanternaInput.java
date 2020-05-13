@@ -82,6 +82,9 @@ public class LanternaInput extends Thread {
                             case '\'':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XNORGateStrategy())));
                                 break;
+                            case 'o':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ComparatorTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case '+':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new TimerTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;

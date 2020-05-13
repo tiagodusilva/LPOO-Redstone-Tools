@@ -93,7 +93,9 @@ public class CircuitController {
      * @param position  Position of the Tile to be interacted with
      */
     public void interact(Circuit circuit, Position position) {
-        if (circuit.getTile(position).interact()) {
+        Tile tile = circuit.getTile(position);
+        if (tile.interact()) {
+            tile.update(circuit);
             updateAllNeighbourTiles(circuit, position);
         }
     }
