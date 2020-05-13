@@ -9,7 +9,13 @@ public class LanternaNullTileView extends LanternaTileView {
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
-        graphics.setCharacter(column + 1, row + 1, ' ');
+        if (((NullTile) tile).isBroken()) {
+            renderBrokenFrame(graphics, column, row);
+            graphics.setCharacter(column + 1, row + 1, 'F');
+        }
+        else {
+            graphics.setCharacter(column + 1, row + 1, ' ');
+        }
     }
 
 }
