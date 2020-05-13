@@ -28,6 +28,21 @@ public abstract class LanternaTileView {
         return "#" + red_component + "0000";
     }
 
+    public String getBrokenColor() {
+        return "#f9ed04";
+    }
+
+    public void renderBrokenFrame(TextGraphics graphics, int column, int row) {
+        TextColor color = graphics.getForegroundColor();
+
+        graphics.setForegroundColor(TextColor.Factory.fromString(getBrokenColor()));
+        graphics.putString(column, row, "\u250F\u254D\u2513");
+        graphics.putString(column, row + 1, "\u254F \u254F");
+        graphics.putString(column, row + 2, "\u2517\u254D\u251B");
+
+        graphics.setForegroundColor(color);
+    }
+
     public void renderFrame(TextGraphics graphics, int column, int row) {
         graphics.putString(column, row, "\u250F\u2501\u2513");
         graphics.putString(column, row + 1, "\u2503 \u2503");

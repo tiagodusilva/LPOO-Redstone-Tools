@@ -5,8 +5,11 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  <h1>Circuit Controller</h1>
@@ -17,6 +20,14 @@ import java.io.*;
  * @author g79
  */
 public class CircuitController {
+
+    private static final int MAX_UPDATES = 10;
+    private Map<Position, Integer> updateTracker;
+
+
+    public CircuitController() {
+        updateTracker = new HashMap<Position, Integer>();
+    }
 
     /**
      * <h1>Loads a circuit from a .ser file</h1>
@@ -148,8 +159,26 @@ public class CircuitController {
         Position neighbour = position.getNeighbour(side);
         if (circuit.isInBounds(neighbour)) {
             Tile tile = circuit.getTile(neighbour);
-            if (tile.update(circuit, power, side.opposite())) {
-                updateAllNeighbourTiles(circuit, neighbour);
+            if (tile.getType() != TileType.NULL) {
+                if (!tile.isWire()) {
+                    try {
+                        updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 0) + 1);
+                        if (updateTracker.get(neighbour) < MAX_UPDATES) {
+                            if (tile.update(circuit, power, side.opposite())) {
+                                updateAllNeighbourTiles(circuit, neighbour);
+                            }
+                        } else {
+                            // Shortcircuit
+                            addTile(circuit, new NullTile(neighbour.clone(), true));
+                        }
+                    } finally {
+                        updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 1) - 1);
+                    }
+                } else {
+                    if (tile.update(circuit, power, side.opposite())) {
+                        updateAllNeighbourTiles(circuit, neighbour);
+                    }
+                }
             }
         }
     }

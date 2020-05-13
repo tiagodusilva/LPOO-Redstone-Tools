@@ -20,7 +20,7 @@ public class CircuitControllerTest {
 
     @Before
     public void setup() {
-        this.controller = Mockito.mock(CircuitController.class);
+        this.controller = Mockito.mock(CircuitController.class, Mockito.withSettings().useConstructor());
     }
 
     @Test
@@ -175,6 +175,7 @@ public class CircuitControllerTest {
         Mockito.verify(controller, Mockito.times(1)).updateNeighbourTile(circuit, position, Power.getMin(), Side.RIGHT);
     }
 
+    // TODO: Revise test
     @Test
     public void testUpdateNeighbourTile() {
         Circuit circuit = Mockito.mock(Circuit.class);
