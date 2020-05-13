@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools.model.utils;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  *
  * @author g79
  */
-public class Position {
+public class Position implements Serializable {
 
     /**
      * <h1>Coordinate on the X-axis</h1>

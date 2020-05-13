@@ -6,13 +6,15 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 
+import java.io.Serializable;
+
 /**
  *  <h1>Tile</h1>
  *  Tile is a part of the circuit, containing its own functionality
  *
  * @author g79
  */
-public abstract class Tile implements Model {
+public abstract class Tile implements Model, Serializable {
 
     /**
      * <h1>Position of the tile</h1>
