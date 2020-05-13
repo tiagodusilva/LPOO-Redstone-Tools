@@ -55,8 +55,8 @@ public abstract class OrientedTile extends Tile {
     }
 
     /**
-     * <h1>Rotates a tile to the left</h1>
-     * In an oriented tile rotating a tile to the left is switching the types of the sides in clock-wise direction
+     * <h1>Rotates a tile to the right</h1>
+     * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
      *
      * @return  true
      */
