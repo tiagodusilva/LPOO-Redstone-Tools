@@ -14,6 +14,10 @@ public enum TileType {
      */
     WIRE,
     /**
+     * @see com.lpoo.redstonetools.model.tile.CrossWireTile
+     */
+    CROSSWIRE,
+    /**
      * @see com.lpoo.redstonetools.model.tile.ConstantSourceTile
      */
     SOURCE,
