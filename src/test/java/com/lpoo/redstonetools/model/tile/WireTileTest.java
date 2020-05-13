@@ -36,7 +36,6 @@ public class WireTileTest {
         Assert.assertEquals("wire", wire.getName());
         Assert.assertEquals("Power : " + Power.getMin(), wire.getInfo());
         Assert.assertEquals(TileType.WIRE, wire.getType());
-        Assert.assertFalse(wire.isSource());
         Assert.assertTrue(wire.isWire());
     }
 

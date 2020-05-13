@@ -36,7 +36,6 @@ public class RepeaterTileTest {
         Assert.assertEquals("repeater", repeater.getName());
         Assert.assertEquals("Active : false", repeater.getInfo());
         Assert.assertEquals(TileType.REPEATER, repeater.getType());
-        Assert.assertFalse(repeater.isSource());
     }
 
     @Test
@@ -50,6 +49,9 @@ public class RepeaterTileTest {
         Assert.assertFalse(repeater.outputsPower(Side.LEFT));
         Assert.assertFalse(repeater.outputsPower(Side.UP));
         Assert.assertFalse(repeater.outputsPower(Side.DOWN));
+
+        // deactivate repeater
+        repeater.setStatus(false);
 
         for (Side side : Side.values()) {
             Assert.assertEquals(Power.getMin(), repeater.getPower(side));

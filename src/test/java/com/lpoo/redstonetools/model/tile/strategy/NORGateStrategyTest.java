@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ANDGateStrategyTest {
+public class NORGateStrategyTest {
 
     @Test
     public void testLogic() {
@@ -23,11 +23,11 @@ public class ANDGateStrategyTest {
         }
         //
 
-        ANDGateStrategy strategy = new ANDGateStrategy();
+        NORGateStrategy strategy = new NORGateStrategy();
 
-        Assert.assertEquals(LogicGateStrategyType.AND, strategy.getType());
+        Assert.assertEquals(LogicGateStrategyType.NOR, strategy.getType());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // All side outputs
         for (Side side : Side.values()) {
@@ -37,13 +37,13 @@ public class ANDGateStrategyTest {
         inputs.put(Side.LEFT, Power.getMax());
         inputs.put(Side.DOWN, Power.getMax());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // Input doesn't have power
         sideTypes.put(Side.RIGHT, SideType.INPUT);
         sideTypes.put(Side.UP, SideType.INPUT);
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         // Input sides have power
         inputs.put(Side.RIGHT, Power.getMax());
@@ -52,13 +52,19 @@ public class ANDGateStrategyTest {
 
         inputs.put(Side.UP, Power.getMax());
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         sideTypes.put(Side.LEFT, SideType.INPUT);
         inputs.put(Side.LEFT, Power.getMin());
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.LEFT, 1);
+
+        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+
+        for (Side side : Side.values()) {
+            inputs.put(side, Power.getMin());
+        }
 
         Assert.assertTrue(strategy.logic(inputs, sideTypes));
     }
