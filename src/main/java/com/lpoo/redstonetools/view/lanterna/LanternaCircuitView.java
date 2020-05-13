@@ -44,6 +44,16 @@ public class LanternaCircuitView extends CircuitView {
         this.initRenderers();
         circuitBackground = TextColor.Factory.fromString("#181818");
 
+        if (circuit.getWidth() < getColumns()) {
+            int offset = (getColumns() - circuit.getWidth()) / 2;
+            viewWindow.setX(-offset);
+        }
+
+        if (circuit.getHeight() < getRows()) {
+            int offset = (getRows() - circuit.getHeight()) / 2;
+            viewWindow.setY(-offset);
+        }
+
         // Init input thread
         lanternaInput = null;
         startInputs();

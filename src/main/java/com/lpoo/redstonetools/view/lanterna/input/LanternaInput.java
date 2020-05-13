@@ -27,6 +27,8 @@ public class LanternaInput extends Thread {
     public void run() {
         super.run();
 
+        boolean moveView = false;
+
         while (!isInterrupted()) {
 
             KeyStroke key = null;
@@ -35,17 +37,8 @@ public class LanternaInput extends Thread {
                 switch (key.getKeyType()) {
                     case Character:
                         switch (key.getCharacter()) {
-                            case 'w':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();
-                                break;
-                            case 'a':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();
-                                break;
-                            case 's':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();
-                                break;
-                            case 'd':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();
+                            case 'z':
+                                moveView = !moveView;
                                 break;
                             case 't':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));
@@ -103,16 +96,28 @@ public class LanternaInput extends Thread {
                         }
                         break;
                     case ArrowUp:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();
                         break;
                     case ArrowLeft:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();
                         break;
                     case ArrowDown:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();
                         break;
                     case ArrowRight:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();
                         break;
                     case Enter:
                         lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));
