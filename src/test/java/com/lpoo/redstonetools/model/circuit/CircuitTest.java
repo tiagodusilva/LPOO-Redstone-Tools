@@ -27,7 +27,7 @@ public class CircuitTest {
         Assert.assertEquals(WIDTH, circuit.getWidth());
         Assert.assertEquals(HEIGHT, circuit.getHeight());
         Assert.assertEquals(0, circuit.getTick());
-        Assert.assertNotNull(circuit.getSources());
+        Assert.assertNotNull(circuit.getTickedTiles());
 
         for (int i = 0; i < circuit.getHeight(); i++) {
             for (int j = 0; j < circuit.getWidth(); j++) {
@@ -68,7 +68,7 @@ public class CircuitTest {
         Tile tile = Mockito.mock(Tile.class);
 
         Mockito.when(tile.getPosition()).thenReturn(position);
-        Mockito.when(tile.isSource()).thenReturn(false);
+        Mockito.when(tile.isTickedTile()).thenReturn(false);
         Mockito.when(tile.getType()).thenReturn(TileType.WIRE);
 
         Assert.assertTrue(circuit.addTile(tile));
@@ -95,7 +95,7 @@ public class CircuitTest {
         Tile tile = Mockito.mock(Tile.class);
 
         Mockito.when(tile.getPosition()).thenReturn(position);
-        Mockito.when(tile.isSource()).thenReturn(false);
+        Mockito.when(tile.isTickedTile()).thenReturn(false);
         Mockito.when(tile.getType()).thenReturn(TileType.WIRE);
 
         Assert.assertEquals(TileType.NULL, circuit.getTile(position).getType());
@@ -122,16 +122,16 @@ public class CircuitTest {
         Tile tile = Mockito.mock(Tile.class);
 
         Mockito.when(tile.getPosition()).thenReturn(position);
-        Mockito.when(tile.isSource()).thenReturn(true);
+        Mockito.when(tile.isTickedTile()).thenReturn(true);
         Mockito.when(tile.getType()).thenReturn(TileType.SOURCE);
 
-        Assert.assertEquals(0, circuit.getSources().size());
+        Assert.assertEquals(0, circuit.getTickedTiles().size());
 
         Assert.assertTrue(circuit.addTile(tile));
 
         Assert.assertEquals(TileType.SOURCE, circuit.getTile(position).getType());
 
-        Assert.assertEquals(1, circuit.getSources().size());
+        Assert.assertEquals(1, circuit.getTickedTiles().size());
     }
 
     @Test
@@ -144,34 +144,34 @@ public class CircuitTest {
         Tile tile = Mockito.mock(Tile.class);
 
         Mockito.when(tile.getPosition()).thenReturn(position);
-        Mockito.when(tile.isSource()).thenReturn(true);
+        Mockito.when(tile.isTickedTile()).thenReturn(true);
         Mockito.when(tile.getType()).thenReturn(TileType.SOURCE);
 
-        Assert.assertEquals(0, circuit.getSources().size());
+        Assert.assertEquals(0, circuit.getTickedTiles().size());
 
         Assert.assertTrue(circuit.addTile(tile));
 
-        Assert.assertEquals(1, circuit.getSources().size());
+        Assert.assertEquals(1, circuit.getTickedTiles().size());
 
         Tile tile2 = Mockito.mock(Tile.class);
 
         Mockito.when(tile2.getPosition()).thenReturn(position);
-        Mockito.when(tile2.isSource()).thenReturn(true);
+        Mockito.when(tile2.isTickedTile()).thenReturn(true);
         Mockito.when(tile2.getType()).thenReturn(TileType.LEVER);
 
         Assert.assertTrue(circuit.addTile(tile2));
 
-        Assert.assertEquals(1, circuit.getSources().size());
+        Assert.assertEquals(1, circuit.getTickedTiles().size());
 
         Tile tile3 = Mockito.mock(Tile.class);
 
         Mockito.when(tile3.getPosition()).thenReturn(position);
-        Mockito.when(tile3.isSource()).thenReturn(false);
+        Mockito.when(tile3.isTickedTile()).thenReturn(false);
         Mockito.when(tile3.getType()).thenReturn(TileType.WIRE);
 
         Assert.assertTrue(circuit.addTile(tile3));
 
-        Assert.assertEquals(0, circuit.getSources().size());
+        Assert.assertEquals(0, circuit.getTickedTiles().size());
     }
 
     @Test
@@ -206,7 +206,7 @@ public class CircuitTest {
         Tile wire = Mockito.mock(Tile.class);
         Mockito.when(wire.getPosition()).thenReturn(up);
         Mockito.when(wire.isWire()).thenReturn(true);
-        Mockito.when(wire.isSource()).thenReturn(false);
+        Mockito.when(wire.isTickedTile()).thenReturn(false);
         Mockito.when(wire.getType()).thenReturn(TileType.WIRE);
 
         circuit.addTile(wire);
@@ -220,7 +220,7 @@ public class CircuitTest {
         Tile source = Mockito.mock(Tile.class);
         Mockito.when(source.getPosition()).thenReturn(right);
         Mockito.when(source.isWire()).thenReturn(false);
-        Mockito.when(source.isSource()).thenReturn(true);
+        Mockito.when(source.isTickedTile()).thenReturn(true);
         Mockito.when(source.getType()).thenReturn(TileType.SOURCE);
 
         circuit.addTile(source);
@@ -261,7 +261,7 @@ public class CircuitTest {
         Tile wire = Mockito.mock(Tile.class);
         Mockito.when(wire.getPosition()).thenReturn(up);
         Mockito.when(wire.isWire()).thenReturn(true);
-        Mockito.when(wire.isSource()).thenReturn(false);
+        Mockito.when(wire.isTickedTile()).thenReturn(false);
         Mockito.when(wire.getType()).thenReturn(TileType.WIRE);
 
         circuit.addTile(wire);
@@ -275,7 +275,7 @@ public class CircuitTest {
         Tile source = Mockito.mock(Tile.class);
         Mockito.when(source.getPosition()).thenReturn(right);
         Mockito.when(source.isWire()).thenReturn(false);
-        Mockito.when(source.isSource()).thenReturn(true);
+        Mockito.when(source.isTickedTile()).thenReturn(true);
         Mockito.when(source.getType()).thenReturn(TileType.SOURCE);
 
         circuit.addTile(source);
@@ -286,7 +286,7 @@ public class CircuitTest {
         Tile wire2 = Mockito.mock(Tile.class);
         Mockito.when(wire2.getPosition()).thenReturn(left);
         Mockito.when(wire2.isWire()).thenReturn(true);
-        Mockito.when(wire2.isSource()).thenReturn(false);
+        Mockito.when(wire2.isTickedTile()).thenReturn(false);
         Mockito.when(wire2.getType()).thenReturn(TileType.WIRE);
 
         circuit.addTile(wire2);
@@ -327,7 +327,7 @@ public class CircuitTest {
         Tile wire = Mockito.mock(Tile.class);
         Mockito.when(wire.getPosition()).thenReturn(up);
         Mockito.when(wire.isWire()).thenReturn(true);
-        Mockito.when(wire.isSource()).thenReturn(false);
+        Mockito.when(wire.isTickedTile()).thenReturn(false);
         Mockito.when(wire.getType()).thenReturn(TileType.WIRE);
 
         circuit.addTile(wire);
@@ -341,7 +341,7 @@ public class CircuitTest {
         Tile source = Mockito.mock(Tile.class);
         Mockito.when(source.getPosition()).thenReturn(right);
         Mockito.when(source.isWire()).thenReturn(false);
-        Mockito.when(source.isSource()).thenReturn(true);
+        Mockito.when(source.isTickedTile()).thenReturn(true);
         Mockito.when(source.getType()).thenReturn(TileType.SOURCE);
 
         circuit.addTile(source);
@@ -352,7 +352,7 @@ public class CircuitTest {
         Tile tile = Mockito.mock(Tile.class);
         Mockito.when(tile.getPosition()).thenReturn(left);
         Mockito.when(tile.isWire()).thenReturn(false);
-        Mockito.when(tile.isSource()).thenReturn(true);
+        Mockito.when(tile.isTickedTile()).thenReturn(true);
         Mockito.when(tile.getType()).thenReturn(TileType.LEVER);
 
         circuit.addTile(tile);
@@ -399,35 +399,35 @@ public class CircuitTest {
         Mockito.when(tile1.outputsPower(Side.DOWN)).thenReturn(false);
         Mockito.when(tile1.outputsPower(Side.RIGHT)).thenReturn(false);
         Mockito.when(tile1.outputsPower(Side.LEFT)).thenReturn(true);
-        Mockito.when(tile1.isSource()).thenReturn(false);
+        Mockito.when(tile1.isTickedTile()).thenReturn(false);
 
         Tile tile2 = Mockito.mock(Tile.class);
         Mockito.when(tile2.getPosition()).thenReturn(up);
         Mockito.when(tile2.acceptsPower(Side.DOWN)).thenReturn(true);
 
         Mockito.when(tile2.outputsPower(Side.DOWN)).thenReturn(false);
-        Mockito.when(tile2.isSource()).thenReturn(false);
+        Mockito.when(tile2.isTickedTile()).thenReturn(false);
 
         Tile tile3 = Mockito.mock(Tile.class);
         Mockito.when(tile3.getPosition()).thenReturn(down);
         Mockito.when(tile3.acceptsPower(Side.UP)).thenReturn(true);
 
         Mockito.when(tile3.outputsPower(Side.UP)).thenReturn(true);
-        Mockito.when(tile3.isSource()).thenReturn(false);
+        Mockito.when(tile3.isTickedTile()).thenReturn(false);
 
         Tile tile4 = Mockito.mock(Tile.class);
         Mockito.when(tile4.getPosition()).thenReturn(right);
         Mockito.when(tile4.acceptsPower(Side.LEFT)).thenReturn(true);
 
         Mockito.when(tile4.outputsPower(Side.LEFT)).thenReturn(false);
-        Mockito.when(tile4.isSource()).thenReturn(false);
+        Mockito.when(tile4.isTickedTile()).thenReturn(false);
 
         Tile tile5 = Mockito.mock(Tile.class);
         Mockito.when(tile5.getPosition()).thenReturn(left);
         Mockito.when(tile5.acceptsPower(Side.RIGHT)).thenReturn(false);
 
         Mockito.when(tile5.outputsPower(Side.RIGHT)).thenReturn(true);
-        Mockito.when(tile5.isSource()).thenReturn(false);
+        Mockito.when(tile5.isTickedTile()).thenReturn(false);
 
         /*
             Test Illustration https://imgur.com/UwG6BYY

@@ -26,7 +26,7 @@ public class CircuitState extends State {
         super(mainController);
 
         this.circuit = circuit;
-        this.circuitController = new CircuitController();
+        this.circuitController = mainController.getCircuitController();
         this.circuitView = mainController.getViewFactory().getCircuitView(circuit);
     }
 
@@ -58,6 +58,7 @@ public class CircuitState extends State {
                         break;
                     case QUIT:
                         this.exit = true;
+                        events.clear();
                         return;
                     default:
                         break;

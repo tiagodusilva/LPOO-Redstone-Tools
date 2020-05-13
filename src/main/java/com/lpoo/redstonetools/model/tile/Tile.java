@@ -72,15 +72,24 @@ public abstract class Tile implements Model, Serializable {
     }
 
     /**
-     * <h1>Checks if tile is a source of power</h1>
-     * By default a tile isn't a source tile
-     * Must be overridden if tile is a source
+     * <h1>Checks if tile is a ticked of power</h1>
+     * By default a tile isn't a ticked tile
+     * Must be overridden if tile is tick dependent
      *
-     * @see SourceTile
-     *
-     * @return  true if tile is a source tile, false otherwise
+     * @return  true if tile is a ticked tile, false otherwise
      */
-    public boolean isSource() { return false; }
+    public boolean isTickedTile() { return false; }
+
+    /**
+     * <h1>Updates tile and calculates next tick</h1>
+     * If a tile is tick dependent then this function must be overriden
+     * Also <code>isTickedTile</code> must be overriden
+     *
+     * @see Tile#isTickedTile()
+     *
+     * @return true if the tile was updated, false otherwise
+     */
+    public boolean nextTick() { return false; }
 
     /**
      * <h1>Checks if tile is a wire</h1>
@@ -150,9 +159,13 @@ public abstract class Tile implements Model, Serializable {
     }
 
     /**
+     * <h1>Triggers a tile update</h1>
+     * Triggers an update on every side of the tile
      *
-     * @param circuit
-     * @return
+     * @see Tile#update(Circuit, int, Side)
+     *
+     * @param circuit   Circuit where updates are taking place
+     * @return  true if tile was updated, false otherwise
      */
     public boolean update(Circuit circuit) {
         boolean updated = false;

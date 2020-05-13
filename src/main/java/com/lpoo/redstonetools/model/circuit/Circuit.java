@@ -7,9 +7,9 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  <h1>Circuit model class</h1>
@@ -30,10 +30,11 @@ public class Circuit implements Model, Serializable {
     private Tile[][] tiles;
 
     /**
-     * <h1>List of circuit source tiles</h1>
-     * Source tiles of the circuits, capable of generating power on their own
+     * <h1>Set of circuit ticked tiles</h1>
+     *
+     * @see Tile#isTickedTile()
      */
-    private List<Position> sources;
+    private Set<Position> tickedTiles;
 
     /**
      * <h1>Circuit width dimension</h1>
@@ -71,7 +72,7 @@ public class Circuit implements Model, Serializable {
             }
         }
 
-        this.sources = new ArrayList<>();
+        this.tickedTiles = new HashSet<>();
 
         this.tick = 0;
     }
@@ -107,11 +108,11 @@ public class Circuit implements Model, Serializable {
     public void advanceTick() { tick++; }
 
     /**
-     * <h1>Gets the list of source tiles</h1>
+     * <h1>Gets the set of ticked tiles</h1>
      *
-     * @return  Circuit source tiles
+     * @return  Circuit ticked tiles
      */
-    public List<Position> getSources() { return sources; }
+    public Set<Position> getTickedTiles() { return tickedTiles; }
 
     /**
      * <h1>Checks validity of a position</h1>
@@ -166,8 +167,8 @@ public class Circuit implements Model, Serializable {
      * @param position  Position of the tile to be removed
      */
     private void safeRemoveTile(Position position) {
-        if (getTile(position).isSource())
-            sources.remove(position);
+        if (getTile(position).isTickedTile())
+            tickedTiles.remove(position);
     }
 
     /**
@@ -188,8 +189,8 @@ public class Circuit implements Model, Serializable {
         safeRemoveTile(tile.getPosition());
 
         this.tiles[tile.getPosition().getY()][tile.getPosition().getX()] = tile;
-        if (tile.isSource())
-            this.sources.add(tile.getPosition());
+        if (tile.isTickedTile())
+            this.tickedTiles.add(tile.getPosition());
         tile.updateConnections(this);
         return true;
     }

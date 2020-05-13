@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ANDGateStrategyTest {
+public class ORGateStrategyTest {
 
     @Test
     public void testLogic() {
@@ -23,9 +23,9 @@ public class ANDGateStrategyTest {
         }
         //
 
-        ANDGateStrategy strategy = new ANDGateStrategy();
+        ORGateStrategy strategy = new ORGateStrategy();
 
-        Assert.assertEquals(LogicGateStrategyType.AND, strategy.getType());
+        Assert.assertEquals(LogicGateStrategyType.OR, strategy.getType());
 
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
 
@@ -48,7 +48,7 @@ public class ANDGateStrategyTest {
         // Input sides have power
         inputs.put(Side.RIGHT, Power.getMax());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.UP, Power.getMax());
 
@@ -56,10 +56,16 @@ public class ANDGateStrategyTest {
 
         sideTypes.put(Side.LEFT, SideType.INPUT);
         inputs.put(Side.LEFT, Power.getMin());
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assert.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.LEFT, 1);
 
         Assert.assertTrue(strategy.logic(inputs, sideTypes));
+
+        for (Side side : Side.values()) {
+            inputs.put(side, Power.getMin());
+        }
+
+        Assert.assertFalse(strategy.logic(inputs, sideTypes));
     }
 }
