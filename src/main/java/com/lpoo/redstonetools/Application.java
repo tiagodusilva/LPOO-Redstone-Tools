@@ -48,7 +48,6 @@ public class Application implements MainController {
     public void changeState(State state) {
         this.state.atExit();
         this.state = state;
-        System.out.println("Exited");
     }
 
     @Override

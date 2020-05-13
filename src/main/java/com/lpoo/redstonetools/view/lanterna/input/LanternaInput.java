@@ -6,6 +6,7 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
+import com.lpoo.redstonetools.view.lanterna.LanternaSaveStrategy;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
@@ -16,7 +17,6 @@ import java.io.IOException;
 
 public class LanternaInput extends Thread {
 
-    Screen screen;
     LanternaCircuitView lanternaCircuitView;
 
     public LanternaInput(LanternaCircuitView lanternaCircuitView) {
@@ -94,6 +94,9 @@ public class LanternaInput extends Thread {
                                 break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
+                                break;
+                            case 'g':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.SAVE, new LanternaSaveStrategy(lanternaCircuitView)));
                                 break;
                             default:
                                 break;

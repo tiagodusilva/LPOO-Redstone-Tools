@@ -9,6 +9,7 @@ import com.lpoo.redstonetools.model.utils.Side;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
 /**
  *  <h1>Circuit model class</h1>
@@ -18,7 +19,7 @@ import java.util.Set;
  *
  * @author g79
  */
-public class Circuit implements Model {
+public class Circuit implements Model, Serializable {
 
     /**
      * <h1>Tiles of the circuit</h1>
