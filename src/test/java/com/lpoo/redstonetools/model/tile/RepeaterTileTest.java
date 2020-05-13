@@ -50,6 +50,9 @@ public class RepeaterTileTest {
         Assert.assertFalse(repeater.outputsPower(Side.UP));
         Assert.assertFalse(repeater.outputsPower(Side.DOWN));
 
+        // deactivate repeater
+        repeater.setStatus(false);
+
         for (Side side : Side.values()) {
             Assert.assertEquals(Power.getMin(), repeater.getPower(side));
         }
