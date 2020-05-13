@@ -88,8 +88,8 @@ From left to right, top to bottom:
 
 ## Planned Features
 - [x] Create circuits
-- [ ] Load circuits
-- [ ] Save circuits
+- [x] Load circuits
+- [x] Save circuits
 - [x] CRUD methods on tiles
 - [x] Support default combinational logic gates:
  - [x] AND gate
@@ -101,9 +101,9 @@ From left to right, top to bottom:
  - [X] XNOR gate
 - [ ] Support default sequential gates:
  - [x] Repeater (signal extender)
- - [ ] Comparator (compares strength of two signals)
+ - [x] Comparator (compares strength of two signals)
  - [ ] Counter (emits signal every N pulses received)
- - [ ] Timer (emits signal every N ticks)
+ - [x] Timer (emits signal every N ticks)
 - [ ] Support custom gates (reduce circuit into a tile)
 - [ ] Support two types of circuit simulation:
  - [x] Variable strength signals (0-15), loosing strength at each wire travelled
