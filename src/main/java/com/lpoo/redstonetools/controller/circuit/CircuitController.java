@@ -170,16 +170,17 @@ public class CircuitController {
                 updateAllNeighbourTiles(circuit, neighbour);
         }
         else {
-            try {
-                updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 0) + 1);
-                if (updateTracker.get(neighbour) < MAX_UPDATES) {
-                    if (tile.update(circuit, power, side.opposite()))
-                        updateAllNeighbourTiles(circuit, neighbour);
-                } else // Shortcircuit
-                    addTile(circuit, new NullTile(neighbour.clone(), true));
-            } finally {
-                updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 1) - 1);
+            updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 0) + 1);
+            if (updateTracker.get(neighbour) < MAX_UPDATES) {
+                if (tile.update(circuit, power, side.opposite()))
+                    updateAllNeighbourTiles(circuit, neighbour);
+            } else {
+                // Shortcircuit
+                addTile(circuit, new NullTile(neighbour.clone(), true));
             }
+
+            updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 1) - 1);
+            updateTracker.remove(neighbour, 0);
         }
 
     }
