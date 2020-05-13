@@ -157,30 +157,31 @@ public class CircuitController {
      */
     public void updateNeighbourTile(Circuit circuit, Position position, int power, Side side) {
         Position neighbour = position.getNeighbour(side);
-        if (circuit.isInBounds(neighbour)) {
-            Tile tile = circuit.getTile(neighbour);
-            if (tile.getType() != TileType.NULL) {
-                if (!tile.isWire()) {
-                    try {
-                        updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 0) + 1);
-                        if (updateTracker.get(neighbour) < MAX_UPDATES) {
-                            if (tile.update(circuit, power, side.opposite())) {
-                                updateAllNeighbourTiles(circuit, neighbour);
-                            }
-                        } else {
-                            // Shortcircuit
-                            addTile(circuit, new NullTile(neighbour.clone(), true));
-                        }
-                    } finally {
-                        updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 1) - 1);
-                    }
-                } else {
-                    if (tile.update(circuit, power, side.opposite())) {
+        if (!circuit.isInBounds(neighbour))
+            return;
+
+        Tile tile = circuit.getTile(neighbour);
+
+        if (tile.getType() == TileType.NULL)
+            return;
+
+        if (tile.isWire()) {
+            if (tile.update(circuit, power, side.opposite()))
+                updateAllNeighbourTiles(circuit, neighbour);
+        }
+        else {
+            try {
+                updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 0) + 1);
+                if (updateTracker.get(neighbour) < MAX_UPDATES) {
+                    if (tile.update(circuit, power, side.opposite()))
                         updateAllNeighbourTiles(circuit, neighbour);
-                    }
-                }
+                } else // Shortcircuit
+                    addTile(circuit, new NullTile(neighbour.clone(), true));
+            } finally {
+                updateTracker.put(neighbour, updateTracker.getOrDefault(neighbour, 1) - 1);
             }
         }
+
     }
 
     /**
