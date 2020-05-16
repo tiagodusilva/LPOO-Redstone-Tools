@@ -209,6 +209,21 @@ public class Circuit implements Model, Serializable {
     }
 
     /**
+     * <h1>Get the power level received from a specific neighbour</h1>
+     * Self explanatory
+     *
+     * @param position Position of the tile to check surroundings
+     * @param side Side of the tile
+     * @return Power received from the specific side
+     */
+    public int getSurroundingPower(Position position, Side side) {
+        Tile tile = getTile(position.getNeighbour(side));
+        return tile.isWire() ?
+                Power.decrease(tile.getPower(side.opposite()))
+                : tile.getPower(side.opposite());
+    }
+
+    /**
      * <h1>Get the power level received from the neighbours</h1>
      * Gets the maximum power level received from the neighbour tiles
      *
@@ -218,11 +233,7 @@ public class Circuit implements Model, Serializable {
     public int getSurroundingPower(Position position) {
         int maxPower = Power.getMin();
         for (Side side : Side.values()) {
-            Tile tile = getTile(position.getNeighbour(side));
-            maxPower = Math.max(maxPower, tile.isWire() ?
-                                                Power.decrease(tile.getPower(side.opposite()))
-                                                : tile.getPower(side.opposite())
-                                );
+            maxPower = Math.max(maxPower, getSurroundingPower(position, side));
         }
         return maxPower;
     }

@@ -92,22 +92,23 @@ From left to right, top to bottom:
 - [x] Save circuits
 - [x] CRUD methods on tiles
 - [x] Support default combinational logic gates:
- - [x] AND gate
- - [x] OR gate
- - [x] NOT gate
- - [x] NAND gate
- - [x] NOR gate
- - [x] XOR gate
- - [X] XNOR gate
+  - [x] AND gate
+  - [x] OR gate
+  - [x] NOT gate
+  - [x] NAND gate
+  - [x] NOR gate
+  - [x] XOR gate
+  - [X] XNOR gate
 - [ ] Support default sequential gates:
- - [x] Repeater (signal extender)
- - [x] Comparator (compares strength of two signals)
- - [ ] Counter (emits signal every N pulses received)
- - [x] Timer (emits signal every N ticks)
+  - [x] Repeater (signal extender)
+  - [x] Comparator (compares strength of two signals)
+  - [ ] Counter (emits signal every N pulses received)
+  - [x] Timer (emits signal every N ticks)
 - [ ] Support custom gates (reduce circuit into a tile)
+- [x] Detect and handle unstable circuits
 - [ ] Support two types of circuit simulation:
- - [x] Variable strength signals (0-15), loosing strength at each wire travelled
- - [ ] Lossless two state signals
+  - [x] Variable strength signals (0-15), loosing strength at each wire travelled
+  - [ ] Lossless two state signals
 
 ## Design
 
