@@ -6,7 +6,7 @@
 - Fixed: State not clearing events after exiting
 - Added: Circuit loading from file
 - Added: Circuit saving to file
-- Added: Timer and Comparator
+- Added: Timer, Comparator and Counter
 - Changed: Menus' appearance
 - Changed: Lanterna's inputs
 
