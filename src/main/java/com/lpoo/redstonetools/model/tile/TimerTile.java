@@ -48,7 +48,7 @@ public class TimerTile extends OrientedTile {
         this.active = true;
         this.output = false;
         this.switchMode = false;
-        this.delay = 2;
+        this.delay = 5;
         this.timer = 0;
     }
 
