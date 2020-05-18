@@ -1,13 +1,15 @@
 # Changelog
 
-## v.1.??
+## v1.01
 - Added: CHANGELOG.md
 - Fixed: AND and NAND gate behaviour
 - Fixed: State not clearing events after exiting
 - Added: Circuit loading from file
 - Added: Circuit saving to file
-- Added: Timer, Comparator and Counter
-- Changed: Menus' appearance
+- Added: Basic circuit example files
+- Added: Crosswire, Timer, Comparator and Counter
+- Added: Loop detection (fries components responsible for unstable circuits)
+- Changed: Overhauled menus' appearance
 - Changed: Lanterna's inputs
 
 ## v1.00 (Intermediate)
