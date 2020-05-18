@@ -63,6 +63,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers = new HashMap<>();
         renderers.put(TileType.NULL, new LanternaNullTileView());
         renderers.put(TileType.WIRE, new LanternaWireTileView());
+        renderers.put(TileType.CROSSWIRE, new LanternaCrossWireTileView());
         renderers.put(TileType.SOURCE, new LanternaConstantSourceTileView());
         renderers.put(TileType.LEVER, new LanternaLeverTileView());
         renderers.put(TileType.REPEATER, new LanternaRepeaterTileView());
