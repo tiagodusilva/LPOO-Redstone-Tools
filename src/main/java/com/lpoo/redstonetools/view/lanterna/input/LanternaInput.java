@@ -6,6 +6,7 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
+import com.lpoo.redstonetools.view.lanterna.LanternaSaveStrategy;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
@@ -16,7 +17,6 @@ import java.io.IOException;
 
 public class LanternaInput extends Thread {
 
-    Screen screen;
     LanternaCircuitView lanternaCircuitView;
 
     public LanternaInput(LanternaCircuitView lanternaCircuitView) {
@@ -27,6 +27,8 @@ public class LanternaInput extends Thread {
     public void run() {
         super.run();
 
+        boolean moveView = false;
+
         while (!isInterrupted()) {
 
             KeyStroke key = null;
@@ -35,19 +37,10 @@ public class LanternaInput extends Thread {
                 switch (key.getKeyType()) {
                     case Character:
                         switch (key.getCharacter()) {
-                            case 'w':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();
+                            case 'z':
+                                moveView = !moveView;
                                 break;
-                            case 'a':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();
-                                break;
-                            case 's':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();
-                                break;
-                            case 'd':
-                                new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();
-                                break;
-                            case 't':
+                            case '+':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));
                                 break;
                             case 'q':
@@ -56,57 +49,84 @@ public class LanternaInput extends Thread {
                             case 'e':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_RIGHT, lanternaCircuitView.getSelectedTile().clone()));
                                 break;
-                            case '1':
+                            case 'w':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new WireTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
-                            case '2':
+                            case 'x':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new CrossWireTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
+                            case 's':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ConstantSourceTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
-                            case '3':
+                            case 'l':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LeverTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
-                            case '4':
+                            case 'r':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new RepeaterTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
-                            case '5':
+                            case '1':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NotGateTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
-                            case '6':
+                            case '2':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ANDGateStrategy())));
                                 break;
-                            case '7':
+                            case '3':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ORGateStrategy())));
                                 break;
-                            case '8':
+                            case '4':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NANDGateStrategy())));
                                 break;
-                            case '9':
+                            case '5':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NORGateStrategy())));
                                 break;
-                            case '0':
+                            case '6':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XORGateStrategy())));
                                 break;
-                            case '\'':
+                            case '7':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XNORGateStrategy())));
+                                break;
+                            case 'c':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ComparatorTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
+                            case 'n':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new CounterTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
+                            case 't':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new TimerTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
+                                break;
+                            case 'g':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.SAVE, new LanternaSaveStrategy(lanternaCircuitView)));
                                 break;
                             default:
                                 break;
                         }
                         break;
                     case ArrowUp:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();
                         break;
                     case ArrowLeft:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();
                         break;
                     case ArrowDown:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();
                         break;
                     case ArrowRight:
-                        new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();
+                        if (moveView)
+                            new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();
+                        else
+                            new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();
                         break;
                     case Enter:
                         lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));

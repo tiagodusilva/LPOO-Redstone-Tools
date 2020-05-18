@@ -15,7 +15,7 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
         1. [LanternaMenu](#lanterna-menu)
         2. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
 2. [Planned Features](#planned-features)
-3. [Design & Patterns](#design-&-patterns)
+3. [Design](#design)
     1. [Used Patterns](#used-patterns)
     2. [Model View Controller](#model-view-controller-(mvc))
     3. [Game States](#game-states)
@@ -99,17 +99,16 @@ From left to right, top to bottom:
   - [x] NOR gate
   - [x] XOR gate
   - [X] XNOR gate
-- [ ] Support default sequential gates:
+- [x] Support default sequential gates:
   - [x] Repeater (signal extender)
-  - [ ] Comparator (compares strength of two signals)
-  - [ ] Counter (emits signal every N pulses received)
-  - [ ] Timer (emits signal every N ticks)
+  - [x] Comparator (compares strength of two signals)
+  - [x] Counter (emits signal every N pulses received)
+  - [x] Timer (emits signal every N ticks)
 - [ ] Support custom gates (reduce circuit into a tile)
-- [ ] Support two types of circuit simulation:
-  - [x] Variable strength signals (0-15), loosing strength at each wire travelled
-  - [ ] Lossless two state signals
+- [x] Detect and handle unstable circuits
+- [x] Variable strength signals (0-15), loosing strength at each wire travelled
 
-## Design & Patterns
+## Design
 
  ### Used Patterns
 

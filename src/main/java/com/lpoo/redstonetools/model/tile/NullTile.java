@@ -14,12 +14,38 @@ import com.lpoo.redstonetools.model.utils.TileType;
 public class NullTile extends Tile {
 
     /**
+     * <h1>Indicates if it's broken</h1>
+     * If not broken, just representing empty space
+     * otherwise it's a Tile that got short-circuited
+     */
+    private boolean broken;
+
+    /**
      * <h1>Empty tile constructor</h1>
      *
      * @param position  Position of the tile
      */
     public NullTile(Position position) {
         super(position);
+        broken = false;
+    }
+
+    /**
+     *
+     * @param position
+     * @param broken
+     */
+    public NullTile(Position position, boolean broken) {
+        super(position);
+        this.broken = broken;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isBroken() {
+        return broken;
     }
 
     /**

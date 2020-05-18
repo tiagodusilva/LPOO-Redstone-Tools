@@ -14,6 +14,10 @@ public enum TileType {
      */
     WIRE,
     /**
+     * @see com.lpoo.redstonetools.model.tile.CrossWireTile
+     */
+    CROSSWIRE,
+    /**
      * @see com.lpoo.redstonetools.model.tile.ConstantSourceTile
      */
     SOURCE,
@@ -32,5 +36,17 @@ public enum TileType {
     /**
      * @see com.lpoo.redstonetools.model.tile.NotGateTile
      */
-    NOT_GATE
+    NOT_GATE,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.ComparatorTile
+     */
+    COMPARATOR,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.TimerTile
+     */
+    TIMER,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.CounterTile
+     */
+    COUNTER
 }

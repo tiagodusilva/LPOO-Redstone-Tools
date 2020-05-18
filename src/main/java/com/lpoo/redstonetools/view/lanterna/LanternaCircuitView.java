@@ -44,20 +44,34 @@ public class LanternaCircuitView extends CircuitView {
         this.initRenderers();
         circuitBackground = TextColor.Factory.fromString("#181818");
 
+        if (circuit.getWidth() < getColumns()) {
+            int offset = (getColumns() - circuit.getWidth()) / 2;
+            viewWindow.setX(-offset);
+        }
+
+        if (circuit.getHeight() < getRows()) {
+            int offset = (getRows() - circuit.getHeight()) / 2;
+            viewWindow.setY(-offset);
+        }
+
         // Init input thread
-        lanternaInput = new LanternaInput(this);
-        lanternaInput.start();
+        lanternaInput = null;
+        startInputs();
     }
 
     private void initRenderers() {
         renderers = new HashMap<>();
         renderers.put(TileType.NULL, new LanternaNullTileView());
         renderers.put(TileType.WIRE, new LanternaWireTileView());
+        renderers.put(TileType.CROSSWIRE, new LanternaCrossWireTileView());
         renderers.put(TileType.SOURCE, new LanternaConstantSourceTileView());
         renderers.put(TileType.LEVER, new LanternaLeverTileView());
         renderers.put(TileType.REPEATER, new LanternaRepeaterTileView());
         renderers.put(TileType.LOGIC_GATE, new LanternaLogicGateView());
         renderers.put(TileType.NOT_GATE, new LanternaNotGateTileView());
+        renderers.put(TileType.COMPARATOR, new LanternaComparatorTileView());
+        renderers.put(TileType.TIMER, new LanternaTimerView());
+        renderers.put(TileType.COUNTER, new LanternaCounterTileView());
     }
 
     public Screen getScreen() {
@@ -168,12 +182,26 @@ public class LanternaCircuitView extends CircuitView {
 
     @Override
     public void cleanup() {
+        stopInputs();
+        this.events.clear();
+    }
+
+    @Override
+    public void stopInputs() {
         lanternaInput.interrupt();
         try {
             lanternaInput.join();
+            lanternaInput = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.events.clear();
+    }
+
+    @Override
+    public void startInputs() {
+        if (lanternaInput == null) {
+            lanternaInput = new LanternaInput(this);
+            lanternaInput.start();
+        }
     }
 }

@@ -35,7 +35,6 @@ public class LeverTileTest {
         Assert.assertEquals("lever", lever.getName());
         Assert.assertEquals("Power : " + Power.getMin(), lever.getInfo());
         Assert.assertEquals(TileType.LEVER, lever.getType());
-        Assert.assertFalse(lever.isSource());
     }
 
     @Test

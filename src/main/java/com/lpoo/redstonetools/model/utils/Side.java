@@ -28,4 +28,28 @@ public enum Side {
         return Side.UP;
     }
 
+    /**
+     * <h1>Get side at the right of the side</h1>
+     */
+    public Side atRight() {
+        switch (this) {
+            case UP:
+                return Side.RIGHT;
+            case DOWN:
+                return Side.LEFT;
+            case LEFT:
+                return Side.UP;
+            case RIGHT:
+                return Side.DOWN;
+        }
+        return Side.UP;
+    }
+
+    /**
+     * <h1>Get side at the left of the side</h1>
+     */
+    public Side atLeft() {
+        return atRight().opposite();
+    }
+
 }

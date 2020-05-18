@@ -17,10 +17,6 @@ repositories {
     mavenCentral()
 }
 
-pitest {
-    targetClasses = ['com.lpoo.redstonetools.model.*']
-}
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.25.0'

@@ -36,7 +36,6 @@ public class RepeaterTile extends OrientedTile {
         this.sides.put(Side.LEFT, SideType.INPUT);
         this.sides.put(Side.RIGHT, SideType.OUTPUT);
         this.active = false;
-        this.updateTick = -1;
     }
 
     /**
@@ -54,6 +53,15 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     public String getInfo() { return "Active : " + this.active; }
+
+    /**
+     * <h1>Get repeater status</h1>
+     *
+     * @return  Repeater status
+     */
+    public boolean getStatus() {
+        return this.active;
+    }
 
     /**
      * <h1>Set repeater status</h1>
@@ -97,8 +105,7 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
-        boolean next_status = power != Power.getMin();
-        if (acceptsPower(side) && (next_status != this.active)) {
+        if (acceptsPower(side) && Power.isOn(power) != active) {
             return onChange(circuit, power, side);
         }
         return false;
@@ -115,11 +122,7 @@ public class RepeaterTile extends OrientedTile {
      */
     @Override
     protected boolean onChange(Circuit circuit, int power, Side side) {
-        if (circuit.getTick() > updateTick || power > Power.getMin()) {
-            this.setStatus(power != Power.getMin());
-            this.updateTick = circuit.getTick();
-            return true;
-        }
-        return false;
+        this.setStatus(Power.isOn(power));
+        return true;
     }
 }

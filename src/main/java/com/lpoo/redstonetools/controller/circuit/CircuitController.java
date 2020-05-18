@@ -1,10 +1,15 @@
 package com.lpoo.redstonetools.controller.circuit;
 
+import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  <h1>Circuit Controller</h1>
@@ -16,48 +21,58 @@ import com.lpoo.redstonetools.model.utils.Side;
  */
 public class CircuitController {
 
-    // TODO: Temporary, as the name suggests (ignore the code smells ;D )
-    public static Circuit loadTestCircuit() {
-        CircuitController cc = new CircuitController();
-        Circuit circuit = new Circuit(20, 10);
+    private static final int MAX_UPDATES = 10;
+    private Map<Position, Integer> updateTracker;
 
-        cc.addTile(circuit, new ConstantSourceTile(new Position(0, 0)));
-        cc.addTile(circuit, new WireTile(new Position(2, 0)));
-        cc.addTile(circuit, new WireTile(new Position(3, 0)));
-        cc.addTile(circuit, new WireTile(new Position(1, 0)));
-        cc.addTile(circuit, new WireTile(new Position(4, 0)));
-        cc.addTile(circuit, new WireTile(new Position(5, 0)));
-        cc.addTile(circuit, new WireTile(new Position(6, 0)));
-        cc.addTile(circuit, new WireTile(new Position(6, 1)));
-        cc.addTile(circuit, new WireTile(new Position(6, 2)));
-        cc.addTile(circuit, new WireTile(new Position(5, 2)));
-        cc.addTile(circuit, new WireTile(new Position(4, 2)));
-        cc.addTile(circuit, new WireTile(new Position(3, 2)));
-        cc.addTile(circuit, new WireTile(new Position(2, 2)));
-        cc.addTile(circuit, new WireTile(new Position(1, 2)));
-        cc.addTile(circuit, new WireTile(new Position(0, 2)));
-        cc.addTile(circuit, new WireTile(new Position(0, 3)));
-        cc.addTile(circuit, new WireTile(new Position(0, 4)));
-        cc.addTile(circuit, new WireTile(new Position(1, 4)));
-        cc.addTile(circuit, new WireTile(new Position(2, 4)));
-        cc.addTile(circuit, new WireTile(new Position(3, 4)));
-        cc.addTile(circuit, new WireTile(new Position(4, 4)));
-        cc.addTile(circuit, new WireTile(new Position(5, 4)));
-        cc.addTile(circuit, new WireTile(new Position(6, 4)));
-        cc.addTile(circuit, new LeverTile(new Position(7, 5)));
-        cc.addTile(circuit, new LeverTile(new Position(4, 1)));
 
-        cc.addTile(circuit, new WireTile(new Position(3, 1)));
+    public CircuitController() {
+        updateTracker = new HashMap<Position, Integer>();
+    }
 
-        cc.addTile(circuit, new RepeaterTile(new Position(6, 5)));
-        cc.addTile(circuit, new RepeaterTile(new Position(6, 3)));
-
-        cc.rotateTileRight(circuit, new Position(6, 5));
-        cc.rotateTileRight(circuit, new Position(6, 3));
-
-        cc.advanceTick(circuit);
-
+    /**
+     * <h1>Loads a circuit from a .ser file</h1>
+     * @see Serializable
+     * @param filename File containing the Circuit object to be loaded
+     * @return Loaded circuit upon success
+     * @throws InvalidCircuitException Thrown otherwise
+     */
+    public static Circuit loadCircuit(String filename) throws InvalidCircuitException {
+        Circuit circuit;
+        try {
+            FileInputStream fileIn = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            circuit = (Circuit) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (Exception i) {
+            i.printStackTrace();
+            throw new InvalidCircuitException("'" + filename + "' is not a valid circuit");
+        }
         return circuit;
+    }
+
+    /**
+     * <h1>Saves a Circuit to a .ser file</h1>
+     * Changes the filename to always end in ".ser"
+     * @see Serializable
+     * @param filename File for the object to be saved
+     * @return True upon success, false otherwise
+     */
+    public static boolean saveCircuit(Circuit circuit, String filename) {
+        filename = filename.endsWith(".ser") ? filename : filename + ".ser";
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(circuit);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -89,7 +104,9 @@ public class CircuitController {
      * @param position  Position of the Tile to be interacted with
      */
     public void interact(Circuit circuit, Position position) {
-        if (circuit.getTile(position).interact()) {
+        Tile tile = circuit.getTile(position);
+        if (tile.interact()) {
+            tile.update(circuit);
             updateAllNeighbourTiles(circuit, position);
         }
     }
@@ -106,9 +123,8 @@ public class CircuitController {
     public void advanceTick(Circuit circuit) {
         circuit.advanceTick();
 
-        for (Position position : circuit.getSources()) {
-            Tile tile = circuit.getTile(position);
-            if (((SourceTile)tile).nextTick()) {
+        for (Position position : circuit.getTickedTiles()) {
+            if (circuit.getTile(position).nextTick()) {
                 updateAllNeighbourTiles(circuit, position);
             }
         }
@@ -141,10 +157,30 @@ public class CircuitController {
      */
     public void updateNeighbourTile(Circuit circuit, Position position, int power, Side side) {
         Position neighbour = position.getNeighbour(side);
-        if (circuit.isInBounds(neighbour)) {
-            Tile tile = circuit.getTile(neighbour);
-            if (tile.update(circuit, power, side.opposite())) {
+        if (!circuit.isInBounds(neighbour))
+            return;
+
+        Tile tile = circuit.getTile(neighbour);
+
+        if (tile.getType() == TileType.NULL)
+            return;
+
+        if (tile.isWire()) {
+            if (tile.update(circuit, power, side.opposite()))
                 updateAllNeighbourTiles(circuit, neighbour);
+        }
+        else {
+            int tracked = updateTracker.getOrDefault(neighbour, 0);
+            if (tracked < MAX_UPDATES) {
+                if (tile.update(circuit, power, side.opposite())) {
+                    updateTracker.put(neighbour, tracked + 1);
+                    updateAllNeighbourTiles(circuit, neighbour);
+                    updateTracker.put(neighbour, tracked);
+                    updateTracker.remove(neighbour, 0);
+                }
+            } else {
+                // Shortcircuit
+                addTile(circuit, new NullTile(neighbour.clone(), true));
             }
         }
     }
@@ -158,7 +194,7 @@ public class CircuitController {
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile that generated the update
      */
-    private void notifyNeighbourTiles(Circuit circuit, Position position) {
+    public void notifyNeighbourTiles(Circuit circuit, Position position) {
         Tile self = circuit.getTile(position);
         Tile tile;
         for (Side side : Side.values()) {

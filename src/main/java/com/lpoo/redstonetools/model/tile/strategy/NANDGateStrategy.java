@@ -10,12 +10,14 @@ public class NANDGateStrategy implements LogicGateStrategy {
     @Override
     public boolean logic(Map<Side, Integer> inputs, Map<Side, SideType> sideTypes) {
         boolean output = true;
+        boolean has_input = false;
         for (Side side : Side.values()) {
             if (sideTypes.getOrDefault(side, SideType.DEFAULT).isInput()) {
                 output &= Power.isOn(inputs.getOrDefault(side, Power.getMin()));
+                has_input = true;
             }
         }
-        return !output;
+        return !(has_input && output);
     }
 
     @Override

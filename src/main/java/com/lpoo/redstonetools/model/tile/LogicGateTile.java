@@ -9,9 +9,19 @@ import java.util.Map;
 
 public class LogicGateTile extends OrientedTile {
 
+    /**
+     * <h1>Logic being implemented by the logic gate</h1>
+     */
     private LogicGateStrategy strategy;
+
+    /**
+     * <h1>If logic gate is outputting power</h1>
+     */
     private boolean active;
 
+    /**
+     * <h1>Table of power levels being received by the logic gate</h1>
+     */
     private Map<Side, Integer> powers;
 
     /**
@@ -33,7 +43,7 @@ public class LogicGateTile extends OrientedTile {
         this.powers.put(Side.DOWN, Power.getMin());
         this.powers.put(Side.LEFT, Power.getMin());
         this.powers.put(Side.RIGHT, Power.getMin());
-        //this.updateTick = -1;
+
         this.active = strategy.logic(this.powers, this.sides);
     }
 

@@ -1,5 +1,17 @@
 # RedstoneTools
 
+## Index
+- [Changelog](#changelog)
+- [Description](#description)
+- [Extensive Report](#extensive-report)
+- [Screenshots](#screenshots)
+- [Install Instructions](#install-instructions)
+- [RedstoneTools Controls](#redstonetools-controls)
+
+## Changelog
+[Go to Changelog](./CHANGELOG.md)
+
+## Description
 > The project aimed to create an emulation of Minecraft's vanilla [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits) with additional mechanics from prolific Minecraft Mods, such as [ProjectRed](https://github.com/MrTJP/ProjectRed), [RFTools](https://github.com/McJtyMods/RFTools), [Minecraft Circuit Mod](https://github.com/bubble-07/MinecraftCircuitsMod) and [Super Circuit Maker](https://github.com/amadornes/SuperCircuitMaker), providing an interface to manipulate and simulate circuits.
 
 > Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](https://github.com/tiagodusilva).
