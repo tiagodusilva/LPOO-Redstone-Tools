@@ -7,13 +7,6 @@ package com.lpoo.redstonetools.model.utils;
  * @author g79
  */
 public abstract class Power {
-    /**
-     * <h1>Power mode</h1>
-     * There are two power modes:
-     *      - Redstone mode: power level decays over travel distance
-     *      - Eletric mode: power level stays constant over the whole travelled distance
-     */
-    static int mode = 0;
 
     /**
      * <h1>Guarantees power level is valid</h1>
@@ -35,7 +28,7 @@ public abstract class Power {
      * @return  New power level
      */
     public static int decrease(int value) {
-        return mode == 0 ? Math.max(value - 1, getMin()) : value;
+        return Math.max(value - 1, getMin());
     }
 
     /**
@@ -77,13 +70,12 @@ public abstract class Power {
 
     /**
      * <h1>Get maximum power level</h1>
-     * On Redstone mode maximum power level is 15 (0xF)
-     * On Eletric mode maximum power level is 1
+     * Maximum power level is 15 (0xF)
      *
      * @return  Maximum power level
      */
     public static int getMax() {
-        return mode == 0 ? 15 : 1;
+        return 15;
     }
 
     /**
@@ -94,42 +86,6 @@ public abstract class Power {
      */
     public static int getMin() {
         return 0;
-    }
-
-    /**
-     * <h1>Check if it is on Redstone mode</h1>
-     *
-     * @return  true if on Redstone mode, false otherwise
-     */
-    public static boolean isRedstoneMode() {
-        return mode == 0;
-    }
-
-    /**
-     * <h1>Check if it is on Eletric mode</h1>
-     *
-     * @return  true if on Eletric mode, false otherwise
-     */
-    public static boolean isEletricMode() {
-        return mode == 1;
-    }
-
-    /**
-     * <h1>Set to Redstone mode</h1>
-     *
-     * @see Power#mode
-     */
-    public static void setRedstoneMode() {
-        mode = 0;
-    }
-
-    /**
-     * <h1>Set to Eletric mode</h1>
-     *
-     * @see Power#mode
-     */
-    public static void setEletricMode() {
-        mode = 1;
     }
 
 }

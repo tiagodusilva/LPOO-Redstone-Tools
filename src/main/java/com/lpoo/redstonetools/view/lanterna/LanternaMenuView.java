@@ -10,7 +10,6 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
@@ -23,7 +22,6 @@ public class LanternaMenuView extends MenuView {
 
     private String fileName;
     private Border borderedQuitButton;
-    private RadioBoxList<String> radioBoxList;
     private final WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
@@ -74,25 +72,12 @@ public class LanternaMenuView extends MenuView {
         selectPanel.addComponent(rightPanel.withBorder(Borders.singleLine("New Blank Circuit")));
         rightPanel.setLayoutManager(new GridLayout(2));
 
-        rightPanel.addComponent(new Label("Width"));
+        rightPanel.addComponent(new Label("Width").setLabelWidth(5));
         final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
 
-        rightPanel.addComponent(new Label("Height"));
+        rightPanel.addComponent(new Label("Height").setLabelWidth(5));
         final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
 
-        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
-        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
-
-        Panel radioBoxPanel = new Panel();
-        rightPanel.addComponent(radioBoxPanel.withBorder(Borders.singleLine("Select Mode")));
-        radioBoxList = new RadioBoxList<String>();
-        radioBoxList.addItem("Redstone");
-        radioBoxList.addItem("Electrical Wire");
-        radioBoxList.setCheckedItemIndex(0);
-
-        radioBoxPanel.addComponent(radioBoxList);
-
-        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
@@ -131,11 +116,6 @@ public class LanternaMenuView extends MenuView {
             panel.addComponent(circuitSizeLabel);
             panel.addComponent(new Button("Open Circuit", () -> {
                 if (circuit != null) {
-                    // TODO: Code Smell, this call should not be here
-                    if (radioBoxList.isChecked(0))
-                        Power.setRedstoneMode();
-                    else
-                        Power.setEletricMode();
                     textGUI.removeWindow(window);
                     pushEvent(new Event(InputEvent.ENTER_CIRCUIT_STATE, circuit));
                 }
@@ -152,7 +132,6 @@ public class LanternaMenuView extends MenuView {
             panel.addComponent(borderedQuitButton);
         }
 
-        // TODO: Add Label to indicate the circuit's power mode
         if (fileName.equals(""))
             fileNameLabel.setText("Blank Circuit");
         else
