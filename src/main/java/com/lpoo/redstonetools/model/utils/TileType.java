@@ -40,5 +40,9 @@ public enum TileType {
     /**
      * @see com.lpoo.redstonetools.model.tile.TimerTile
      */
-    TIMER
+    TIMER,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.CounterTile
+     */
+    COUNTER
 }
