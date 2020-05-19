@@ -52,7 +52,6 @@ public class CircuitTest {
     public void create() {
         this.circuit = new Circuit(WIDTH, HEIGHT);
         this.controller = new CircuitController();
-        Power.setRedstoneMode();
     }
 
 
@@ -216,7 +215,7 @@ public class CircuitTest {
         assertEquals(false, repeater.outputsPower(Side.UP));
         assertEquals(false, repeater.outputsPower(Side.DOWN));
 
-        repeater.rotateRight();
+        repeater.rotateRight(circuit);
 
         assertEquals(false, repeater.acceptsPower(Side.LEFT));
         assertEquals(false, repeater.acceptsPower(Side.RIGHT));
@@ -229,7 +228,7 @@ public class CircuitTest {
         assertEquals(false, repeater.outputsPower(Side.UP));
         assertEquals(true, repeater.outputsPower(Side.DOWN));
 
-        repeater.rotateLeft(); repeater.rotateLeft();
+        repeater.rotateLeft(circuit); repeater.rotateLeft(circuit);
 
         assertEquals(false, repeater.acceptsPower(Side.LEFT));
         assertEquals(false, repeater.acceptsPower(Side.RIGHT));
@@ -256,12 +255,12 @@ public class CircuitTest {
         controller.addTile(circuit, new WireTile(new Position(4, 2)));
         controller.addTile(circuit, new WireTile(new Position(3, 2)));
         RepeaterTile repeater2 = new RepeaterTile(new Position(2, 2));
-        repeater2.rotateLeft(); repeater2.rotateLeft(); // oriented from right to left
+        repeater2.rotateLeft(circuit); repeater2.rotateLeft(circuit); // oriented from right to left
         controller.addTile(circuit, repeater2);
         controller.addTile(circuit, new WireTile(new Position(1, 2)));
         controller.addTile(circuit, new WireTile(new Position(0, 2)));
         RepeaterTile repeater3 = new RepeaterTile(new Position(0, 3));
-        repeater3.rotateRight(); // oriented from up to down
+        repeater3.rotateRight(circuit); // oriented from up to down
         controller.addTile(circuit, repeater3);
         addWires(new Position(0, 4), Side.RIGHT, 8);
         controller.addTile(circuit, new WireTile(new Position(0, 5)));
@@ -271,7 +270,7 @@ public class CircuitTest {
         controller.addTile(circuit, new WireTile(new Position(15, 6)));
         controller.addTile(circuit, new WireTile(new Position(7, 3)));
         RepeaterTile repeater5 = new RepeaterTile(new Position(7, 2));
-        repeater5.rotateLeft(); // oriented from down to up
+        repeater5.rotateLeft(circuit); // oriented from down to up
         controller.addTile(circuit, repeater5);
         controller.addTile(circuit, new WireTile(new Position(7, 1)));
         controller.addTile(circuit, new WireTile(new Position(7, 0)));

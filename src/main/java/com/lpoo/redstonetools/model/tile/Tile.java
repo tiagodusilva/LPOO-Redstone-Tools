@@ -107,18 +107,22 @@ public abstract class Tile implements Model, Serializable {
      * By default rotating a tile doesn't affect anything, so by default it returns false as the rotation is meaningless
      * Needs to be overridden if tile can be rotated
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true if tile was rotated, false otherwise
      */
-    public boolean rotateLeft() { return false; }
+    public boolean rotateLeft(Circuit circuit) { return false; }
 
     /**
      * <h1>Rotates a tile to the right</h1>
      * By default rotating a tile doesn't affect anything, so by default it returns false as the rotation is meaningless
      * Needs to be overridden if tile can be rotated
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true if tile was rotated, false otherwise
      */
-    public boolean rotateRight() { return false; }
+    public boolean rotateRight(Circuit circuit) { return false; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>
@@ -202,7 +206,9 @@ public abstract class Tile implements Model, Serializable {
      * By default tile doesn't need to change, not needing to trigger updates, returning false
      * Must be overridden if tile has interactions
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return  true if tile was updated, false otherwise
      */
-    public boolean interact() { return false; }
+    public boolean interact(Circuit circuit) { return false; }
 }

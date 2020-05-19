@@ -249,10 +249,12 @@ public class TimerTile extends OrientedTile {
      * <h1>Interacts with a tile</h1>
      * Interacting with a timer changes the timer mode
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return  false
      */
     @Override
-    public boolean interact() {
+    public boolean interact(Circuit circuit) {
         this.setSwitchMode(!this.switchMode);
         return false;
     }

@@ -72,6 +72,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.COMPARATOR, new LanternaComparatorTileView());
         renderers.put(TileType.TIMER, new LanternaTimerView());
         renderers.put(TileType.COUNTER, new LanternaCounterTileView());
+        renderers.put(TileType.IO, new LanternaIOTileView());
     }
 
     public Screen getScreen() {

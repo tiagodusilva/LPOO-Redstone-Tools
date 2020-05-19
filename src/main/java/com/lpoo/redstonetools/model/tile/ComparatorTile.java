@@ -74,11 +74,13 @@ public class ComparatorTile extends OrientedTile {
      * In an oriented tile rotating a tile to the left is switching the types of the sides in clock-wise direction
      * In addition updates the rear side of the comparator
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true
      */
     @Override
-    public boolean rotateLeft() {
-        boolean ret = super.rotateLeft();
+    public boolean rotateLeft(Circuit circuit) {
+        boolean ret = super.rotateLeft(circuit);
         updateRear();
         return ret;
     }
@@ -88,11 +90,13 @@ public class ComparatorTile extends OrientedTile {
      * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
      * In addition updates the rear side of the comparator
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true
      */
     @Override
-    public boolean rotateRight() {
-        boolean ret = super.rotateRight();
+    public boolean rotateRight(Circuit circuit) {
+        boolean ret = super.rotateRight(circuit);
         updateRear();
         return ret;
     }
@@ -250,10 +254,12 @@ public class ComparatorTile extends OrientedTile {
      * <h1>Interacts with a tile</h1>
      * Interacting with a comparator changes the comparator mode
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return  true
      */
     @Override
-    public boolean interact() {
+    public boolean interact(Circuit circuit) {
         this.setSubtractMode(!this.subtractMode);
         this.forceUpdate = true;
         return true;

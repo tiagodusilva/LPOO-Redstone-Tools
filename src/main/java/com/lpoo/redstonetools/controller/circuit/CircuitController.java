@@ -26,7 +26,7 @@ public class CircuitController {
 
 
     public CircuitController() {
-        updateTracker = new HashMap<Position, Integer>();
+        updateTracker = new HashMap<>();
     }
 
     /**
@@ -98,16 +98,16 @@ public class CircuitController {
      * Wrapper of <code>interact</code> function
      * On top of interacting with the tile, updates the neighbour tiles if needed
      *
-     * @see Tile#interact()
+     * @see Tile#interact(Circuit)
      *
      * @param circuit   Circuit where tile will be added
      * @param position  Position of the Tile to be interacted with
      */
     public void interact(Circuit circuit, Position position) {
         Tile tile = circuit.getTile(position);
-        if (tile.interact()) {
+        if (tile.interact(circuit)) {
             tile.update(circuit);
-            updateAllNeighbourTiles(circuit, position);
+            notifyNeighbourTiles(circuit, position);
         }
     }
 
@@ -116,12 +116,12 @@ public class CircuitController {
      * Wrapper of circuit <code>advanceTick</code> function
      * On top of updating the circuit tick, it handles all the updates that need to be done on each tick
      *
-     * @see Circuit#advanceTick()
+     * @see Circuit#nextTick()
      *
      * @param circuit   Circuit to advance the tick
      */
     public void advanceTick(Circuit circuit) {
-        circuit.advanceTick();
+        circuit.nextTick();
 
         for (Position position : circuit.getTickedTiles()) {
             if (circuit.getTile(position).nextTick()) {
@@ -208,7 +208,7 @@ public class CircuitController {
      * <h1>Rotates a tile of the circuit to the left</h1>
      * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
      *
-     * @see Tile#rotateLeft()
+     * @see Tile#rotateLeft(Circuit)
      *
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile to be rotated
@@ -219,7 +219,7 @@ public class CircuitController {
 
         Tile tile = circuit.getTile(position);
 
-        if (tile.rotateLeft()) {
+        if (tile.rotateLeft(circuit)) {
             tile.updateConnections(circuit);
             tile.update(circuit);
             notifyNeighbourTiles(circuit, position);
@@ -230,7 +230,7 @@ public class CircuitController {
      * <h1>Rotates a tile of the circuit to the right</h1>
      * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
      *
-     * @see Tile#rotateRight()
+     * @see Tile#rotateRight(Circuit)
      *
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile to be rotated
@@ -241,7 +241,7 @@ public class CircuitController {
 
         Tile tile = circuit.getTile(position);
 
-        if (tile.rotateRight()) {
+        if (tile.rotateRight(circuit)) {
             tile.updateConnections(circuit);
             tile.update(circuit);
             notifyNeighbourTiles(circuit, position);

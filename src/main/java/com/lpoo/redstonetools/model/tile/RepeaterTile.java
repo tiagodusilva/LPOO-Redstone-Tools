@@ -14,11 +14,6 @@ import com.lpoo.redstonetools.model.utils.*;
 public class RepeaterTile extends OrientedTile {
 
     /**
-     * <h1>Last tick repeater was updated</h1>
-     */
-    private long updateTick;
-
-    /**
      * <h1>If is extending a signal</h1>
      * If repeater is receiving power from the input side then it is active and extending that power
      */

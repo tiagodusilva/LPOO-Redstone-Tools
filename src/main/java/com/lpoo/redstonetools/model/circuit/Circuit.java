@@ -1,13 +1,15 @@
 package com.lpoo.redstonetools.model.circuit;
 
 import com.lpoo.redstonetools.model.Model;
+import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.NullTile;
+import com.lpoo.redstonetools.model.tile.OrientedTile;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
-import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.*;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.io.Serializable;
 
@@ -19,7 +21,7 @@ import java.io.Serializable;
  *
  * @author g79
  */
-public class Circuit implements Model, Serializable {
+public class Circuit extends OrientedTile implements Model, Serializable {
 
     /**
      * <h1>Tiles of the circuit</h1>
@@ -53,15 +55,17 @@ public class Circuit implements Model, Serializable {
     private long tick;
 
     /**
-     * <h1>Circuit constructor</h1>
-     * The grid of tiles is filled with empty tiles
-     * It also sets the initial tick value
-     * The sources are initially empty
-     *
-     * @param width     Width of the circuit
-     * @param height    Height of the circuit
+     * <h1>Table of IO tiles</h1>
      */
-    public Circuit(int width, int height) {
+    private Map<Side, Position> ioTiles;
+
+    /**
+     * <h1>Error position of the circuit</h1>
+     */
+    private static final Position errorPosition = new Position(-1, -1);
+
+    public Circuit(int width, int height, Position position) {
+        super(position);
         this.width = width;
         this.height = height;
         this.tiles = new Tile[height][width];
@@ -73,8 +77,22 @@ public class Circuit implements Model, Serializable {
         }
 
         this.tickedTiles = new HashSet<>();
+        this.ioTiles = new HashMap<>();
 
         this.tick = 0;
+    }
+
+    /**
+     * <h1>Circuit constructor</h1>
+     * The grid of tiles is filled with empty tiles
+     * It also sets the initial tick value
+     * The sources are initially empty
+     *
+     * @param width     Width of the circuit
+     * @param height    Height of the circuit
+     */
+    public Circuit(int width, int height) {
+        this(width, height, errorPosition);
     }
 
     /**
@@ -97,15 +115,6 @@ public class Circuit implements Model, Serializable {
      * @return  Circuit tick value
      */
     public long getTick() { return tick; }
-
-    /**
-     * <h1>Increments the circuit tick</h1>
-     *
-     * All operations to be done on new ticks are handled by the circuit controller
-     *
-     * @see com.lpoo.redstonetools.controller.circuit.CircuitController
-     */
-    public void advanceTick() { tick++; }
 
     /**
      * <h1>Gets the set of ticked tiles</h1>
@@ -167,8 +176,13 @@ public class Circuit implements Model, Serializable {
      * @param position  Position of the tile to be removed
      */
     private void safeRemoveTile(Position position) {
-        if (getTile(position).isTickedTile())
+        Tile tile = getTile(position);
+        if (tile.isTickedTile())
             tickedTiles.remove(position);
+
+        if (tile.getType() == TileType.IO) {
+            ioTiles.remove(((IOTile)tile).getIOSide(), position);
+        }
     }
 
     /**
@@ -285,5 +299,181 @@ public class Circuit implements Model, Serializable {
         Tile b = getTile(position.getNeighbour(side));
         return (a.acceptsPower(side) && b.outputsPower(side.opposite())) ||
                 (a.outputsPower(side) && b.acceptsPower(side.opposite()));
+    }
+
+    /**
+     * <h1>Get IO tile in side specified</h1>
+     * If circuit doesn't have IO tile on the side the behaviour is defined by the methods used
+     *
+     * @see Circuit#getTile(Position) 
+     *
+     * @param side Side where IO wanted is
+     *
+     * @return IO tile at the side specified
+     */
+    public Tile getIO(Side side) {
+        Position ioPos = ioTiles.getOrDefault(side, errorPosition);
+        return getTile(ioPos);
+    }
+
+    /**
+     * <h1>Set IO tile in side specified</h1>
+     *
+     * @see Circuit#getTile(Position)
+     *
+     * @param side      Side where IO wanted is
+     * @param position  Position of the IO tile
+     *
+     */
+    public void setIO(Side side, Position position) {
+        ioTiles.put(side, position);
+    }
+
+    /**
+     * <h1>Updates IO tile to circuit mapping on interaction</h1>
+     * Verifies if the IO tile can be updated, and updates it if possible
+     *
+     * @param position  Position of the IO tile to update
+     * @return  true if IO tile was updated, false otherwise
+     */
+    public boolean updateOnIOInteract(Position position) {
+        Tile toUpdate = getTile(position);
+        if (toUpdate.getType() != TileType.IO) return false;
+        Side side = ((IOTile)toUpdate).getIOSide();
+        Tile toReplace = getIO(side);
+        boolean differentTile = !toUpdate.equals(toReplace);
+
+        if (toUpdate.acceptsPower(side) || toUpdate.outputsPower(side)) {
+            if (toReplace.getType() == TileType.IO && differentTile) return false;
+            ioTiles.put(side, position);
+        } else {
+            if (differentTile) return false;
+            ioTiles.remove(side, position);
+        }
+        return true;
+    }
+
+    /**
+     * <h1>Updates IO tile to circuit mapping on rotation</h1>
+     * Verifies if the IO tile can be updated, and updates it if possible
+     *
+     * @param position  Position of the IO tile to update
+     * @return  true if IO tile was updated, false otherwise
+     */
+    public boolean updateOnIORotation(Position position, Side previous) {
+        Tile toUpdate = getTile(position);
+        if (toUpdate.getType() != TileType.IO) return false;
+        Side side = ((IOTile)toUpdate).getIOSide();
+        if (side.equals(previous)) return false;
+
+        boolean hasIOPort = toUpdate.acceptsPower(side) || toUpdate.outputsPower(side);
+
+        if (hasIOPort) {
+            Tile toReplace = getIO(side);
+
+            if (toReplace.getType() == TileType.IO) return false;
+
+            ioTiles.remove(previous, position);
+            ioTiles.put(side, position);
+        }
+        return true;
+    }
+
+    @Override
+    public String getName() {
+        return "custom";
+    }
+
+    @Override
+    public String getInfo() {
+        return "Custom circuit";
+    }
+
+    @Override
+    public TileType getType() {
+        return TileType.CIRCUIT;
+    }
+
+    @Override
+    public int getPower(Side side) {
+        if (outputsPower(side)) {
+            Tile tile = getIO(side);
+            return tile.getPower(side);
+        }
+        return Power.getMin();
+    }
+
+    /**
+     * <h1>Rotates a tile to the left</h1>
+     * In an oriented tile rotating a tile to the left is switching the types of the sides in counter clock-wise direction
+     * In a custom tile it also rotates the sides pointing to IO tiles
+     *
+     * @param circuit Circuit where rotation is taking place
+     *
+     * @return  true
+     */
+    @Override
+    public boolean rotateLeft(Circuit circuit) {
+        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
+        ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.UP, errorPosition));
+        ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
+        ioTiles.put(Side.DOWN, leftPos);
+        ioTiles.put(Side.UP, rightPos);
+        super.rotateLeft(circuit);
+        return true;
+    }
+
+    /**
+     * <h1>Rotates a tile to the right</h1>
+     * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
+     * In a custom tile it also rotates the sides pointing to IO tiles
+     *
+     * @param circuit Circuit where rotation is taking place
+     *
+     * @return  true
+     */
+    @Override
+    public boolean rotateRight(Circuit circuit) {
+        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
+        ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.UP, errorPosition));
+        ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
+        ioTiles.put(Side.UP, leftPos);
+        ioTiles.put(Side.DOWN, rightPos);
+        super.rotateRight(circuit);
+        return true;
+    }
+
+    @Override
+    public boolean isTickedTile() {
+        return true;
+    }
+
+    /**
+     * <h1>Increments the circuit tick</h1>
+     *
+     * All operations to be done on new ticks are handled by the circuit controller
+     *
+     * @see com.lpoo.redstonetools.controller.circuit.CircuitController
+     * @see Tile#isTickedTile()
+     *
+     * @return true
+     */
+    public boolean nextTick() {
+        tick++;
+        return true;
+    }
+
+    @Override
+    public boolean update(Circuit circuit, int power, Side side) {
+        Tile tile = getIO(side);
+        boolean needs_update = tile.getPower(side) != power;
+        return acceptsPower(side) && needs_update;
+    }
+
+    @Override
+    protected boolean onChange(Circuit circuit, int power, Side side) {
+        return false;
     }
 }
