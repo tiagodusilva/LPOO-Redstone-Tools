@@ -358,6 +358,8 @@ public class Circuit extends OrientedTile implements Model, Serializable {
      * Verifies if the IO tile can be updated, and updates it if possible
      *
      * @param position  Position of the IO tile to update
+     * @param previous  IO side before rotation
+     *
      * @return  true if IO tile was updated, false otherwise
      */
     public boolean updateOnIORotation(Position position, Side previous) {
@@ -379,21 +381,45 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         return true;
     }
 
+    /**
+     * <h1>Get name of the tile</h1>
+     *
+     * @return  "circuit"
+     */
     @Override
     public String getName() {
-        return "custom";
+        return "circuit";
     }
 
+    /**
+     * <h1>Get tile information</h1>
+     *
+     * @return "Custom circuit"
+     */
     @Override
     public String getInfo() {
         return "Custom circuit";
     }
 
+    /**
+     * <h1>Get tile type</h1>
+     *
+     * @see TileType
+     *
+     * @return  Circuit type
+     */
     @Override
     public TileType getType() {
         return TileType.CIRCUIT;
     }
 
+    /**
+     * <h1>Get the power level emitted on the side specified</h1>
+     * Circuit power level emitted depends on the IO ports it has
+     *
+     * @param side  Side of the tile (circuit)
+     * @return  IO port power level if it is an output port, minimum power otherwise
+     */
     @Override
     public int getPower(Side side) {
         if (outputsPower(side)) {
@@ -445,6 +471,12 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         return true;
     }
 
+    /**
+     * <h1>Checks if tile is a ticked of power</h1>
+     * A circuit has its update tick as well as it can have ticked tiles inside it, so it is a ticked tile
+     *
+     * @return  true
+     */
     @Override
     public boolean isTickedTile() {
         return true;
@@ -465,6 +497,16 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         return true;
     }
 
+    /**
+     * <h1>Triggers a tile update</h1>
+     * Checks if inner circuit needs to be updated
+     * This update depends on whether the circuit has IO ports or not
+     *
+     * @param circuit   Outer circuit where updates are taking place
+     * @param power     Power received on the update
+     * @param side      Side from which inner circuit received an update
+     * @return  true if inner circuit was updated, false otherwise
+     */
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
         Tile tile = getIO(side);
@@ -472,6 +514,14 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         return acceptsPower(side) && needs_update;
     }
 
+    /**
+     * <h1>Updates the tile</h1>
+     *
+     * @param circuit   Outer circuit where updates are taking place
+     * @param power     Power received on the update
+     * @param side      Side from which inner circuit received an update
+     * @return  false
+     */
     @Override
     protected boolean onChange(Circuit circuit, int power, Side side) {
         return false;

@@ -30,6 +30,7 @@ public class LogicGateTile extends OrientedTile {
      * The input and output sides can't be changed, but the logic gate can be rotated
      *
      * @param position  Position of the tile
+     * @param strategy  Logic Gate strategy in use
      */
     public LogicGateTile(Position position, LogicGateStrategy strategy) {
         super(position);

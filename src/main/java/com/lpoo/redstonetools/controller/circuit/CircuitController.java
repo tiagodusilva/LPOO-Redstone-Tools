@@ -31,8 +31,11 @@ public class CircuitController {
 
     /**
      * <h1>Loads a circuit from a .ser file</h1>
+     *
      * @see Serializable
+     *
      * @param filename File containing the Circuit object to be loaded
+     *
      * @return Loaded circuit upon success
      * @throws InvalidCircuitException Thrown otherwise
      */
@@ -54,8 +57,12 @@ public class CircuitController {
     /**
      * <h1>Saves a Circuit to a .ser file</h1>
      * Changes the filename to always end in ".ser"
+     *
      * @see Serializable
-     * @param filename File for the object to be saved
+     *
+     * @param circuit   Circuit to be saved
+     * @param filename  File for the object to be saved
+     *
      * @return True upon success, false otherwise
      */
     public static boolean saveCircuit(Circuit circuit, String filename) {
