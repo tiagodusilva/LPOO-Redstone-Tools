@@ -3,12 +3,17 @@ package com.lpoo.redstonetools.model.tile;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.*;
 
-public class IOTile extends OrientedTile {
+public class IOTile extends Tile {
 
     /**
      * <h1>Power level being received/emitted</h1>
      */
     private int power;
+
+    /**
+     * <h1>IO Type</h1>
+     */
+    private SideType ioType;
 
     /**
      * <h1>IO side</h1>
@@ -26,7 +31,26 @@ public class IOTile extends OrientedTile {
         super(position);
 
         this.power = Power.getMin();
+        this.ioType = SideType.DEFAULT;
         this.ioSide = Side.UP;
+    }
+
+    /**
+     * <h1>Get IO type</h1>
+     *
+     * @return IO type
+     */
+    public SideType getIOType() {
+        return ioType;
+    }
+
+    /**
+     * <h1>Set IO type</h1>
+     *
+     * @param type new IO type
+     */
+    public void setIOType(SideType type) {
+        this.ioType = type;
     }
 
     /**
@@ -41,10 +65,10 @@ public class IOTile extends OrientedTile {
     /**
      * <h1>Set IO side</h1>
      *
-     * @param side new IO side
+     * @param ioSide new IO side
      */
-    public void setIOSide(Side side) {
-        this.ioSide = side;
+    public void setIOSide(Side ioSide) {
+        this.ioSide = ioSide;
     }
 
     @Override
@@ -54,7 +78,7 @@ public class IOTile extends OrientedTile {
 
     @Override
     public String getInfo() {
-        return "IO Side : " + this.ioSide + "\n" +
+        return "IO Type : " + this.ioType + "\n" +
                "Power : " + this.power;
     }
 
@@ -64,61 +88,38 @@ public class IOTile extends OrientedTile {
     }
 
     @Override
+    public boolean acceptsPower(Side side) {
+        return ioType.isInput();
+    }
+
+    @Override
+    public boolean outputsPower(Side side) {
+        return ioType.isOutput();
+    }
+
+    @Override
     public int getPower(Side side) {
         return outputsPower(side) ? power : Power.getMin();
     }
 
     /**
      * <h1>Get tile power</h1>
-     * Temporary function for circuit to get IO power regardless of the side
+     * Get power IO is emitting to outside the circuit
+     *
+     * @param side  Side of the tile
      *
      * @return  IO stored power
      */
-    public int getPower() {
-        return power;
-    }
-
-    @Override
-    public boolean rotateLeft(Circuit circuit) {
-        Side oldSide = this.ioSide;
-        Side newSide = this.ioSide.atLeft();
-        this.setIOSide(newSide);
-        super.rotateLeft(circuit);
-
-        while (oldSide != newSide) {
-
-            if (circuit.updateOnIORotation(position, oldSide)) return true;
-
-            newSide = newSide.atLeft();
-            this.setIOSide(newSide);
-            super.rotateLeft(circuit);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean rotateRight(Circuit circuit) {
-        Side oldSide = this.ioSide;
-        Side newSide = this.ioSide.atRight();
-        this.setIOSide(newSide);
-        super.rotateRight(circuit);
-
-        while (oldSide != newSide) {
-
-            if (circuit.updateOnIORotation(position, oldSide)) return true;
-
-            newSide = newSide.atRight();
-            this.setIOSide(newSide);
-            super.rotateRight(circuit);
-        }
-        return false;
+    public int getExteriorPower(Side side) {
+        return acceptsPower(side) ? power : Power.getMin();
     }
 
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
-        boolean needs_update = this.power != power;
+        int surroundingPower = circuit.getSurroundingPower(position);
+        boolean needs_update = this.power != surroundingPower;
         if (acceptsPower(side) && needs_update) {
-            return onChange(circuit, power, side);
+            return onChange(circuit, surroundingPower, side);
         }
         return false;
     }
@@ -131,16 +132,42 @@ public class IOTile extends OrientedTile {
 
     @Override
     public boolean interact(Circuit circuit) {
-        SideType oldState = sides.getOrDefault(ioSide, SideType.DEFAULT);
-        SideType newState = oldState.next();
-        sides.put(ioSide, newState);
+        SideType oldState = ioType;
+        ioType = ioType.next();
 
-        while (newState != oldState) {
+        while (ioType != oldState) {
 
             if (circuit.updateOnIOInteract(position)) return true;
 
-            newState = newState.next();
-            sides.put(ioSide, newState);
+            ioType = ioType.next();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean rotateLeft(Circuit circuit) {
+        Side oldSide = ioSide;
+        this.setIOSide(ioSide.atLeft());
+
+        while (oldSide != ioSide) {
+
+            if (circuit.updateOnIORotation(position, oldSide)) return true;
+
+            this.setIOSide(ioSide.atLeft());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean rotateRight(Circuit circuit) {
+        Side oldSide = ioSide;
+        this.setIOSide(ioSide.atRight());
+
+        while (oldSide != ioSide) {
+
+            if (circuit.updateOnIORotation(position, oldSide)) return true;
+
+            this.setIOSide(ioSide.atRight());
         }
         return false;
     }

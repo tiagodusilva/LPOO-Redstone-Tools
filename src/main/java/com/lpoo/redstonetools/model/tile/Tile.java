@@ -137,6 +137,7 @@ public abstract class Tile implements Model, Serializable {
      * <h1>Get the power level emitted on the side specified</h1>
      *
      * @param side  Side of the tile
+     *
      * @return  Power level emitted on the side specified of the tile
      */
     public abstract int getPower(Side side);

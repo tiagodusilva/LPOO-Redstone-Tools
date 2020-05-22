@@ -139,7 +139,9 @@ public class LanternaMenuView extends MenuView {
             fileNameLabel.setText("Loaded from: " + fileName);
         circuitSizeLabel.setText("Circuit size: " + aCircuit.getWidth() + "x" + aCircuit.getHeight());
         circuit = aCircuit;
-        /*try { // if you need to force custom circuit spawn
+        /*
+        // TODO : LOADING custom circuits :D
+        try { // if you need to force custom circuit spawn
             Circuit newSubcircuit = CircuitController.loadCircuit("circuits/custom.ser");
             newSubcircuit.setPosition(new Position(7, 7));
             CircuitController spaguethi = new CircuitController();

@@ -233,12 +233,12 @@ public class TimerTile extends OrientedTile {
         if (!active) return false;
 
         boolean lastOutput = output;
+        timer++;
 
-        if (timer == delay) {
+        if (timer >= delay) {
             setOutput(!switchMode || !output);
             timer = 0;
         } else {
-            timer++;
             output = switchMode && output;
         }
 

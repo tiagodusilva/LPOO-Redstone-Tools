@@ -129,13 +129,13 @@ public class CrossWireTile extends Tile {
 
         int surroundingPower, cur_power;
         if (side == Side.LEFT || side == Side.RIGHT) {
-            surroundingPower = Math.max(circuit.getSurroundingPower(position, Side.LEFT),
-                    circuit.getSurroundingPower(position, Side.RIGHT));
+            surroundingPower = Math.max(circuit.getSurroundingWirePower(position, Side.LEFT),
+                    circuit.getSurroundingWirePower(position, Side.RIGHT));
             cur_power = powerHor;
         }
         else {
-            surroundingPower = Math.max(circuit.getSurroundingPower(position, Side.UP),
-                    circuit.getSurroundingPower(position, Side.DOWN));
+            surroundingPower = Math.max(circuit.getSurroundingWirePower(position, Side.UP),
+                    circuit.getSurroundingWirePower(position, Side.DOWN));
             cur_power = powerVert;
         }
 

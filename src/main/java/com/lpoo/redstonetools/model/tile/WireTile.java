@@ -123,7 +123,7 @@ public class WireTile extends Tile {
      */
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
-        int surroundingPower = circuit.getSurroundingPower(position);
+        int surroundingPower = circuit.getSurroundingWirePower(position);
         if (this.power != surroundingPower)
             return onChange(circuit, surroundingPower, side);
         return false;

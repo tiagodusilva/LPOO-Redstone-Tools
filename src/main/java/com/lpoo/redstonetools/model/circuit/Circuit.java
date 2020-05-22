@@ -180,7 +180,7 @@ public class Circuit extends Tile implements Model, Serializable {
             tickedTiles.remove(position);
 
         if (tile.getType() == TileType.IO) {
-            ioTiles.remove(((IOTile)tile).getIOSide().opposite(), position);
+            ioTiles.remove(((IOTile)tile).getIOSide(), position);
         }
     }
 
@@ -231,9 +231,7 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     public int getSurroundingPower(Position position, Side side) {
         Tile tile = getTile(position.getNeighbour(side));
-        return tile.isWire() ?
-                Power.decrease(tile.getPower(side.opposite()))
-                : tile.getPower(side.opposite());
+        return tile.getPower(side.opposite());
     }
 
     /**
@@ -261,28 +259,23 @@ public class Circuit extends Tile implements Model, Serializable {
     public int getSurroundingWirePower(Position position) {
         int maxPower = Power.getMin();
         for (Side side : Side.values()) {
-            Tile tile = getTile(position.getNeighbour(side));
-            if (tile.isWire())
-                maxPower = Math.max(maxPower, Power.decrease(tile.getPower(side.opposite())));
+            maxPower = Math.max(maxPower, getSurroundingWirePower(position, side));
         }
         return maxPower;
     }
 
     /**
-     * <h1>Get the power level received from the neighbour non-wire tiles</h1>
-     * Gets the maximum power level received from the neighbour non-wire tiles
+     * <h1>Get the power level received from the neighbour wires</h1>
+     * Gets the maximum power level received from the neighbour wires
      *
      * @param position  Position of the tile to check surroundings
      * @return  Maximum power level in the neighbourhood
      */
-    public int getSurroundingGatePower(Position position) {
-        int maxPower = Power.getMin();
-        for (Side side : Side.values()) {
-            Tile tile = getTile(position.getNeighbour(side));
-            if (!tile.isWire())
-                maxPower = Math.max(maxPower, tile.getPower(side.opposite()));
-        }
-        return maxPower;
+    public int getSurroundingWirePower(Position position, Side side) {
+        Tile tile = getTile(position.getNeighbour(side));
+        return tile.isWire() ?
+                Power.decrease(tile.getPower(side.opposite()))
+                : tile.getPower(side.opposite());
     }
 
     /**
@@ -337,17 +330,22 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     public boolean updateOnIOInteract(Position position) {
         Tile toUpdate = getTile(position);
+
         if (toUpdate.getType() != TileType.IO) return false;
+
         Side side = ((IOTile)toUpdate).getIOSide();
-        Tile toReplace = getIO(side.opposite());
+        Tile toReplace = getIO(side);
+
         boolean differentTile = !toUpdate.equals(toReplace);
 
         if (toUpdate.acceptsPower(side) || toUpdate.outputsPower(side)) {
             if (toReplace.getType() == TileType.IO && differentTile) return false;
-            ioTiles.put(side.opposite(), position);
+
+            setIO(side, position);
         } else {
             if (differentTile) return false;
-            ioTiles.remove(side.opposite(), position);
+
+            ioTiles.remove(side, position);
         }
         return true;
     }
@@ -363,19 +361,21 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     public boolean updateOnIORotation(Position position, Side previous) {
         Tile toUpdate = getTile(position);
+
         if (toUpdate.getType() != TileType.IO) return false;
+
         Side side = ((IOTile)toUpdate).getIOSide();
         if (side.equals(previous)) return false;
 
         boolean hasIOPort = toUpdate.acceptsPower(side) || toUpdate.outputsPower(side);
 
         if (hasIOPort) {
-            Tile toReplace = getIO(side.opposite());
+            Tile toReplace = getIO(side);
 
             if (toReplace.getType() == TileType.IO) return false;
 
-            ioTiles.remove(previous.opposite(), position);
-            ioTiles.put(side.opposite(), position);
+            ioTiles.remove(previous, position);
+            ioTiles.put(side, position);
         }
         return true;
     }
@@ -421,11 +421,8 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     @Override
     public int getPower(Side side) {
-        if (outputsPower(side)) {
-            Tile tile = getIO(side);
-            return ((IOTile)tile).getPower();
-        }
-        return Power.getMin();
+        Tile tile = getIO(side);
+        return (tile.getType() == TileType.IO) ? ((IOTile)getIO(side)).getExteriorPower(side) : Power.getMin();
     }
 
     /**
@@ -438,14 +435,13 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     @Override
     public boolean rotateLeft(Circuit circuit) {
-        // TODO
-        /*Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
         Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
         ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.UP, errorPosition));
         ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
         ioTiles.put(Side.DOWN, leftPos);
-        ioTiles.put(Side.UP, rightPos);*/
-        return false;
+        ioTiles.put(Side.UP, rightPos);
+        return true;
     }
 
     /**
@@ -458,14 +454,13 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     @Override
     public boolean rotateRight(Circuit circuit) {
-        // TODO
-        /*Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
         Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
         ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.UP, errorPosition));
         ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
         ioTiles.put(Side.UP, leftPos);
-        ioTiles.put(Side.DOWN, rightPos);*/
-        return false;
+        ioTiles.put(Side.DOWN, rightPos);
+        return true;
     }
 
     /**
@@ -504,7 +499,7 @@ public class Circuit extends Tile implements Model, Serializable {
      * @return  true if the side is an input, false otherwise
      */
     @Override
-    public boolean acceptsPower(Side side) { return getIO(side).outputsPower(side.opposite()); }
+    public boolean acceptsPower(Side side) { return getIO(side).outputsPower(side); }
 
     /**
      * <h1>Checks if side specified is an output of power</h1>
@@ -513,7 +508,7 @@ public class Circuit extends Tile implements Model, Serializable {
      * @return  true if the side is an output, false otherwise
      */
     @Override
-    public boolean outputsPower(Side side) { return getIO(side).acceptsPower(side.opposite()); }
+    public boolean outputsPower(Side side) { return getIO(side).acceptsPower(side); }
 
     /**
      * <h1>Triggers a tile update</h1>
@@ -528,7 +523,7 @@ public class Circuit extends Tile implements Model, Serializable {
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
         Tile tile = getIO(side);
-        boolean needs_update = tile.getPower(side.opposite()) != power;
+        boolean needs_update = tile.getPower(side) != power;
         return acceptsPower(side) && needs_update;
     }
 
