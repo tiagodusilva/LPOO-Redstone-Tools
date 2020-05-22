@@ -147,7 +147,7 @@ public class CounterTile extends OrientedTile {
      * @return  true if counter output was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.prevIn = power;
         boolean last = this.output;
 

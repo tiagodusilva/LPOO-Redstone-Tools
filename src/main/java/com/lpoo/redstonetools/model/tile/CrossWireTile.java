@@ -154,7 +154,7 @@ public class CrossWireTile extends Tile {
      * @return  true
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         if (side == Side.LEFT || side == Side.RIGHT)
             powerHor = power;
         else

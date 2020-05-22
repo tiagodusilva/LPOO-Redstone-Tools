@@ -139,7 +139,7 @@ public class WireTile extends Tile {
      * @return  true
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.power = power;
         return true;
     }

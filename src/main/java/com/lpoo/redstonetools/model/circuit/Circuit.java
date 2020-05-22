@@ -3,7 +3,6 @@ package com.lpoo.redstonetools.model.circuit;
 import com.lpoo.redstonetools.model.Model;
 import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.NullTile;
-import com.lpoo.redstonetools.model.tile.OrientedTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.*;
 
@@ -21,7 +20,7 @@ import java.io.Serializable;
  *
  * @author g79
  */
-public class Circuit extends OrientedTile implements Model, Serializable {
+public class Circuit extends Tile implements Model, Serializable {
 
     /**
      * <h1>Tiles of the circuit</h1>
@@ -181,7 +180,7 @@ public class Circuit extends OrientedTile implements Model, Serializable {
             tickedTiles.remove(position);
 
         if (tile.getType() == TileType.IO) {
-            ioTiles.remove(((IOTile)tile).getIOSide(), position);
+            ioTiles.remove(((IOTile)tile).getIOSide().opposite(), position);
         }
     }
 
@@ -340,15 +339,15 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         Tile toUpdate = getTile(position);
         if (toUpdate.getType() != TileType.IO) return false;
         Side side = ((IOTile)toUpdate).getIOSide();
-        Tile toReplace = getIO(side);
+        Tile toReplace = getIO(side.opposite());
         boolean differentTile = !toUpdate.equals(toReplace);
 
         if (toUpdate.acceptsPower(side) || toUpdate.outputsPower(side)) {
             if (toReplace.getType() == TileType.IO && differentTile) return false;
-            ioTiles.put(side, position);
+            ioTiles.put(side.opposite(), position);
         } else {
             if (differentTile) return false;
-            ioTiles.remove(side, position);
+            ioTiles.remove(side.opposite(), position);
         }
         return true;
     }
@@ -371,12 +370,12 @@ public class Circuit extends OrientedTile implements Model, Serializable {
         boolean hasIOPort = toUpdate.acceptsPower(side) || toUpdate.outputsPower(side);
 
         if (hasIOPort) {
-            Tile toReplace = getIO(side);
+            Tile toReplace = getIO(side.opposite());
 
             if (toReplace.getType() == TileType.IO) return false;
 
-            ioTiles.remove(previous, position);
-            ioTiles.put(side, position);
+            ioTiles.remove(previous.opposite(), position);
+            ioTiles.put(side.opposite(), position);
         }
         return true;
     }
@@ -424,15 +423,14 @@ public class Circuit extends OrientedTile implements Model, Serializable {
     public int getPower(Side side) {
         if (outputsPower(side)) {
             Tile tile = getIO(side);
-            return tile.getPower(side);
+            return ((IOTile)tile).getPower();
         }
         return Power.getMin();
     }
 
     /**
      * <h1>Rotates a tile to the left</h1>
-     * In an oriented tile rotating a tile to the left is switching the types of the sides in counter clock-wise direction
-     * In a custom tile it also rotates the sides pointing to IO tiles
+     * In a circuit tile it rotates the sides pointing to IO tiles
      *
      * @param circuit Circuit where rotation is taking place
      *
@@ -440,20 +438,19 @@ public class Circuit extends OrientedTile implements Model, Serializable {
      */
     @Override
     public boolean rotateLeft(Circuit circuit) {
-        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        // TODO
+        /*Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
         Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
         ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.UP, errorPosition));
         ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
         ioTiles.put(Side.DOWN, leftPos);
-        ioTiles.put(Side.UP, rightPos);
-        super.rotateLeft(circuit);
-        return true;
+        ioTiles.put(Side.UP, rightPos);*/
+        return false;
     }
 
     /**
      * <h1>Rotates a tile to the right</h1>
-     * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
-     * In a custom tile it also rotates the sides pointing to IO tiles
+     * In a circuit tile it rotates the sides pointing to IO tiles
      *
      * @param circuit Circuit where rotation is taking place
      *
@@ -461,14 +458,14 @@ public class Circuit extends OrientedTile implements Model, Serializable {
      */
     @Override
     public boolean rotateRight(Circuit circuit) {
-        Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
+        // TODO
+        /*Position leftPos = ioTiles.getOrDefault(Side.LEFT, errorPosition);
         Position rightPos = ioTiles.getOrDefault(Side.RIGHT, errorPosition);
         ioTiles.put(Side.RIGHT, ioTiles.getOrDefault(Side.UP, errorPosition));
         ioTiles.put(Side.LEFT, ioTiles.getOrDefault(Side.DOWN, errorPosition));
         ioTiles.put(Side.UP, leftPos);
-        ioTiles.put(Side.DOWN, rightPos);
-        super.rotateRight(circuit);
-        return true;
+        ioTiles.put(Side.DOWN, rightPos);*/
+        return false;
     }
 
     /**
@@ -498,6 +495,27 @@ public class Circuit extends OrientedTile implements Model, Serializable {
     }
 
     /**
+     * <h1>Checks if side specified is an input of power</h1>
+     * In a circuit it functions reversed, this is:
+     *  - Having an output IO port means it accepts power from the outside via that IO port
+     *  - Having an input IO port means it outputs power to the outside via that IO port
+     *
+     * @param side  Side of the tile to be checked
+     * @return  true if the side is an input, false otherwise
+     */
+    @Override
+    public boolean acceptsPower(Side side) { return getIO(side).outputsPower(side.opposite()); }
+
+    /**
+     * <h1>Checks if side specified is an output of power</h1>
+     *
+     * @param side  Side of the tile to be checked
+     * @return  true if the side is an output, false otherwise
+     */
+    @Override
+    public boolean outputsPower(Side side) { return getIO(side).acceptsPower(side.opposite()); }
+
+    /**
      * <h1>Triggers a tile update</h1>
      * Checks if inner circuit needs to be updated
      * This update depends on whether the circuit has IO ports or not
@@ -510,7 +528,7 @@ public class Circuit extends OrientedTile implements Model, Serializable {
     @Override
     public boolean update(Circuit circuit, int power, Side side) {
         Tile tile = getIO(side);
-        boolean needs_update = tile.getPower(side) != power;
+        boolean needs_update = tile.getPower(side.opposite()) != power;
         return acceptsPower(side) && needs_update;
     }
 
@@ -523,7 +541,7 @@ public class Circuit extends OrientedTile implements Model, Serializable {
      * @return  false
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         return false;
     }
 }

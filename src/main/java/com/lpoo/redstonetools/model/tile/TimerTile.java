@@ -200,7 +200,7 @@ public class TimerTile extends OrientedTile {
      * @return  true if timer output was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.active = Power.isOff(power);
         boolean last = this.output;
         this.output = this.active && this.output;

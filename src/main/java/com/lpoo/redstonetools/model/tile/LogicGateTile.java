@@ -114,7 +114,7 @@ public class LogicGateTile extends OrientedTile {
      * @return  true if repeater was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.powers.put(side, power);
         boolean old_status = this.active;
         this.setStatus(this.strategy.logic(this.powers, this.sides));

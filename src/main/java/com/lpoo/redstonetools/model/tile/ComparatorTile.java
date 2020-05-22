@@ -229,7 +229,7 @@ public class ComparatorTile extends OrientedTile {
      * @return  true if comparator was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.powers.put(side, power);
         this.forceUpdate = false;
         if (rear == null) return false;

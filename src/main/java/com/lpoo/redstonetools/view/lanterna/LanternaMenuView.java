@@ -10,6 +10,7 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
+import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
@@ -138,6 +139,14 @@ public class LanternaMenuView extends MenuView {
             fileNameLabel.setText("Loaded from: " + fileName);
         circuitSizeLabel.setText("Circuit size: " + aCircuit.getWidth() + "x" + aCircuit.getHeight());
         circuit = aCircuit;
+        /*try { // if you need to force custom circuit spawn
+            Circuit newSubcircuit = CircuitController.loadCircuit("circuits/custom.ser");
+            newSubcircuit.setPosition(new Position(7, 7));
+            CircuitController spaguethi = new CircuitController();
+            spaguethi.addTile(circuit, newSubcircuit);
+        } catch (InvalidCircuitException e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Override

@@ -38,6 +38,15 @@ public abstract class Tile implements Model, Serializable {
     public Position getPosition() { return position; }
 
     /**
+     * <h1>Sets the tile position</h1>
+     *
+     * @param position  New tile position
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    /**
      * <h1>Get name of the tile</h1>
      *
      * @return  Name given to the tile
@@ -189,7 +198,7 @@ public abstract class Tile implements Model, Serializable {
      * @param side      Side from which repeater received an update
      * @return  true if tile was updated, false otherwise
      */
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         return false;
     }
 

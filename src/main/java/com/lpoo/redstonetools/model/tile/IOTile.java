@@ -68,6 +68,16 @@ public class IOTile extends OrientedTile {
         return outputsPower(side) ? power : Power.getMin();
     }
 
+    /**
+     * <h1>Get tile power</h1>
+     * Temporary function for circuit to get IO power regardless of the side
+     *
+     * @return  IO stored power
+     */
+    public int getPower() {
+        return power;
+    }
+
     @Override
     public boolean rotateLeft(Circuit circuit) {
         Side oldSide = this.ioSide;
@@ -114,7 +124,7 @@ public class IOTile extends OrientedTile {
     }
 
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.power = power;
         return true;
     }
