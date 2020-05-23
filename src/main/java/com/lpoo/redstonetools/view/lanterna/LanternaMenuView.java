@@ -55,7 +55,7 @@ public class LanternaMenuView extends MenuView {
                     .showDialog(textGUI);
 
             if (input1 != null) {
-                fileName = input1.getName();
+                fileName = input1.getAbsolutePath();
                 try {
                     Circuit created = CircuitController.loadCircuit(input1.getAbsolutePath());
                     created.setCircuitName(input1.getName());
@@ -140,19 +140,9 @@ public class LanternaMenuView extends MenuView {
         if (fileName.equals(""))
             fileNameLabel.setText("Blank Circuit");
         else
-            fileNameLabel.setText("Loaded from: " + fileName);
+            fileNameLabel.setText("Loaded from:\n" + fileName);
         circuitSizeLabel.setText("Circuit size: " + aCircuit.getWidth() + "x" + aCircuit.getHeight());
         circuit = aCircuit;
-        /*
-        // TODO : LOADING custom circuits :D
-        try { // if you need to force custom circuit spawn
-            Circuit newSubcircuit = CircuitController.loadCircuit("circuits/custom.ser");
-            newSubcircuit.setPosition(new Position(7, 7));
-            CircuitController spaguethi = new CircuitController();
-            spaguethi.addTile(circuit, newSubcircuit);
-        } catch (InvalidCircuitException e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override

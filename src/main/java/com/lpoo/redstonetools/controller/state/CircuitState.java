@@ -4,10 +4,12 @@ import com.lpoo.redstonetools.MainController;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.command.*;
 import com.lpoo.redstonetools.controller.event.Event;
+import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
+import com.lpoo.redstonetools.view.LoadCustomStrategy;
 import com.lpoo.redstonetools.view.SaveStrategy;
 import com.lpoo.redstonetools.view.ViewFactory;
 
@@ -57,6 +59,7 @@ public class CircuitState extends State {
                         saveCircuit((SaveStrategy) event.getObject());
                         break;
                     case LOAD_CUSTOM:
+                        loadCustom((LoadCustomStrategy) event.getObject());
                         break;
                     case QUIT:
                         this.exit = true;
@@ -90,6 +93,21 @@ public class CircuitState extends State {
                 saveStrategy.notifySuccess(filename);
             else
                 saveStrategy.notifyFailure(filename);
+        }
+        circuitView.startInputs();
+    }
+
+    private void loadCustom(LoadCustomStrategy loadCustomStrategy) {
+        circuitView.stopInputs();
+        String filename = loadCustomStrategy.getFileName();
+        if (filename != null) {
+            try {
+                Circuit newSubcircuit = CircuitController.loadCircuit(filename);
+                newSubcircuit.setPosition(loadCustomStrategy.getPosition());
+                this.circuitController.addTile(circuit, newSubcircuit);
+            } catch (InvalidCircuitException e) {
+                e.printStackTrace();
+            }
         }
         circuitView.startInputs();
     }
