@@ -11,7 +11,7 @@ public class LanternaTimerView extends LanternaTileView {
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
         renderPowerSensitiveFrame(graphics, tile, column, row);
 
-        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));
+        graphics.setForegroundColor(getPowerColor(Power.getMax()));
         graphics.setCharacter(column + 1, row + 1, '\u23F2');
     }
 }

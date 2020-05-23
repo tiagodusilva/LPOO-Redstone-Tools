@@ -41,7 +41,7 @@ public class LanternaWireTileView extends LanternaTileView {
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(tile.getPower(Side.UP))));
+        graphics.setForegroundColor(getPowerColor(tile.getPower(Side.UP)));
 
         int sides = 0;
         if (tile.isConnected(Side.UP)) {

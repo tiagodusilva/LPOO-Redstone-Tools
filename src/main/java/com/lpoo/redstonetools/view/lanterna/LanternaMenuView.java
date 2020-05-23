@@ -57,7 +57,9 @@ public class LanternaMenuView extends MenuView {
             if (input1 != null) {
                 fileName = input1.getName();
                 try {
-                    createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, CircuitController.loadCircuit(input1.getAbsolutePath()));
+                    Circuit created = CircuitController.loadCircuit(input1.getAbsolutePath());
+                    created.setCircuitName(input1.getName());
+                    createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
                 } catch (InvalidCircuitException e) {
                     new MessageDialogBuilder()
                             .setTitle("Failed to Load Circuit")
@@ -84,7 +86,9 @@ public class LanternaMenuView extends MenuView {
 
         rightPanel.addComponent(new Button("Create Blank", () -> {
             fileName = "";
-            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText())));
+            Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
+            created.setCircuitName("blank.ser");
+            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
         }).withBorder(Borders.singleLine()));
 
         mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));

@@ -56,6 +56,8 @@ public class CircuitState extends State {
                     case SAVE:
                         saveCircuit((SaveStrategy) event.getObject());
                         break;
+                    case LOAD_CUSTOM:
+                        break;
                     case QUIT:
                         this.exit = true;
                         events.clear();
@@ -82,7 +84,7 @@ public class CircuitState extends State {
 
     private void saveCircuit(SaveStrategy saveStrategy) {
         circuitView.stopInputs();
-        String filename = saveStrategy.getFileName();
+        String filename = saveStrategy.getFileName(circuit.getCircuitName());
         if (filename != null) {
             if (CircuitController.saveCircuit(circuit, filename))
                 saveStrategy.notifySuccess(filename);

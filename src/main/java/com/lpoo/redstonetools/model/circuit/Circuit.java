@@ -63,6 +63,11 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     private static final Position errorPosition = new Position(-1, -1);
 
+    /**
+     * <h1>Name of the circuit's file (if set)</h1>
+     */
+    private String circuitName;
+
     public Circuit(int width, int height, Position position) {
         super(position);
         this.width = width;
@@ -92,6 +97,14 @@ public class Circuit extends Tile implements Model, Serializable {
      */
     public Circuit(int width, int height) {
         this(width, height, errorPosition);
+    }
+
+    public String getCircuitName() {
+        return circuitName;
+    }
+
+    public void setCircuitName(String circuitName) {
+        this.circuitName = circuitName;
     }
 
     /**
