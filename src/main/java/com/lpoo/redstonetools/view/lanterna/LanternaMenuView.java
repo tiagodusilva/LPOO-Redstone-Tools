@@ -10,10 +10,10 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class LanternaMenuView extends MenuView {
@@ -23,7 +23,7 @@ public class LanternaMenuView extends MenuView {
 
     private String fileName;
     private Border borderedQuitButton;
-    private final WindowBasedTextGUI textGUI;
+    private WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
     public LanternaMenuView(Screen screen) {
@@ -32,6 +32,10 @@ public class LanternaMenuView extends MenuView {
         circuit = null;
         fileName = "";
 
+        generateMenu();
+    }
+
+    private void generateMenu() {
         // Create gui and start gui
         textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
 
@@ -103,13 +107,7 @@ public class LanternaMenuView extends MenuView {
         }).withBorder(Borders.doubleLine());
         mainPanel.addComponent(borderedQuitButton);
 
-        textGUI.addWindowAndWait(window);
-
-
-        // This handles the case where the Terminal was closed without any input
-        if (events.isEmpty()) {
-            pushEvent(new Event(InputEvent.QUIT, null));
-        }
+        textGUI.addWindow(window);
     }
 
     private void createCircuit(Panel panel, Label fileNameLabel, Label circuitSizeLabel, Circuit aCircuit) {
@@ -147,7 +145,13 @@ public class LanternaMenuView extends MenuView {
 
     @Override
     public void render() {
-
+        try {
+            textGUI.processInput();
+            textGUI.updateScreen();
+        } catch (IOException e) {
+            this.pushEvent(new Event(InputEvent.QUIT, null));
+//            e.printStackTrace();
+        }
     }
 
     @Override
