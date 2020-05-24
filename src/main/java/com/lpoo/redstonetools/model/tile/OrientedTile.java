@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools.model.tile;
 
+import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.SideType;
@@ -41,10 +42,12 @@ public abstract class OrientedTile extends Tile {
      * <h1>Rotates a tile to the left</h1>
      * In an oriented tile rotating a tile to the left is switching the types of the sides in counter clock-wise direction
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true
      */
     @Override
-    public boolean rotateLeft() {
+    public boolean rotateLeft(Circuit circuit) {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
         sides.put(Side.LEFT, sides.getOrDefault(Side.UP, SideType.DEFAULT));
@@ -58,10 +61,12 @@ public abstract class OrientedTile extends Tile {
      * <h1>Rotates a tile to the right</h1>
      * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true
      */
     @Override
-    public boolean rotateRight() {
+    public boolean rotateRight(Circuit circuit) {
         SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);
         SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);
         sides.put(Side.RIGHT, sides.getOrDefault(Side.UP, SideType.DEFAULT));

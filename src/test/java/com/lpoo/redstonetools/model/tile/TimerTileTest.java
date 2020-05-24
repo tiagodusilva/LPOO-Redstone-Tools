@@ -48,15 +48,16 @@ public class TimerTileTest {
 
     @Test
     public void testInteract() {
+        Circuit circuit = Mockito.mock(Circuit.class);
         timer.setSwitchMode(false);
 
         Assert.assertFalse(timer.getSwitchMode());
 
-        Assert.assertFalse(timer.interact());
+        Assert.assertFalse(timer.interact(circuit));
 
         Assert.assertTrue(timer.getSwitchMode());
 
-        Assert.assertFalse(timer.interact());
+        Assert.assertFalse(timer.interact(circuit));
 
         Assert.assertFalse(timer.getSwitchMode());
     }
@@ -93,6 +94,8 @@ public class TimerTileTest {
 
     @Test
     public void testTimerRotation() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Assert.assertTrue(timer.acceptsPower(Side.LEFT));
         Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
         Assert.assertFalse(timer.acceptsPower(Side.UP));
@@ -104,7 +107,7 @@ public class TimerTileTest {
         Assert.assertFalse(timer.outputsPower(Side.UP));
         Assert.assertFalse(timer.outputsPower(Side.DOWN));
 
-        timer.rotateRight();
+        timer.rotateRight(circuit);
 
         Assert.assertFalse(timer.acceptsPower(Side.LEFT));
         Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
@@ -117,7 +120,7 @@ public class TimerTileTest {
         Assert.assertFalse(timer.outputsPower(Side.UP));
         Assert.assertTrue(timer.outputsPower(Side.DOWN));
 
-        timer.rotateLeft(); timer.rotateLeft();
+        timer.rotateLeft(circuit); timer.rotateLeft(circuit);
 
         Assert.assertFalse(timer.acceptsPower(Side.LEFT));
         Assert.assertFalse(timer.acceptsPower(Side.RIGHT));

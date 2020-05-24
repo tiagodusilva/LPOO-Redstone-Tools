@@ -1,0 +1,17 @@
+com.lpoo.redstonetools
+com.lpoo.redstonetools.controller.circuit
+com.lpoo.redstonetools.controller.command
+com.lpoo.redstonetools.controller.event
+com.lpoo.redstonetools.controller.state
+com.lpoo.redstonetools.core
+com.lpoo.redstonetools.exception
+com.lpoo.redstonetools.model
+com.lpoo.redstonetools.model.circuit
+com.lpoo.redstonetools.model.tile
+com.lpoo.redstonetools.model.tile.strategy
+com.lpoo.redstonetools.model.utils
+com.lpoo.redstonetools.view
+com.lpoo.redstonetools.view.lanterna
+com.lpoo.redstonetools.view.lanterna.command
+com.lpoo.redstonetools.view.lanterna.input
+com.lpoo.redstonetools.view.lanterna.tile

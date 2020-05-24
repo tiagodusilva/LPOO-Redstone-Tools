@@ -13,6 +13,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class LanternaMenuView extends MenuView {
@@ -22,7 +23,7 @@ public class LanternaMenuView extends MenuView {
 
     private String fileName;
     private Border borderedQuitButton;
-    private final WindowBasedTextGUI textGUI;
+    private WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
     public LanternaMenuView(Screen screen) {
@@ -31,6 +32,10 @@ public class LanternaMenuView extends MenuView {
         circuit = null;
         fileName = "";
 
+        generateMenu();
+    }
+
+    private void generateMenu() {
         // Create gui and start gui
         textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
 
@@ -54,13 +59,15 @@ public class LanternaMenuView extends MenuView {
                     .showDialog(textGUI);
 
             if (input1 != null) {
-                fileName = input1.getName();
+                fileName = input1.getAbsolutePath();
                 try {
-                    createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, CircuitController.loadCircuit(input1.getAbsolutePath()));
+                    Circuit created = CircuitController.loadCircuit(input1.getAbsolutePath());
+                    created.setCircuitName(input1.getName());
+                    createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
                 } catch (InvalidCircuitException e) {
                     new MessageDialogBuilder()
                             .setTitle("Failed to Load Circuit")
-                            .setText("Please select a valid .ser file")
+                            .setText("Circuit's version may mismatch the current one\n\nPlease select a valid .ser file")
                             .build()
                             .showDialog(textGUI);
                 }
@@ -83,7 +90,9 @@ public class LanternaMenuView extends MenuView {
 
         rightPanel.addComponent(new Button("Create Blank", () -> {
             fileName = "";
-            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText())));
+            Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
+            created.setCircuitName("blank.ser");
+            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
         }).withBorder(Borders.singleLine()));
 
         mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -98,13 +107,7 @@ public class LanternaMenuView extends MenuView {
         }).withBorder(Borders.doubleLine());
         mainPanel.addComponent(borderedQuitButton);
 
-        textGUI.addWindowAndWait(window);
-
-
-        // This handles the case where the Terminal was closed without any input
-        if (events.isEmpty()) {
-            pushEvent(new Event(InputEvent.QUIT, null));
-        }
+        textGUI.addWindow(window);
     }
 
     private void createCircuit(Panel panel, Label fileNameLabel, Label circuitSizeLabel, Circuit aCircuit) {
@@ -135,14 +138,20 @@ public class LanternaMenuView extends MenuView {
         if (fileName.equals(""))
             fileNameLabel.setText("Blank Circuit");
         else
-            fileNameLabel.setText("Loaded from: " + fileName);
+            fileNameLabel.setText("Loaded from:\n" + fileName);
         circuitSizeLabel.setText("Circuit size: " + aCircuit.getWidth() + "x" + aCircuit.getHeight());
         circuit = aCircuit;
     }
 
     @Override
     public void render() {
-
+        try {
+            textGUI.processInput();
+            textGUI.updateScreen();
+        } catch (IOException e) {
+            this.pushEvent(new Event(InputEvent.QUIT, null));
+//            e.printStackTrace();
+        }
     }
 
     @Override

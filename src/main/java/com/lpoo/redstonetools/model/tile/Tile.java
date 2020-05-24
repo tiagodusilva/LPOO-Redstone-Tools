@@ -38,6 +38,15 @@ public abstract class Tile implements Model, Serializable {
     public Position getPosition() { return position; }
 
     /**
+     * <h1>Sets the tile position</h1>
+     *
+     * @param position  New tile position
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    /**
      * <h1>Get name of the tile</h1>
      *
      * @return  Name given to the tile
@@ -107,23 +116,28 @@ public abstract class Tile implements Model, Serializable {
      * By default rotating a tile doesn't affect anything, so by default it returns false as the rotation is meaningless
      * Needs to be overridden if tile can be rotated
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true if tile was rotated, false otherwise
      */
-    public boolean rotateLeft() { return false; }
+    public boolean rotateLeft(Circuit circuit) { return false; }
 
     /**
      * <h1>Rotates a tile to the right</h1>
      * By default rotating a tile doesn't affect anything, so by default it returns false as the rotation is meaningless
      * Needs to be overridden if tile can be rotated
      *
+     * @param circuit Circuit where rotation is taking place
+     *
      * @return  true if tile was rotated, false otherwise
      */
-    public boolean rotateRight() { return false; }
+    public boolean rotateRight(Circuit circuit) { return false; }
 
     /**
      * <h1>Get the power level emitted on the side specified</h1>
      *
      * @param side  Side of the tile
+     *
      * @return  Power level emitted on the side specified of the tile
      */
     public abstract int getPower(Side side);
@@ -185,7 +199,7 @@ public abstract class Tile implements Model, Serializable {
      * @param side      Side from which repeater received an update
      * @return  true if tile was updated, false otherwise
      */
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         return false;
     }
 
@@ -202,7 +216,9 @@ public abstract class Tile implements Model, Serializable {
      * By default tile doesn't need to change, not needing to trigger updates, returning false
      * Must be overridden if tile has interactions
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return  true if tile was updated, false otherwise
      */
-    public boolean interact() { return false; }
+    public boolean interact(Circuit circuit) { return false; }
 }

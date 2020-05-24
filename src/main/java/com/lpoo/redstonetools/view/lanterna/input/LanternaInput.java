@@ -6,6 +6,7 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
+import com.lpoo.redstonetools.view.lanterna.LanternaLoadCustomStrategy;
 import com.lpoo.redstonetools.view.lanterna.LanternaSaveStrategy;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
@@ -94,11 +95,17 @@ public class LanternaInput extends Thread {
                             case 't':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new TimerTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
+                            case 'i':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new IOTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
                                 break;
                             case 'g':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.SAVE, new LanternaSaveStrategy(lanternaCircuitView)));
+                                break;
+                            case 'o':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.LOAD_CUSTOM, new LanternaLoadCustomStrategy(lanternaCircuitView, lanternaCircuitView.getSelectedTile().clone())));
                                 break;
                             default:
                                 break;

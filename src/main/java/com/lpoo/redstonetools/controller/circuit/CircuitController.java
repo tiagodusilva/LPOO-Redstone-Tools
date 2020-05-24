@@ -26,13 +26,16 @@ public class CircuitController {
 
 
     public CircuitController() {
-        updateTracker = new HashMap<Position, Integer>();
+        updateTracker = new HashMap<>();
     }
 
     /**
      * <h1>Loads a circuit from a .ser file</h1>
+     *
      * @see Serializable
+     *
      * @param filename File containing the Circuit object to be loaded
+     *
      * @return Loaded circuit upon success
      * @throws InvalidCircuitException Thrown otherwise
      */
@@ -45,7 +48,7 @@ public class CircuitController {
             in.close();
             fileIn.close();
         } catch (Exception i) {
-            i.printStackTrace();
+//            i.printStackTrace();
             throw new InvalidCircuitException("'" + filename + "' is not a valid circuit");
         }
         return circuit;
@@ -54,8 +57,12 @@ public class CircuitController {
     /**
      * <h1>Saves a Circuit to a .ser file</h1>
      * Changes the filename to always end in ".ser"
+     *
      * @see Serializable
-     * @param filename File for the object to be saved
+     *
+     * @param circuit   Circuit to be saved
+     * @param filename  File for the object to be saved
+     *
      * @return True upon success, false otherwise
      */
     public static boolean saveCircuit(Circuit circuit, String filename) {
@@ -75,6 +82,10 @@ public class CircuitController {
         return true;
     }
 
+    public CircuitController getNewController() {
+        return new CircuitController();
+    }
+
     /**
      * <h1>Adds tile to circuit</h1>
      * Wrapper of circuit <code>addTile</code> function
@@ -89,6 +100,9 @@ public class CircuitController {
     public void addTile(Circuit circuit, Tile tile) {
         if (circuit.addTile(tile)) {
             tile.update(circuit);
+            if (tile.getType() == TileType.CIRCUIT)
+                updateSubCircuit(circuit, tile);
+
             notifyNeighbourTiles(circuit, tile.getPosition());
         }
     }
@@ -98,16 +112,18 @@ public class CircuitController {
      * Wrapper of <code>interact</code> function
      * On top of interacting with the tile, updates the neighbour tiles if needed
      *
-     * @see Tile#interact()
+     * @see Tile#interact(Circuit)
      *
      * @param circuit   Circuit where tile will be added
      * @param position  Position of the Tile to be interacted with
      */
     public void interact(Circuit circuit, Position position) {
         Tile tile = circuit.getTile(position);
-        if (tile.interact()) {
+        if (tile.interact(circuit)) {
             tile.update(circuit);
-            updateAllNeighbourTiles(circuit, position);
+            if (tile.getType() == TileType.CIRCUIT)
+                updateSubCircuit(circuit, tile);
+            notifyNeighbourTiles(circuit, position);
         }
     }
 
@@ -116,15 +132,20 @@ public class CircuitController {
      * Wrapper of circuit <code>advanceTick</code> function
      * On top of updating the circuit tick, it handles all the updates that need to be done on each tick
      *
-     * @see Circuit#advanceTick()
+     * @see Circuit#nextTick()
      *
      * @param circuit   Circuit to advance the tick
      */
     public void advanceTick(Circuit circuit) {
-        circuit.advanceTick();
+        circuit.nextTick();
 
         for (Position position : circuit.getTickedTiles()) {
-            if (circuit.getTile(position).nextTick()) {
+            Tile tile = circuit.getTile(position);
+            if (tile.nextTick()) {
+                if (tile.getType() == TileType.CIRCUIT) {
+                    CircuitController subController = getNewController();
+                    subController.advanceTick((Circuit)tile);
+                }
                 updateAllNeighbourTiles(circuit, position);
             }
         }
@@ -173,6 +194,11 @@ public class CircuitController {
             int tracked = updateTracker.getOrDefault(neighbour, 0);
             if (tracked < MAX_UPDATES) {
                 if (tile.update(circuit, power, side.opposite())) {
+                    if (tile.getType() == TileType.CIRCUIT) {
+                        CircuitController subController = getNewController();
+                        subController.forceUpdateIO((Circuit)tile, power, side.opposite());
+                    }
+
                     updateTracker.put(neighbour, tracked + 1);
                     updateAllNeighbourTiles(circuit, neighbour);
                     updateTracker.put(neighbour, tracked);
@@ -185,6 +211,46 @@ public class CircuitController {
         }
     }
 
+    /**
+     * <h1>Updates IO port of the side specified on the circuit and triggers updates</h1>
+     * Triggers update on IO port of circuit, allowing to propagate signals to sub-circuits
+     * This is a special case of update that doesn't use the update function of the tile
+     *
+     * @see IOTile#update(Circuit, int, Side)
+     * @param circuit   Sub circuit where IO port needs to be updated
+     * @param power     Power received
+     * @param side      Side of the tile where the update will be sent to
+     */
+    public void forceUpdateIO(Circuit circuit, int power, Side side) {
+        Tile toUpdate = circuit.getIO(side);
+
+        if (toUpdate.getType() != TileType.IO) return;
+
+        toUpdate.onChange(circuit, power, side);
+
+        updateAllNeighbourTiles(circuit, toUpdate.getPosition());
+    }
+
+    /**
+     * <h1>Updates circuit's sub-circuit tile</h1>
+     * Triggers an update on all IO ports of the sub-circuit
+     *
+     * @param circuit       Main circuit where update is taking place
+     * @param subCircuit    Sub-circuit to be updated
+     */
+    public void updateSubCircuit(Circuit circuit, Tile subCircuit) {
+        if (subCircuit.getType() != TileType.CIRCUIT) return;
+
+        CircuitController subController = getNewController();
+        Position subCircuitPosition = subCircuit.getPosition();
+        for (Side side : Side.values()) {
+            if (subCircuit.acceptsPower(side)) {
+                Tile neighbour = circuit.getTile(subCircuitPosition.getNeighbour(side));
+                subController.forceUpdateIO((Circuit) subCircuit, neighbour.getPower(side.opposite()), side);
+            }
+        }
+    }
+    
     /**
      * <h1>Notifies all neighbour tiles of change on the tile specified</h1>
      * Sends a notification to all neighbours of the tile specified to handle the updates on the tile connections
@@ -208,7 +274,7 @@ public class CircuitController {
      * <h1>Rotates a tile of the circuit to the left</h1>
      * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
      *
-     * @see Tile#rotateLeft()
+     * @see Tile#rotateLeft(Circuit)
      *
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile to be rotated
@@ -219,9 +285,11 @@ public class CircuitController {
 
         Tile tile = circuit.getTile(position);
 
-        if (tile.rotateLeft()) {
+        if (tile.rotateLeft(circuit)) {
             tile.updateConnections(circuit);
             tile.update(circuit);
+            if (tile.getType() == TileType.CIRCUIT)
+                updateSubCircuit(circuit, tile);
             notifyNeighbourTiles(circuit, position);
         }
     }
@@ -230,7 +298,7 @@ public class CircuitController {
      * <h1>Rotates a tile of the circuit to the right</h1>
      * Handles the rotation of a tile of the circuit, generating all the updates and notifications needed upon rotation
      *
-     * @see Tile#rotateRight()
+     * @see Tile#rotateRight(Circuit)
      *
      * @param circuit       Circuit where updates are being done
      * @param position      Position of the tile to be rotated
@@ -241,9 +309,11 @@ public class CircuitController {
 
         Tile tile = circuit.getTile(position);
 
-        if (tile.rotateRight()) {
+        if (tile.rotateRight(circuit)) {
             tile.updateConnections(circuit);
             tile.update(circuit);
+            if (tile.getType() == TileType.CIRCUIT)
+                updateSubCircuit(circuit, tile);
             notifyNeighbourTiles(circuit, position);
         }
     }

@@ -48,5 +48,13 @@ public enum TileType {
     /**
      * @see com.lpoo.redstonetools.model.tile.CounterTile
      */
-    COUNTER
+    COUNTER,
+    /**
+     * @see com.lpoo.redstonetools.model.tile.IOTile
+     */
+    IO,
+    /**
+     * @see com.lpoo.redstonetools.model.circuit.Circuit
+     */
+    CIRCUIT
 }

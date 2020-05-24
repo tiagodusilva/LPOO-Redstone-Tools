@@ -14,11 +14,6 @@ import com.lpoo.redstonetools.model.utils.*;
 public class RepeaterTile extends OrientedTile {
 
     /**
-     * <h1>Last tick repeater was updated</h1>
-     */
-    private long updateTick;
-
-    /**
      * <h1>If is extending a signal</h1>
      * If repeater is receiving power from the input side then it is active and extending that power
      */
@@ -121,7 +116,7 @@ public class RepeaterTile extends OrientedTile {
      * @return  true if repeater was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.setStatus(Power.isOn(power));
         return true;
     }

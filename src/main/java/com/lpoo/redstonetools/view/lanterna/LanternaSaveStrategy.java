@@ -22,7 +22,7 @@ public class LanternaSaveStrategy implements SaveStrategy {
     }
 
     @Override
-    public String getFileName() {
+    public String getFileName(String oldName) {
         Screen screen = lanternaCircuitView.getScreen();
         AtomicBoolean windowNotClosed = new AtomicBoolean(true);
 
@@ -31,7 +31,7 @@ public class LanternaSaveStrategy implements SaveStrategy {
 
         mainPanel.setLayoutManager(new GridLayout(2));
 
-        TextBox fileTextbox = new TextBox(new TerminalSize(45, 1), "circuit.ser");
+        TextBox fileTextbox = new TextBox(new TerminalSize(45, 1), oldName != null ? oldName : "circuit.ser");
         Border borderedTextBox = fileTextbox.withBorder(Borders.singleLine("Circuits will be created in the 'circuits' directory"));
         mainPanel.addComponent(borderedTextBox);
         mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 4)));

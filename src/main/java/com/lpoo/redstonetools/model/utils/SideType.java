@@ -28,4 +28,22 @@ public enum SideType {
     public boolean isOutput() {
         return this == SideType.OUTPUT;
     }
+
+    /**
+     * <h1>Get next type</h1>
+     * In order to form a simple sequence of states
+     *
+     * @return Next type of side
+     */
+    public SideType next() {
+        switch (this) {
+            case DEFAULT:
+                return INPUT;
+            case INPUT:
+                return OUTPUT;
+            case OUTPUT:
+                return DEFAULT;
+        }
+        return SideType.DEFAULT;
+    }
 }

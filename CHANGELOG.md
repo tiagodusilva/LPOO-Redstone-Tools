@@ -1,4 +1,7 @@
 # Changelog
+## v?.??
+ - Fixed: Timer
+ - ~~Added: Custom circuits~~ (almost)
 
 ## v1.01
 - Added: CHANGELOG.md

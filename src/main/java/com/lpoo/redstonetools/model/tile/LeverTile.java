@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools.model.tile;
 
+import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -40,10 +41,12 @@ public class LeverTile extends Tile {
     /**
      * <h1>Changes lever state</h1>
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return true
      */
     @Override
-    public boolean interact() {
+    public boolean interact(Circuit circuit) {
         activated = !activated;
         return true;
     }

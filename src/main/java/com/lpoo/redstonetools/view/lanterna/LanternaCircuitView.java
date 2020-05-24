@@ -72,6 +72,8 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.COMPARATOR, new LanternaComparatorTileView());
         renderers.put(TileType.TIMER, new LanternaTimerView());
         renderers.put(TileType.COUNTER, new LanternaCounterTileView());
+        renderers.put(TileType.IO, new LanternaIOTileView());
+        renderers.put(TileType.CIRCUIT, new LanternaCircuitTileView());
     }
 
     public Screen getScreen() {
@@ -153,8 +155,8 @@ public class LanternaCircuitView extends CircuitView {
         for (int i = iStart, x = xStart; i < getColumns() * 3 + 2 && x < circuit.getWidth(); i+=3, x++) {
             for (int j = jStart, y = yStart; j < getRows() * 3 + 2 && y < circuit.getHeight(); j+=3, y++) {
                 graphics.setForegroundColor(TextColor.ANSI.WHITE);
-                    Tile tile = circuit.getTile(x, y);
-                    renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
+                Tile tile = circuit.getTile(x, y);
+                renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
             }
         }
 

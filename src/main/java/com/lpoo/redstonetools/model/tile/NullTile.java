@@ -31,9 +31,11 @@ public class NullTile extends Tile {
     }
 
     /**
+     * <h1>Tile constructor</h1>
+     * If broken is true then it represents a broken tile, otherwise it represents an empty tile
      *
-     * @param position
-     * @param broken
+     * @param position  Position of the tile
+     * @param broken    If tile is broken
      */
     public NullTile(Position position, boolean broken) {
         super(position);
@@ -41,8 +43,9 @@ public class NullTile extends Tile {
     }
 
     /**
+     * <h1>If tile is broken due to unstable circuitry</h1>
      *
-     * @return
+     * @return true if tile represents a broken tile, false otherwise
      */
     public boolean isBroken() {
         return broken;

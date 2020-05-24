@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.sql.Struct;
-
 public class ComparatorTileTest {
 
     private ComparatorTile comparator;
@@ -71,6 +69,8 @@ public class ComparatorTileTest {
 
     @Test
     public void testRotate() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Mockito.doNothing().when(comparator).updateRear();
 
         Assert.assertTrue(comparator.acceptsPower(Side.LEFT));
@@ -84,7 +84,7 @@ public class ComparatorTileTest {
         Assert.assertFalse(comparator.outputsPower(Side.UP));
         Assert.assertFalse(comparator.outputsPower(Side.DOWN));
 
-        comparator.rotateRight();
+        comparator.rotateRight(circuit);
 
         Assert.assertTrue(comparator.acceptsPower(Side.LEFT));
         Assert.assertTrue(comparator.acceptsPower(Side.RIGHT));
@@ -99,7 +99,7 @@ public class ComparatorTileTest {
 
         Mockito.verify(comparator, Mockito.times(1)).updateRear();
 
-        comparator.rotateLeft(); comparator.rotateLeft();
+        comparator.rotateLeft(circuit); comparator.rotateLeft(circuit);
 
         Assert.assertTrue(comparator.acceptsPower(Side.LEFT));
         Assert.assertTrue(comparator.acceptsPower(Side.RIGHT));
@@ -301,16 +301,18 @@ public class ComparatorTileTest {
 
     @Test
     public void testInteract() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         comparator.setSubtractMode(false);
 
-        Assert.assertTrue(comparator.interact());
+        Assert.assertTrue(comparator.interact(circuit));
         Assert.assertTrue(comparator.getSubtractMode());
 
-        Assert.assertTrue(comparator.interact());
+        Assert.assertTrue(comparator.interact(circuit));
         Assert.assertFalse(comparator.getSubtractMode());
 
-        Assert.assertTrue(comparator.interact());
-        Assert.assertTrue(comparator.interact());
+        Assert.assertTrue(comparator.interact(circuit));
+        Assert.assertTrue(comparator.interact(circuit));
         Assert.assertFalse(comparator.getSubtractMode());
     }
 
@@ -333,7 +335,7 @@ public class ComparatorTileTest {
 
         Assert.assertEquals(Power.getMax(), comparator.getPower(Side.RIGHT));
 
-        Assert.assertTrue(comparator.interact());
+        Assert.assertTrue(comparator.interact(circuit));
 
         Assert.assertTrue(comparator.getSubtractMode());
 
