@@ -106,7 +106,8 @@ public class CircuitState extends State {
                 newSubcircuit.setPosition(loadCustomStrategy.getPosition());
                 this.circuitController.addTile(circuit, newSubcircuit);
             } catch (InvalidCircuitException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                loadCustomStrategy.notifyFailure();
             }
         }
         circuitView.startInputs();

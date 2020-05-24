@@ -63,7 +63,7 @@ public class LanternaMenuView extends MenuView {
                 } catch (InvalidCircuitException e) {
                     new MessageDialogBuilder()
                             .setTitle("Failed to Load Circuit")
-                            .setText("Please select a valid .ser file")
+                            .setText("Circuit's version may mismatch the current one\n\nPlease select a valid .ser file")
                             .build()
                             .showDialog(textGUI);
                 }

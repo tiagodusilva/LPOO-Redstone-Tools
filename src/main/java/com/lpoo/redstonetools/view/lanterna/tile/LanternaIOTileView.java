@@ -17,10 +17,10 @@ public class LanternaIOTileView extends LanternaTileView{
 
     public LanternaIOTileView() {
         characterMap = new HashMap<>();
-        characterMap.put(Side.UP, '\u2191');
-        characterMap.put(Side.LEFT, '\u2190');
-        characterMap.put(Side.DOWN, '\u2193');
-        characterMap.put(Side.RIGHT, '\u2192');
+        characterMap.put(Side.UP, '\u23F6');
+        characterMap.put(Side.LEFT, '\u23F4');
+        characterMap.put(Side.DOWN, '\u23F7');
+        characterMap.put(Side.RIGHT, '\u23F5');
     }
 
     @Override

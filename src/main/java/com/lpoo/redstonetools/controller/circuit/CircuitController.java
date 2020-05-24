@@ -48,7 +48,7 @@ public class CircuitController {
             in.close();
             fileIn.close();
         } catch (Exception i) {
-            i.printStackTrace();
+//            i.printStackTrace();
             throw new InvalidCircuitException("'" + filename + "' is not a valid circuit");
         }
         return circuit;

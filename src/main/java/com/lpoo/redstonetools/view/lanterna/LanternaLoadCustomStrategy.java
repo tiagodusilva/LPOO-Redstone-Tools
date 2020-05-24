@@ -106,4 +106,29 @@ public class LanternaLoadCustomStrategy implements LoadCustomStrategy {
 
         return fileName;
     }
+
+    @Override
+    public void notifyFailure() {
+        Screen screen = lanternaCircuitView.getScreen();
+        AtomicBoolean windowNotClosed = new AtomicBoolean(true);
+
+        MultiWindowTextGUI textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
+        Panel mainPanel = new Panel();
+
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel);
+
+        mainPanel.addComponent(new Label("Failed to load circuit\nCircuit's version may mismatch the current one"));
+
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        Button acceptButton = new Button("Ok", () -> {
+            windowNotClosed.set(false);
+            textGUI.removeWindow(window);
+        });
+        mainPanel.addComponent(acceptButton.withBorder(Borders.doubleLine()));
+
+        window.setFocusedInteractable(acceptButton);
+        textGUI.addWindowAndWait(window);
+    }
 }
