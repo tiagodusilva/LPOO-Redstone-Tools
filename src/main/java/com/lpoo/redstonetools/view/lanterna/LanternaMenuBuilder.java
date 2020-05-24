@@ -43,6 +43,7 @@ public class LanternaMenuBuilder {
         panel.addComponent(new Label("Arrow keys - Move around\n" +
                 "Z - Toggle selection/view window\n" +
                 "Enter - Interact\n" +
+                "Insert - Add Tile Dropdown\n" +
                 "Esc - Quit\n" +
                 "+ - Advance Time\n" +
                 "Q - Rotate Left\n" +
@@ -251,6 +252,7 @@ public class LanternaMenuBuilder {
             } catch (InvalidCircuitException e) {
 //                e.printStackTrace();
                 this.addConfirmation("Failed to load circuit\nCircuit's version may mismatch the current one", onExit);
+                textGUI.removeWindow(window);
             }
         });
 
