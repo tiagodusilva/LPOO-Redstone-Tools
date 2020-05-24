@@ -1,10 +1,8 @@
 package com.lpoo.redstonetools.view.lanterna;
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
-import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
@@ -13,13 +11,13 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
 import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.view.SaveCircuitListener;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -316,6 +314,49 @@ public class LanternaMenuBuilder {
 
         window.setFocusedInteractable(acceptButton);
         textGUI.addWindowAndWait(window);
+    }
+
+    public void addSaveCircuitMenu(Consumer<SaveCircuitListener> consumer, String oldName, Runnable onExit) {
+        Panel mainPanel = new Panel();
+
+        mainPanel.setLayoutManager(new GridLayout(2));
+
+        TextBox fileTextbox = new TextBox(new TerminalSize(45, 1), oldName != null ? oldName : "circuit.ser");
+        Border borderedTextBox = fileTextbox.withBorder(Borders.singleLine("Circuits will be created in the 'circuits' directory"));
+        mainPanel.addComponent(borderedTextBox);
+        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 4)));
+
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel);
+
+        mainPanel.addComponent(new Button("Save Circuit", () -> {
+            String filename = new File("circuits/" + fileTextbox.getLine(0)).getAbsolutePath();
+            consumer.accept(new SaveCircuitListener() {
+                @Override
+                public String getFileName() {
+                    return filename;
+                }
+
+                @Override
+                public void notifySuccess() {
+                    addConfirmation("Circuit saved successfully as:\n" + filename, onExit);
+                }
+
+                @Override
+                public void notifyFailure() {
+                    addConfirmation("Failed to save circuit as:\n" + filename, onExit);
+                }
+            });
+            textGUI.removeWindow(window);
+        }).withBorder(Borders.doubleLine()));
+
+        mainPanel.addComponent(new Button("Cancel", () -> {
+            textGUI.removeWindow(window);
+            onExit.run();
+        }).withBorder(Borders.singleLine()));
+
+        window.setFocusedInteractable(fileTextbox);
+        textGUI.addWindow(window);
     }
 
 }

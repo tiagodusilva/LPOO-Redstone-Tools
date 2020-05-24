@@ -8,8 +8,7 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
-import com.lpoo.redstonetools.view.SaveStrategy;
-
+import com.lpoo.redstonetools.view.SaveCircuitListener;
 
 
 import java.util.Queue;
@@ -52,7 +51,7 @@ public class CircuitState extends State {
                         new RotateRightCommand(circuitController, circuit, (Position) event.getObject()).execute();
                         break;
                     case SAVE:
-                        saveCircuit((SaveStrategy) event.getObject());
+                        saveCircuit((SaveCircuitListener) event.getObject());
                         break;
                     case QUIT:
                         this.exit = true;
@@ -78,16 +77,11 @@ public class CircuitState extends State {
         circuitView.cleanup();
     }
 
-    private void saveCircuit(SaveStrategy saveStrategy) {
-        circuitView.stopInputs();
-        String filename = saveStrategy.getFileName(circuit.getCircuitName());
-        if (filename != null) {
-            if (CircuitController.saveCircuit(circuit, filename))
-                saveStrategy.notifySuccess(filename);
-            else
-                saveStrategy.notifyFailure(filename);
-        }
-        circuitView.startInputs();
+    private void saveCircuit(SaveCircuitListener saveCircuitListener) {
+        if (CircuitController.saveCircuit(circuit, saveCircuitListener.getFileName()))
+            saveCircuitListener.notifySuccess();
+        else
+            saveCircuitListener.notifyFailure();
     }
 
 }

@@ -14,6 +14,7 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.CircuitView;
+import com.lpoo.redstonetools.view.SaveCircuitListener;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
 
@@ -214,6 +215,12 @@ public class LanternaCircuitView extends CircuitView {
     public void showInsertCustomMenu(Position insertAt) {
         Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
         lanternaMenuBuilder.addInsertCustomMenu(insertAt, c, () -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showSaveCircuitMenu() {
+        Consumer<SaveCircuitListener> c = (listener) -> pushEvent(new Event(InputEvent.SAVE, listener));
+        lanternaMenuBuilder.addSaveCircuitMenu(c, circuit.getCircuitName(),() -> inMenu = false);
         inMenu = true;
     }
 
