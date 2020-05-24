@@ -36,7 +36,7 @@ public class LanternaCircuitView extends CircuitView {
     private Position selectedTile;
     private Position viewWindow; // Top-left corner of it
 
-    private LanternaInput lanternaInput;
+    private final LanternaInput lanternaInput;
 
     private final TextColor circuitBackground;
 
@@ -67,8 +67,8 @@ public class LanternaCircuitView extends CircuitView {
         }
 
         // Init input thread
-        lanternaInput = null;
-        startInputs();
+        lanternaInput = new LanternaInput(this);
+        lanternaInput.start();
     }
 
     private void initRenderers() {
@@ -253,26 +253,13 @@ public class LanternaCircuitView extends CircuitView {
 
     @Override
     public void cleanup() {
-        stopInputs();
-        this.events.clear();
-    }
-
-    @Override
-    public void stopInputs() {
         lanternaInput.interrupt();
         try {
             lanternaInput.join();
-            lanternaInput = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        this.events.clear();
     }
 
-    @Override
-    public void startInputs() {
-        if (lanternaInput == null) {
-            lanternaInput = new LanternaInput(this);
-            lanternaInput.start();
-        }
-    }
 }
