@@ -328,6 +328,7 @@ public class LanternaMenuBuilder {
 
         Window window = new BasicWindow();
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         mainPanel.addComponent(new Button("Save Circuit", () -> {
             String filename = new File("circuits/" + fileTextbox.getLine(0)).getAbsolutePath();
