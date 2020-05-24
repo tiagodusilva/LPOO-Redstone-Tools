@@ -1,11 +1,16 @@
 package com.lpoo.redstonetools.view.lanterna;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.DefaultWindowManager;
+import com.googlecode.lanterna.gui2.EmptySpace;
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.view.CircuitView;
@@ -19,6 +24,7 @@ public class LanternaViewFactory implements ViewFactory {
 
     Terminal terminal;
     Screen screen;
+    MultiWindowTextGUI textGUI;
 
     public LanternaViewFactory() {
         try {
@@ -38,6 +44,8 @@ public class LanternaViewFactory implements ViewFactory {
             this.screen.setCursorPosition(null);   // we don't need a cursor
             this.screen.startScreen();             // screens must be started
             this.screen.doResizeIfNecessary();     // resize screen if necessary
+
+            textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK));
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -46,12 +54,12 @@ public class LanternaViewFactory implements ViewFactory {
 
     @Override
     public CircuitView getCircuitView(Circuit circuit) {
-        return new LanternaCircuitView(screen, circuit);
+        return new LanternaCircuitView(screen, textGUI, circuit);
     }
 
     @Override
     public MenuView getMenuView() {
-        return new LanternaMenuView(screen);
+        return new LanternaMenuView(screen, textGUI);
     }
 
     @Override

@@ -14,6 +14,8 @@ import com.lpoo.redstonetools.model.utils.Position;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -30,6 +32,7 @@ public class LanternaMenuBuilder {
         Window window = new BasicWindow();
         Panel panel = new Panel();
         window.setComponent(panel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         panel.setLayoutManager(new GridLayout(2));
 
@@ -57,7 +60,7 @@ public class LanternaMenuBuilder {
                 "O - Import Custom Tile"
         ).withBorder(Borders.singleLine("Tile Shortcuts")));
 
-        Button b = new Button("Hide help", () -> {
+        Button b = new Button("Hide Help", () -> {
             textGUI.removeWindow(window);
             onExit.run();
         });
@@ -75,6 +78,7 @@ public class LanternaMenuBuilder {
         Panel mainPanel = new Panel();
         mainPanel.addComponent(panel.withBorder(Borders.singleLine("Select Tile to insert:")));
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         panel.setLayoutManager(new GridLayout(2));
 
@@ -116,8 +120,8 @@ public class LanternaMenuBuilder {
             int selected = tileTypes.getSelectedIndex();
             switch (selected) {
                 case 6:
-                    addInsertGateMenu(position, consumer, onExit);
                     textGUI.removeWindow(window);
+                    addInsertGateMenu(position, consumer, onExit);
                     break;
                 case 11:
                     textGUI.removeWindow(window);
@@ -157,6 +161,7 @@ public class LanternaMenuBuilder {
         Panel mainPanel = new Panel();
         mainPanel.addComponent(panel.withBorder(Borders.singleLine("Select Specific Logic Gate to insert:")));
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         panel.setLayoutManager(new GridLayout(2));
 
@@ -216,8 +221,9 @@ public class LanternaMenuBuilder {
 
         Window window = new BasicWindow();
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
-        mainPanel.addComponent(new Label("Failed to load circuit\nCircuit's version may mismatch the current one"));
+        mainPanel.addComponent(new Label(message));
 
         mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
 

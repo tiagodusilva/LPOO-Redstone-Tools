@@ -16,6 +16,7 @@ import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class LanternaMenuView extends MenuView {
@@ -28,14 +29,14 @@ public class LanternaMenuView extends MenuView {
     private final WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
-    public LanternaMenuView(Screen screen) {
+    public LanternaMenuView(Screen screen, MultiWindowTextGUI textGUI) {
         // Setup terminal and screen layers
         this.screen = screen;
         circuit = null;
         fileName = "";
 
         // Create gui and start gui
-        textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
+        this.textGUI = textGUI;
         generateMenu();
     }
 
@@ -101,6 +102,7 @@ public class LanternaMenuView extends MenuView {
         // Create window to hold the panel
         window = new BasicWindow();
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         borderedQuitButton = new Button("Close game", () -> {
             textGUI.removeWindow(window);
@@ -146,6 +148,7 @@ public class LanternaMenuView extends MenuView {
 
     @Override
     public void render() {
+        screen.doResizeIfNecessary();
         try {
             textGUI.processInput();
             textGUI.updateScreen();

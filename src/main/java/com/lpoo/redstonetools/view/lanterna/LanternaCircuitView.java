@@ -42,13 +42,13 @@ public class LanternaCircuitView extends CircuitView {
 
     private final TextColor circuitBackground;
 
-    public LanternaCircuitView(Screen screen, Circuit circuit) {
+    public LanternaCircuitView(Screen screen, MultiWindowTextGUI textGUI, Circuit circuit) {
         super();
 
         this.circuit = circuit;
         this.screen = screen;
-        this.textGUI = new MultiWindowTextGUI(screen);
         this.inMenu = false;
+        this.textGUI = textGUI;
 
         this.lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
 
@@ -190,6 +190,13 @@ public class LanternaCircuitView extends CircuitView {
                 (selectedTile.getX() - viewWindow.getX()) * 3, graphics);
     }
 
+    private void renderOverlay(TextGraphics graphics) {
+        graphics.setForegroundColor(TextColor.ANSI.GREEN);
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK);
+        String message = "Press [H] for help";
+        graphics.putString(screen.getTerminalSize().getColumns() - 1 - message.length(), screen.getTerminalSize().getRows() - 1, message);
+    }
+
     public void showHelpMenu() {
         lanternaMenuBuilder.addHelpWindow(() -> inMenu = false);
         inMenu = true;
@@ -203,6 +210,7 @@ public class LanternaCircuitView extends CircuitView {
 
     @Override
     public void render() {
+        screen.doResizeIfNecessary();
         if (inMenu) {
             try {
                 textGUI.processInput();
@@ -218,6 +226,7 @@ public class LanternaCircuitView extends CircuitView {
             TextGraphics graphics = screen.newTextGraphics();
 
             renderCircuit(graphics);
+            renderOverlay(graphics);
             try {
                 screen.refresh();
             } catch (IOException e) {
