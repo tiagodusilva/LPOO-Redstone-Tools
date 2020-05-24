@@ -9,6 +9,7 @@ import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.view.SaveStrategy;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LanternaSaveStrategy implements SaveStrategy {
@@ -97,6 +98,7 @@ public class LanternaSaveStrategy implements SaveStrategy {
 
         Window window = new BasicWindow();
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         mainPanel.addComponent(new Label("Failed to save circuit as:"));
         mainPanel.addComponent(new Label(filename));

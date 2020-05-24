@@ -3,14 +3,18 @@ package com.lpoo.redstonetools.view.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
+import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
+import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
 import com.lpoo.redstonetools.model.utils.Position;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -119,12 +123,13 @@ public class LanternaMenuBuilder {
         Button insert = new Button("Insert", () -> {
             int selected = tileTypes.getSelectedIndex();
             switch (selected) {
-                case 6:
+                case 6: // Logic Gate
                     textGUI.removeWindow(window);
                     addInsertGateMenu(position, consumer, onExit);
                     break;
-                case 11:
+                case 11: // Custom
                     textGUI.removeWindow(window);
+                    addInsertCustomMenu(position, consumer, onExit);
                     break;
                 default: {
                     try {
@@ -212,6 +217,79 @@ public class LanternaMenuBuilder {
 
         textGUI.addWindow(window);
         textGUI.setActiveWindow(window);
+    }
+
+    public void addInsertCustomMenu(Position position, Consumer<Tile> consumer, Runnable onExit) {
+        Panel mainPanel = new Panel();
+
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
+
+        mainPanel.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));
+        mainPanel.setLayoutManager(new GridLayout(2));
+
+        // If alt+enter did this, then it must be correct
+        final String[] fileName = new String[1];
+
+        Label fileNameLabel = new Label("");
+        Button cancelButton = new Button("Cancel", () -> {
+            fileName[0] = null;
+            onExit.run();
+            textGUI.removeWindow(window);
+        });
+        final Border[] borderedCancelButton = {cancelButton.withBorder(Borders.doubleLine())};
+
+        Button openButton = new Button("Load Circuit", () -> {
+            Circuit circuit = null;
+            try {
+                circuit = CircuitController.loadCircuit(fileName[0]);
+                circuit.setPosition(position);
+                consumer.accept(circuit);
+                textGUI.removeWindow(window);
+                onExit.run();
+            } catch (InvalidCircuitException e) {
+//                e.printStackTrace();
+                this.addConfirmation("Failed to load circuit\nCircuit's version may mismatch the current one", onExit);
+            }
+        });
+
+        Button selectFile = new Button("Load Custom", () -> {
+            File input1 = new FileDialogBuilder()
+                    .setTitle("Load Custom")
+                    .setDescription("Choose a file")
+                    .setActionLabel("Open")
+                    .setSelectedFile(new File("circuits/"))
+                    .build()
+                    .showDialog(textGUI);
+
+            if (input1 != null) {
+                if (fileName[0] == null) {
+                    mainPanel.removeComponent(borderedCancelButton[0]);
+
+                    mainPanel.addComponent(fileNameLabel);
+                    mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+                    mainPanel.addComponent(openButton.withBorder(Borders.doubleLine()));
+
+                    borderedCancelButton[0] = cancelButton.withBorder(Borders.singleLine());
+                    mainPanel.addComponent(borderedCancelButton[0]);
+                }
+
+                fileName[0] = input1.getAbsolutePath();
+                fileNameLabel.setText("Loading custom:\n" + fileName[0]);
+            }
+
+        });
+        mainPanel.addComponent(selectFile.withBorder(Borders.doubleLine("Select from a file")));
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ONE));
+        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        mainPanel.addComponent(borderedCancelButton[0]);
+
+        window.setFocusedInteractable(selectFile);
+        textGUI.addWindow(window);
     }
 
     public void addConfirmation(String message, Runnable onExit) {
