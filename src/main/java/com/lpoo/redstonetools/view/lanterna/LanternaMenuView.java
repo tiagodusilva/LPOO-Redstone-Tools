@@ -20,12 +20,12 @@ import java.util.regex.Pattern;
 
 public class LanternaMenuView extends MenuView {
 
-    private Screen screen;
+    private final Screen screen;
     private Circuit circuit;
 
     private String fileName;
     private Border borderedQuitButton;
-    private WindowBasedTextGUI textGUI;
+    private final WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
     public LanternaMenuView(Screen screen) {
@@ -34,13 +34,12 @@ public class LanternaMenuView extends MenuView {
         circuit = null;
         fileName = "";
 
+        // Create gui and start gui
+        textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
         generateMenu();
     }
 
     private void generateMenu() {
-        // Create gui and start gui
-        textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
-
         File input;
 
         Panel mainPanel = new Panel();
@@ -82,10 +81,10 @@ public class LanternaMenuView extends MenuView {
         rightPanel.setLayoutManager(new GridLayout(2));
 
         rightPanel.addComponent(new Label("Width").setLabelWidth(5));
-        final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
+        final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
 
         rightPanel.addComponent(new Label("Height").setLabelWidth(5));
-        final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
+        final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
 
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));

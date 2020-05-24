@@ -113,7 +113,7 @@ public class LanternaInput extends Thread {
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.LOAD_CUSTOM, new LanternaLoadCustomStrategy(lanternaCircuitView, lanternaCircuitView.getSelectedTile().clone())));
                                 break;
                             case 'h':
-                                lanternaCircuitView.addHelpWindow();
+                                lanternaCircuitView.showHelpMenu();
                             default:
                                 break;
                         }
@@ -146,7 +146,7 @@ public class LanternaInput extends Thread {
                         lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));
                         break;
                     case Insert:
-                        lanternaCircuitView.addInsertMenu(lanternaCircuitView.getSelectedTile().clone());
+                        lanternaCircuitView.showInsertMenu(lanternaCircuitView.getSelectedTile().clone());
                         break;
                     case Delete:
                         lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));
