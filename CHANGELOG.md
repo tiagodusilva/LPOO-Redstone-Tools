@@ -1,5 +1,12 @@
 # Changelog
 ## v2.01
+ - Added: Digit
+ - Added: Automatic advancing tick
+ - Added: Configuration file
+ - Added: QOL features in GUI
+ - Changed: More detailed tile information
+
+## v2.01
  - Added: Custom circuits
  - Added: Major GUI Overhaul
  - Fixed: Timer

@@ -15,9 +15,9 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.SaveCircuitListener;
+import com.lpoo.redstonetools.view.lanterna.input.LanternaAutoAdvanceTime;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.util.*;
@@ -38,6 +38,7 @@ public class LanternaCircuitView extends CircuitView {
     private Position viewWindow; // Top-left corner of it
 
     private final LanternaInput lanternaInput;
+    private LanternaAutoAdvanceTime lanternaAutoAdvanceTime;
 
     private final TextColor circuitBackground;
 
@@ -70,6 +71,9 @@ public class LanternaCircuitView extends CircuitView {
         // Init input thread
         lanternaInput = new LanternaInput(this);
         lanternaInput.start();
+
+        // Init auto advance thread
+        lanternaAutoAdvanceTime = new LanternaAutoAdvanceTime(this);
     }
 
     private void initRenderers() {
@@ -87,6 +91,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.COUNTER, new LanternaCounterTileView());
         renderers.put(TileType.IO, new LanternaIOTileView());
         renderers.put(TileType.CIRCUIT, new LanternaCircuitTileView());
+        renderers.put(TileType.DIGIT, new LanternaDigitTileView());
     }
 
     public boolean inMenu() {
@@ -103,6 +108,21 @@ public class LanternaCircuitView extends CircuitView {
 
     public Position getSelectedTile() {
         return selectedTile;
+    }
+
+    public void toggleAutoAdvance() {
+        if (lanternaAutoAdvanceTime.isAlive()) {
+            lanternaAutoAdvanceTime.interrupt();
+            try {
+                lanternaAutoAdvanceTime.join();
+            } catch (InterruptedException e) {
+//                e.printStackTrace();
+            }
+        }
+        else {
+            lanternaAutoAdvanceTime = new LanternaAutoAdvanceTime(this);
+            lanternaAutoAdvanceTime.start();
+        }
     }
 
     public void toggleShowPower() {
@@ -190,10 +210,15 @@ public class LanternaCircuitView extends CircuitView {
     }
 
     private void renderOverlay(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.ANSI.GREEN);
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
         graphics.setBackgroundColor(TextColor.ANSI.BLACK);
         String message = "Press [H] for help";
         graphics.putString(screen.getTerminalSize().getColumns() - 1 - message.length(), screen.getTerminalSize().getRows() - 1, message);
+
+        boolean alive = lanternaAutoAdvanceTime.isAlive();
+        message = alive ? "Time Running" : "Time Stopped";
+        graphics.setForegroundColor(alive ? TextColor.ANSI.GREEN : TextColor.ANSI.RED);
+        graphics.putString(screen.getTerminalSize().getColumns() - 1 - message.length(), 0, message);
     }
 
     public void showHelpMenu() {
@@ -220,9 +245,22 @@ public class LanternaCircuitView extends CircuitView {
     }
 
     public void showSaveCircuitMenu() {
+        boolean alive = lanternaAutoAdvanceTime.isAlive();
+        if (alive) {
+            lanternaAutoAdvanceTime.interrupt();
+            try {
+                lanternaAutoAdvanceTime.join();
+            } catch (InterruptedException e) {
+                // e.printStackTrace();
+            }
+        }
         Consumer<SaveCircuitListener> c = (listener) -> pushEvent(new Event(InputEvent.SAVE, listener));
         lanternaMenuBuilder.addSaveCircuitMenu(c, circuit.getCircuitName(),() -> inMenu = false);
         inMenu = true;
+        if (alive) {
+            lanternaAutoAdvanceTime = new LanternaAutoAdvanceTime(this);
+            lanternaAutoAdvanceTime.start();
+        }
     }
 
     public void showTileInfo(Position position) {
@@ -238,12 +276,12 @@ public class LanternaCircuitView extends CircuitView {
         Consumer<Long> c;
         switch (tile.getType()) {
             case TIMER:
-                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
                 lanternaMenuBuilder.addNumberInput(c, "Timer delay", "[1-9][0-9]{0,4}", ((TimerTile) tile).getDelay(), () -> inMenu = false);
                 inMenu = true;
                 break;
             case COUNTER:
-                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
                 lanternaMenuBuilder.addNumberInput(c, "Counter delay", "[1-9][0-9]{0,4}", ((CounterTile) tile).getDelay(), () -> inMenu = false);
                 inMenu = true;
                 break;
@@ -282,8 +320,10 @@ public class LanternaCircuitView extends CircuitView {
     @Override
     public void cleanup() {
         lanternaInput.interrupt();
+        lanternaAutoAdvanceTime.interrupt();
         try {
             lanternaInput.join();
+            lanternaAutoAdvanceTime.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

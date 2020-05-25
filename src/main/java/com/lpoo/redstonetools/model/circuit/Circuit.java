@@ -6,6 +6,8 @@ import com.lpoo.redstonetools.model.tile.NullTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,24 +30,24 @@ public class Circuit extends Tile implements Model, Serializable {
      *
      * @see Tile
      */
-    private Tile[][] tiles;
+    private final Tile[][] tiles;
 
     /**
      * <h1>Set of circuit ticked tiles</h1>
      *
      * @see Tile#isTickedTile()
      */
-    private Set<Position> tickedTiles;
+    private final Set<Position> tickedTiles;
 
     /**
      * <h1>Circuit width dimension</h1>
      */
-    private int width;
+    private final int width;
 
     /**
      * <h1>Circuit height dimension</h1>
      */
-    private int height;
+    private final int height;
 
     /**
      * <h1>Circuit tick</h1>
@@ -56,7 +58,7 @@ public class Circuit extends Tile implements Model, Serializable {
     /**
      * <h1>Table of IO tiles</h1>
      */
-    private Map<Side, Position> ioTiles;
+    private final Map<Side, Position> ioTiles;
 
     /**
      * <h1>Error position of the circuit</h1>
@@ -67,6 +69,11 @@ public class Circuit extends Tile implements Model, Serializable {
      * <h1>Name of the circuit's file (if set)</h1>
      */
     private String circuitName;
+
+    /**
+     * <h1>Timestamp of when the circuit was loaded (if set)</h1>
+     */
+    private LocalDateTime timestamp;
 
     public Circuit(int width, int height, Position position) {
         super(position);
@@ -99,12 +106,36 @@ public class Circuit extends Tile implements Model, Serializable {
         this(width, height, errorPosition);
     }
 
+    /**
+     * <h1>Gets the circuit name, can be null</h1>
+     * @return circuitName
+     */
     public String getCircuitName() {
         return circuitName;
     }
 
+    /**
+     * <h1>Sets the circuitName</h1>
+     * @param circuitName The new circuitName
+     */
     public void setCircuitName(String circuitName) {
         this.circuitName = circuitName;
+    }
+
+    /**
+     * <h1>Gets the timestamp of when the circuit was loaded, can be null</h1>
+     * @return timestamp
+     */
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * <h1>Sets the timestamp of the circuit</h1>
+     * @param timestamp
+     */
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     /**
@@ -406,11 +437,46 @@ public class Circuit extends Tile implements Model, Serializable {
     /**
      * <h1>Get tile information</h1>
      *
-     * @return "Custom circuit"
+     * @return Complex
      */
     @Override
     public String getInfo() {
-        return "Custom circuit";
+        StringBuilder s = new StringBuilder();
+        s.append("Subcircuit size: ").append(width).append("x").append(height).append("\n");
+        s.append("Loaded from: ").append(circuitName).append("\n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        s.append("Loaded at: ").append(timestamp.format(formatter)).append("\n");
+
+        s.append("IO Ports:\n");
+        Tile t;
+        for (Side side : Side.values()) {
+            t = getIO(side);
+            switch (side) {
+                case UP:
+                    s.append("   Up    : ");
+                    break;
+                case DOWN:
+                    s.append("   Down  : ");
+                    break;
+                case LEFT:
+                    s.append("   Left  : ");
+                    break;
+                case RIGHT:
+                    s.append("   Right : ");
+                    break;
+            }
+
+            if (t.getType() != TileType.NULL) {
+                if (t.acceptsPower(Side.UP))
+                    s.append("Outputs : ").append(getSurroundingPower(t.getPosition())).append("\n");
+                else
+                    s.append("Inputs  : ").append(t.getPower(Side.UP)).append("\n");
+            }
+            else
+                s.append("No IO\n");
+        }
+
+        return s.toString();
     }
 
     /**
