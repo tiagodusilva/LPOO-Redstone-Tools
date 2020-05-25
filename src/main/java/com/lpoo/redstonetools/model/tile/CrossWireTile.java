@@ -53,11 +53,12 @@ public class CrossWireTile extends Tile {
     /**
      * <h1>Get tile information</h1>
      *
-     * @return  "PowerV : %d  PowerH : %d" followed by the respective power levels on the wire
+     * @return  "PowerV : %d\nPowerH : %d" followed by the respective power levels on the wire
      */
     @Override
     public String getInfo() {
-        return "PowerV : " + powerVert + "  PowerH : " + powerHor;
+        return "PowerV : " + powerVert + "\n" +
+                "PowerH : " + powerHor;
     }
 
     /**

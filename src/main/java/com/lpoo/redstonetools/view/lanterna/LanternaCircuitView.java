@@ -225,10 +225,11 @@ public class LanternaCircuitView extends CircuitView {
     }
 
     public void showTileInfo(Position position) {
-        System.out.println("waddup");
-        lanternaMenuBuilder.addConfirmation(circuit.getTile(position).getInfo(), () -> inMenu = false);
-        inMenu = true;
-        System.out.println("waddup");
+        Tile tile = circuit.getTile(position);
+        if (tile.getType() != TileType.NULL) {
+            lanternaMenuBuilder.addConfirmation(circuit.getTile(position).getInfo(), () -> inMenu = false);
+            inMenu = true;
+        }
     }
 
     @Override
