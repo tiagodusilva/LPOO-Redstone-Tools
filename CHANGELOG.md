@@ -4,7 +4,7 @@
  - Added: Automatic advancing tick
  - Added: Configuration file
  - Added: QOL features in GUI
- - Changed: Some tiles information
+ - Changed: More detailed tile information
 
 ## v2.01
  - Added: Custom circuits
