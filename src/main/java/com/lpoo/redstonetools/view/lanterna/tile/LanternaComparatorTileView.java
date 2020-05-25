@@ -12,7 +12,7 @@ public class LanternaComparatorTileView extends LanternaTileView {
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
         renderPowerSensitiveFrame(graphics, tile, column, row);
 
-        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));
+        graphics.setForegroundColor(getPowerColor(Power.getMax()));
         graphics.setCharacter(column + 1, row + 1, ((ComparatorTile)tile).getSubtractMode() ? '\u236D' : '\u2994');
     }
 }

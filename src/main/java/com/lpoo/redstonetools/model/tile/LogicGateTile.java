@@ -30,6 +30,7 @@ public class LogicGateTile extends OrientedTile {
      * The input and output sides can't be changed, but the logic gate can be rotated
      *
      * @param position  Position of the tile
+     * @param strategy  Logic Gate strategy in use
      */
     public LogicGateTile(Position position, LogicGateStrategy strategy) {
         super(position);
@@ -113,7 +114,7 @@ public class LogicGateTile extends OrientedTile {
      * @return  true if repeater was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.powers.put(side, power);
         boolean old_status = this.active;
         this.setStatus(this.strategy.logic(this.powers, this.sides));

@@ -30,6 +30,8 @@ public enum Side {
 
     /**
      * <h1>Get side at the right of the side</h1>
+     *
+     * @return Side on the right (rotating 90º clockwise)
      */
     public Side atRight() {
         switch (this) {
@@ -47,6 +49,8 @@ public enum Side {
 
     /**
      * <h1>Get side at the left of the side</h1>
+     *
+     * @return Side on the right (rotating 90º counter clockwise)
      */
     public Side atLeft() {
         return atRight().opposite();

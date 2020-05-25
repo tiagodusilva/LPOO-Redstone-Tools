@@ -51,10 +51,10 @@ public class NotGateTile extends OrientedTile {
     /**
      * <h1>Get tile information</h1>
      *
-     * @return  "Outputting : " followed by the state of the Not Gate
+     * @return  "Active : " followed by the state of the Not Gate
      */
     @Override
-    public String getInfo() { return "Outputting : " + this.active; }
+    public String getInfo() { return "Active : " + this.active; }
 
     /**
      * <h1>Get tile type</h1>
@@ -105,7 +105,7 @@ public class NotGateTile extends OrientedTile {
      * @return  true if repeater was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         boolean old_status = active;
         this.setStatus(!Power.isOn(power));
         return old_status != active;

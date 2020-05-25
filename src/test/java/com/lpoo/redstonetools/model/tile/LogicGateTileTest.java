@@ -100,6 +100,8 @@ public class LogicGateTileTest {
 
     @Test
     public void testRotation() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Assert.assertTrue(logicGate.acceptsPower(Side.LEFT));
         Assert.assertTrue(logicGate.acceptsPower(Side.RIGHT));
         Assert.assertFalse(logicGate.acceptsPower(Side.UP));
@@ -111,7 +113,7 @@ public class LogicGateTileTest {
         Assert.assertTrue(logicGate.outputsPower(Side.UP));
         Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
 
-        logicGate.rotateRight();
+        logicGate.rotateRight(circuit);
 
         Assert.assertFalse(logicGate.acceptsPower(Side.LEFT));
         Assert.assertFalse(logicGate.acceptsPower(Side.RIGHT));
@@ -124,7 +126,7 @@ public class LogicGateTileTest {
         Assert.assertFalse(logicGate.outputsPower(Side.UP));
         Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
 
-        logicGate.rotateLeft(); logicGate.rotateLeft();
+        logicGate.rotateLeft(circuit); logicGate.rotateLeft(circuit);
 
         Assert.assertFalse(logicGate.acceptsPower(Side.LEFT));
         Assert.assertFalse(logicGate.acceptsPower(Side.RIGHT));

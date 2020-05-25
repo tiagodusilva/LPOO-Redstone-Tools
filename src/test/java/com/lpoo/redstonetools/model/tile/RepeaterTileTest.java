@@ -71,6 +71,8 @@ public class RepeaterTileTest {
 
     @Test
     public void testRepeaterRotation() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Assert.assertTrue(repeater.acceptsPower(Side.LEFT));
         Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
         Assert.assertFalse(repeater.acceptsPower(Side.UP));
@@ -82,7 +84,7 @@ public class RepeaterTileTest {
         Assert.assertFalse(repeater.outputsPower(Side.UP));
         Assert.assertFalse(repeater.outputsPower(Side.DOWN));
 
-        repeater.rotateRight();
+        repeater.rotateRight(circuit);
 
         Assert.assertFalse(repeater.acceptsPower(Side.LEFT));
         Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
@@ -95,7 +97,7 @@ public class RepeaterTileTest {
         Assert.assertFalse(repeater.outputsPower(Side.UP));
         Assert.assertTrue(repeater.outputsPower(Side.DOWN));
 
-        repeater.rotateLeft(); repeater.rotateLeft();
+        repeater.rotateLeft(circuit); repeater.rotateLeft(circuit);
 
         Assert.assertFalse(repeater.acceptsPower(Side.LEFT));
         Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));

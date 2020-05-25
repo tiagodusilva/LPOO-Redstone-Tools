@@ -4,39 +4,52 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
+import com.lpoo.redstonetools.controller.event.Event;
+import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.CircuitView;
+import com.lpoo.redstonetools.view.SaveCircuitListener;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
+import javafx.util.Pair;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class LanternaCircuitView extends CircuitView {
 
-    private Screen screen;
+    private final Screen screen;
+    private final MultiWindowTextGUI textGUI;
+    private boolean inMenu;
+    private final LanternaMenuBuilder lanternaMenuBuilder;
+
     private Map<TileType, LanternaTileView> renderers;
 
-    private Circuit circuit;
+    private final Circuit circuit;
 
     private Position selectedTile;
     private Position viewWindow; // Top-left corner of it
 
-    private LanternaInput lanternaInput;
+    private final LanternaInput lanternaInput;
 
-    private TextColor circuitBackground;
+    private final TextColor circuitBackground;
 
-    public LanternaCircuitView(Screen screen, Circuit circuit) {
+    public LanternaCircuitView(Screen screen, MultiWindowTextGUI textGUI, Circuit circuit) {
         super();
 
         this.circuit = circuit;
         this.screen = screen;
+        this.inMenu = false;
+        this.textGUI = textGUI;
+
+        this.lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
 
         // Init internal vars
         selectedTile = new Position(0, 0);
@@ -55,8 +68,8 @@ public class LanternaCircuitView extends CircuitView {
         }
 
         // Init input thread
-        lanternaInput = null;
-        startInputs();
+        lanternaInput = new LanternaInput(this);
+        lanternaInput.start();
     }
 
     private void initRenderers() {
@@ -72,6 +85,16 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.COMPARATOR, new LanternaComparatorTileView());
         renderers.put(TileType.TIMER, new LanternaTimerView());
         renderers.put(TileType.COUNTER, new LanternaCounterTileView());
+        renderers.put(TileType.IO, new LanternaIOTileView());
+        renderers.put(TileType.CIRCUIT, new LanternaCircuitTileView());
+    }
+
+    public boolean inMenu() {
+        return inMenu;
+    }
+
+    public void setInMenu(boolean inMenu) {
+        this.inMenu = inMenu;
     }
 
     public Screen getScreen() {
@@ -153,8 +176,8 @@ public class LanternaCircuitView extends CircuitView {
         for (int i = iStart, x = xStart; i < getColumns() * 3 + 2 && x < circuit.getWidth(); i+=3, x++) {
             for (int j = jStart, y = yStart; j < getRows() * 3 + 2 && y < circuit.getHeight(); j+=3, y++) {
                 graphics.setForegroundColor(TextColor.ANSI.WHITE);
-                    Tile tile = circuit.getTile(x, y);
-                    renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
+                Tile tile = circuit.getTile(x, y);
+                renderers.getOrDefault(tile.getType(), new LanternaNullTileView()).render(tile, j, i, graphics);
             }
         }
 
@@ -164,44 +187,107 @@ public class LanternaCircuitView extends CircuitView {
         renderers.getOrDefault(highlighted.getType(), new LanternaNullTileView()).render(highlighted,
                 (selectedTile.getY() - viewWindow.getY()) * 3,
                 (selectedTile.getX() - viewWindow.getX()) * 3, graphics);
+    }
 
-        try {
-            screen.refresh();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void renderOverlay(TextGraphics graphics) {
+        graphics.setForegroundColor(TextColor.ANSI.GREEN);
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK);
+        String message = "Press [H] for help";
+        graphics.putString(screen.getTerminalSize().getColumns() - 1 - message.length(), screen.getTerminalSize().getRows() - 1, message);
+    }
+
+    public void showHelpMenu() {
+        lanternaMenuBuilder.addHelpWindow(() -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showInsertMenu(Position insertAt) {
+        Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
+        lanternaMenuBuilder.addInsertMenu(insertAt, c, () -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showInsertGateMenu(Position insertAt) {
+        Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
+        lanternaMenuBuilder.addInsertGateMenu(insertAt, c, () -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showInsertCustomMenu(Position insertAt) {
+        Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
+        lanternaMenuBuilder.addInsertCustomMenu(insertAt, c, () -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showSaveCircuitMenu() {
+        Consumer<SaveCircuitListener> c = (listener) -> pushEvent(new Event(InputEvent.SAVE, listener));
+        lanternaMenuBuilder.addSaveCircuitMenu(c, circuit.getCircuitName(),() -> inMenu = false);
+        inMenu = true;
+    }
+
+    public void showTileInfo(Position position) {
+        Tile tile = circuit.getTile(position);
+        if (tile.getType() != TileType.NULL) {
+            lanternaMenuBuilder.addConfirmation(circuit.getTile(position).getInfo(), () -> inMenu = false);
+            inMenu = true;
+        }
+    }
+
+    public void showSetDelayMenu(Position position) {
+        Tile tile = circuit.getTile(position);
+        Consumer<Long> c;
+        switch (tile.getType()) {
+            case TIMER:
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                lanternaMenuBuilder.addNumberInput(c, "Timer delay", "[1-9][0-9]{0,4}", ((TimerTile) tile).getDelay(), () -> inMenu = false);
+                inMenu = true;
+                break;
+            case COUNTER:
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                lanternaMenuBuilder.addNumberInput(c, "Counter delay", "[1-9][0-9]{0,4}", ((CounterTile) tile).getDelay(), () -> inMenu = false);
+                inMenu = true;
+                break;
+            default:
+                break;
         }
     }
 
     @Override
     public void render() {
-        screen.clear();
-        TextGraphics graphics = screen.newTextGraphics();
+        screen.doResizeIfNecessary();
+        if (inMenu) {
+            try {
+                textGUI.processInput();
+                textGUI.updateScreen();
+            } catch (IOException e) {
+//                e.printStackTrace();
+                pushEvent(new Event(InputEvent.QUIT, null));
+            }
+        }
+        else {
+            screen.clear();
+            // As per documentation, this object should be discarded regularly
+            TextGraphics graphics = screen.newTextGraphics();
 
-        renderCircuit(graphics);
+            renderCircuit(graphics);
+            renderOverlay(graphics);
+            try {
+                screen.refresh();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void cleanup() {
-        stopInputs();
-        this.events.clear();
-    }
-
-    @Override
-    public void stopInputs() {
         lanternaInput.interrupt();
         try {
             lanternaInput.join();
-            lanternaInput = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        this.events.clear();
     }
 
-    @Override
-    public void startInputs() {
-        if (lanternaInput == null) {
-            lanternaInput = new LanternaInput(this);
-            lanternaInput.start();
-        }
-    }
 }

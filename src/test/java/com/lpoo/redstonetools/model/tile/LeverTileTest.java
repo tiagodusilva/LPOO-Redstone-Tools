@@ -1,5 +1,6 @@
 package com.lpoo.redstonetools.model.tile;
 
+import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
@@ -39,32 +40,36 @@ public class LeverTileTest {
 
     @Test
     public void testLeverInteract() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Assert.assertFalse(lever.isActivated());
-        lever.interact();
+        lever.interact(circuit);
         Assert.assertTrue(lever.isActivated());
-        lever.interact();
+        lever.interact(circuit);
         Assert.assertFalse(lever.isActivated());
 
         for (int i = 0; i < 6; i++) {
-            lever.interact();
+            lever.interact(circuit);
         }
         Assert.assertFalse(lever.isActivated());
 
         for (int i = 0; i < 9; i++) {
-            lever.interact();
+            lever.interact(circuit);
         }
         Assert.assertTrue(lever.isActivated());
     }
 
     @Test
     public void testLeverPower() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         for (Side side : Side.values()) {
             Assert.assertFalse(lever.acceptsPower(side));
             Assert.assertTrue(lever.outputsPower(side));
             Assert.assertEquals(Power.getMin(), lever.getPower(side));
         }
 
-        lever.interact();
+        lever.interact(circuit);
 
         for (Side side : Side.values()) {
             Assert.assertFalse(lever.acceptsPower(side));

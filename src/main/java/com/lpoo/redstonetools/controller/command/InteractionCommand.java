@@ -6,9 +6,9 @@ import com.lpoo.redstonetools.model.utils.Position;
 
 public class InteractionCommand implements Command {
 
-    private Position position;
-    private CircuitController circuitController;
-    private Circuit circuit;
+    private final Position position;
+    private final CircuitController circuitController;
+    private final Circuit circuit;
 
     public InteractionCommand(CircuitController circuitController, Circuit circuit, Position position) {
         this.circuitController = circuitController;

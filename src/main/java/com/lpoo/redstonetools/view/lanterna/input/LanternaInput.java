@@ -1,12 +1,10 @@
 package com.lpoo.redstonetools.view.lanterna.input;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
-import com.lpoo.redstonetools.view.lanterna.LanternaSaveStrategy;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
@@ -30,6 +28,11 @@ public class LanternaInput extends Thread {
         boolean moveView = false;
 
         while (!isInterrupted()) {
+
+            if (lanternaCircuitView.inMenu()) {
+                Thread.yield();
+                continue;
+            }
 
             KeyStroke key = null;
             try {
@@ -94,11 +97,26 @@ public class LanternaInput extends Thread {
                             case 't':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new TimerTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
+                            case 'i':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new IOTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
                                 break;
                             case 'g':
-                                lanternaCircuitView.pushEvent(new Event(InputEvent.SAVE, new LanternaSaveStrategy(lanternaCircuitView)));
+                                lanternaCircuitView.showSaveCircuitMenu();
+                                break;
+                            case 'o':
+                                lanternaCircuitView.showInsertCustomMenu(lanternaCircuitView.getSelectedTile().clone());
+                                break;
+                            case 'h':
+                                lanternaCircuitView.showHelpMenu();
+                                break;
+                            case 'f':
+                                lanternaCircuitView.showTileInfo(lanternaCircuitView.getSelectedTile().clone());
+                                break;
+                            case 'd':
+                                lanternaCircuitView.showSetDelayMenu(lanternaCircuitView.getSelectedTile().clone());
                                 break;
                             default:
                                 break;
@@ -132,6 +150,7 @@ public class LanternaInput extends Thread {
                         lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));
                         break;
                     case Insert:
+                        lanternaCircuitView.showInsertMenu(lanternaCircuitView.getSelectedTile().clone());
                         break;
                     case Delete:
                         lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));

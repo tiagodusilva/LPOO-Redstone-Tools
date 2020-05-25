@@ -1,4 +1,9 @@
 # Changelog
+## v2.01
+ - Added: Custom circuits
+ - Added: Major GUI Overhaul
+ - Fixed: Timer
+ - Fixed: Minor bugs
 
 ## v1.01
 - Added: CHANGELOG.md

@@ -19,7 +19,6 @@ public class CircuitTest {
     @Before
     public void setup() {
         this.circuit = new Circuit(WIDTH, HEIGHT);
-        Power.setRedstoneMode();
     }
 
     @Test

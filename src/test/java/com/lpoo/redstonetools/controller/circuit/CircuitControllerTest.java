@@ -9,9 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CircuitControllerTest {
@@ -71,7 +69,7 @@ public class CircuitControllerTest {
 
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
         // Interaction doesn't trigger update
-        Mockito.when(tile.interact()).thenReturn(false);
+        Mockito.when(tile.interact(circuit)).thenReturn(false);
 
         // Call real method that is being tested
         Mockito.doCallRealMethod().when(controller).interact(circuit, position);
@@ -79,7 +77,7 @@ public class CircuitControllerTest {
         controller.interact(circuit, position);
 
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).interact();
+        Mockito.verify(tile, Mockito.times(1)).interact(circuit);
         Mockito.verify(controller, Mockito.times(0)).updateAllNeighbourTiles(circuit, position);
     }
 
@@ -91,7 +89,7 @@ public class CircuitControllerTest {
 
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
         // Interaction triggers update
-        Mockito.when(tile.interact()).thenReturn(true);
+        Mockito.when(tile.interact(circuit)).thenReturn(true);
 
         // Call real method that is being tested
         Mockito.doCallRealMethod().when(controller).interact(circuit, position);
@@ -99,7 +97,7 @@ public class CircuitControllerTest {
         controller.interact(circuit, position);
 
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).interact();
+        Mockito.verify(tile, Mockito.times(1)).interact(circuit);
         Mockito.verify(controller, Mockito.times(1)).updateAllNeighbourTiles(circuit, position);
     }
 
@@ -128,7 +126,7 @@ public class CircuitControllerTest {
 
         controller.advanceTick(circuit);
 
-        Mockito.verify(circuit, Mockito.times(1)).advanceTick();
+        Mockito.verify(circuit, Mockito.times(1)).nextTick();
         Mockito.verify(circuit, Mockito.times(1)).getTickedTiles();
         Mockito.verify(circuit, Mockito.times(1)).getTile(position1);
         Mockito.verify(circuit, Mockito.times(1)).getTile(position2);
@@ -292,7 +290,7 @@ public class CircuitControllerTest {
 
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
-        Mockito.when(tile.rotateLeft()).thenReturn(true);
+        Mockito.when(tile.rotateLeft(circuit)).thenReturn(true);
 
         Mockito.doCallRealMethod().when(controller).rotateTileLeft(circuit, position);
 
@@ -300,7 +298,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(0)).getTile(position);
-        Mockito.verify(tile, Mockito.times(0)).rotateLeft();
+        Mockito.verify(tile, Mockito.times(0)).rotateLeft(circuit);
         Mockito.verify(tile, Mockito.times(0)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(0)).update(circuit);
 
@@ -318,7 +316,7 @@ public class CircuitControllerTest {
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
         // rotation doesn't trigger updates
-        Mockito.when(tile.rotateLeft()).thenReturn(false);
+        Mockito.when(tile.rotateLeft(circuit)).thenReturn(false);
 
         Mockito.doCallRealMethod().when(controller).rotateTileLeft(circuit, position);
 
@@ -326,7 +324,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).rotateLeft();
+        Mockito.verify(tile, Mockito.times(1)).rotateLeft(circuit);
         Mockito.verify(tile, Mockito.times(0)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(0)).update(circuit);
 
@@ -344,7 +342,7 @@ public class CircuitControllerTest {
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
         // rotation triggers updates
-        Mockito.when(tile.rotateLeft()).thenReturn(true);
+        Mockito.when(tile.rotateLeft(circuit)).thenReturn(true);
 
         Mockito.doCallRealMethod().when(controller).rotateTileLeft(circuit, position);
 
@@ -352,7 +350,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).rotateLeft();
+        Mockito.verify(tile, Mockito.times(1)).rotateLeft(circuit);
         Mockito.verify(tile, Mockito.times(1)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(1)).update(circuit);
 
@@ -369,7 +367,7 @@ public class CircuitControllerTest {
 
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
-        Mockito.when(tile.rotateRight()).thenReturn(true);
+        Mockito.when(tile.rotateRight(circuit)).thenReturn(true);
 
         Mockito.doCallRealMethod().when(controller).rotateTileRight(circuit, position);
 
@@ -377,7 +375,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(0)).getTile(position);
-        Mockito.verify(tile, Mockito.times(0)).rotateRight();
+        Mockito.verify(tile, Mockito.times(0)).rotateRight(circuit);
         Mockito.verify(tile, Mockito.times(0)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(0)).update(circuit);
 
@@ -395,7 +393,7 @@ public class CircuitControllerTest {
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
         // rotation doesn't trigger updates
-        Mockito.when(tile.rotateRight()).thenReturn(false);
+        Mockito.when(tile.rotateRight(circuit)).thenReturn(false);
 
         Mockito.doCallRealMethod().when(controller).rotateTileRight(circuit, position);
 
@@ -403,7 +401,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).rotateRight();
+        Mockito.verify(tile, Mockito.times(1)).rotateRight(circuit);
         Mockito.verify(tile, Mockito.times(0)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(0)).update(circuit);
 
@@ -421,7 +419,7 @@ public class CircuitControllerTest {
         Mockito.when(circuit.getTile(position)).thenReturn(tile);
 
         // rotation triggers updates
-        Mockito.when(tile.rotateRight()).thenReturn(true);
+        Mockito.when(tile.rotateRight(circuit)).thenReturn(true);
 
         Mockito.doCallRealMethod().when(controller).rotateTileRight(circuit, position);
 
@@ -429,7 +427,7 @@ public class CircuitControllerTest {
 
         Mockito.verify(circuit, Mockito.times(1)).isInBounds(position);
         Mockito.verify(circuit, Mockito.times(1)).getTile(position);
-        Mockito.verify(tile, Mockito.times(1)).rotateRight();
+        Mockito.verify(tile, Mockito.times(1)).rotateRight(circuit);
         Mockito.verify(tile, Mockito.times(1)).updateConnections(circuit);
         Mockito.verify(tile, Mockito.times(1)).update(circuit);
 

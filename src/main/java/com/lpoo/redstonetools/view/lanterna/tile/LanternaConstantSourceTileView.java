@@ -14,7 +14,7 @@ public class LanternaConstantSourceTileView extends LanternaTileView {
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
         renderFrame(graphics, column, row);
 
-        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));
+        graphics.setForegroundColor(getPowerColor(Power.getMax()));
         graphics.setCharacter(column + 1, row + 1, '\u0424');
     }
 }

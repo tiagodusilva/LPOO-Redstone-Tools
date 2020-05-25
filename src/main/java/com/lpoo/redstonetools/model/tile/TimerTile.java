@@ -68,6 +68,7 @@ public class TimerTile extends OrientedTile {
      *
      * @param delay New Timer delay
      */
+    @Override
     public void setDelay(long delay) {
         this.delay = delay;
         this.timer = 0;
@@ -157,7 +158,9 @@ public class TimerTile extends OrientedTile {
 
     @Override
     public String getInfo() {
-        return "Active : " + this.active + "\n" +
+        return "Mode : " + (this.switchMode ? "Switch" : "Pulse") + "\n" +
+                "Paused : " + !this.active + "\n" +
+                "Active : " + this.output + "\n" +
                 "Delay : " + this.delay + "\n" +
                 "Tick : " + this.timer; }
 
@@ -200,7 +203,7 @@ public class TimerTile extends OrientedTile {
      * @return  true if timer output was updated, false otherwise
      */
     @Override
-    protected boolean onChange(Circuit circuit, int power, Side side) {
+    public boolean onChange(Circuit circuit, int power, Side side) {
         this.active = Power.isOff(power);
         boolean last = this.output;
         this.output = this.active && this.output;
@@ -233,12 +236,12 @@ public class TimerTile extends OrientedTile {
         if (!active) return false;
 
         boolean lastOutput = output;
+        timer++;
 
-        if (timer == delay) {
+        if (timer >= delay) {
             setOutput(!switchMode || !output);
             timer = 0;
         } else {
-            timer++;
             output = switchMode && output;
         }
 
@@ -249,10 +252,12 @@ public class TimerTile extends OrientedTile {
      * <h1>Interacts with a tile</h1>
      * Interacting with a timer changes the timer mode
      *
+     * @param circuit Circuit where interaction is taking place
+     *
      * @return  false
      */
     @Override
-    public boolean interact() {
+    public boolean interact(Circuit circuit) {
         this.setSwitchMode(!this.switchMode);
         return false;
     }

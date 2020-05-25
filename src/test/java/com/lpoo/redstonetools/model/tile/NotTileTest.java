@@ -68,6 +68,8 @@ public class NotTileTest {
 
     @Test
     public void testRotation() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
         Assert.assertTrue(notGate.acceptsPower(Side.LEFT));
         Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
         Assert.assertFalse(notGate.acceptsPower(Side.UP));
@@ -79,7 +81,7 @@ public class NotTileTest {
         Assert.assertFalse(notGate.outputsPower(Side.UP));
         Assert.assertFalse(notGate.outputsPower(Side.DOWN));
 
-        notGate.rotateRight();
+        notGate.rotateRight(circuit);
 
         Assert.assertFalse(notGate.acceptsPower(Side.LEFT));
         Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
@@ -92,7 +94,7 @@ public class NotTileTest {
         Assert.assertFalse(notGate.outputsPower(Side.UP));
         Assert.assertTrue(notGate.outputsPower(Side.DOWN));
 
-        notGate.rotateLeft(); notGate.rotateLeft();
+        notGate.rotateLeft(circuit); notGate.rotateLeft(circuit);
 
         Assert.assertFalse(notGate.acceptsPower(Side.LEFT));
         Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
