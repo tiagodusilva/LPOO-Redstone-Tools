@@ -8,6 +8,7 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,7 @@ public class CircuitController {
             ObjectInputStream in = new ObjectInputStream(fileIn);
             circuit = (Circuit) in.readObject();
             circuit.setCircuitName(filename);
+            circuit.setTimestamp(LocalDateTime.now());
             in.close();
             fileIn.close();
         } catch (Exception i) {
