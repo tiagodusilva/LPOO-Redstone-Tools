@@ -5,8 +5,8 @@ import com.lpoo.redstonetools.controller.state.State;
 
 public class EnterStateCommand implements Command {
 
-    private State state;
-    private MainController mainController;
+    private final State state;
+    private final MainController mainController;
 
     public EnterStateCommand(State state, MainController mainController) {
         this.state = state;

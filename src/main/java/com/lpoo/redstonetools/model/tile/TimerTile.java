@@ -68,6 +68,7 @@ public class TimerTile extends OrientedTile {
      *
      * @param delay New Timer delay
      */
+    @Override
     public void setDelay(long delay) {
         this.delay = delay;
         this.timer = 0;

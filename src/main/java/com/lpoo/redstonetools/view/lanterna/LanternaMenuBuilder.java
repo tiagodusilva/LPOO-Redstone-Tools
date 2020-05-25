@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 public class LanternaMenuBuilder {
 
@@ -232,8 +233,8 @@ public class LanternaMenuBuilder {
         Label fileNameLabel = new Label("");
         Button cancelButton = new Button("Cancel", () -> {
             fileName[0] = null;
-            onExit.run();
             textGUI.removeWindow(window);
+            onExit.run();
         });
         final Border[] borderedCancelButton = {cancelButton.withBorder(Borders.doubleLine())};
 
@@ -352,6 +353,43 @@ public class LanternaMenuBuilder {
         }).withBorder(Borders.singleLine()));
 
         window.setFocusedInteractable(fileTextbox);
+        textGUI.addWindow(window);
+    }
+
+    public void addNumberInput(Consumer<Long> consumer, String message, String regex_pattern, long startingValue, Runnable onExit) {
+        Panel panel = new Panel();
+
+        Window window = new BasicWindow();
+        window.setComponent(panel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
+
+        panel.setLayoutManager(new GridLayout(2));
+
+        panel.addComponent(new Label(message));
+        panel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        final TextBox textBox = new TextBox().setText(String.valueOf(startingValue));
+        textBox.setValidationPattern(Pattern.compile(regex_pattern));
+        panel.addComponent(textBox);
+        panel.addComponent(new EmptySpace(TerminalSize.ZERO));
+
+        panel.addComponent(new Button("Ok", () -> {
+            if (!textBox.getText().equals("")) {
+                consumer.accept(Long.parseLong(textBox.getText()));
+                textGUI.removeWindow(window);
+                onExit.run();
+            }
+            else {
+                addConfirmation("Textbox must not be empty", () -> {});
+            }
+        }).withBorder(Borders.doubleLine()));
+
+        panel.addComponent(new Button("Cancel", () -> {
+            textGUI.removeWindow(window);
+            onExit.run();
+        }).withBorder(Borders.singleLine()));
+
+        window.setFocusedInteractable(textBox);
         textGUI.addWindow(window);
     }
 

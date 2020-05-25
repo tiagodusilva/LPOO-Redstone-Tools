@@ -47,6 +47,14 @@ public abstract class Tile implements Model, Serializable {
     }
 
     /**
+     * <h1>Sets the delay of the tile (when applicable)</h1>
+     * @param delay New tile delay
+     * @see CounterTile
+     * @see TimerTile
+     */
+    public void setDelay(long delay) {}
+
+    /**
      * <h1>Get name of the tile</h1>
      *
      * @return  Name given to the tile

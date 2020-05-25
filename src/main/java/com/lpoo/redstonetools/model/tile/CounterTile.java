@@ -76,6 +76,7 @@ public class CounterTile extends OrientedTile {
      *
      * @param delay New Counter delay
      */
+    @Override
     public void setDelay(long delay) {
         this.delay = delay;
         this.counter = 0;

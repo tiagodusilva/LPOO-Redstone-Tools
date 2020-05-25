@@ -9,6 +9,7 @@ import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.SaveCircuitListener;
+import javafx.util.Pair;
 
 
 import java.util.Queue;
@@ -50,6 +51,11 @@ public class CircuitState extends State {
                     case ROTATE_RIGHT:
                         new RotateRightCommand(circuitController, circuit, (Position) event.getObject()).execute();
                         break;
+                    case SET_DELAY: {
+                        Pair<?, ?> p = (Pair<?, ?>) event.getObject();
+                        new SetDelayCommand(circuitController, circuit, (Position) p.getKey(), (Long) p.getValue()).execute();
+                        break;
+                    }
                     case SAVE:
                         saveCircuit((SaveCircuitListener) event.getObject());
                         break;

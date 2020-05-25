@@ -318,4 +318,23 @@ public class CircuitController {
         }
     }
 
+    /**
+     * <h1>Sets the delay of a tile of the circuit</h1>
+     * @param circuit       Circuit where updates are being done
+     * @param position      Position of the tile to be rotated
+     * @param delay         New delay for the tile
+     */
+    public void setDelay(Circuit circuit, Position position, long delay) {
+        if (!circuit.isInBounds(position))
+            return;
+        System.out.println("delay: " + delay);
+        Tile tile = circuit.getTile(position);
+        tile.setDelay(delay);
+
+        tile.update(circuit);
+        if (tile.getType() == TileType.CIRCUIT)
+            updateSubCircuit(circuit, tile);
+        notifyNeighbourTiles(circuit, position);
+    }
+
 }

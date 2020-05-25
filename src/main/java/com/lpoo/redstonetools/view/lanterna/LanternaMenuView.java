@@ -1,11 +1,8 @@
 package com.lpoo.redstonetools.view.lanterna;
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.event.Event;
@@ -24,6 +21,8 @@ public class LanternaMenuView extends MenuView {
     private final Screen screen;
     private Circuit circuit;
 
+    private final LanternaMenuBuilder lanternaMenuBuilder;
+
     private String fileName;
     private Border borderedQuitButton;
     private final WindowBasedTextGUI textGUI;
@@ -37,6 +36,8 @@ public class LanternaMenuView extends MenuView {
 
         // Create gui and start gui
         this.textGUI = textGUI;
+        lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
+
         generateMenu();
     }
 
@@ -92,9 +93,14 @@ public class LanternaMenuView extends MenuView {
 
         rightPanel.addComponent(new Button("Create Blank", () -> {
             fileName = "";
-            Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
-            created.setCircuitName("blank.ser");
-            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
+            if (widthTxt.getText().equals("") || heightTxt.getText().equals("")) {
+                lanternaMenuBuilder.addConfirmation("Textboxes must not be empty", () -> {});
+            }
+            else {
+                Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
+                created.setCircuitName("blank.ser");
+                createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
+            }
         }).withBorder(Borders.singleLine()));
 
         mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));

@@ -6,9 +6,9 @@ import com.lpoo.redstonetools.model.tile.Tile;
 
 public class AddTileCommand implements Command {
 
-    private CircuitController circuitController;
-    private Circuit circuit;
-    private Tile tile;
+    private final CircuitController circuitController;
+    private final Circuit circuit;
+    private final Tile tile;
 
     public AddTileCommand(CircuitController circuitController, Circuit circuit, Tile tile) {
         this.circuitController = circuitController;

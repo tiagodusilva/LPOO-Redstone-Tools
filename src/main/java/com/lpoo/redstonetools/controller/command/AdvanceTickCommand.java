@@ -5,8 +5,8 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 
 public class AdvanceTickCommand implements Command {
 
-    private CircuitController circuitController;
-    private Circuit circuit;
+    private final CircuitController circuitController;
+    private final Circuit circuit;
 
     public AdvanceTickCommand(CircuitController circuitController, Circuit circuit) {
         this.circuitController = circuitController;
