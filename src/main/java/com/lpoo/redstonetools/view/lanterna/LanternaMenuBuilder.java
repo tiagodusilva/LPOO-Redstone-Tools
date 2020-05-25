@@ -45,7 +45,7 @@ public class LanternaMenuBuilder {
                 "+      - Advance Time\n" +
                 "Q      - Rotate Left\n" +
                 "E      - Rotate Right\n" +
-                "D      - Change Delay\n" +
+                "M      - Change Delay\n" +
                 "P      - Show Power on Wires\n" +
                 "F      - Show Tile Info\n" +
                 "G      - Save Circuit\n" +
@@ -56,18 +56,19 @@ public class LanternaMenuBuilder {
         panel.addComponent(new Label(
                 "W    - Wire\n" +
                 "X    - Crosswire\n" +
-                "1    - NOT Gate\n" +
-                "2..7 - Logic Gates\n" +
-                "0    - Logic Gates Menu\n" +
                 "S    - Constant Source\n" +
                 "L    - Lever\n" +
                 "R    - Repeater\n" +
-                "C    - Comparator\n" +
+                "1    - NOT Gate\n" +
+                "2..7 - Logic Gates\n" +
+                "0    - Logic Gates Menu\n" +
                 "N    - Counter\n" +
                 "T    - Timer\n" +
-                "I    - IO Tile\n" +
+                "C    - Comparator\n" +
+                "D    - Digit\n" +
+                "I    - IO Port\n" +
                 "O    - Import Custom Tile"
-        ).withBorder(Borders.singleLine("Tile Shortcuts")));
+        ));
 
         Button b = new Button("Hide Help", () -> {
             textGUI.removeWindow(window);
@@ -105,6 +106,7 @@ public class LanternaMenuBuilder {
             classes.add(TimerTile .class);
             classes.add(CounterTile .class);
             classes.add(ComparatorTile .class);
+            classes.add(DigitTile .class);
             classes.add(IOTile .class);
             classes.add(Circuit .class);
 
@@ -119,6 +121,7 @@ public class LanternaMenuBuilder {
         tileTypes.addItem("Timer");
         tileTypes.addItem("Counter");
         tileTypes.addItem("Comparator");
+        tileTypes.addItem("Digit");
         tileTypes.addItem("IO Tile");
         tileTypes.addItem("Custom Tile");
 
@@ -132,7 +135,7 @@ public class LanternaMenuBuilder {
                     textGUI.removeWindow(window);
                     addInsertGateMenu(position, consumer, onExit);
                     break;
-                case 11: // Custom
+                case 12: // Custom
                     textGUI.removeWindow(window);
                     addInsertCustomMenu(position, consumer, onExit);
                     break;

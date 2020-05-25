@@ -447,7 +447,7 @@ public class Circuit extends Tile implements Model, Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         s.append("Loaded at: ").append(timestamp.format(formatter)).append("\n");
 
-        s.append("IO Tiles:\n");
+        s.append("IO Ports:\n");
         Tile t;
         for (Side side : Side.values()) {
             t = getIO(side);

@@ -91,6 +91,7 @@ public class LanternaCircuitView extends CircuitView {
         renderers.put(TileType.COUNTER, new LanternaCounterTileView());
         renderers.put(TileType.IO, new LanternaIOTileView());
         renderers.put(TileType.CIRCUIT, new LanternaCircuitTileView());
+        renderers.put(TileType.DIGIT, new LanternaDigitTileView());
     }
 
     public boolean inMenu() {
