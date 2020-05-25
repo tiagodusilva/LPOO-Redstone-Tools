@@ -31,7 +31,7 @@ public class CounterTile extends OrientedTile {
         this.sides.put(Side.RIGHT, SideType.OUTPUT);
 
         this.counter = 0;
-        this.delay = 5;
+        this.delay = 4;
         this.output = false;
         this.prevIn = Power.getMin();
     }

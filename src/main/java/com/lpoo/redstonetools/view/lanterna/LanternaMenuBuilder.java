@@ -49,13 +49,16 @@ public class LanternaMenuBuilder {
                 "P      - Show Power on Wires\n" +
                 "F      - Show Tile Info\n" +
                 "G      - Save Circuit\n" +
+                "A      - Toggle Time Progression\n" +
                 "H      - Show Help"
         ).withBorder(Borders.singleLine("Basic Controls")));
 
         panel.addComponent(new Label(
                 "W    - Wire\n" +
                 "X    - Crosswire\n" +
-                "1..7 - Logic Gates\n" +
+                "1    - NOT Gate\n" +
+                "2..7 - Logic Gates\n" +
+                "0    - Logic Gates Menu\n" +
                 "S    - Constant Source\n" +
                 "L    - Lever\n" +
                 "R    - Repeater\n" +

@@ -32,9 +32,11 @@ public class CircuitState extends State {
     public void processEvents() {
 
         Queue<Event> events = this.circuitView.getEvents();
-        while (!events.isEmpty()) {
-            Event event = events.remove();
+        int processed = 0;
+        while (!events.isEmpty() && processed < processed_per_frame) {
+            ++processed;
             try {
+                Event event = events.remove();
                 switch (event.getInputEvent()) {
                     case ADD_TILE:
                         new AddTileCommand(circuitController, circuit, (Tile) event.getObject()).execute();
@@ -58,6 +60,9 @@ public class CircuitState extends State {
                     }
                     case SAVE:
                         saveCircuit((SaveCircuitListener) event.getObject());
+                        break;
+                    case ENTER_STATE:
+                        new EnterStateCommand(new MenuState(mainController), mainController).execute();
                         break;
                     case QUIT:
                         this.exit = true;
