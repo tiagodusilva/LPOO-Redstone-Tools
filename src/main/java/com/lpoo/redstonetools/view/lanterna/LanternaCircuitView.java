@@ -18,8 +18,6 @@ import com.lpoo.redstonetools.view.SaveCircuitListener;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaAutoAdvanceTime;
 import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
-import javafx.util.Pair;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.*;
@@ -277,12 +275,12 @@ public class LanternaCircuitView extends CircuitView {
         Consumer<Long> c;
         switch (tile.getType()) {
             case TIMER:
-                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
                 lanternaMenuBuilder.addNumberInput(c, "Timer delay", "[1-9][0-9]{0,4}", ((TimerTile) tile).getDelay(), () -> inMenu = false);
                 inMenu = true;
                 break;
             case COUNTER:
-                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new Pair<>(position, delay)));
+                c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
                 lanternaMenuBuilder.addNumberInput(c, "Counter delay", "[1-9][0-9]{0,4}", ((CounterTile) tile).getDelay(), () -> inMenu = false);
                 inMenu = true;
                 break;

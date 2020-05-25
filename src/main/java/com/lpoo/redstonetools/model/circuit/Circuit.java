@@ -5,7 +5,6 @@ import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.NullTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.*;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
