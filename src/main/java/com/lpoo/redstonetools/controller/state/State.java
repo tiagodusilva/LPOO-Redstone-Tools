@@ -7,6 +7,7 @@ public abstract class State {
 
     protected boolean exit;
     protected MainController mainController;
+    protected final int processed_per_frame = 8;
 
     public State(MainController mainController) {
         exit = false;

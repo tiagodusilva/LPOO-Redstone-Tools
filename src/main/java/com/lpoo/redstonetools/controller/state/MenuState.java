@@ -22,7 +22,9 @@ public class MenuState extends State {
     @Override
     public void processEvents() {
         Queue<Event> events = menuView.getEvents();
-        while (!events.isEmpty()) {
+        int processed = 0;
+        while (!events.isEmpty() && processed < processed_per_frame) {
+            ++processed;
             try {
                 Event event = events.remove();
                 switch (event.getInputEvent()) {
