@@ -51,10 +51,10 @@ public class NotGateTile extends OrientedTile {
     /**
      * <h1>Get tile information</h1>
      *
-     * @return  "Outputting : " followed by the state of the Not Gate
+     * @return  "Active : " followed by the state of the Not Gate
      */
     @Override
-    public String getInfo() { return "Outputting : " + this.active; }
+    public String getInfo() { return "Active : " + this.active; }
 
     /**
      * <h1>Get tile type</h1>

@@ -64,11 +64,11 @@ public class LeverTile extends Tile {
     /**
      * <h1>Get tile information</h1>
      *
-     * @return  "Power : " followed by the power level provided by the tile
+     * @return  "Active : "
      */
     @Override
     public String getInfo() {
-        return "Power : " + ((activated) ? Power.getMax() : Power.getMin());
+        return "Active : " + this.activated;
     }
 
     /**

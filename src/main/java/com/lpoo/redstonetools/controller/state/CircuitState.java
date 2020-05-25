@@ -4,18 +4,14 @@ import com.lpoo.redstonetools.MainController;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.command.*;
 import com.lpoo.redstonetools.controller.event.Event;
-import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
-import com.lpoo.redstonetools.view.LoadCustomStrategy;
-import com.lpoo.redstonetools.view.SaveStrategy;
-import com.lpoo.redstonetools.view.ViewFactory;
+import com.lpoo.redstonetools.view.SaveCircuitListener;
+import javafx.util.Pair;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.Queue;
 
 public class CircuitState extends State {
@@ -55,11 +51,13 @@ public class CircuitState extends State {
                     case ROTATE_RIGHT:
                         new RotateRightCommand(circuitController, circuit, (Position) event.getObject()).execute();
                         break;
-                    case SAVE:
-                        saveCircuit((SaveStrategy) event.getObject());
+                    case SET_DELAY: {
+                        Pair<?, ?> p = (Pair<?, ?>) event.getObject();
+                        new SetDelayCommand(circuitController, circuit, (Position) p.getKey(), (Long) p.getValue()).execute();
                         break;
-                    case LOAD_CUSTOM:
-                        loadCustom((LoadCustomStrategy) event.getObject());
+                    }
+                    case SAVE:
+                        saveCircuit((SaveCircuitListener) event.getObject());
                         break;
                     case QUIT:
                         this.exit = true;
@@ -85,32 +83,11 @@ public class CircuitState extends State {
         circuitView.cleanup();
     }
 
-    private void saveCircuit(SaveStrategy saveStrategy) {
-        circuitView.stopInputs();
-        String filename = saveStrategy.getFileName(circuit.getCircuitName());
-        if (filename != null) {
-            if (CircuitController.saveCircuit(circuit, filename))
-                saveStrategy.notifySuccess(filename);
-            else
-                saveStrategy.notifyFailure(filename);
-        }
-        circuitView.startInputs();
-    }
-
-    private void loadCustom(LoadCustomStrategy loadCustomStrategy) {
-        circuitView.stopInputs();
-        String filename = loadCustomStrategy.getFileName();
-        if (filename != null) {
-            try {
-                Circuit newSubcircuit = CircuitController.loadCircuit(filename);
-                newSubcircuit.setPosition(loadCustomStrategy.getPosition());
-                this.circuitController.addTile(circuit, newSubcircuit);
-            } catch (InvalidCircuitException e) {
-//                e.printStackTrace();
-                loadCustomStrategy.notifyFailure();
-            }
-        }
-        circuitView.startInputs();
+    private void saveCircuit(SaveCircuitListener saveCircuitListener) {
+        if (CircuitController.saveCircuit(circuit, saveCircuitListener.getFileName()))
+            saveCircuitListener.notifySuccess();
+        else
+            saveCircuitListener.notifyFailure();
     }
 
 }

@@ -5,9 +5,9 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 
 public class RotateRightCommand implements Command {
-    private Position position;
-    private CircuitController circuitController;
-    private Circuit circuit;
+    private final Position position;
+    private final CircuitController circuitController;
+    private final Circuit circuit;
 
     public RotateRightCommand(CircuitController circuitController, Circuit circuit, Position position) {
         this.circuitController = circuitController;

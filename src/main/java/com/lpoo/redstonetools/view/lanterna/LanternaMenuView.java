@@ -1,7 +1,6 @@
 package com.lpoo.redstonetools.view.lanterna;
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
 import com.googlecode.lanterna.screen.Screen;
@@ -14,31 +13,35 @@ import com.lpoo.redstonetools.view.MenuView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class LanternaMenuView extends MenuView {
 
-    private Screen screen;
+    private final Screen screen;
     private Circuit circuit;
+
+    private final LanternaMenuBuilder lanternaMenuBuilder;
 
     private String fileName;
     private Border borderedQuitButton;
-    private WindowBasedTextGUI textGUI;
+    private final WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
-    public LanternaMenuView(Screen screen) {
+    public LanternaMenuView(Screen screen, MultiWindowTextGUI textGUI) {
         // Setup terminal and screen layers
         this.screen = screen;
         circuit = null;
         fileName = "";
 
+        // Create gui and start gui
+        this.textGUI = textGUI;
+        lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
+
         generateMenu();
     }
 
     private void generateMenu() {
-        // Create gui and start gui
-        textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
-
         File input;
 
         Panel mainPanel = new Panel();
@@ -80,19 +83,24 @@ public class LanternaMenuView extends MenuView {
         rightPanel.setLayoutManager(new GridLayout(2));
 
         rightPanel.addComponent(new Label("Width").setLabelWidth(5));
-        final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
+        final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
 
         rightPanel.addComponent(new Label("Height").setLabelWidth(5));
-        final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]*")).addTo(rightPanel);
+        final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
 
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
         rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
         rightPanel.addComponent(new Button("Create Blank", () -> {
             fileName = "";
-            Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
-            created.setCircuitName("blank.ser");
-            createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
+            if (widthTxt.getText().equals("") || heightTxt.getText().equals("")) {
+                lanternaMenuBuilder.addConfirmation("Textboxes must not be empty", () -> {});
+            }
+            else {
+                Circuit created = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
+                created.setCircuitName("blank.ser");
+                createCircuit(mainPanel, fileNameLabel, circuitSizeLabel, created);
+            }
         }).withBorder(Borders.singleLine()));
 
         mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -100,6 +108,7 @@ public class LanternaMenuView extends MenuView {
         // Create window to hold the panel
         window = new BasicWindow();
         window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
 
         borderedQuitButton = new Button("Close game", () -> {
             textGUI.removeWindow(window);
@@ -145,6 +154,7 @@ public class LanternaMenuView extends MenuView {
 
     @Override
     public void render() {
+        screen.doResizeIfNecessary();
         try {
             textGUI.processInput();
             textGUI.updateScreen();

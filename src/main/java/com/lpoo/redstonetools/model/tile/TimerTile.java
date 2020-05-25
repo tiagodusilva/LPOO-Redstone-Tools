@@ -68,6 +68,7 @@ public class TimerTile extends OrientedTile {
      *
      * @param delay New Timer delay
      */
+    @Override
     public void setDelay(long delay) {
         this.delay = delay;
         this.timer = 0;
@@ -157,7 +158,9 @@ public class TimerTile extends OrientedTile {
 
     @Override
     public String getInfo() {
-        return "Active : " + this.active + "\n" +
+        return "Mode : " + (this.switchMode ? "Switch" : "Pulse") + "\n" +
+                "Paused : " + !this.active + "\n" +
+                "Active : " + this.output + "\n" +
                 "Delay : " + this.delay + "\n" +
                 "Tick : " + this.timer; }
 
