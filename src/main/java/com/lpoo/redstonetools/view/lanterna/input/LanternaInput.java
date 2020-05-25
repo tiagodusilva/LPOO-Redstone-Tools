@@ -118,6 +118,12 @@ public class LanternaInput extends Thread {
                             case 'd':
                                 lanternaCircuitView.showSetDelayMenu(lanternaCircuitView.getSelectedTile().clone());
                                 break;
+                            case 'a':
+                                lanternaCircuitView.toggleAutoAdvance();
+                                break;
+                            case '0':
+                                lanternaCircuitView.showInsertGateMenu(lanternaCircuitView.getSelectedTile().clone());
+                                break;
                             default:
                                 break;
                         }
