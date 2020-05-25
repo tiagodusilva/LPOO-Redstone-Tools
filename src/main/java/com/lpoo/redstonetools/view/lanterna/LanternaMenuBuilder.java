@@ -36,30 +36,34 @@ public class LanternaMenuBuilder {
 
         panel.setLayoutManager(new GridLayout(2));
 
-        panel.addComponent(new Label("Arrow keys - Move around\n" +
-                "Z - Toggle selection/view window\n" +
-                "Enter - Interact\n" +
+        panel.addComponent(new Label(
+                "Arrows - Move around\n" +
+                "Z      - Toggle iterate/pan\n" +
+                "Enter  - Interact\n" +
                 "Insert - Add Tile Dropdown\n" +
-                "Esc - Quit\n" +
-                "+ - Advance Time\n" +
-                "Q - Rotate Left\n" +
-                "E - Rotate Right\n" +
-                "P - Show Power on Wires\n" +
-                "F - Show Tile Info\n" +
-                "G - Save Circuit"
+                "Esc    - Quit\n" +
+                "+      - Advance Time\n" +
+                "Q      - Rotate Left\n" +
+                "E      - Rotate Right\n" +
+                "D      - Change Delay\n" +
+                "P      - Show Power on Wires\n" +
+                "F      - Show Tile Info\n" +
+                "G      - Save Circuit\n" +
+                "H      - Show Help"
         ).withBorder(Borders.singleLine("Basic Controls")));
 
-        panel.addComponent(new Label("W - Wire\n" +
-                "X - Crosswire\n" +
-                "1 to 7 - Logic Gates\n" +
-                "S - Constant Source\n" +
-                "L - Lever\n" +
-                "R - Repeater\n" +
-                "C - Comparator\n" +
-                "N - Counter\n" +
-                "T - Timer\n" +
-                "I - IO Tile\n" +
-                "O - Import Custom Tile"
+        panel.addComponent(new Label(
+                "W    - Wire\n" +
+                "X    - Crosswire\n" +
+                "1..7 - Logic Gates\n" +
+                "S    - Constant Source\n" +
+                "L    - Lever\n" +
+                "R    - Repeater\n" +
+                "C    - Comparator\n" +
+                "N    - Counter\n" +
+                "T    - Timer\n" +
+                "I    - IO Tile\n" +
+                "O    - Import Custom Tile"
         ).withBorder(Borders.singleLine("Tile Shortcuts")));
 
         Button b = new Button("Hide Help", () -> {
