@@ -224,6 +224,13 @@ public class LanternaCircuitView extends CircuitView {
         inMenu = true;
     }
 
+    public void showTileInfo(Position position) {
+        System.out.println("waddup");
+        lanternaMenuBuilder.addConfirmation(circuit.getTile(position).getInfo(), () -> inMenu = false);
+        inMenu = true;
+        System.out.println("waddup");
+    }
+
     @Override
     public void render() {
         screen.doResizeIfNecessary();

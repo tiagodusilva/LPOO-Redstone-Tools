@@ -19,7 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class LanternaMenuBuilder {
@@ -47,6 +46,7 @@ public class LanternaMenuBuilder {
                 "Q - Rotate Left\n" +
                 "E - Rotate Right\n" +
                 "P - Show Power on Wires\n" +
+                "F - Show Tile Info\n" +
                 "G - Save Circuit"
         ).withBorder(Borders.singleLine("Basic Controls")));
 
@@ -293,8 +293,6 @@ public class LanternaMenuBuilder {
     }
 
     public void addConfirmation(String message, Runnable onExit) {
-        AtomicBoolean windowNotClosed = new AtomicBoolean(true);
-
         Panel mainPanel = new Panel();
 
         Window window = new BasicWindow();
@@ -306,14 +304,13 @@ public class LanternaMenuBuilder {
         mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));
 
         Button acceptButton = new Button("Ok", () -> {
-            windowNotClosed.set(false);
             textGUI.removeWindow(window);
             onExit.run();
         });
         mainPanel.addComponent(acceptButton.withBorder(Borders.doubleLine()));
 
         window.setFocusedInteractable(acceptButton);
-        textGUI.addWindowAndWait(window);
+        textGUI.addWindow(window);
     }
 
     public void addSaveCircuitMenu(Consumer<SaveCircuitListener> consumer, String oldName, Runnable onExit) {

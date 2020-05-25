@@ -111,6 +111,10 @@ public class LanternaInput extends Thread {
                                 break;
                             case 'h':
                                 lanternaCircuitView.showHelpMenu();
+                                break;
+                            case 'f':
+                                lanternaCircuitView.showTileInfo(lanternaCircuitView.getSelectedTile().clone());
+                                break;
                             default:
                                 break;
                         }
