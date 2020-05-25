@@ -156,6 +156,8 @@ public class LanternaInput extends Thread {
                         lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));
                         break;
                     case Escape:
+                        lanternaCircuitView.pushEvent(new Event(InputEvent.ENTER_STATE, null));
+                        break;
                     case EOF:
                         lanternaCircuitView.pushEvent(new Event(InputEvent.QUIT, null));
                         break;

@@ -129,7 +129,7 @@ public class LanternaMenuView extends MenuView {
             panel.addComponent(new Button("Open Circuit", () -> {
                 if (circuit != null) {
                     textGUI.removeWindow(window);
-                    pushEvent(new Event(InputEvent.ENTER_CIRCUIT_STATE, circuit));
+                    pushEvent(new Event(InputEvent.ENTER_STATE, circuit));
                 }
                 else {
                     new MessageDialogBuilder()

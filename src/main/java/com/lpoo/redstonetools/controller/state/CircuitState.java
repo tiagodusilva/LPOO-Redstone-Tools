@@ -59,6 +59,9 @@ public class CircuitState extends State {
                     case SAVE:
                         saveCircuit((SaveCircuitListener) event.getObject());
                         break;
+                    case ENTER_STATE:
+                        new EnterStateCommand(new MenuState(mainController), mainController).execute();
+                        break;
                     case QUIT:
                         this.exit = true;
                         events.clear();

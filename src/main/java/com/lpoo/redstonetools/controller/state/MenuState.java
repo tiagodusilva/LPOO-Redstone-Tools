@@ -26,7 +26,7 @@ public class MenuState extends State {
             try {
                 Event event = events.remove();
                 switch (event.getInputEvent()) {
-                    case ENTER_CIRCUIT_STATE:
+                    case ENTER_STATE:
                         new EnterStateCommand(new CircuitState((Circuit) event.getObject(), mainController), mainController).execute();
                         break;
                     case QUIT:
