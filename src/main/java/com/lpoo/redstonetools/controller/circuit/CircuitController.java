@@ -45,6 +45,7 @@ public class CircuitController {
             FileInputStream fileIn = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             circuit = (Circuit) in.readObject();
+            circuit.setCircuitName(filename);
             in.close();
             fileIn.close();
         } catch (Exception i) {
