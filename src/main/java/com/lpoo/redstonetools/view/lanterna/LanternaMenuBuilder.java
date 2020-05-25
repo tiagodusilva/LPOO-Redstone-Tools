@@ -68,7 +68,7 @@ public class LanternaMenuBuilder {
                 "D    - Digit\n" +
                 "I    - IO Port\n" +
                 "O    - Import Custom Tile"
-        ));
+        ).withBorder(Borders.singleLine("Tile Shortcuts")));
 
         Button b = new Button("Hide Help", () -> {
             textGUI.removeWindow(window);
