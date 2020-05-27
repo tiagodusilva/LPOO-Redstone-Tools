@@ -1,8 +1,6 @@
 package com.lpoo.redstonetools.view;
 
 import com.lpoo.redstonetools.controller.event.Event;
-import org.junit.Assert;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 public class ViewTest {

@@ -4,8 +4,6 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 public class NullTileTest {

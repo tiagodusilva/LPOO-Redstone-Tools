@@ -4,8 +4,8 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class TileTest {
@@ -30,7 +30,7 @@ public class TileTest {
 
         Mockito.when(tile.update(circuit)).thenCallRealMethod();
 
-        Assert.assertFalse(tile.update(circuit));
+        Assertions.assertFalse(tile.update(circuit));
 
         for (Side side : Side.values()) {
             Mockito.verify(position, Mockito.times(1)).getNeighbour(side);
@@ -43,6 +43,6 @@ public class TileTest {
         Mockito.verify(tile, Mockito.times(1)).update(circuit, Power.getMax(), Side.DOWN);
 
         Mockito.when(tile.update(circuit, Power.getMin(), Side.UP)).thenReturn(true);
-        Assert.assertTrue(tile.update(circuit));
+        Assertions.assertTrue(tile.update(circuit));
     }
 }

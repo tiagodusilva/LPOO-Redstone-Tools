@@ -5,16 +5,18 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class TimerTileTest {
 
     private TimerTile timer;
 
-    @Before
+    @BeforeEach
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
@@ -25,19 +27,19 @@ public class TimerTileTest {
 
     @Test
     public void testTimer() {
-        Assert.assertEquals(1, timer.getPosition().getX());
-        Assert.assertEquals(2, timer.getPosition().getY());
-        Assert.assertEquals(TileType.TIMER, timer.getType());
-        Assert.assertTrue(timer.isTickedTile());
+        Assertions.assertEquals(1, timer.getPosition().getX());
+        Assertions.assertEquals(2, timer.getPosition().getY());
+        Assertions.assertEquals(TileType.TIMER, timer.getType());
+        Assertions.assertTrue(timer.isTickedTile());
     }
 
     @Test
     public void testDelay() {
         timer.setDelay(15);
 
-        Assert.assertEquals(15, timer.getDelay());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(15, timer.getTicksLeft());
+        Assertions.assertEquals(15, timer.getDelay());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(15, timer.getTicksLeft());
     }
 
     @Test
@@ -45,33 +47,33 @@ public class TimerTileTest {
         Circuit circuit = Mockito.mock(Circuit.class);
         timer.setSwitchMode(false);
 
-        Assert.assertFalse(timer.getSwitchMode());
+        Assertions.assertFalse(timer.getSwitchMode());
 
-        Assert.assertFalse(timer.interact(circuit));
+        Assertions.assertFalse(timer.interact(circuit));
 
-        Assert.assertTrue(timer.getSwitchMode());
+        Assertions.assertTrue(timer.getSwitchMode());
 
-        Assert.assertFalse(timer.interact(circuit));
+        Assertions.assertFalse(timer.interact(circuit));
 
-        Assert.assertFalse(timer.getSwitchMode());
+        Assertions.assertFalse(timer.getSwitchMode());
     }
 
     @Test
     public void testTimerPower() {
-        Assert.assertTrue(timer.acceptsPower(Side.LEFT));
-        Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(timer.acceptsPower(Side.UP));
-        Assert.assertFalse(timer.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.acceptsPower(Side.UP));
+        Assertions.assertFalse(timer.acceptsPower(Side.DOWN));
 
-        Assert.assertTrue(timer.outputsPower(Side.RIGHT));
-        Assert.assertFalse(timer.outputsPower(Side.LEFT));
-        Assert.assertFalse(timer.outputsPower(Side.UP));
-        Assert.assertFalse(timer.outputsPower(Side.DOWN));
+        Assertions.assertTrue(timer.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.outputsPower(Side.LEFT));
+        Assertions.assertFalse(timer.outputsPower(Side.UP));
+        Assertions.assertFalse(timer.outputsPower(Side.DOWN));
 
         timer.setOutput(false);
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.getMin(), timer.getPower(side));
+            Assertions.assertEquals(Power.getMin(), timer.getPower(side));
         }
 
         // activate repeater
@@ -79,9 +81,9 @@ public class TimerTileTest {
 
         for (Side side : Side.values()) {
             if (timer.outputsPower(side)) {
-                Assert.assertEquals(Power.getMax(), timer.getPower(side));
+                Assertions.assertEquals(Power.getMax(), timer.getPower(side));
             } else {
-                Assert.assertEquals(Power.getMin(), timer.getPower(side));
+                Assertions.assertEquals(Power.getMin(), timer.getPower(side));
             }
         }
     }
@@ -90,42 +92,42 @@ public class TimerTileTest {
     public void testTimerRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(timer.acceptsPower(Side.LEFT));
-        Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(timer.acceptsPower(Side.UP));
-        Assert.assertFalse(timer.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.acceptsPower(Side.UP));
+        Assertions.assertFalse(timer.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(timer.outputsPower(Side.LEFT));
-        Assert.assertTrue(timer.outputsPower(Side.RIGHT));
-        Assert.assertFalse(timer.outputsPower(Side.UP));
-        Assert.assertFalse(timer.outputsPower(Side.DOWN));
+        Assertions.assertFalse(timer.outputsPower(Side.LEFT));
+        Assertions.assertTrue(timer.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.outputsPower(Side.UP));
+        Assertions.assertFalse(timer.outputsPower(Side.DOWN));
 
         timer.rotateRight(circuit);
 
-        Assert.assertFalse(timer.acceptsPower(Side.LEFT));
-        Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
-        Assert.assertTrue(timer.acceptsPower(Side.UP));
-        Assert.assertFalse(timer.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(timer.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
+        Assertions.assertTrue(timer.acceptsPower(Side.UP));
+        Assertions.assertFalse(timer.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(timer.outputsPower(Side.LEFT));
-        Assert.assertFalse(timer.outputsPower(Side.RIGHT));
-        Assert.assertFalse(timer.outputsPower(Side.UP));
-        Assert.assertTrue(timer.outputsPower(Side.DOWN));
+        Assertions.assertFalse(timer.outputsPower(Side.LEFT));
+        Assertions.assertFalse(timer.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.outputsPower(Side.UP));
+        Assertions.assertTrue(timer.outputsPower(Side.DOWN));
 
         timer.rotateLeft(circuit); timer.rotateLeft(circuit);
 
-        Assert.assertFalse(timer.acceptsPower(Side.LEFT));
-        Assert.assertFalse(timer.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(timer.acceptsPower(Side.UP));
-        Assert.assertTrue(timer.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(timer.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(timer.acceptsPower(Side.UP));
+        Assertions.assertTrue(timer.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(timer.outputsPower(Side.LEFT));
-        Assert.assertFalse(timer.outputsPower(Side.RIGHT));
-        Assert.assertTrue(timer.outputsPower(Side.UP));
-        Assert.assertFalse(timer.outputsPower(Side.DOWN));
+        Assertions.assertFalse(timer.outputsPower(Side.LEFT));
+        Assertions.assertFalse(timer.outputsPower(Side.RIGHT));
+        Assertions.assertTrue(timer.outputsPower(Side.UP));
+        Assertions.assertFalse(timer.outputsPower(Side.DOWN));
     }
 
     @Test
@@ -135,37 +137,37 @@ public class TimerTileTest {
         for (Side side : Side.values()) {
             timer.setOutput(false);
             timer.setStatus(false);
-            Assert.assertFalse(timer.onChange(circuit, Power.getMin(), side));
-            Assert.assertEquals(0, timer.getTimer());
-            Assert.assertFalse(timer.getOutput());
-            Assert.assertTrue(timer.getStatus());
+            Assertions.assertFalse(timer.onChange(circuit, Power.getMin(), side));
+            Assertions.assertEquals(0, timer.getTimer());
+            Assertions.assertFalse(timer.getOutput());
+            Assertions.assertTrue(timer.getStatus());
         }
 
         for (Side side : Side.values()) {
             timer.setOutput(true);
             timer.setStatus(false);
-            Assert.assertFalse(timer.onChange(circuit, Power.getMin(), side));
-            Assert.assertEquals(0, timer.getTimer());
-            Assert.assertTrue(timer.getOutput());
-            Assert.assertTrue(timer.getStatus());
+            Assertions.assertFalse(timer.onChange(circuit, Power.getMin(), side));
+            Assertions.assertEquals(0, timer.getTimer());
+            Assertions.assertTrue(timer.getOutput());
+            Assertions.assertTrue(timer.getStatus());
         }
 
         for (Side side : Side.values()) {
             timer.setOutput(false);
             timer.setStatus(false);
-            Assert.assertFalse(timer.onChange(circuit, Power.getMax(), side));
-            Assert.assertEquals(0, timer.getTimer());
-            Assert.assertFalse(timer.getOutput());
-            Assert.assertFalse(timer.getStatus());
+            Assertions.assertFalse(timer.onChange(circuit, Power.getMax(), side));
+            Assertions.assertEquals(0, timer.getTimer());
+            Assertions.assertFalse(timer.getOutput());
+            Assertions.assertFalse(timer.getStatus());
         }
 
         for (Side side : Side.values()) {
             timer.setOutput(true);
             timer.setStatus(false);
-            Assert.assertTrue(timer.onChange(circuit, Power.getMax(), side));
-            Assert.assertEquals(0, timer.getTimer());
-            Assert.assertFalse(timer.getOutput());
-            Assert.assertFalse(timer.getStatus());
+            Assertions.assertTrue(timer.onChange(circuit, Power.getMax(), side));
+            Assertions.assertEquals(0, timer.getTimer());
+            Assertions.assertFalse(timer.getOutput());
+            Assertions.assertFalse(timer.getStatus());
         }
     }
 
@@ -183,12 +185,12 @@ public class TimerTileTest {
 
         for (Side side : Side.values()) {
             timer.setStatus(false);
-            Assert.assertFalse(timer.update(circuit, Power.getMax(), side));
+            Assertions.assertFalse(timer.update(circuit, Power.getMax(), side));
         }
 
         for (Side side : Side.values()) {
             timer.setStatus(true);
-            Assert.assertFalse(timer.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(timer.update(circuit, Power.getMin(), side));
         }
 
         for (Side side : Side.values()) {
@@ -197,6 +199,18 @@ public class TimerTileTest {
 
         Mockito.verify(timer, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(Power.getMin()), Mockito.any(Side.class));
         Mockito.verify(timer, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(Power.getMax()), Mockito.any(Side.class));
+    }
+
+    @Property
+    public void testUpdateOnNonInputSide(@ForAll int power) {
+        setup();
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        Assertions.assertFalse(this.timer.update(circuit, power, Side.UP));
+        Assertions.assertFalse(this.timer.update(circuit, power, Side.RIGHT));
+        Assertions.assertFalse(this.timer.update(circuit, power, Side.DOWN));
+
+        Mockito.verify(timer, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
     }
 
     @Test
@@ -212,21 +226,10 @@ public class TimerTileTest {
         Mockito.when(timer.acceptsPower(Side.DOWN)).thenReturn(false);
 
         timer.setStatus(false);
-        Assert.assertFalse(timer.update(circuit, Power.getMin(), Side.RIGHT));
-        timer.setStatus(true);
-        Assert.assertFalse(timer.update(circuit, Power.getMax(), Side.RIGHT));
-        timer.setStatus(false);
-        Assert.assertFalse(timer.update(circuit, Power.getMin(), Side.DOWN));
-        timer.setStatus(true);
-        Assert.assertFalse(timer.update(circuit, Power.getMax(), Side.DOWN));
-
-        Mockito.verify(timer, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.anyInt(), Mockito.any(Side.class));
-
-        timer.setStatus(false);
-        Assert.assertTrue(timer.update(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertTrue(timer.update(circuit, Power.getMin(), Side.LEFT));
 
         timer.setStatus(true);
-        Assert.assertFalse(timer.update(circuit, Power.getMax(), Side.UP));
+        Assertions.assertFalse(timer.update(circuit, Power.getMax(), Side.UP));
 
         Mockito.verify(timer, Mockito.times(1)).onChange(Mockito.eq(circuit), Mockito.eq(Power.getMin()), Mockito.eq(Side.LEFT));
         Mockito.verify(timer, Mockito.times(1)).onChange(Mockito.eq(circuit), Mockito.eq(Power.getMax()), Mockito.eq(Side.UP));
@@ -238,42 +241,42 @@ public class TimerTileTest {
 
         timer.setDelay(2); // update every 2 ticks
 
-        Assert.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(0, timer.getTimer());
 
         timer.setStatus(false);
         timer.setOutput(false);
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
         timer.setStatus(true);
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertTrue(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertTrue(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
     }
 
     @Test
@@ -282,46 +285,46 @@ public class TimerTileTest {
 
         timer.setDelay(2); // update every 2 ticks
 
-        Assert.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(0, timer.getTimer());
 
         timer.setStatus(false);
         timer.setOutput(false);
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
         timer.setStatus(true);
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertTrue(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertTrue(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(1, timer.getTimer());
-        Assert.assertEquals(1, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
+        Assertions.assertFalse(timer.nextTick());
+        Assertions.assertEquals(1, timer.getTimer());
+        Assertions.assertEquals(1, timer.getTicksLeft());
+        Assertions.assertFalse(timer.getOutput());
 
-        Assert.assertTrue(timer.nextTick());
-        Assert.assertEquals(0, timer.getTimer());
-        Assert.assertEquals(2, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
+        Assertions.assertTrue(timer.nextTick());
+        Assertions.assertEquals(0, timer.getTimer());
+        Assertions.assertEquals(2, timer.getTicksLeft());
+        Assertions.assertTrue(timer.getOutput());
     }
 }

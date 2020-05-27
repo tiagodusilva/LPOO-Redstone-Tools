@@ -8,9 +8,6 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.CircuitView;
 import com.lpoo.redstonetools.view.ViewFactory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.LinkedList;

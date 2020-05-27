@@ -5,9 +5,7 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 public class CircuitTest {
@@ -16,7 +14,7 @@ public class CircuitTest {
     private final int WIDTH = 20;
     private final int HEIGHT = 20;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.circuit = new Circuit(WIDTH, HEIGHT);
     }

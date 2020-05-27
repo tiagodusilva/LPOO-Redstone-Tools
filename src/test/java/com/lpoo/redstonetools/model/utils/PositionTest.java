@@ -1,15 +1,15 @@
 package com.lpoo.redstonetools.model.utils;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class PositionTest {
 
     @Test
     public void testPositionConstructor() {
         Position position = new Position(5, 10);
-        Assert.assertEquals(5, position.getX());
-        Assert.assertEquals(10, position.getY());
+        Assertions.assertEquals(5, position.getX());
+        Assertions.assertEquals(10, position.getY());
     }
 
     @Test
@@ -20,10 +20,10 @@ public class PositionTest {
         Position up = new Position(1, 0);
         Position down = new Position(1, 2);
 
-        Assert.assertEquals(left, middle.getNeighbour(Side.LEFT));
-        Assert.assertEquals(right, middle.getNeighbour(Side.RIGHT));
-        Assert.assertEquals(up, middle.getNeighbour(Side.UP));
-        Assert.assertEquals(down, middle.getNeighbour(Side.DOWN));
+        Assertions.assertEquals(left, middle.getNeighbour(Side.LEFT));
+        Assertions.assertEquals(right, middle.getNeighbour(Side.RIGHT));
+        Assertions.assertEquals(up, middle.getNeighbour(Side.UP));
+        Assertions.assertEquals(down, middle.getNeighbour(Side.DOWN));
     }
 
     @Test
@@ -32,9 +32,9 @@ public class PositionTest {
         Position position2 = new Position(5, 6);
         Position position3 = new Position(5, 4);
 
-        Assert.assertEquals(position1, position2);
-        Assert.assertNotEquals(position1, position3);
-        Assert.assertNotEquals(position2, position3);
+        Assertions.assertEquals(position1, position2);
+        Assertions.assertNotEquals(position1, position3);
+        Assertions.assertNotEquals(position2, position3);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class PositionTest {
         Position position = new Position(5, 4);
         Position clone = position.clone();
 
-        Assert.assertEquals(position, clone);
-        Assert.assertNotSame(position, clone);
+        Assertions.assertEquals(position, clone);
+        Assertions.assertNotSame(position, clone);
     }
 }

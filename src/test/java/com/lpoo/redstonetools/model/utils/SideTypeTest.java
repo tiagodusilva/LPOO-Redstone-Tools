@@ -1,18 +1,18 @@
 package com.lpoo.redstonetools.model.utils;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SideTypeTest {
     @Test
     public void testSideTypeCheck() {
-        Assert.assertFalse((SideType.DEFAULT).isInput());
-        Assert.assertTrue((SideType.INPUT).isInput());
-        Assert.assertFalse((SideType.OUTPUT).isInput());
+        Assertions.assertFalse((SideType.DEFAULT).isInput());
+        Assertions.assertTrue((SideType.INPUT).isInput());
+        Assertions.assertFalse((SideType.OUTPUT).isInput());
 
-        Assert.assertFalse((SideType.DEFAULT).isOutput());
-        Assert.assertFalse((SideType.INPUT).isOutput());
-        Assert.assertTrue((SideType.OUTPUT).isOutput());
+        Assertions.assertFalse((SideType.DEFAULT).isOutput());
+        Assertions.assertFalse((SideType.INPUT).isOutput());
+        Assertions.assertTrue((SideType.OUTPUT).isOutput());
     }
 
     @Test
@@ -21,11 +21,11 @@ public class SideTypeTest {
         SideType inputType = SideType.INPUT;
         SideType outputType = SideType.OUTPUT;
 
-        Assert.assertEquals(inputType, defaultType.next());
-        Assert.assertEquals(outputType, inputType.next());
-        Assert.assertEquals(defaultType, outputType.next());
+        Assertions.assertEquals(inputType, defaultType.next());
+        Assertions.assertEquals(outputType, inputType.next());
+        Assertions.assertEquals(defaultType, outputType.next());
 
-        Assert.assertEquals(outputType, defaultType.next().next());
-        Assert.assertEquals(defaultType, inputType.next().next());
+        Assertions.assertEquals(outputType, defaultType.next().next());
+        Assertions.assertEquals(defaultType, inputType.next().next());
     }
 }

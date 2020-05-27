@@ -1,8 +1,5 @@
 package com.lpoo.redstonetools.controller.event;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 public class EventTest {
     /*
     @Test

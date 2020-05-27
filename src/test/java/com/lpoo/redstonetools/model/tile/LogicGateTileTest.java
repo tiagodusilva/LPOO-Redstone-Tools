@@ -4,9 +4,6 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.strategy.LogicGateStrategy;
 import com.lpoo.redstonetools.model.tile.strategy.LogicGateStrategyType;
 import com.lpoo.redstonetools.model.utils.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Map;
