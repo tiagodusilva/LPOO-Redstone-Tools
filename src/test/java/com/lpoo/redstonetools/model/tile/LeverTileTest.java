@@ -28,7 +28,7 @@ public class LeverTileTest {
 
         this.lever = new LeverTile(position);
     }
-
+/*
     @Test
     public void testLever() {
         Assert.assertEquals(expectedLeverPosition.getX(), lever.getPosition().getX());
@@ -77,5 +77,5 @@ public class LeverTileTest {
             Assert.assertEquals(Power.getMax(), lever.getPower(side));
         }
     }
-
+*/
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NANDGateStrategyTest {
-
+/*
     @Test
     public void testLogic() {
         Map<Side, Integer> inputs = new HashMap<>();
@@ -61,5 +61,5 @@ public class NANDGateStrategyTest {
         inputs.put(Side.LEFT, 1);
 
         Assert.assertFalse(strategy.logic(inputs, sideTypes));
-    }
+    }*/
 }

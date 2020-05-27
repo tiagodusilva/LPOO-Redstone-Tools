@@ -22,7 +22,7 @@ public class CrossWireTileTest {
 
         this.crossWire = new CrossWireTile(position);
     }
-
+/*
     @Test
     public void testTimer() {
         Assert.assertEquals(1, crossWire.getPosition().getX());
@@ -136,4 +136,6 @@ public class CrossWireTileTest {
         Assert.assertTrue(crossWire.isConnected(Side.RIGHT));
         Assert.assertFalse(crossWire.isConnected(Side.LEFT));
     }
+
+ */
 }

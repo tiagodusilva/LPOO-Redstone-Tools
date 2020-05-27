@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class PowerTest {
-
     @Test
     public void testPowerClamp() {
         int power = Power.getMin() - 20;

@@ -15,7 +15,7 @@ public class NotTileTest {
     private NotGateTile notGate;
 
     private Position expectedNotGatePosition;
-
+/*
     @Before
     public void setup() {
         Position position = Mockito.mock(Position.class);
@@ -130,5 +130,5 @@ public class NotTileTest {
 
         Assert.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
     }
-
+*/
 }

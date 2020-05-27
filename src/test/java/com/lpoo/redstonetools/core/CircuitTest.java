@@ -17,6 +17,7 @@ public class CircuitTest {
     private final int WIDTH = 20;
     private final int HEIGHT = 20;
 
+    /*
     private void addWires(Position position, Side direction, int howMany) {
         int p_x = position.getX();
         int p_y = position.getY();
@@ -355,5 +356,5 @@ public class CircuitTest {
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
     }
-
+*/
 }

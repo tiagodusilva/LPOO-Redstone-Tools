@@ -14,8 +14,4 @@ public class LanternaTileViewTest {
         this.tileView = Mockito.mock(LanternaTileView.class, Mockito.withSettings().defaultAnswer(Mockito.CALLS_REAL_METHODS));
     }
 
-    @Test
-    public void testGetPowerColor() {
-        String minPowerColor = tileView.getPowerColor(Power.getMin());
-    }
 }

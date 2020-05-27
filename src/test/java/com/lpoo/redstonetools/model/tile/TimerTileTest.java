@@ -14,25 +14,19 @@ public class TimerTileTest {
 
     private TimerTile timer;
 
-    private Position expectedTimerPosition;
-
     @Before
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
 
-        expectedTimerPosition = Mockito.mock(Position.class);
-        Mockito.when(expectedTimerPosition.getX()).thenReturn(1);
-        Mockito.when(expectedTimerPosition.getY()).thenReturn(2);
-
         this.timer = Mockito.mock(TimerTile.class, Mockito.withSettings().useConstructor(position).defaultAnswer(Mockito.CALLS_REAL_METHODS));
     }
 
     @Test
     public void testTimer() {
-        Assert.assertEquals(expectedTimerPosition.getX(), timer.getPosition().getX());
-        Assert.assertEquals(expectedTimerPosition.getY(), timer.getPosition().getY());
+        Assert.assertEquals(1, timer.getPosition().getX());
+        Assert.assertEquals(2, timer.getPosition().getY());
         Assert.assertEquals(TileType.TIMER, timer.getType());
         Assert.assertTrue(timer.isTickedTile());
     }
@@ -261,11 +255,6 @@ public class TimerTileTest {
         Assert.assertEquals(1, timer.getTicksLeft());
         Assert.assertFalse(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(2, timer.getTimer());
-        Assert.assertEquals(0, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
-
         Assert.assertTrue(timer.nextTick());
         Assert.assertEquals(0, timer.getTimer());
         Assert.assertEquals(2, timer.getTicksLeft());
@@ -276,9 +265,14 @@ public class TimerTileTest {
         Assert.assertEquals(1, timer.getTicksLeft());
         Assert.assertFalse(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(2, timer.getTimer());
-        Assert.assertEquals(0, timer.getTicksLeft());
+        Assert.assertTrue(timer.nextTick());
+        Assert.assertEquals(0, timer.getTimer());
+        Assert.assertEquals(2, timer.getTicksLeft());
+        Assert.assertTrue(timer.getOutput());
+
+        Assert.assertTrue(timer.nextTick());
+        Assert.assertEquals(1, timer.getTimer());
+        Assert.assertEquals(1, timer.getTicksLeft());
         Assert.assertFalse(timer.getOutput());
     }
 
@@ -305,11 +299,6 @@ public class TimerTileTest {
         Assert.assertEquals(1, timer.getTicksLeft());
         Assert.assertFalse(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(2, timer.getTimer());
-        Assert.assertEquals(0, timer.getTicksLeft());
-        Assert.assertFalse(timer.getOutput());
-
         Assert.assertTrue(timer.nextTick());
         Assert.assertEquals(0, timer.getTimer());
         Assert.assertEquals(2, timer.getTicksLeft());
@@ -320,14 +309,19 @@ public class TimerTileTest {
         Assert.assertEquals(1, timer.getTicksLeft());
         Assert.assertTrue(timer.getOutput());
 
-        Assert.assertFalse(timer.nextTick());
-        Assert.assertEquals(2, timer.getTimer());
-        Assert.assertEquals(0, timer.getTicksLeft());
-        Assert.assertTrue(timer.getOutput());
-
         Assert.assertTrue(timer.nextTick());
         Assert.assertEquals(0, timer.getTimer());
         Assert.assertEquals(2, timer.getTicksLeft());
         Assert.assertFalse(timer.getOutput());
+
+        Assert.assertFalse(timer.nextTick());
+        Assert.assertEquals(1, timer.getTimer());
+        Assert.assertEquals(1, timer.getTicksLeft());
+        Assert.assertFalse(timer.getOutput());
+
+        Assert.assertTrue(timer.nextTick());
+        Assert.assertEquals(0, timer.getTimer());
+        Assert.assertEquals(2, timer.getTicksLeft());
+        Assert.assertTrue(timer.getOutput());
     }
 }

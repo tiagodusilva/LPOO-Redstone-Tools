@@ -14,27 +14,19 @@ public class WireTileTest {
 
     private WireTile wire;
 
-    private Position expectedWirePosition;
-
     @Before
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
 
-        expectedWirePosition = Mockito.mock(Position.class);
-        Mockito.when(expectedWirePosition.getX()).thenReturn(1);
-        Mockito.when(expectedWirePosition.getY()).thenReturn(2);
-
         this.wire = new WireTile(position);
     }
 
     @Test
     public void testWire() {
-        Assert.assertEquals(expectedWirePosition.getX(), wire.getPosition().getX());
-        Assert.assertEquals(expectedWirePosition.getY(), wire.getPosition().getY());
-        Assert.assertEquals("wire", wire.getName());
-        Assert.assertEquals("Power : " + Power.getMin(), wire.getInfo());
+        Assert.assertEquals(1, wire.getPosition().getX());
+        Assert.assertEquals(2, wire.getPosition().getY());
         Assert.assertEquals(TileType.WIRE, wire.getType());
         Assert.assertTrue(wire.isWire());
     }
@@ -66,13 +58,13 @@ public class WireTileTest {
     public void testWireUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.getMin());
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.getMin());
 
         Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
         Assert.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
         Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.getMax());
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.getMax());
 
         Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
         Assert.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
@@ -81,7 +73,7 @@ public class WireTileTest {
         Assert.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
         Assert.assertEquals(Power.getMax(), wire.getPower(Side.UP));
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.decrease(Power.getMax()));
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.decrease(Power.getMax()));
 
         Assert.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
         Assert.assertEquals(Power.decrease(Power.getMax()), wire.getPower(Side.UP));
@@ -107,5 +99,4 @@ public class WireTileTest {
         Assert.assertTrue(wire.isConnected(Side.RIGHT));
         Assert.assertFalse(wire.isConnected(Side.LEFT));
     }
-
 }

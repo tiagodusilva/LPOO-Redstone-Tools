@@ -4,12 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SideTest {
-
     @Test
     public void testSideOpposite() {
-        /*
-            https://is.gd/KFKROI
-         */
         Assert.assertEquals(Side.DOWN, (Side.UP).opposite());
         Assert.assertEquals(Side.UP, (Side.DOWN).opposite());
         Assert.assertEquals(Side.RIGHT, (Side.LEFT).opposite());
@@ -31,5 +27,4 @@ public class SideTest {
         Assert.assertEquals(Side.DOWN, (Side.LEFT).atLeft());
         Assert.assertEquals(Side.UP, (Side.RIGHT).atLeft());
     }
-
 }

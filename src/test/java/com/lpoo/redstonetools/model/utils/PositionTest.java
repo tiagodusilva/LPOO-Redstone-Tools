@@ -8,25 +8,8 @@ public class PositionTest {
     @Test
     public void testPositionConstructor() {
         Position position = new Position(5, 10);
-        Assert.assertEquals("Position(5, 10)", position.toString());
-    }
-
-    @Test
-    public void testPositionGetters() {
-        Position position = new Position(5, 10);
         Assert.assertEquals(5, position.getX());
         Assert.assertEquals(10, position.getY());
-    }
-
-    @Test
-    public void testPositionSetters() {
-        Position position = new Position(5, 10);
-        Assert.assertEquals(5, position.getX());
-        Assert.assertEquals(10, position.getY());
-        position.setX(-5);
-        position.setY(32);
-        Assert.assertEquals(-5, position.getX());
-        Assert.assertEquals(32, position.getY());
     }
 
     @Test

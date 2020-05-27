@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class ViewTest {
-
+/*
     @Test
     public void testEvents() {
         View view = Mockito.mock(View.class, Mockito.withSettings().useConstructor().defaultAnswer(Mockito.CALLS_REAL_METHODS));
@@ -29,4 +29,6 @@ public class ViewTest {
         view.getEvents().remove();
         Assert.assertEquals(e3, view.getEvents().peek());
     }
+
+ */
 }

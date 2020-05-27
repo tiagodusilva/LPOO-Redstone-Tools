@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SideTypeTest {
-
     @Test
     public void testSideTypeCheck() {
         Assert.assertFalse((SideType.DEFAULT).isInput());

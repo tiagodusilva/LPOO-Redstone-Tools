@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class NullTileTest {
-
+/*
     @Test
     public void testNullTile() {
         Position position = Mockito.mock(Position.class);
@@ -34,4 +34,6 @@ public class NullTileTest {
             Assert.assertEquals(Power.getMin(), nullTile.getPower(side));
         }
     }
+
+ */
 }

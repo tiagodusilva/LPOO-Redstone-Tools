@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class CommandTest {
-
+    /*
     @Test
     public void testAddTileCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
@@ -85,5 +85,5 @@ public class CommandTest {
         command.execute();
 
         Mockito.verify(controller, Mockito.times(1)).advanceTick(circuit);
-    }
+    }*/
 }
