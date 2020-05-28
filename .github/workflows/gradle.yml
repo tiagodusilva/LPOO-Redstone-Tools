@@ -24,7 +24,7 @@ jobs:
     - name: Grant execute permission for gradlew
       if: runner.os != 'windows'
       run: chmod +x gradlew
-    -name: Grant execute permission for gradlew (Windows)
+    - name: Grant execute permission for gradlew (Windows)
       if: runner.os == 'windows'
       run: git update-index --chmod=+x gradlew
     - name: Build with Gradle
