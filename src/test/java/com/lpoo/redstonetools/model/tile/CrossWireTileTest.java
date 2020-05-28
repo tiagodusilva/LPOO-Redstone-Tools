@@ -5,16 +5,16 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class CrossWireTileTest {
 
     private CrossWireTile crossWire;
 
-    @Before
+    @BeforeEach
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
@@ -24,11 +24,17 @@ public class CrossWireTileTest {
     }
 
     @Test
-    public void testTimer() {
-        Assert.assertEquals(1, crossWire.getPosition().getX());
-        Assert.assertEquals(2, crossWire.getPosition().getY());
-        Assert.assertEquals(TileType.CROSSWIRE, crossWire.getType());
-        Assert.assertFalse(crossWire.isTickedTile());
+    public void testCrossWire() {
+        Assertions.assertEquals(1, crossWire.getPosition().getX());
+        Assertions.assertEquals(2, crossWire.getPosition().getY());
+        Assertions.assertEquals(TileType.CROSSWIRE, crossWire.getType());
+        Assertions.assertFalse(crossWire.isTickedTile());
+        Assertions.assertTrue(crossWire.isWire());
+
+        for (Side side : Side.values()) {
+            Assertions.assertTrue(crossWire.acceptsPower(side));
+            Assertions.assertTrue(crossWire.outputsPower(side));
+        }
     }
 
     @Test
@@ -36,29 +42,29 @@ public class CrossWireTileTest {
 
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.UP));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.UP));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.DOWN));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.RIGHT));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.LEFT));
+        Assertions.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.UP));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.DOWN));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.LEFT));
 
-        Assert.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.RIGHT));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.UP));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.DOWN));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
+        Assertions.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.DOWN));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
 
-        Assert.assertTrue(crossWire.onChange(circuit, Power.getMin(), Side.DOWN));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.UP));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.DOWN));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
+        Assertions.assertTrue(crossWire.onChange(circuit, Power.getMin(), Side.DOWN));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.DOWN));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
 
-        Assert.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.LEFT));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.UP));
-        Assert.assertEquals(Power.getMin(), crossWire.getPower(Side.DOWN));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
-        Assert.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
+        Assertions.assertTrue(crossWire.onChange(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), crossWire.getPower(Side.DOWN));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), crossWire.getPower(Side.LEFT));
 
     }
 
@@ -66,52 +72,52 @@ public class CrossWireTileTest {
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
         Mockito.when(circuit
-            .getSurroundingPower(crossWire.getPosition(), Side.UP))
+            .getSurroundingWirePower(crossWire.getPosition(), Side.UP))
                 .thenReturn(Power.getMax());
 
         Mockito.when(circuit
-                .getSurroundingPower(crossWire.getPosition(), Side.DOWN))
+                .getSurroundingWirePower(crossWire.getPosition(), Side.DOWN))
                 .thenReturn(Power.getMin());
 
         Mockito.when(circuit
-                .getSurroundingPower(crossWire.getPosition(), Side.LEFT))
+                .getSurroundingWirePower(crossWire.getPosition(), Side.LEFT))
                 .thenReturn(Power.getMin());
 
         Mockito.when(circuit
-                .getSurroundingPower(crossWire.getPosition(), Side.RIGHT))
+                .getSurroundingWirePower(crossWire.getPosition(), Side.RIGHT))
                 .thenReturn(Power.getMin());
 
         CrossWireTile crossWireSpy = Mockito.spy(crossWire);
 
-        Assert.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.RIGHT));
+        Assertions.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.RIGHT));
         Mockito.verify(crossWireSpy, Mockito.times(0))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
 
-        Assert.assertTrue(crossWireSpy.update(circuit, Power.getMax(), Side.UP));
+        Assertions.assertTrue(crossWireSpy.update(circuit, Power.getMax(), Side.UP));
         Mockito.verify(crossWireSpy, Mockito.times(1))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
 
-        Assert.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.UP));
+        Assertions.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.UP));
         Mockito.verify(crossWireSpy, Mockito.times(1))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
 
-        Assert.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertFalse(crossWireSpy.update(circuit, Power.getMin(), Side.LEFT));
         Mockito.verify(crossWireSpy, Mockito.times(1))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
 
         Mockito.when(circuit
-                .getSurroundingPower(crossWire.getPosition(), Side.LEFT))
+                .getSurroundingWirePower(crossWire.getPosition(), Side.LEFT))
                 .thenReturn(Power.getMax());
 
-        Assert.assertTrue(crossWireSpy.update(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertTrue(crossWireSpy.update(circuit, Power.getMax(), Side.LEFT));
         Mockito.verify(crossWireSpy, Mockito.times(2))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
 
         Mockito.when(circuit
-                .getSurroundingPower(crossWire.getPosition(), Side.RIGHT))
+                .getSurroundingWirePower(crossWire.getPosition(), Side.RIGHT))
                 .thenReturn(Power.getMax());
 
-        Assert.assertFalse(crossWireSpy.update(circuit, Power.getMax(), Side.RIGHT));
+        Assertions.assertFalse(crossWireSpy.update(circuit, Power.getMax(), Side.RIGHT));
         Mockito.verify(crossWireSpy, Mockito.times(2))
                 .onChange(Mockito.any(Circuit.class), Mockito.anyInt(), Mockito.any(Side.class));
     }
@@ -119,7 +125,7 @@ public class CrossWireTileTest {
     @Test
     public void testWireConnections() {
         for (Side side : Side.values()) {
-            Assert.assertFalse(crossWire.isConnected(side));
+            Assertions.assertFalse(crossWire.isConnected(side));
         }
 
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -131,9 +137,9 @@ public class CrossWireTileTest {
 
         crossWire.updateConnections(circuit);
 
-        Assert.assertTrue(crossWire.isConnected(Side.UP));
-        Assert.assertFalse(crossWire.isConnected(Side.DOWN));
-        Assert.assertTrue(crossWire.isConnected(Side.RIGHT));
-        Assert.assertFalse(crossWire.isConnected(Side.LEFT));
+        Assertions.assertTrue(crossWire.isConnected(Side.UP));
+        Assertions.assertFalse(crossWire.isConnected(Side.DOWN));
+        Assertions.assertTrue(crossWire.isConnected(Side.RIGHT));
+        Assertions.assertFalse(crossWire.isConnected(Side.LEFT));
     }
 }

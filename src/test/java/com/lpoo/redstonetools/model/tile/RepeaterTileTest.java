@@ -5,56 +5,54 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.lifecycle.BeforeProperty;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class RepeaterTileTest {
 
     private RepeaterTile repeater;
 
-    private Position expectedRepeaterPosition;
-
-    @Before
+    @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
-
-        expectedRepeaterPosition = Mockito.mock(Position.class);
-        Mockito.when(expectedRepeaterPosition.getX()).thenReturn(1);
-        Mockito.when(expectedRepeaterPosition.getY()).thenReturn(2);
 
         this.repeater = new RepeaterTile(position);
     }
 
     @Test
     public void testRepeater() {
-        Assert.assertEquals(expectedRepeaterPosition.getX(), repeater.getPosition().getX());
-        Assert.assertEquals(expectedRepeaterPosition.getY(), repeater.getPosition().getY());
-        Assert.assertEquals("repeater", repeater.getName());
-        Assert.assertEquals("Active : false", repeater.getInfo());
-        Assert.assertEquals(TileType.REPEATER, repeater.getType());
+        Assertions.assertEquals(1, repeater.getPosition().getX());
+        Assertions.assertEquals(2, repeater.getPosition().getY());
+        Assertions.assertEquals(TileType.REPEATER, repeater.getType());
+        Assertions.assertFalse(repeater.isWire());
+        Assertions.assertFalse(repeater.isTickedTile());
     }
 
     @Test
-    public void testRepeaterPower() {
-        Assert.assertTrue(repeater.acceptsPower(Side.LEFT));
-        Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.acceptsPower(Side.UP));
-        Assert.assertFalse(repeater.acceptsPower(Side.DOWN));
+    public void testPower() {
+        Assertions.assertTrue(repeater.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.UP));
+        Assertions.assertFalse(repeater.acceptsPower(Side.DOWN));
 
-        Assert.assertTrue(repeater.outputsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.outputsPower(Side.LEFT));
-        Assert.assertFalse(repeater.outputsPower(Side.UP));
-        Assert.assertFalse(repeater.outputsPower(Side.DOWN));
+        Assertions.assertTrue(repeater.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.outputsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.outputsPower(Side.UP));
+        Assertions.assertFalse(repeater.outputsPower(Side.DOWN));
 
         // deactivate repeater
         repeater.setStatus(false);
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.getMin(), repeater.getPower(side));
+            Assertions.assertEquals(Power.getMin(), repeater.getPower(side));
         }
 
         // activate repeater
@@ -62,123 +60,95 @@ public class RepeaterTileTest {
 
         for (Side side : Side.values()) {
             if (repeater.outputsPower(side)) {
-                Assert.assertEquals(Power.getMax(), repeater.getPower(side));
+                Assertions.assertEquals(Power.getMax(), repeater.getPower(side));
             } else {
-                Assert.assertEquals(Power.getMin(), repeater.getPower(side));
+                Assertions.assertEquals(Power.getMin(), repeater.getPower(side));
             }
         }
     }
 
     @Test
-    public void testRepeaterRotation() {
+    public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(repeater.acceptsPower(Side.LEFT));
-        Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.acceptsPower(Side.UP));
-        Assert.assertFalse(repeater.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(repeater.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.UP));
+        Assertions.assertFalse(repeater.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(repeater.outputsPower(Side.LEFT));
-        Assert.assertTrue(repeater.outputsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.outputsPower(Side.UP));
-        Assert.assertFalse(repeater.outputsPower(Side.DOWN));
+        Assertions.assertFalse(repeater.outputsPower(Side.LEFT));
+        Assertions.assertTrue(repeater.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.outputsPower(Side.UP));
+        Assertions.assertFalse(repeater.outputsPower(Side.DOWN));
 
         repeater.rotateRight(circuit);
 
-        Assert.assertFalse(repeater.acceptsPower(Side.LEFT));
-        Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
-        Assert.assertTrue(repeater.acceptsPower(Side.UP));
-        Assert.assertFalse(repeater.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(repeater.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.acceptsPower(Side.UP));
+        Assertions.assertFalse(repeater.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(repeater.outputsPower(Side.LEFT));
-        Assert.assertFalse(repeater.outputsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.outputsPower(Side.UP));
-        Assert.assertTrue(repeater.outputsPower(Side.DOWN));
+        Assertions.assertFalse(repeater.outputsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.outputsPower(Side.UP));
+        Assertions.assertTrue(repeater.outputsPower(Side.DOWN));
 
         repeater.rotateLeft(circuit); repeater.rotateLeft(circuit);
 
-        Assert.assertFalse(repeater.acceptsPower(Side.LEFT));
-        Assert.assertFalse(repeater.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(repeater.acceptsPower(Side.UP));
-        Assert.assertTrue(repeater.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(repeater.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.acceptsPower(Side.UP));
+        Assertions.assertTrue(repeater.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(repeater.outputsPower(Side.LEFT));
-        Assert.assertFalse(repeater.outputsPower(Side.RIGHT));
-        Assert.assertTrue(repeater.outputsPower(Side.UP));
-        Assert.assertFalse(repeater.outputsPower(Side.DOWN));
+        Assertions.assertFalse(repeater.outputsPower(Side.LEFT));
+        Assertions.assertFalse(repeater.outputsPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.outputsPower(Side.UP));
+        Assertions.assertFalse(repeater.outputsPower(Side.DOWN));
     }
 
     @Test
-    public void testRepeaterOnChange() {
+    public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Mockito.when(circuit.getTick()).thenReturn(5L);
+        Assertions.assertFalse(repeater.getStatus());
 
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.onChange(circuit, Power.getMax(), Side.LEFT));
 
-        Assert.assertTrue(repeater.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertTrue(repeater.getStatus());
 
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.onChange(circuit, 5, Side.LEFT));
 
-        Assert.assertFalse(repeater.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertTrue(repeater.getStatus());
 
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.onChange(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertTrue(repeater.onChange(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertFalse(repeater.getStatus());
+    }
 
-        Assert.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
+    @Property
+    public void testUpdateOnNonInputSide(@ForAll int power) {
+        Circuit circuit = Mockito.mock(Circuit.class);
 
-        Mockito.when(circuit.getTick()).thenReturn(6L);
+        RepeaterTile repeaterSpy = Mockito.spy(repeater);
 
-        Assert.assertTrue(repeater.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.UP));
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.RIGHT));
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.DOWN));
 
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Mockito.verify(repeaterSpy, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
     }
 
     @Test
-    public void testRepeaterUpdate() {
+    public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Mockito.when(circuit.getTick()).thenReturn(5L);
-
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
 
         for (Side side : Side.values()) {
-            Assert.assertFalse(repeater.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(repeater.update(circuit, Power.getMin(), side));
         }
-
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
-
-        Assert.assertFalse(repeater.update(circuit, Power.getMax(), Side.DOWN));
-        Assert.assertFalse(repeater.update(circuit, Power.getMax(), Side.UP));
-        Assert.assertFalse(repeater.update(circuit, Power.getMax(), Side.RIGHT));
-
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
-
-        Assert.assertTrue(repeater.update(circuit, Power.getMax(), Side.LEFT));
-
-        Assert.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
-
-        Assert.assertFalse(repeater.update(circuit, Power.getMax(), Side.LEFT));
-
-        Assert.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
-
-        Assert.assertFalse(repeater.update(circuit, Power.getMin(), Side.LEFT));
-
-        Assert.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
-
-        Mockito.when(circuit.getTick()).thenReturn(6L);
-
-        Assert.assertFalse(repeater.update(circuit, Power.getMax(), Side.LEFT));
-
-        Assert.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
-
-        Assert.assertTrue(repeater.update(circuit, Power.getMin(), Side.LEFT));
-
-        Assert.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
     }
-
 }

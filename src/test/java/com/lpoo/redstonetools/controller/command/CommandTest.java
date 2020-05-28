@@ -6,11 +6,10 @@ import com.lpoo.redstonetools.controller.state.State;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 public class CommandTest {
-
+    /*
     @Test
     public void testAddTileCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
@@ -85,5 +84,5 @@ public class CommandTest {
         command.execute();
 
         Mockito.verify(controller, Mockito.times(1)).advanceTick(circuit);
-    }
+    }*/
 }

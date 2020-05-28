@@ -419,7 +419,7 @@ public class Circuit extends Tile implements Model, Serializable {
             if (toReplace.getType() == TileType.IO) return false;
 
             ioTiles.remove(previous, position);
-            ioTiles.put(side, position);
+            setIO(side, position);
         }
         return true;
     }
@@ -604,18 +604,5 @@ public class Circuit extends Tile implements Model, Serializable {
         Tile tile = getIO(side);
         boolean needs_update = tile.getPower(side) != power;
         return acceptsPower(side) && needs_update;
-    }
-
-    /**
-     * <h1>Updates the tile</h1>
-     *
-     * @param circuit   Outer circuit where updates are taking place
-     * @param power     Power received on the update
-     * @param side      Side from which inner circuit received an update
-     * @return  false
-     */
-    @Override
-    public boolean onChange(Circuit circuit, int power, Side side) {
-        return false;
     }
 }

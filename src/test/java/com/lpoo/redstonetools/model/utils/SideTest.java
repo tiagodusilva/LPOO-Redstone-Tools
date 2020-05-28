@@ -1,35 +1,30 @@
 package com.lpoo.redstonetools.model.utils;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SideTest {
-
     @Test
     public void testSideOpposite() {
-        /*
-            https://is.gd/KFKROI
-         */
-        Assert.assertEquals(Side.DOWN, (Side.UP).opposite());
-        Assert.assertEquals(Side.UP, (Side.DOWN).opposite());
-        Assert.assertEquals(Side.RIGHT, (Side.LEFT).opposite());
-        Assert.assertEquals(Side.LEFT, (Side.RIGHT).opposite());
+        Assertions.assertEquals(Side.DOWN, (Side.UP).opposite());
+        Assertions.assertEquals(Side.UP, (Side.DOWN).opposite());
+        Assertions.assertEquals(Side.RIGHT, (Side.LEFT).opposite());
+        Assertions.assertEquals(Side.LEFT, (Side.RIGHT).opposite());
     }
 
     @Test
     public void testSideAtRight() {
-        Assert.assertEquals(Side.RIGHT, (Side.UP).atRight());
-        Assert.assertEquals(Side.LEFT, (Side.DOWN).atRight());
-        Assert.assertEquals(Side.UP, (Side.LEFT).atRight());
-        Assert.assertEquals(Side.DOWN, (Side.RIGHT).atRight());
+        Assertions.assertEquals(Side.RIGHT, (Side.UP).atRight());
+        Assertions.assertEquals(Side.LEFT, (Side.DOWN).atRight());
+        Assertions.assertEquals(Side.UP, (Side.LEFT).atRight());
+        Assertions.assertEquals(Side.DOWN, (Side.RIGHT).atRight());
     }
 
     @Test
     public void testSideAtLeft() {
-        Assert.assertEquals(Side.LEFT, (Side.UP).atLeft());
-        Assert.assertEquals(Side.RIGHT, (Side.DOWN).atLeft());
-        Assert.assertEquals(Side.DOWN, (Side.LEFT).atLeft());
-        Assert.assertEquals(Side.UP, (Side.RIGHT).atLeft());
+        Assertions.assertEquals(Side.LEFT, (Side.UP).atLeft());
+        Assertions.assertEquals(Side.RIGHT, (Side.DOWN).atLeft());
+        Assertions.assertEquals(Side.DOWN, (Side.LEFT).atLeft());
+        Assertions.assertEquals(Side.UP, (Side.RIGHT).atLeft());
     }
-
 }

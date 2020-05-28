@@ -6,9 +6,6 @@ import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 public class CircuitTest {
 
@@ -17,6 +14,7 @@ public class CircuitTest {
     private final int WIDTH = 20;
     private final int HEIGHT = 20;
 
+    /*
     private void addWires(Position position, Side direction, int howMany) {
         int p_x = position.getX();
         int p_y = position.getY();
@@ -355,5 +353,5 @@ public class CircuitTest {
         assertEquals("Power : 15", circuit.getTile(5, 0).getInfo());
 
     }
-
+*/
 }
