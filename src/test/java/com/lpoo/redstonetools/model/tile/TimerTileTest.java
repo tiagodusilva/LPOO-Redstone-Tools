@@ -10,9 +10,11 @@ import net.jqwik.api.Property;
 import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class TimerTileTest {
 
     private TimerTile timer;
@@ -28,6 +30,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testTimer() {
         Assertions.assertEquals(1, timer.getPosition().getX());
         Assertions.assertEquals(2, timer.getPosition().getY());
@@ -37,6 +40,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testDelay() {
         timer.setDelay(15);
 
@@ -46,6 +50,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
         timer.setSwitchMode(false);
@@ -62,6 +67,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
         Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
@@ -92,6 +98,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -134,6 +141,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -175,6 +183,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdateNoStatusChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -205,6 +214,7 @@ public class TimerTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -216,6 +226,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -238,6 +249,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testNextTickDelayedMode() {
         timer.setSwitchMode(false);
 
@@ -282,6 +294,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testNextTickSwitchMode() {
         timer.setSwitchMode(true);
 

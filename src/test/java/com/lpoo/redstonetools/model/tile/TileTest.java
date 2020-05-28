@@ -5,11 +5,14 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class TileTest {
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
 
         Circuit circuit = Mockito.mock(Circuit.class);

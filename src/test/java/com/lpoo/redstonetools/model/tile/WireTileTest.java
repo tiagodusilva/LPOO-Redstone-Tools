@@ -7,9 +7,11 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class WireTileTest {
 
     private WireTile wire;
@@ -24,6 +26,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testWire() {
         Assertions.assertEquals(1, wire.getPosition().getX());
         Assertions.assertEquals(2, wire.getPosition().getY());
@@ -33,6 +36,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPower() {
         for (Side side : Side.values()) {
             Assertions.assertTrue(wire.acceptsPower(side));
@@ -56,6 +60,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -81,6 +86,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testConnections() {
         for (Side side : Side.values()) {
             Assertions.assertFalse(wire.isConnected(side));

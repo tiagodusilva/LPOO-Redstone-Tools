@@ -10,9 +10,11 @@ import net.jqwik.api.constraints.Positive;
 import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model") @net.jqwik.api.Tag("model")
 public class LeverTileTest {
 
     private LeverTile lever;
@@ -28,6 +30,7 @@ public class LeverTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testLever() {
         Assertions.assertEquals(1, lever.getPosition().getX());
         Assertions.assertEquals(2, lever.getPosition().getY());
@@ -37,6 +40,7 @@ public class LeverTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testLeverInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -53,6 +57,7 @@ public class LeverTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testInteractEvenTimes(@ForAll("evenPositiveInt") int interacts) {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -71,6 +76,7 @@ public class LeverTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testInteractOddTimes(@ForAll("oddPositiveInt") @Positive int interacts) {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -84,6 +90,7 @@ public class LeverTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testLeverPower() {
         Circuit circuit = Mockito.mock(Circuit.class);
 

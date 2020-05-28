@@ -1,10 +1,13 @@
 package com.lpoo.redstonetools.model.utils;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("model")
 public class SideTypeTest {
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testSideTypeCheck() {
         Assertions.assertFalse((SideType.DEFAULT).isInput());
         Assertions.assertTrue((SideType.INPUT).isInput());
@@ -16,6 +19,7 @@ public class SideTypeTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testNext() {
         SideType defaultType = SideType.DEFAULT;
         SideType inputType = SideType.INPUT;

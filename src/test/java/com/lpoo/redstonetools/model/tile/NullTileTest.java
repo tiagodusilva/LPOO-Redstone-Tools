@@ -7,12 +7,15 @@ import com.lpoo.redstonetools.model.utils.TileType;
 import jdk.nashorn.internal.objects.annotations.Property;
 import net.jqwik.api.ForAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class NullTileTest {
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testNullTile() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
@@ -34,6 +37,7 @@ public class NullTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testBrokenTile() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);

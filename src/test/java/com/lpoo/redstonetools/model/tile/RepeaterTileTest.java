@@ -10,9 +10,11 @@ import net.jqwik.api.Property;
 import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model") @net.jqwik.api.Tag("model")
 public class RepeaterTileTest {
 
     private RepeaterTile repeater;
@@ -28,6 +30,7 @@ public class RepeaterTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testRepeater() {
         Assertions.assertEquals(1, repeater.getPosition().getX());
         Assertions.assertEquals(2, repeater.getPosition().getY());
@@ -37,6 +40,7 @@ public class RepeaterTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Assertions.assertTrue(repeater.acceptsPower(Side.LEFT));
         Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
@@ -68,6 +72,7 @@ public class RepeaterTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -110,6 +115,7 @@ public class RepeaterTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -129,6 +135,7 @@ public class RepeaterTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
 
@@ -142,6 +149,7 @@ public class RepeaterTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 

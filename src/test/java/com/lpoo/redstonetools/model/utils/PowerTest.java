@@ -1,10 +1,13 @@
 package com.lpoo.redstonetools.model.utils;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("model")
 public class PowerTest {
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPowerClamp() {
         int power = Power.getMin() - 20;
         Assertions.assertEquals(Power.getMin(), Power.clamp(power));
@@ -17,6 +20,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPowerDecrease() {
         int power = Power.getMax();
         Assertions.assertEquals(power - 1, Power.decrease(power));
@@ -26,6 +30,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testIsOff() {
         int power = Power.getMin();
         Assertions.assertTrue(Power.isOff(power));
@@ -35,6 +40,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testIsOn() {
         int power = Power.getMin();
         Assertions.assertFalse(Power.isOn(power));
@@ -44,6 +50,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testDifferentStates() {
         Assertions.assertTrue(Power.differentStates(Power.getMax(), Power.getMin()));
         Assertions.assertFalse(Power.differentStates(Power.getMin(), Power.getMin()));

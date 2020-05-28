@@ -1,11 +1,14 @@
 package com.lpoo.redstonetools.model.utils;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("model")
 public class PositionTest {
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPositionConstructor() {
         Position position = new Position(5, 10);
         Assertions.assertEquals(5, position.getX());
@@ -13,6 +16,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPositionGetNeighbour() {
         Position middle = new Position(1, 1);
         Position left = new Position(0, 1);
@@ -27,6 +31,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPositionEquals() {
         Position position1 = new Position(5, 6);
         Position position2 = new Position(5, 6);
@@ -38,6 +43,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testPositionClone() {
         Position position = new Position(5, 4);
         Position clone = position.clone();

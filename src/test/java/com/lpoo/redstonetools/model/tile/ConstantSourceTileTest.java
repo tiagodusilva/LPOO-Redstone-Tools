@@ -6,9 +6,11 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class ConstantSourceTileTest {
 
     private ConstantSourceTile source;
@@ -23,6 +25,7 @@ public class ConstantSourceTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testConstantSource() {
         Assertions.assertEquals(1, source.getPosition().getX());
         Assertions.assertEquals(2, source.getPosition().getY());
@@ -32,6 +35,7 @@ public class ConstantSourceTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testConstantSourcePower() {
         for (Side side : Side.values()) {
             Assertions.assertFalse(source.acceptsPower(side));

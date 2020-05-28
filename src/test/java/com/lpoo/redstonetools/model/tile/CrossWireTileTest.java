@@ -7,9 +7,11 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("model")
 public class CrossWireTileTest {
 
     private CrossWireTile crossWire;
@@ -24,6 +26,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testCrossWire() {
         Assertions.assertEquals(1, crossWire.getPosition().getX());
         Assertions.assertEquals(2, crossWire.getPosition().getY());
@@ -38,6 +41,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
 
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -69,6 +73,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
         Mockito.when(circuit
@@ -123,6 +128,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testWireConnections() {
         for (Side side : Side.values()) {
             Assertions.assertFalse(crossWire.isConnected(side));

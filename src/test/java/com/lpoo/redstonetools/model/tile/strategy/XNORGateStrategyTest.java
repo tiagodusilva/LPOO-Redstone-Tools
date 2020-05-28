@@ -4,13 +4,16 @@ import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.SideType;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("model")
 public class XNORGateStrategyTest {
     @Test
+    @Tag("unit-test") @Tag("fast")
     public void testLogic() {
         Map<Side, Integer> inputs = new HashMap<>();
         Map<Side, SideType> sideTypes = new HashMap<>();
