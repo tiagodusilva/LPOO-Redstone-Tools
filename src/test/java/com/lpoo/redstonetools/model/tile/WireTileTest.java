@@ -29,10 +29,11 @@ public class WireTileTest {
         Assertions.assertEquals(2, wire.getPosition().getY());
         Assertions.assertEquals(TileType.WIRE, wire.getType());
         Assertions.assertTrue(wire.isWire());
+        Assertions.assertFalse(wire.isTickedTile());
     }
 
     @Test
-    public void testWirePower() {
+    public void testPower() {
         for (Side side : Side.values()) {
             Assertions.assertTrue(wire.acceptsPower(side));
             Assertions.assertTrue(wire.outputsPower(side));
@@ -55,7 +56,7 @@ public class WireTileTest {
     }
 
     @Test
-    public void testWireUpdate() {
+    public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.getMin());
@@ -80,7 +81,7 @@ public class WireTileTest {
     }
 
     @Test
-    public void testWireConnections() {
+    public void testConnections() {
         for (Side side : Side.values()) {
             Assertions.assertFalse(wire.isConnected(side));
         }

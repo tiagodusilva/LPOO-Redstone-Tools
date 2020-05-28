@@ -5,6 +5,9 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +18,7 @@ public class RepeaterTileTest {
     private RepeaterTile repeater;
 
     @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
@@ -28,10 +32,12 @@ public class RepeaterTileTest {
         Assertions.assertEquals(1, repeater.getPosition().getX());
         Assertions.assertEquals(2, repeater.getPosition().getY());
         Assertions.assertEquals(TileType.REPEATER, repeater.getType());
+        Assertions.assertFalse(repeater.isWire());
+        Assertions.assertFalse(repeater.isTickedTile());
     }
 
     @Test
-    public void testRepeaterPower() {
+    public void testPower() {
         Assertions.assertTrue(repeater.acceptsPower(Side.LEFT));
         Assertions.assertFalse(repeater.acceptsPower(Side.RIGHT));
         Assertions.assertFalse(repeater.acceptsPower(Side.UP));
@@ -62,7 +68,7 @@ public class RepeaterTileTest {
     }
 
     @Test
-    public void testRepeaterRotation() {
+    public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         Assertions.assertTrue(repeater.acceptsPower(Side.LEFT));
@@ -104,7 +110,7 @@ public class RepeaterTileTest {
     }
 
     @Test
-    public void testRepeaterOnChange() {
+    public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         Assertions.assertFalse(repeater.getStatus());
@@ -122,8 +128,21 @@ public class RepeaterTileTest {
         Assertions.assertFalse(repeater.getStatus());
     }
 
+    @Property
+    public void testUpdateOnNonInputSide(@ForAll int power) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        RepeaterTile repeaterSpy = Mockito.spy(repeater);
+
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.UP));
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.RIGHT));
+        Assertions.assertFalse(repeaterSpy.update(circuit, power, Side.DOWN));
+
+        Mockito.verify(repeaterSpy, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
+    }
+
     @Test
-    public void testRepeaterUpdate() {
+    public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         Assertions.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));

@@ -7,6 +7,7 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
+import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ public class TimerTileTest {
     private TimerTile timer;
 
     @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
@@ -30,6 +32,7 @@ public class TimerTileTest {
         Assertions.assertEquals(1, timer.getPosition().getX());
         Assertions.assertEquals(2, timer.getPosition().getY());
         Assertions.assertEquals(TileType.TIMER, timer.getType());
+        Assertions.assertFalse(timer.isWire());
         Assertions.assertTrue(timer.isTickedTile());
     }
 
@@ -59,7 +62,7 @@ public class TimerTileTest {
     }
 
     @Test
-    public void testTimerPower() {
+    public void testPower() {
         Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
         Assertions.assertFalse(timer.acceptsPower(Side.RIGHT));
         Assertions.assertFalse(timer.acceptsPower(Side.UP));
@@ -89,7 +92,7 @@ public class TimerTileTest {
     }
 
     @Test
-    public void testTimerRotation() {
+    public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
@@ -203,12 +206,11 @@ public class TimerTileTest {
 
     @Property
     public void testUpdateOnNonInputSide(@ForAll int power) {
-        setup();
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assertions.assertFalse(this.timer.update(circuit, power, Side.UP));
-        Assertions.assertFalse(this.timer.update(circuit, power, Side.RIGHT));
-        Assertions.assertFalse(this.timer.update(circuit, power, Side.DOWN));
+        Assertions.assertFalse(timer.update(circuit, power, Side.UP));
+        Assertions.assertFalse(timer.update(circuit, power, Side.RIGHT));
+        Assertions.assertFalse(timer.update(circuit, power, Side.DOWN));
 
         Mockito.verify(timer, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
     }

@@ -5,50 +5,51 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.lifecycle.BeforeProperty;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class NotTileTest {
 
     private NotGateTile notGate;
 
-    private Position expectedNotGatePosition;
-/*
-    @Before
+    @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
-
-        expectedNotGatePosition = Mockito.mock(Position.class);
-        Mockito.when(expectedNotGatePosition.getX()).thenReturn(1);
-        Mockito.when(expectedNotGatePosition.getY()).thenReturn(2);
 
         this.notGate = new NotGateTile(position);
     }
 
     @Test
     public void testNotGate() {
-        Assert.assertEquals(expectedNotGatePosition.getX(), notGate.getPosition().getX());
-        Assert.assertEquals(expectedNotGatePosition.getY(), notGate.getPosition().getY());
-        Assert.assertEquals("not_gate", notGate.getName());
-        Assert.assertEquals("Outputting : false", notGate.getInfo());
-        Assert.assertEquals(TileType.NOT_GATE, notGate.getType());
+        Assertions.assertEquals(1, notGate.getPosition().getX());
+        Assertions.assertEquals(2, notGate.getPosition().getY());
+        Assertions.assertEquals(TileType.NOT_GATE, notGate.getType());
+        Assertions.assertFalse(notGate.isWire());
+        Assertions.assertFalse(notGate.isTickedTile());
     }
 
     @Test
     public void testPower() {
-        Assert.assertTrue(notGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.acceptsPower(Side.UP));
-        Assert.assertFalse(notGate.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(notGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.UP));
+        Assertions.assertFalse(notGate.acceptsPower(Side.DOWN));
 
-        Assert.assertTrue(notGate.outputsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(notGate.outputsPower(Side.UP));
-        Assert.assertFalse(notGate.outputsPower(Side.DOWN));
+        Assertions.assertTrue(notGate.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.outputsPower(Side.UP));
+        Assertions.assertFalse(notGate.outputsPower(Side.DOWN));
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.getMin(), notGate.getPower(side));
+            Assertions.assertEquals(Power.getMin(), notGate.getPower(side));
         }
 
         // activate not gate
@@ -56,9 +57,9 @@ public class NotTileTest {
 
         for (Side side : Side.values()) {
             if (notGate.outputsPower(side)) {
-                Assert.assertEquals(Power.getMax(), notGate.getPower(side));
+                Assertions.assertEquals(Power.getMax(), notGate.getPower(side));
             } else {
-                Assert.assertEquals(Power.getMin(), notGate.getPower(side));
+                Assertions.assertEquals(Power.getMin(), notGate.getPower(side));
             }
         }
     }
@@ -67,65 +68,96 @@ public class NotTileTest {
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(notGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.acceptsPower(Side.UP));
-        Assert.assertFalse(notGate.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(notGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.UP));
+        Assertions.assertFalse(notGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(notGate.outputsPower(Side.LEFT));
-        Assert.assertTrue(notGate.outputsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.outputsPower(Side.UP));
-        Assert.assertFalse(notGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(notGate.outputsPower(Side.LEFT));
+        Assertions.assertTrue(notGate.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.outputsPower(Side.UP));
+        Assertions.assertFalse(notGate.outputsPower(Side.DOWN));
 
         notGate.rotateRight(circuit);
 
-        Assert.assertFalse(notGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
-        Assert.assertTrue(notGate.acceptsPower(Side.UP));
-        Assert.assertFalse(notGate.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(notGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.RIGHT));
+        Assertions.assertTrue(notGate.acceptsPower(Side.UP));
+        Assertions.assertFalse(notGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(notGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(notGate.outputsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.outputsPower(Side.UP));
-        Assert.assertTrue(notGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(notGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.outputsPower(Side.UP));
+        Assertions.assertTrue(notGate.outputsPower(Side.DOWN));
 
         notGate.rotateLeft(circuit); notGate.rotateLeft(circuit);
 
-        Assert.assertFalse(notGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(notGate.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(notGate.acceptsPower(Side.UP));
-        Assert.assertTrue(notGate.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(notGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(notGate.acceptsPower(Side.UP));
+        Assertions.assertTrue(notGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(notGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(notGate.outputsPower(Side.RIGHT));
-        Assert.assertTrue(notGate.outputsPower(Side.UP));
-        Assert.assertFalse(notGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(notGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(notGate.outputsPower(Side.RIGHT));
+        Assertions.assertTrue(notGate.outputsPower(Side.UP));
+        Assertions.assertFalse(notGate.outputsPower(Side.DOWN));
     }
 
     @Test
-    public void testRepeaterOnChange() {
+    public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
 
-        Assert.assertTrue(notGate.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertTrue(notGate.onChange(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
 
-        Assert.assertFalse(notGate.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertFalse(notGate.onChange(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
 
-        Assert.assertTrue(notGate.onChange(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertTrue(notGate.onChange(circuit, Power.getMax(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
 
-        Assert.assertFalse(notGate.onChange(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertFalse(notGate.onChange(circuit, Power.getMax(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
     }
-*/
+
+    @Property
+    public void testUpdateOnNonInputSide(@ForAll int power) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        NotGateTile notGateSpy = Mockito.spy(notGate);
+
+        Assertions.assertFalse(notGateSpy.update(circuit, power, Side.UP));
+        Assertions.assertFalse(notGateSpy.update(circuit, power, Side.RIGHT));
+        Assertions.assertFalse(notGateSpy.update(circuit, power, Side.DOWN));
+
+        Mockito.verify(notGateSpy, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
+    }
+
+    @Test
+    public void testUpdate() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        notGate.setStatus(false);
+
+        Assertions.assertTrue(notGate.update(circuit, Power.getMin(), Side.LEFT));
+
+        Assertions.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
+
+        Assertions.assertFalse(notGate.update(circuit, Power.getMin(), Side.LEFT));
+
+        Assertions.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));
+
+        Assertions.assertTrue(notGate.update(circuit, 6, Side.LEFT));
+
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+    }
 }
