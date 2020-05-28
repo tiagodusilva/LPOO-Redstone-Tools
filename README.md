@@ -1,5 +1,5 @@
 # RedstoneTools
-![Build](https://github.com/FEUP-LPOO/lpoo-2020-g79/workflows/Java%20Gradle%20Build/badge.svg?branch=workflows)
+![Build](https://github.com/FEUP-LPOO/lpoo-2020-g79/workflows/Java%20Gradle%20Build/badge.svg?branch=tests)
 
 ## Index
 - [Changelog](#changelog)
