@@ -22,10 +22,22 @@ import java.util.Map;
  */
 public class CircuitController {
 
+    /**
+     * <h1>Maximum number of updates in a run</h1>
+     * Maximum number of updates a position can have in a single update event
+     */
     private static final int MAX_UPDATES = 10;
+
+    /**
+     * <h1>Controller update tracker</h1>
+     * Used to keep track of the number of updates of certain position to detect infinite loops and
+     * unstable circuits
+     */
     private Map<Position, Integer> updateTracker;
 
-
+    /**
+     * <h1>Circuit controller constructor</h1>
+     */
     public CircuitController() {
         updateTracker = new HashMap<>();
     }
@@ -330,7 +342,6 @@ public class CircuitController {
     public void setDelay(Circuit circuit, Position position, long delay) {
         if (!circuit.isInBounds(position))
             return;
-        System.out.println("delay: " + delay);
         Tile tile = circuit.getTile(position);
         tile.setDelay(delay);
 
