@@ -148,6 +148,27 @@ public class CounterTileTest {
         Assertions.assertEquals(0, counter.getCounter());
     }
 
+    @Property
+    @net.jqwik.api.Tag("model")
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
+    public void testOnChangeProperty(@ForAll int power, @ForAll Side side) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+        counter.setDelay(2);
+        if (Power.isOn(power)) {
+            Assertions.assertFalse(counter.onChange(circuit, power, side));
+            Assertions.assertEquals(1, counter.getCounter());
+            Assertions.assertTrue(counter.onChange(circuit, power, side));
+        } else {
+            Assertions.assertFalse(counter.onChange(circuit, power, side));
+            Assertions.assertEquals(0, counter.getCounter());
+            Assertions.assertFalse(counter.onChange(circuit, power, side));
+        }
+
+        Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertFalse(counter.onChange(circuit, Power.getMin(), side));
+        counter.setOutput(false);
+    }
+
     @Test
     @Tag("model")
     @Tag("unit-test") @Tag("fast")
@@ -206,11 +227,59 @@ public class CounterTileTest {
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
+        counter.setDelay(4);
         Assertions.assertEquals(Power.getMin(), counter.getPower(Side.RIGHT));
 
         for (Side side : Side.values()) {
-            Assertions.assertFalse(circuit.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
         }
 
+        for (Side side : Side.values()) {
+            Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
+        }
+        Assertions.assertEquals(1, counter.getCounter());
+
+        for (Side side : Side.values()) {
+            Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
+        }
+        Assertions.assertEquals(1, counter.getCounter());
+
+        for (Side side : Side.values()) {
+            Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
+        }
+        Assertions.assertEquals(1, counter.getCounter());
+
+        for (Side side : Side.values()) {
+            Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
+        }
+        Assertions.assertEquals(2, counter.getCounter());
+
+        for (Side side : Side.values()) {
+            Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
+        }
+        Assertions.assertEquals(3, counter.getCounter());
+
+        Assertions.assertEquals(Power.getMin(), counter.getPower(Side.RIGHT));
+
+        for (Side side : Side.values()) {
+            if (side == Side.LEFT) {
+                Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
+                Assertions.assertTrue(counter.update(circuit, Power.getMax(), side));
+            }
+            else {
+                Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
+                Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
+            }
+        }
+        Assertions.assertEquals(0, counter.getCounter());
+
+        Assertions.assertEquals(Power.getMax(), counter.getPower(Side.RIGHT));
+
+        Assertions.assertFalse(counter.update(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertEquals(Power.getMax(), counter.getPower(Side.RIGHT));
+        Assertions.assertTrue(counter.update(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertEquals(Power.getMin(), counter.getPower(Side.RIGHT));
     }
 }
