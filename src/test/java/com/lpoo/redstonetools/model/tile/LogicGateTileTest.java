@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 
 import java.util.Map;
 
-@Tag("model") @net.jqwik.api.Tag("model")
 public class LogicGateTileTest {
 
     private class StubLogicGateStrategy implements LogicGateStrategy {
@@ -49,6 +48,7 @@ public class LogicGateTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testLogicGate() {
         Assertions.assertEquals(1, logicGate.getPosition().getX());
@@ -60,6 +60,7 @@ public class LogicGateTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Assertions.assertTrue(logicGate.acceptsPower(Side.LEFT));
@@ -89,6 +90,7 @@ public class LogicGateTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -132,6 +134,7 @@ public class LogicGateTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -160,6 +163,7 @@ public class LogicGateTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSides(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -173,6 +177,7 @@ public class LogicGateTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);

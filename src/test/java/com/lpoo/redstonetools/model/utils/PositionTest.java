@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("model")
 public class PositionTest {
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPositionConstructor() {
         Position position = new Position(5, 10);
@@ -16,6 +16,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPositionGetNeighbour() {
         Position middle = new Position(1, 1);
@@ -31,6 +32,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPositionEquals() {
         Position position1 = new Position(5, 6);
@@ -43,6 +45,7 @@ public class PositionTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPositionClone() {
         Position position = new Position(5, 4);

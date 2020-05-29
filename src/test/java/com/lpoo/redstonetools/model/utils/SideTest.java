@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("model")
 public class SideTest {
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSideOpposite() {
         Assertions.assertEquals(Side.DOWN, (Side.UP).opposite());
@@ -16,6 +16,7 @@ public class SideTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSideAtRight() {
         Assertions.assertEquals(Side.RIGHT, (Side.UP).atRight());
@@ -25,6 +26,7 @@ public class SideTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSideAtLeft() {
         Assertions.assertEquals(Side.LEFT, (Side.UP).atLeft());

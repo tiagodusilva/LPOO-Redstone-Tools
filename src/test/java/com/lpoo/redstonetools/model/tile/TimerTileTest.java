@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model")
 public class TimerTileTest {
 
     private TimerTile timer;
@@ -30,6 +29,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testTimer() {
         Assertions.assertEquals(1, timer.getPosition().getX());
@@ -40,6 +40,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testDelay() {
         timer.setDelay(15);
@@ -50,6 +51,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -67,6 +69,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Assertions.assertTrue(timer.acceptsPower(Side.LEFT));
@@ -98,6 +101,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -141,6 +145,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -183,6 +188,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateNoStatusChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -214,6 +220,7 @@ public class TimerTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -226,6 +233,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -249,6 +257,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testNextTickDelayedMode() {
         timer.setSwitchMode(false);
@@ -294,6 +303,7 @@ public class TimerTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testNextTickSwitchMode() {
         timer.setSwitchMode(true);

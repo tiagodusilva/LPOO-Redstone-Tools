@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model")
 public class NullTileTest {
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testNullTile() {
         Position position = Mockito.mock(Position.class);
@@ -37,6 +37,7 @@ public class NullTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testBrokenTile() {
         Position position = Mockito.mock(Position.class);

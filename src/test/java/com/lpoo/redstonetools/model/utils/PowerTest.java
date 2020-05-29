@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("model")
 public class PowerTest {
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPowerClamp() {
         int power = Power.getMin() - 20;
@@ -20,6 +20,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPowerDecrease() {
         int power = Power.getMax();
@@ -30,6 +31,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testIsOff() {
         int power = Power.getMin();
@@ -40,6 +42,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testIsOn() {
         int power = Power.getMin();
@@ -50,6 +53,7 @@ public class PowerTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testDifferentStates() {
         Assertions.assertTrue(Power.differentStates(Power.getMax(), Power.getMin()));

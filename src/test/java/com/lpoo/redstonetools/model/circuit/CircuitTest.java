@@ -8,9 +8,7 @@ import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
-import net.jqwik.api.constraints.IntRange;
 import net.jqwik.api.constraints.LongRange;
-import net.jqwik.api.constraints.Positive;
 import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +16,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.lang.annotation.ElementType;
-
-@Tag("model") @net.jqwik.api.Tag("model")
 public class CircuitTest {
 
     private Circuit circuit;
@@ -38,6 +33,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitInit() {
         Assertions.assertEquals(WIDTH, circuit.getWidth());
@@ -64,6 +60,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitBounds() {
         Position position = Mockito.mock(Position.class);
@@ -86,6 +83,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitBasicAddTile() {
         Position position = Mockito.mock(Position.class);
@@ -114,6 +112,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitGetTile() {
         Position position = Mockito.mock(Position.class);
@@ -142,6 +141,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitAdvancedAddTile() {
         Position position = Mockito.mock(Position.class);
@@ -165,6 +165,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testGetIO() {
         Position pos = Mockito.mock(Position.class);
@@ -190,6 +191,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitSafeRemoveTile() {
         Position position = Mockito.mock(Position.class);
@@ -255,6 +257,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRemoveTile() {
         Position position = Mockito.mock(Position.class);
@@ -268,6 +271,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSurroundingPowerSide() {
         Position mid = Mockito.mock(Position.class);
@@ -298,6 +302,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSurroundingPower() {
         Position mid = Mockito.mock(Position.class);
@@ -354,6 +359,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSurroundWirePowerSide() {
         Position mid = Mockito.mock(Position.class);
@@ -405,6 +411,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSurroundingWirePower() {
         Position mid = Mockito.mock(Position.class);
@@ -472,6 +479,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCircuitCanTilesConnect() {
         Position mid = Mockito.mock(Position.class);
@@ -555,6 +563,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateOnIOInteract() {
         Circuit circuitSpy = Mockito.spy(circuit);
@@ -664,6 +673,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateOnIORotation() {
         Circuit circuitSpy = Mockito.spy(circuit);
@@ -762,6 +772,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         // No IO tiles
@@ -833,6 +844,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotate() {
         Circuit superCircuit = Mockito.mock(Circuit.class);
@@ -904,6 +916,7 @@ public class CircuitTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testNextTick(@ForAll @LongRange(min = 0, max = 1000000) long ticksAdvances) {
         long previous_tick = circuit.getTick();
@@ -915,6 +928,7 @@ public class CircuitTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power, @ForAll Side side) {
         Circuit superCircuit = Mockito.mock(Circuit.class);
@@ -936,6 +950,7 @@ public class CircuitTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit superCircuit = Mockito.mock(Circuit.class);

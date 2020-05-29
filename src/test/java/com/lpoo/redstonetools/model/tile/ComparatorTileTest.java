@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model") @net.jqwik.api.Tag("model")
 public class ComparatorTileTest {
 
     private ComparatorTile comparator;
@@ -30,6 +29,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testComparator() {
         Assertions.assertEquals(1, comparator.getPosition().getX());
@@ -40,6 +40,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testComparatorPower() {
         Assertions.assertTrue(comparator.acceptsPower(Side.LEFT));
@@ -78,6 +79,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -128,6 +130,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateRear() {
         for (Side side : Side.values()) {
@@ -147,6 +150,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChangeRearNull() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -161,6 +165,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChangeComparisonMode() {
         comparator.setSubtractMode(false);
@@ -210,6 +215,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChangeSubtractMode() {
         comparator.setSubtractMode(true);
@@ -265,6 +271,7 @@ public class ComparatorTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -278,6 +285,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -320,6 +328,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -338,6 +347,7 @@ public class ComparatorTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateOnModeChange() {
         comparator.setSubtractMode(false);

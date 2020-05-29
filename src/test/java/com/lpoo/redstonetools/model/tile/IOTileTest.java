@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model") @net.jqwik.api.Tag("model")
 public class IOTileTest {
 
     private IOTile io;
@@ -27,6 +26,7 @@ public class IOTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testIO() {
         Assertions.assertEquals(1, io.getPosition().getX());
@@ -39,6 +39,7 @@ public class IOTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -75,6 +76,7 @@ public class IOTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power, @ForAll Side side) {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -94,6 +96,7 @@ public class IOTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -121,6 +124,7 @@ public class IOTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotate() {
         Circuit circuit = Mockito.mock(Circuit.class);

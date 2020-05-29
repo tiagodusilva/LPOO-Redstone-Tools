@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model")
 public class CrossWireTileTest {
 
     private CrossWireTile crossWire;
@@ -26,6 +25,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCrossWire() {
         Assertions.assertEquals(1, crossWire.getPosition().getX());
@@ -41,6 +41,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
 
@@ -73,6 +74,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -128,6 +130,7 @@ public class CrossWireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testWireConnections() {
         for (Side side : Side.values()) {

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model")
 public class WireTileTest {
 
     private WireTile wire;
@@ -26,6 +25,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testWire() {
         Assertions.assertEquals(1, wire.getPosition().getX());
@@ -36,6 +36,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         for (Side side : Side.values()) {
@@ -60,6 +61,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -86,6 +88,7 @@ public class WireTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testConnections() {
         for (Side side : Side.values()) {

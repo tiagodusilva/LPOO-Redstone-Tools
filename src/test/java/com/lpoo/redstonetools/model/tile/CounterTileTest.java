@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@Tag("model") @net.jqwik.api.Tag("model")
 public class CounterTileTest {
 
     private CounterTile counter;
@@ -30,6 +29,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testCounter() {
         Assertions.assertEquals(1, counter.getPosition().getX());
@@ -40,6 +40,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testPower() {
         Assertions.assertTrue(counter.acceptsPower(Side.LEFT));
@@ -69,6 +70,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -112,6 +114,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -146,6 +149,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testResetOnSetDelay() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -164,6 +168,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSpecialDelays() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -181,6 +186,7 @@ public class CounterTileTest {
     }
 
     @Property
+    @net.jqwik.api.Tag("model")
     @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
     public void testUpdateOnNonInputSide(@ForAll int power) {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -195,6 +201,7 @@ public class CounterTileTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);

@@ -1,17 +1,18 @@
 package com.lpoo.redstonetools.controller.event;
 
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Tag;
+import org.junit.jupiter.api.Assertions;
+
 public class EventTest {
-    /*
-    @Test
-    public void testEvent() {
-        Integer expected = 5;
-        Integer injected = 5;
+    @Property
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
+    public void testEvent(@ForAll InputEvent input, @ForAll Object object) {
+        Event event = new Event(input, object);
 
-        Event event = new Event(InputEvent.ADD_TILE, injected);
-
-        Assert.assertEquals(InputEvent.ADD_TILE, event.getInputEvent());
-        Assert.assertEquals(expected, event.getObject());
+        Assertions.assertEquals(input, event.getInputEvent());
+        Assertions.assertEquals(object, event.getObject());
     }
-
-     */
 }

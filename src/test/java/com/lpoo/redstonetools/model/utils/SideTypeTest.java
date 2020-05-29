@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("model")
 public class SideTypeTest {
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testSideTypeCheck() {
         Assertions.assertFalse((SideType.DEFAULT).isInput());
@@ -19,6 +19,7 @@ public class SideTypeTest {
     }
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testNext() {
         SideType defaultType = SideType.DEFAULT;

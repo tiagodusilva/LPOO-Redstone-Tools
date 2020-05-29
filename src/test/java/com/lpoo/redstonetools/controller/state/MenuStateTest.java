@@ -1,13 +1,26 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.MainController;
+import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
+import com.lpoo.redstonetools.model.circuit.Circuit;
+import com.lpoo.redstonetools.model.tile.RepeaterTile;
+import com.lpoo.redstonetools.model.tile.TimerTile;
+import com.lpoo.redstonetools.model.tile.WireTile;
+import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.MenuView;
 import com.lpoo.redstonetools.view.ViewFactory;
+import net.jqwik.api.*;
+import net.jqwik.api.lifecycle.BeforeProperty;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class MenuStateTest {
@@ -16,8 +29,9 @@ public class MenuStateTest {
 
     private MainController mainController;
     private MenuView view;
-/*
-    @Before
+
+    @BeforeEach
+    @BeforeProperty
     public void setup() {
         this.mainController = Mockito.mock(MainController.class);
         this.view = Mockito.mock(MenuView.class);
@@ -31,6 +45,8 @@ public class MenuStateTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testRender() {
         state.render();
 
@@ -38,6 +54,8 @@ public class MenuStateTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testAtExit() {
         state.atExit();
 
@@ -47,6 +65,8 @@ public class MenuStateTest {
     private class EventLinkedList extends LinkedList<Event> { }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void emptyEventQueue() {
         Queue<Event> events = Mockito.mock(EventLinkedList.class);
 
@@ -60,6 +80,8 @@ public class MenuStateTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testProcessEventsShortCircuit() {
         Event e1 = Mockito.mock(Event.class);
         Event e2 = Mockito.mock(Event.class);
@@ -72,21 +94,23 @@ public class MenuStateTest {
         Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.QUIT);
         Mockito.when(e2.getInputEvent()).thenReturn(InputEvent.ADD_TILE);
 
-        Assert.assertFalse(state.exit());
+        Assertions.assertFalse(state.exit());
 
         state.processEvents();
 
         Mockito.verify(view, Mockito.times(1)).getEvents();
-        Assert.assertTrue(events.isEmpty());
+        Assertions.assertTrue(events.isEmpty());
 
         Mockito.verify(e1, Mockito.times(1)).getInputEvent();
         Mockito.verify(e2, Mockito.times(0)).getInputEvent();
 
-        Assert.assertTrue(state.exit());
+        Assertions.assertTrue(state.exit());
     }
 
     @Test
-    public void testProcessEvents() {
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
+    public void testBasicProcessEvents() {
         Event e1 = Mockito.mock(Event.class);
         Event e2 = Mockito.mock(Event.class);
 
@@ -98,18 +122,69 @@ public class MenuStateTest {
         Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.ADD_TILE);
         Mockito.when(e2.getInputEvent()).thenReturn(InputEvent.QUIT);
 
-        Assert.assertFalse(state.exit());
+        Assertions.assertFalse(state.exit());
 
         state.processEvents();
 
         Mockito.verify(view, Mockito.times(1)).getEvents();
-        Assert.assertTrue(events.isEmpty());
+        Assertions.assertTrue(events.isEmpty());
 
         Mockito.verify(e1, Mockito.times(1)).getInputEvent();
         Mockito.verify(e2, Mockito.times(1)).getInputEvent();
 
-        Assert.assertTrue(state.exit());
+        Assertions.assertTrue(state.exit());
     }
 
- */
+    @Provide
+    public Arbitrary<Event> randomEvent() {
+        Arbitrary<Integer> widths = Arbitraries.integers().greaterOrEqual(0);
+        Arbitrary<Integer> heights = Arbitraries.integers().greaterOrEqual(0);
+
+        Arbitrary<Circuit> circuits = Combinators
+                                        .combine(widths, heights)
+                                        .as((width, height) -> new Circuit(width, height));
+
+        Arbitrary<Object> objects = Arbitraries.frequency(
+                Tuple.of(2, circuits),
+                Tuple.of(4, Arbitraries.integers()),
+                Tuple.of(6, Arbitraries.floats()),
+                Tuple.of(1, Arbitraries.strings())
+        );
+
+        return Combinators
+                .combine(Arbitraries.of(InputEvent.class), objects)
+                .as(Event::new)
+                .filter(event -> event.getInputEvent() != InputEvent.ENTER_STATE
+                                || event.getObject() instanceof Circuit);
+    }
+
+    @Property
+    @net.jqwik.api.Tag("controller") @net.jqwik.api.Tag("model")
+    @net.jqwik.api.Tag("integration-test") @net.jqwik.api.Tag("slow")
+    public void testProcessEvents(@ForAll List<@From("randomEvent") Event> events) {
+        Queue<Event> queue = new LinkedList<>();
+
+        state.exit = false;
+
+        boolean has_quit = false;
+        int size = events.size();
+        for (int i = 0; i < size; i++) {
+            queue.add(events.get(i));
+            if (i < state.processed_per_frame && events.get(i).getInputEvent() == InputEvent.QUIT)
+                has_quit = true;
+        }
+
+        Mockito.when(view.getEvents()).thenReturn(queue);
+
+        state.processEvents();
+
+        if (has_quit) {
+            Assertions.assertTrue(queue.isEmpty());
+            Assertions.assertTrue(state.exit());
+        } else {
+            int expected = Math.max(0, size - state.processed_per_frame);
+            Assertions.assertEquals(expected, queue.size());
+            Assertions.assertFalse(state.exit());
+        }
+    }
 }

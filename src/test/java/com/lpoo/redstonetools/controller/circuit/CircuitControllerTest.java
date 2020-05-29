@@ -6,8 +6,6 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import net.jqwik.api.*;
-import net.jqwik.api.lifecycle.BeforeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -19,7 +17,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-@Tag("controller")
 public class CircuitControllerTest {
 
     private CircuitController controller;
@@ -30,7 +27,8 @@ public class CircuitControllerTest {
     }
 
     @Test
-    @Tag("integration-test") @Tag("slow") @Tag("model")
+    @Tag("controller")
+    @Tag("model") @Tag("integration-test") @Tag("slow")
     public void testSaveLoadCircuit() {
         File testDir;
         Random rng = new Random();
@@ -74,6 +72,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testAddTileUnsuccessful() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -96,6 +95,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testAddTileSuccessful() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -131,6 +131,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testInteractNoTriggerUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -156,6 +157,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testInteractTriggerUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -193,6 +195,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testAdvanceTick() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -250,6 +253,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateAllNeighbourTiles() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -287,6 +291,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateNeighbourTile() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -402,6 +407,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testForceUpdateIO() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -450,6 +456,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testUpdateSubCircuit() {
         Mockito.doCallRealMethod().when(controller).updateSubCircuit(Mockito.any(Circuit.class), Mockito.any(Tile.class));
@@ -540,6 +547,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testNotifyNeighbourTiles() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -578,6 +586,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileLeftOutOfBounds() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -606,6 +615,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileLeftNoTriggerUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -635,6 +645,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileLeftTriggersUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -680,6 +691,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileRightOutOfBounds() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -708,6 +720,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileRightNoTriggerUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -737,6 +750,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void rotateTileRightTriggersUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -782,6 +796,7 @@ public class CircuitControllerTest {
     }
 
     @Test
+    @Tag("controller")
     @Tag("unit-test") @Tag("fast")
     public void testSetDelay() {
         Mockito.doCallRealMethod().when(controller)

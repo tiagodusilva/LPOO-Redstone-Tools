@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-@Tag("model")
 public class ANDGateStrategyTest {
 
     @Test
+    @Tag("model")
     @Tag("unit-test") @Tag("fast")
     public void testLogic() {
         Map<Side, Integer> inputs = new HashMap<>();
