@@ -1,7 +1,10 @@
 package com.lpoo.redstonetools.model.tile;
 
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.utils.*;
+import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Power;
+import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.lifecycle.BeforeProperty;

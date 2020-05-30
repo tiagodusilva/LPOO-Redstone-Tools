@@ -2,10 +2,6 @@ package com.lpoo.redstonetools.core;
 
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.*;
-import com.lpoo.redstonetools.model.utils.Position;
-import com.lpoo.redstonetools.model.utils.Power;
-import com.lpoo.redstonetools.model.utils.Side;
 
 public class CircuitTest {
 

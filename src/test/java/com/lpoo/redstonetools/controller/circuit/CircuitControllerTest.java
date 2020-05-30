@@ -1,7 +1,10 @@
 package com.lpoo.redstonetools.controller.circuit;
 
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.*;
+import com.lpoo.redstonetools.model.tile.RepeaterTile;
+import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.tile.TimerTile;
+import com.lpoo.redstonetools.model.tile.WireTile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;

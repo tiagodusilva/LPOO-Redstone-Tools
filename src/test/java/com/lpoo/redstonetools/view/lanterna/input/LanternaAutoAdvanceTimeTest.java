@@ -2,7 +2,6 @@ package com.lpoo.redstonetools.view.lanterna.input;
 
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
-import com.lpoo.redstonetools.model.utils.TileType;
 import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;

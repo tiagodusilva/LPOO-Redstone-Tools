@@ -1,14 +1,9 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.MainController;
-import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.RepeaterTile;
-import com.lpoo.redstonetools.model.tile.TimerTile;
-import com.lpoo.redstonetools.model.tile.WireTile;
-import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.view.MenuView;
 import com.lpoo.redstonetools.view.ViewFactory;
 import net.jqwik.api.*;

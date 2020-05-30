@@ -2,7 +2,6 @@ package com.lpoo.redstonetools.view.lanterna.tile;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.lpoo.redstonetools.model.tile.RepeaterTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.tile.TimerTile;
 import org.junit.jupiter.api.Tag;
