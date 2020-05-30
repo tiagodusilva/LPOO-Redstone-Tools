@@ -4,12 +4,14 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.*;
+import com.lpoo.redstonetools.model.tile.CounterTile;
+import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.tile.TimerTile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
@@ -20,7 +22,9 @@ import com.lpoo.redstonetools.view.lanterna.input.LanternaInput;
 import com.lpoo.redstonetools.view.lanterna.tile.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class LanternaCircuitView extends CircuitView {

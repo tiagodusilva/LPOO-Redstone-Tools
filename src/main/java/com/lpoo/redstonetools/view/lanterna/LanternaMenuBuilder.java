@@ -5,8 +5,6 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
-import com.lpoo.redstonetools.controller.event.Event;
-import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.*;

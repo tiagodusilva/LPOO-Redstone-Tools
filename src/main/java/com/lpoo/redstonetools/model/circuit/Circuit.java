@@ -4,15 +4,18 @@ import com.lpoo.redstonetools.model.Model;
 import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.NullTile;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.utils.*;
+import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Power;
+import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.io.Serializable;
 
 /**
  *  <h1>Circuit model class</h1>

@@ -1,6 +1,6 @@
 package com.lpoo.redstonetools.view.lanterna;
 
-import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;

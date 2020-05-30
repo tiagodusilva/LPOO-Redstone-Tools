@@ -2,7 +2,9 @@ package com.lpoo.redstonetools.controller.circuit;
 
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.*;
+import com.lpoo.redstonetools.model.tile.IOTile;
+import com.lpoo.redstonetools.model.tile.NullTile;
+import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;

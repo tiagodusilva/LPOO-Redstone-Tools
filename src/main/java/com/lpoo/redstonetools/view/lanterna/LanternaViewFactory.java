@@ -9,8 +9,6 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.view.CircuitView;

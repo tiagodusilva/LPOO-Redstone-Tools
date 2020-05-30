@@ -4,9 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;

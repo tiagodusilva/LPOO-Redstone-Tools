@@ -5,11 +5,11 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
+import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
-import com.lpoo.redstonetools.model.utils.Side;
-import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
 
 import java.io.IOException;
 

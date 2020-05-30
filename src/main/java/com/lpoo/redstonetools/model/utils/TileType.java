@@ -1,7 +1,5 @@
 package com.lpoo.redstonetools.model.utils;
 
-import com.lpoo.redstonetools.model.tile.DigitTile;
-
 /**
  * <h1>Type of tile</h1>
  * Type of tile, see the tile documentation for more information about each type
