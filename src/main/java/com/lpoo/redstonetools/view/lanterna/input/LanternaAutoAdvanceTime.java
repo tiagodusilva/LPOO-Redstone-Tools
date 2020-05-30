@@ -15,8 +15,6 @@ public class LanternaAutoAdvanceTime extends Thread {
 
     @Override
     public void run() {
-        super.run();
-
         while (!isInterrupted()) {
             lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));
             try {

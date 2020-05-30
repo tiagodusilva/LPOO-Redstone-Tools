@@ -23,8 +23,6 @@ public class LanternaInput extends Thread {
 
     @Override
     public void run() {
-        super.run();
-
         boolean moveView = false;
 
         while (!isInterrupted()) {
@@ -100,6 +98,9 @@ public class LanternaInput extends Thread {
                             case 'i':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new IOTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
+                            case 'd':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new DigitTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
                                 break;
@@ -123,9 +124,6 @@ public class LanternaInput extends Thread {
                                 break;
                             case '0':
                                 lanternaCircuitView.showInsertGateMenu(lanternaCircuitView.getSelectedTile().clone());
-                                break;
-                            case 'd':
-                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new DigitTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
                             default:
                                 break;
