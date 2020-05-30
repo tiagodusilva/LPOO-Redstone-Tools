@@ -25,7 +25,7 @@ public class LanternaIOTileView extends LanternaTileView{
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {
-        TextColor color = tile.acceptsPower(Side.UP) ? getOutputColor() : tile.outputsPower(Side.UP) ? getInputColor() : getForegroundColor();
+        TextColor color = tile.acceptsPower(Side.UP) ? getOutputColor() : (tile.outputsPower(Side.UP) ? getInputColor() : getForegroundColor());
         renderPowerSensitiveFrame(graphics, tile, column, row, color);
 
         graphics.setForegroundColor(color);

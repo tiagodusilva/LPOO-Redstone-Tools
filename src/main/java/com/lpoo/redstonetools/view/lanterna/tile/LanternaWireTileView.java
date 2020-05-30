@@ -10,34 +10,36 @@ public class LanternaWireTileView extends LanternaTileView {
 
     private boolean showPower;
 
+    private final Character[] characters;
+
     public LanternaWireTileView() {
         super();
 
-        showPower = false;
+        this.showPower = false;
+
+        this.characters = new Character[]{
+                '\u29BE',    // No connections
+                '\u2551',    // UP
+                '\u2551',    // DOWN
+                '\u2551',    // UP & DOWN
+                '\u2550',    // RIGHT
+                '\u255A',    // RIGHT & UP
+                '\u2554',    // RIGHT & DOWN
+                '\u2560',    // RIGHT & DOWN & UP
+                '\u2550',    // LEFT
+                '\u255D',    // LEFT & UP
+                '\u2557',    // LEFT & DOWN
+                '\u2563',    // LEFT & DOWN & UP
+                '\u2550',    // LEFT & RIGHT
+                '\u2569',    // LEFT & RIGHT & UP
+                '\u2566',    // LEFT & RIGHT & DOWN
+                '\u256C'     // LEFT & RIGHT & DOWN  & UP
+        };
     }
 
     public void toggleShowPower() {
         this.showPower = !this.showPower;
     }
-
-    private final Character[] characters = new Character[]{
-            '\u29BE',    // No connections
-            '\u2551',    // UP
-            '\u2551',    // DOWN
-            '\u2551',    // UP & DOWN
-            '\u2550',    // RIGHT
-            '\u255A',    // RIGHT & UP
-            '\u2554',    // RIGHT & DOWN
-            '\u2560',    // RIGHT & DOWN & UP
-            '\u2550',    // LEFT
-            '\u255D',    // LEFT & UP
-            '\u2557',    // LEFT & DOWN
-            '\u2563',    // LEFT & DOWN & UP
-            '\u2550',    // LEFT & RIGHT
-            '\u2569',    // LEFT & RIGHT & UP
-            '\u2566',    // LEFT & RIGHT & DOWN
-            '\u256C'     // LEFT & RIGHT & DOWN  & UP
-    };
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {

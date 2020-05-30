@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.view.lanterna.tile;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.lpoo.redstonetools.model.tile.Tile;
+import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class LanternaTileViewTest {
 
@@ -21,6 +25,26 @@ public class LanternaTileViewTest {
     @BeforeEach
     public void setup() {
         this.tileView = Mockito.mock(LanternaTileView.class, Mockito.withSettings().defaultAnswer(Mockito.CALLS_REAL_METHODS));
+    }
+
+    @Test
+    @Tag("view")
+    @Tag("unit-test") @Tag("fast")
+    public void testPowerColor() {
+        LanternaTileView view = new LanternaTileView() {
+            @Override
+            public void render(Tile tile, int row, int column, TextGraphics graphics) { }
+        };
+
+        List<String> powerColors = new ArrayList<>();
+
+        for (int i = Power.getMin(); i <= Power.getMax(); i++) {
+            powerColors.add(view.getPowerColor(i).toString());
+        }
+
+        List<String> uniqueColors = powerColors.stream().distinct().collect(Collectors.toList());
+
+        Assertions.assertEquals(powerColors.size(), uniqueColors.size());
     }
 
     @Test
