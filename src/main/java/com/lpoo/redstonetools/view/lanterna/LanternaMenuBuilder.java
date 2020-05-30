@@ -28,6 +28,10 @@ public class LanternaMenuBuilder {
         this.textGUI = textGUI;
     }
 
+    public MultiWindowTextGUI getTextGUI() {
+        return textGUI;
+    }
+
     public void addHelpWindow(Runnable onExit) {
         Window window = new BasicWindow();
         Panel panel = new Panel();

@@ -22,9 +22,10 @@ import java.io.IOException;
 
 public class LanternaViewFactory implements ViewFactory {
 
-    Terminal terminal;
-    Screen screen;
-    MultiWindowTextGUI textGUI;
+    private Terminal terminal;
+    private Screen screen;
+    private MultiWindowTextGUI textGUI;
+    private LanternaMenuBuilder lanternaMenuBuilder;
 
     public LanternaViewFactory() {
         try {
@@ -46,6 +47,7 @@ public class LanternaViewFactory implements ViewFactory {
             this.screen.doResizeIfNecessary();     // resize screen if necessary
 
             textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK));
+            lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -54,12 +56,12 @@ public class LanternaViewFactory implements ViewFactory {
 
     @Override
     public CircuitView getCircuitView(Circuit circuit) {
-        return new LanternaCircuitView(screen, textGUI, circuit);
+        return new LanternaCircuitView(screen, lanternaMenuBuilder, circuit);
     }
 
     @Override
     public MenuView getMenuView() {
-        return new LanternaMenuView(screen, textGUI);
+        return new LanternaMenuView(screen, lanternaMenuBuilder);
     }
 
     @Override

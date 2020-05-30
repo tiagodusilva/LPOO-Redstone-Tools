@@ -27,8 +27,8 @@ public class LanternaCircuitView extends CircuitView {
 
     private final Screen screen;
     private final MultiWindowTextGUI textGUI;
-    private boolean inMenu;
     private final LanternaMenuBuilder lanternaMenuBuilder;
+    private boolean inMenu;
 
     private Map<TileType, LanternaTileView> renderers;
 
@@ -42,15 +42,15 @@ public class LanternaCircuitView extends CircuitView {
 
     private final TextColor circuitBackground;
 
-    public LanternaCircuitView(Screen screen, MultiWindowTextGUI textGUI, Circuit circuit) {
+    public LanternaCircuitView(Screen screen, LanternaMenuBuilder lanternaMenuBuilder, Circuit circuit) {
         super();
 
         this.circuit = circuit;
         this.screen = screen;
         this.inMenu = false;
-        this.textGUI = textGUI;
 
-        this.lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
+        this.lanternaMenuBuilder = lanternaMenuBuilder;
+        this.textGUI = lanternaMenuBuilder.getTextGUI();
 
         // Init internal vars
         selectedTile = new Position(0, 0);

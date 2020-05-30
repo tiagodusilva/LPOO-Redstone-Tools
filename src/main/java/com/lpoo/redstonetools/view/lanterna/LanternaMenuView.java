@@ -28,15 +28,15 @@ public class LanternaMenuView extends MenuView {
     private final WindowBasedTextGUI textGUI;
     private BasicWindow window;
 
-    public LanternaMenuView(Screen screen, MultiWindowTextGUI textGUI) {
+    public LanternaMenuView(Screen screen, LanternaMenuBuilder lanternaMenuBuilder) {
         // Setup terminal and screen layers
         this.screen = screen;
         circuit = null;
         fileName = "";
 
         // Create gui and start gui
-        this.textGUI = textGUI;
-        lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);
+        this.lanternaMenuBuilder = lanternaMenuBuilder;
+        textGUI = lanternaMenuBuilder.getTextGUI();
 
         generateMenu();
     }
