@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: LanternaNullTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,82 @@
   <td class="name">LanternaNullTileView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/ 2)
+    (6/ 6)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$54qzcLoi</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$6CVPPf7x</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$Ba0GKVxD</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$Baor3IUW</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$EEbM08Wf</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$HrL5kLhy</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$mLBm36X3</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$OKMpm07L</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$PnmoZWD9</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$snHyo6Jo</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$uGuaNm4O</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$uuq0antY</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaNullTileView$MockitoMock$1474010122$auxiliary$v18MnMIu</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -75,24 +124,29 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
-<i>4</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
-<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.NullTile;
-<i>6</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
-<i>7</i>&nbsp;
-<b class="nc"><i>8</i>&nbsp;public class LanternaNullTileView extends LanternaTileView {</b>
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;    @Override
-<i>11</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
-<b class="nc"><i>12</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39; &#39;);</b>
-<i>13</i>&nbsp;    }
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;}
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.NullTile;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>6</i>&nbsp;
+<b class="fc"><i>7</i>&nbsp;public class LanternaNullTileView extends LanternaTileView {</b>
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    @Override
+<i>10</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<b class="fc"><i>11</i>&nbsp;        if (((NullTile) tile).isBroken()) {</b>
+<b class="fc"><i>12</i>&nbsp;            renderBrokenFrame(graphics, column, row);</b>
+<b class="fc"><i>13</i>&nbsp;            graphics.setCharacter(column + 1, row + 1, &#39;F&#39;);</b>
+<i>14</i>&nbsp;        }
+<i>15</i>&nbsp;        else {
+<b class="fc"><i>16</i>&nbsp;            graphics.setCharacter(column + 1, row + 1, &#39; &#39;);</b>
+<i>17</i>&nbsp;        }
+<b class="fc"><i>18</i>&nbsp;    }</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

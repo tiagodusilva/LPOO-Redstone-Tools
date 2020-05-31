@@ -2,12 +2,8 @@ package com.lpoo.redstonetools.view.lanterna.tile;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.model.tile.DigitTile;
-import com.lpoo.redstonetools.model.tile.LeverTile;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.utils.Power;
-import com.lpoo.redstonetools.model.utils.Side;
 
 public class LanternaDigitTileView extends LanternaTileView {
 

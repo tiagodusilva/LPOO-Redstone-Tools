@@ -1,16 +1,13 @@
 package com.lpoo.redstonetools;
 
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
-import com.lpoo.redstonetools.controller.state.CircuitState;
 import com.lpoo.redstonetools.controller.state.MenuState;
 import com.lpoo.redstonetools.controller.state.State;
 import com.lpoo.redstonetools.exception.InvalidConfigException;
-import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.view.ViewFactory;
 import com.lpoo.redstonetools.view.lanterna.LanternaViewFactory;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaComparatorTileView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna.tile</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaComparatorTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaComparatorTileView</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$4DssHkY3</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$dhVTOadG</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$I1nvDnHo</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$JKom4HhU</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$kzOWV1If</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$mWZO5j86</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$pJ9jEtJi</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$SWnWYgf0</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$tuRK1z6v</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$v5GZ5i7K</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$xb58GU7k</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$xDKGnAuQ</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaComparatorTileView$MockitoMock$1841743537$auxiliary$Ym07KyS6</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.ComparatorTile;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>7</i>&nbsp;
+<b class="fc"><i>8</i>&nbsp;public class LanternaComparatorTileView extends LanternaTileView {</b>
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    @Override
+<i>11</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<b class="fc"><i>12</i>&nbsp;        renderPowerSensitiveFrame(graphics, tile, column, row);</b>
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;        graphics.setForegroundColor(getPowerColor(Power.getMax()));</b>
+<b class="fc"><i>15</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, ((ComparatorTile)tile).getSubtractMode() ? &#39;\u236D&#39; : &#39;\u2994&#39;);</b>
+<b class="fc"><i>16</i>&nbsp;    }</b>
+<i>17</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
+</div>
+</body>
+</html>

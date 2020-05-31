@@ -1,0 +1,667 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaMenuBuilder</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaMenuBuilder (com.lpoo.redstonetools.view.lanterna)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaMenuBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 328)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$0Qowfxbz</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$1s5GmWSl</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$2LLxex0v</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$AV4EZhb6</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$CaYXAdSr</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$dhPvjyr9</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$LV3qq3jg</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$NcvphS4B</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$nQIJyjoD</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$sg8Q9Gva</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaMenuBuilder$MockitoMock$583041121$auxiliary$tZg69IAy</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 332)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.TerminalSize;
+<i>4</i>&nbsp;import com.googlecode.lanterna.gui2.*;
+<i>5</i>&nbsp;import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
+<i>6</i>&nbsp;import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.controller.circuit.CircuitController;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.exception.InvalidCircuitException;
+<i>9</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>10</i>&nbsp;import com.lpoo.redstonetools.model.tile.*;
+<i>11</i>&nbsp;import com.lpoo.redstonetools.model.tile.strategy.*;
+<i>12</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>13</i>&nbsp;import com.lpoo.redstonetools.view.SaveCircuitListener;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.io.File;
+<i>16</i>&nbsp;import java.lang.reflect.Constructor;
+<i>17</i>&nbsp;import java.lang.reflect.InvocationTargetException;
+<i>18</i>&nbsp;import java.util.ArrayList;
+<i>19</i>&nbsp;import java.util.Arrays;
+<i>20</i>&nbsp;import java.util.List;
+<i>21</i>&nbsp;import java.util.function.Consumer;
+<i>22</i>&nbsp;import java.util.regex.Pattern;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;public class LanternaMenuBuilder {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private final MultiWindowTextGUI textGUI;
+<i>27</i>&nbsp;
+<b class="nc"><i>28</i>&nbsp;    public LanternaMenuBuilder(MultiWindowTextGUI textGUI) {</b>
+<b class="nc"><i>29</i>&nbsp;        this.textGUI = textGUI;</b>
+<b class="nc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    public MultiWindowTextGUI getTextGUI() {
+<b class="nc"><i>33</i>&nbsp;        return textGUI;</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    public void addStartingMenu(Consumer&lt;Circuit&gt; onSelect, Runnable onClose, Runnable onExit) {
+<i>37</i>&nbsp;        File input;
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;        final Panel[] mainPanel = {new Panel()};</b>
+<b class="nc"><i>40</i>&nbsp;        Label fileNameLabel = new Label(&quot;&quot;);</b>
+<b class="nc"><i>41</i>&nbsp;        Label circuitSizeLabel = new Label(&quot;&quot;);</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;        final Circuit[] circuit = {null};</b>
+<b class="nc"><i>44</i>&nbsp;        final String[] fileName = {null};</b>
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        final boolean[] createdAnyCircuit = {false};</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;        // Create window to hold the panel
+<b class="nc"><i>49</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>50</i>&nbsp;        window.setComponent(mainPanel[0]);</b>
+<b class="nc"><i>51</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;        Button quitButton = new Button(&quot;Close game&quot;, () -&gt; {</b>
+<b class="nc"><i>54</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>55</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>56</i>&nbsp;            onClose.run();</b>
+<b class="nc"><i>57</i>&nbsp;        });</b>
+<b class="nc"><i>58</i>&nbsp;        Border borderedQuitButton = quitButton.withBorder(Borders.doubleLine());</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;        Runnable createCircuit = () -&gt; {</b>
+<b class="nc"><i>61</i>&nbsp;            if (!createdAnyCircuit[0]) {</b>
+<b class="nc"><i>62</i>&nbsp;                createdAnyCircuit[0] = true;</b>
+<b class="nc"><i>63</i>&nbsp;                mainPanel[0].removeComponent(borderedQuitButton);</b>
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;                mainPanel[0].addComponent(fileNameLabel);</b>
+<b class="nc"><i>66</i>&nbsp;                mainPanel[0].addComponent(circuitSizeLabel);</b>
+<b class="nc"><i>67</i>&nbsp;                mainPanel[0].addComponent(new Button(&quot;Open Circuit&quot;, () -&gt; {</b>
+<b class="nc"><i>68</i>&nbsp;                    textGUI.removeWindow(window);</b>
+<b class="nc"><i>69</i>&nbsp;                    onSelect.accept(circuit[0]);</b>
+<b class="nc"><i>70</i>&nbsp;                }).withBorder(Borders.doubleLine()));</b>
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;                mainPanel[0].addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>73</i>&nbsp;                mainPanel[0].addComponent(quitButton.withBorder(Borders.singleLine()));</b>
+<i>74</i>&nbsp;            }
+<i>75</i>&nbsp;
+<b class="nc"><i>76</i>&nbsp;            if (fileName[0].equals(&quot;&quot;))</b>
+<b class="nc"><i>77</i>&nbsp;                fileNameLabel.setText(&quot;Blank Circuit&quot;);</b>
+<i>78</i>&nbsp;            else
+<b class="nc"><i>79</i>&nbsp;                fileNameLabel.setText(&quot;Loaded from:\n&quot; + fileName[0]);</b>
+<b class="nc"><i>80</i>&nbsp;            circuitSizeLabel.setText(&quot;Circuit size: &quot; + circuit[0].getWidth() + &quot;x&quot; + circuit[0].getHeight());</b>
+<b class="nc"><i>81</i>&nbsp;        };</b>
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;        Panel selectPanel = new Panel();</b>
+<b class="nc"><i>84</i>&nbsp;        mainPanel[0].addComponent(selectPanel.withBorder(Borders.singleLine(&quot;Select a Circuit&quot;)));</b>
+<b class="nc"><i>85</i>&nbsp;        selectPanel.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));</b>
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;        Button selectFileButton = new Button(&quot;Select File&quot;, () -&gt; {</b>
+<b class="nc"><i>88</i>&nbsp;            File input1 = new FileDialogBuilder()</b>
+<b class="nc"><i>89</i>&nbsp;                    .setTitle(&quot;Open File&quot;)</b>
+<b class="nc"><i>90</i>&nbsp;                    .setDescription(&quot;Choose a file&quot;)</b>
+<b class="nc"><i>91</i>&nbsp;                    .setActionLabel(&quot;Open&quot;)</b>
+<b class="nc"><i>92</i>&nbsp;                    .setSelectedFile(new File(&quot;circuits/&quot;))</b>
+<b class="nc"><i>93</i>&nbsp;                    .build()</b>
+<b class="nc"><i>94</i>&nbsp;                    .showDialog(textGUI);</b>
+<i>95</i>&nbsp;
+<b class="nc"><i>96</i>&nbsp;            if (input1 != null) {</b>
+<b class="nc"><i>97</i>&nbsp;                fileName[0] = input1.getAbsolutePath();</b>
+<i>98</i>&nbsp;                try {
+<b class="nc"><i>99</i>&nbsp;                    Circuit aux = CircuitController.loadCircuit(input1.getAbsolutePath());</b>
+<b class="nc"><i>100</i>&nbsp;                    aux.setCircuitName(input1.getName());</b>
+<b class="nc"><i>101</i>&nbsp;                    circuit[0] = aux;</b>
+<b class="nc"><i>102</i>&nbsp;                    createCircuit.run();</b>
+<b class="nc"><i>103</i>&nbsp;                } catch (InvalidCircuitException e) {</b>
+<b class="nc"><i>104</i>&nbsp;                    new MessageDialogBuilder()</b>
+<b class="nc"><i>105</i>&nbsp;                            .setTitle(&quot;Failed to Load Circuit&quot;)</b>
+<b class="nc"><i>106</i>&nbsp;                            .setText(&quot;Circuit&#39;s version may mismatch the current one\n\nPlease select a valid .ser file&quot;)</b>
+<b class="nc"><i>107</i>&nbsp;                            .build()</b>
+<b class="nc"><i>108</i>&nbsp;                            .showDialog(textGUI);</b>
+<b class="nc"><i>109</i>&nbsp;                }</b>
+<i>110</i>&nbsp;            }
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;        });</b>
+<b class="nc"><i>113</i>&nbsp;        selectPanel.addComponent(selectFileButton.withBorder(Borders.singleLine(&quot;Select from a file&quot;)));</b>
+<b class="nc"><i>114</i>&nbsp;        window.setFocusedInteractable(selectFileButton);</b>
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;        Panel rightPanel = new Panel();</b>
+<b class="nc"><i>117</i>&nbsp;        selectPanel.addComponent(rightPanel.withBorder(Borders.singleLine(&quot;New Blank Circuit&quot;)));</b>
+<b class="nc"><i>118</i>&nbsp;        rightPanel.setLayoutManager(new GridLayout(2));</b>
+<i>119</i>&nbsp;
+<b class="nc"><i>120</i>&nbsp;        rightPanel.addComponent(new Label(&quot;Width&quot;).setLabelWidth(5));</b>
+<b class="nc"><i>121</i>&nbsp;        final TextBox widthTxt = new TextBox().setText(&quot;20&quot;).setValidationPattern(Pattern.compile(&quot;[1-9][0-9]{0,2}&quot;)).addTo(rightPanel);</b>
+<i>122</i>&nbsp;
+<b class="nc"><i>123</i>&nbsp;        rightPanel.addComponent(new Label(&quot;Height&quot;).setLabelWidth(5));</b>
+<b class="nc"><i>124</i>&nbsp;        final TextBox heightTxt = new TextBox().setText(&quot;10&quot;).setValidationPattern(Pattern.compile(&quot;[1-9][0-9]{0,2}&quot;)).addTo(rightPanel);</b>
+<i>125</i>&nbsp;
+<b class="nc"><i>126</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>127</i>&nbsp;        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;        rightPanel.addComponent(new Button(&quot;Create Blank&quot;, () -&gt; {</b>
+<b class="nc"><i>130</i>&nbsp;            fileName[0] = &quot;&quot;;</b>
+<b class="nc"><i>131</i>&nbsp;            if (widthTxt.getText().equals(&quot;&quot;) || heightTxt.getText().equals(&quot;&quot;)) {</b>
+<b class="nc"><i>132</i>&nbsp;                this.addConfirmation(&quot;Textboxes must not be empty&quot;, () -&gt; {});</b>
+<i>133</i>&nbsp;            }
+<i>134</i>&nbsp;            else {
+<b class="nc"><i>135</i>&nbsp;                circuit[0] = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));</b>
+<b class="nc"><i>136</i>&nbsp;                circuit[0].setCircuitName(&quot;blank.ser&quot;);</b>
+<b class="nc"><i>137</i>&nbsp;                createCircuit.run();</b>
+<i>138</i>&nbsp;            }
+<b class="nc"><i>139</i>&nbsp;        }).withBorder(Borders.singleLine()));</b>
+<i>140</i>&nbsp;
+<b class="nc"><i>141</i>&nbsp;        mainPanel[0].addComponent(new EmptySpace(new TerminalSize(0, 1)));</b>
+<b class="nc"><i>142</i>&nbsp;        mainPanel[0].addComponent(borderedQuitButton);</b>
+<i>143</i>&nbsp;
+<b class="nc"><i>144</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>145</i>&nbsp;    }</b>
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    public void addHelpWindow(Runnable onExit) {
+<b class="nc"><i>148</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>149</i>&nbsp;        Panel panel = new Panel();</b>
+<b class="nc"><i>150</i>&nbsp;        window.setComponent(panel);</b>
+<b class="nc"><i>151</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>152</i>&nbsp;
+<b class="nc"><i>153</i>&nbsp;        panel.setLayoutManager(new GridLayout(2));</b>
+<i>154</i>&nbsp;
+<b class="nc"><i>155</i>&nbsp;        panel.addComponent(new Label(</b>
+<i>156</i>&nbsp;                &quot;Arrows - Move around\n&quot; +
+<i>157</i>&nbsp;                &quot;Z      - Toggle iterate/pan\n&quot; +
+<i>158</i>&nbsp;                &quot;Enter  - Interact\n&quot; +
+<i>159</i>&nbsp;                &quot;Insert - Add Tile Dropdown\n&quot; +
+<i>160</i>&nbsp;                &quot;Esc    - Quit\n&quot; +
+<i>161</i>&nbsp;                &quot;+      - Advance Time\n&quot; +
+<i>162</i>&nbsp;                &quot;Q      - Rotate Left\n&quot; +
+<i>163</i>&nbsp;                &quot;E      - Rotate Right\n&quot; +
+<i>164</i>&nbsp;                &quot;M      - Change Delay\n&quot; +
+<i>165</i>&nbsp;                &quot;P      - Show Power on Wires\n&quot; +
+<i>166</i>&nbsp;                &quot;F      - Show Tile Info\n&quot; +
+<i>167</i>&nbsp;                &quot;G      - Save Circuit\n&quot; +
+<i>168</i>&nbsp;                &quot;A      - Toggle Time Progression\n&quot; +
+<i>169</i>&nbsp;                &quot;H      - Show Help&quot;
+<b class="nc"><i>170</i>&nbsp;        ).withBorder(Borders.singleLine(&quot;Basic Controls&quot;)));</b>
+<i>171</i>&nbsp;
+<b class="nc"><i>172</i>&nbsp;        panel.addComponent(new Label(</b>
+<i>173</i>&nbsp;                &quot;W    - Wire\n&quot; +
+<i>174</i>&nbsp;                &quot;X    - Crosswire\n&quot; +
+<i>175</i>&nbsp;                &quot;S    - Constant Source\n&quot; +
+<i>176</i>&nbsp;                &quot;L    - Lever\n&quot; +
+<i>177</i>&nbsp;                &quot;R    - Repeater\n&quot; +
+<i>178</i>&nbsp;                &quot;1    - NOT Gate\n&quot; +
+<i>179</i>&nbsp;                &quot;2..7 - Logic Gates\n&quot; +
+<i>180</i>&nbsp;                &quot;0    - Logic Gates Menu\n&quot; +
+<i>181</i>&nbsp;                &quot;N    - Counter\n&quot; +
+<i>182</i>&nbsp;                &quot;T    - Timer\n&quot; +
+<i>183</i>&nbsp;                &quot;C    - Comparator\n&quot; +
+<i>184</i>&nbsp;                &quot;D    - Digit\n&quot; +
+<i>185</i>&nbsp;                &quot;I    - IO Port\n&quot; +
+<i>186</i>&nbsp;                &quot;O    - Import Custom Tile&quot;
+<b class="nc"><i>187</i>&nbsp;        ).withBorder(Borders.singleLine(&quot;Tile Shortcuts&quot;)));</b>
+<i>188</i>&nbsp;
+<b class="nc"><i>189</i>&nbsp;        Button b = new Button(&quot;Hide Help&quot;, () -&gt; {</b>
+<b class="nc"><i>190</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>191</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>192</i>&nbsp;        });</b>
+<b class="nc"><i>193</i>&nbsp;        panel.addComponent(b.withBorder(Borders.doubleLine()));</b>
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;        window.setFocusedInteractable(b);</b>
+<i>196</i>&nbsp;
+<b class="nc"><i>197</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>198</i>&nbsp;        textGUI.setActiveWindow(window);</b>
+<b class="nc"><i>199</i>&nbsp;    }</b>
+<i>200</i>&nbsp;
+<i>201</i>&nbsp;    public void addInsertMenu(Position position, Consumer&lt;Tile&gt; consumer, Runnable onExit) {
+<b class="nc"><i>202</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>203</i>&nbsp;        Panel panel = new Panel();</b>
+<b class="nc"><i>204</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<b class="nc"><i>205</i>&nbsp;        mainPanel.addComponent(panel.withBorder(Borders.singleLine(&quot;Select Tile to insert:&quot;)));</b>
+<b class="nc"><i>206</i>&nbsp;        window.setComponent(mainPanel);</b>
+<b class="nc"><i>207</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>208</i>&nbsp;
+<b class="nc"><i>209</i>&nbsp;        panel.setLayoutManager(new GridLayout(2));</b>
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ONE));</b>
+<b class="nc"><i>212</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ONE));</b>
+<i>213</i>&nbsp;
+<b class="nc"><i>214</i>&nbsp;        List&lt;Class&lt;? extends Tile&gt;&gt; classes = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>215</i>&nbsp;            classes.add(WireTile .class);</b>
+<b class="nc"><i>216</i>&nbsp;            classes.add(CrossWireTile .class);</b>
+<b class="nc"><i>217</i>&nbsp;            classes.add(ConstantSourceTile .class);</b>
+<b class="nc"><i>218</i>&nbsp;            classes.add(LeverTile .class);</b>
+<b class="nc"><i>219</i>&nbsp;            classes.add(RepeaterTile .class);</b>
+<b class="nc"><i>220</i>&nbsp;            classes.add(NotGateTile .class);</b>
+<b class="nc"><i>221</i>&nbsp;            classes.add(LogicGateTile .class);</b>
+<b class="nc"><i>222</i>&nbsp;            classes.add(TimerTile .class);</b>
+<b class="nc"><i>223</i>&nbsp;            classes.add(CounterTile .class);</b>
+<b class="nc"><i>224</i>&nbsp;            classes.add(ComparatorTile .class);</b>
+<b class="nc"><i>225</i>&nbsp;            classes.add(DigitTile .class);</b>
+<b class="nc"><i>226</i>&nbsp;            classes.add(IOTile .class);</b>
+<b class="nc"><i>227</i>&nbsp;            classes.add(Circuit .class);</b>
+<i>228</i>&nbsp;
+<b class="nc"><i>229</i>&nbsp;        ComboBox&lt;String&gt; tileTypes = new ComboBox&lt;&gt;();</b>
+<b class="nc"><i>230</i>&nbsp;        tileTypes.addItem(&quot;Wire&quot;);</b>
+<b class="nc"><i>231</i>&nbsp;        tileTypes.addItem(&quot;Crosswire&quot;);</b>
+<b class="nc"><i>232</i>&nbsp;        tileTypes.addItem(&quot;Constant Source&quot;);</b>
+<b class="nc"><i>233</i>&nbsp;        tileTypes.addItem(&quot;Lever&quot;);</b>
+<b class="nc"><i>234</i>&nbsp;        tileTypes.addItem(&quot;Repeater&quot;);</b>
+<b class="nc"><i>235</i>&nbsp;        tileTypes.addItem(&quot;Not Gate&quot;);</b>
+<b class="nc"><i>236</i>&nbsp;        tileTypes.addItem(&quot;Logic Gate&quot;);</b>
+<b class="nc"><i>237</i>&nbsp;        tileTypes.addItem(&quot;Timer&quot;);</b>
+<b class="nc"><i>238</i>&nbsp;        tileTypes.addItem(&quot;Counter&quot;);</b>
+<b class="nc"><i>239</i>&nbsp;        tileTypes.addItem(&quot;Comparator&quot;);</b>
+<b class="nc"><i>240</i>&nbsp;        tileTypes.addItem(&quot;Digit&quot;);</b>
+<b class="nc"><i>241</i>&nbsp;        tileTypes.addItem(&quot;IO Tile&quot;);</b>
+<b class="nc"><i>242</i>&nbsp;        tileTypes.addItem(&quot;Custom Tile&quot;);</b>
+<i>243</i>&nbsp;
+<b class="nc"><i>244</i>&nbsp;        panel.addComponent(tileTypes);</b>
+<b class="nc"><i>245</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>246</i>&nbsp;
+<b class="nc"><i>247</i>&nbsp;        Button insert = new Button(&quot;Insert&quot;, () -&gt; {</b>
+<b class="nc"><i>248</i>&nbsp;            int selected = tileTypes.getSelectedIndex();</b>
+<b class="nc"><i>249</i>&nbsp;            switch (selected) {</b>
+<i>250</i>&nbsp;                case 6: // Logic Gate
+<b class="nc"><i>251</i>&nbsp;                    textGUI.removeWindow(window);</b>
+<b class="nc"><i>252</i>&nbsp;                    addInsertGateMenu(position, consumer, onExit);</b>
+<b class="nc"><i>253</i>&nbsp;                    break;</b>
+<i>254</i>&nbsp;                case 12: // Custom
+<b class="nc"><i>255</i>&nbsp;                    textGUI.removeWindow(window);</b>
+<b class="nc"><i>256</i>&nbsp;                    addInsertCustomMenu(position, consumer, onExit);</b>
+<b class="nc"><i>257</i>&nbsp;                    break;</b>
+<i>258</i>&nbsp;                default: {
+<i>259</i>&nbsp;                    try {
+<b class="nc"><i>260</i>&nbsp;                        Class&lt;? extends Tile&gt; c = classes.get(selected);</b>
+<b class="nc"><i>261</i>&nbsp;                        Constructor&lt;? extends Tile&gt; constructor = c.getConstructor(Position.class);</b>
+<b class="nc"><i>262</i>&nbsp;                        Tile t = constructor.newInstance(position);</b>
+<b class="nc"><i>263</i>&nbsp;                        consumer.accept(t);</b>
+<b class="nc"><i>264</i>&nbsp;                    } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {</b>
+<i>265</i>&nbsp;//                            e.printStackTrace();
+<b class="nc"><i>266</i>&nbsp;                    }</b>
+<b class="nc"><i>267</i>&nbsp;                    textGUI.removeWindow(window);</b>
+<b class="nc"><i>268</i>&nbsp;                    onExit.run();</b>
+<i>269</i>&nbsp;                    break;
+<i>270</i>&nbsp;                }
+<i>271</i>&nbsp;            }
+<b class="nc"><i>272</i>&nbsp;        });</b>
+<b class="nc"><i>273</i>&nbsp;        panel.addComponent(insert.withBorder(Borders.doubleLine()));</b>
+<i>274</i>&nbsp;
+<b class="nc"><i>275</i>&nbsp;        Button cancel = new Button(&quot;Cancel&quot;, () -&gt; {</b>
+<b class="nc"><i>276</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>277</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>278</i>&nbsp;        });</b>
+<b class="nc"><i>279</i>&nbsp;        panel.addComponent(cancel.withBorder(Borders.doubleLine()));</b>
+<i>280</i>&nbsp;
+<b class="nc"><i>281</i>&nbsp;        window.setFocusedInteractable(tileTypes);</b>
+<i>282</i>&nbsp;
+<b class="nc"><i>283</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>284</i>&nbsp;        textGUI.setActiveWindow(window);</b>
+<b class="nc"><i>285</i>&nbsp;    }</b>
+<i>286</i>&nbsp;
+<i>287</i>&nbsp;    public void addInsertGateMenu(Position position, Consumer&lt;Tile&gt; consumer, Runnable onExit) {
+<b class="nc"><i>288</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>289</i>&nbsp;        Panel panel = new Panel();</b>
+<b class="nc"><i>290</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<b class="nc"><i>291</i>&nbsp;        mainPanel.addComponent(panel.withBorder(Borders.singleLine(&quot;Select Specific Logic Gate to insert:&quot;)));</b>
+<b class="nc"><i>292</i>&nbsp;        window.setComponent(mainPanel);</b>
+<b class="nc"><i>293</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>294</i>&nbsp;
+<b class="nc"><i>295</i>&nbsp;        panel.setLayoutManager(new GridLayout(2));</b>
+<i>296</i>&nbsp;
+<b class="nc"><i>297</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ONE));</b>
+<b class="nc"><i>298</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ONE));</b>
+<i>299</i>&nbsp;
+<b class="nc"><i>300</i>&nbsp;        List&lt;Class&lt;? extends LogicGateStrategy&gt;&gt; classes = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>301</i>&nbsp;        classes.add(ANDGateStrategy.class);</b>
+<b class="nc"><i>302</i>&nbsp;        classes.add(ORGateStrategy.class);</b>
+<b class="nc"><i>303</i>&nbsp;        classes.add(XORGateStrategy.class);</b>
+<b class="nc"><i>304</i>&nbsp;        classes.add(NANDGateStrategy.class);</b>
+<b class="nc"><i>305</i>&nbsp;        classes.add(NORGateStrategy.class);</b>
+<b class="nc"><i>306</i>&nbsp;        classes.add(XNORGateStrategy.class);</b>
+<i>307</i>&nbsp;
+<b class="nc"><i>308</i>&nbsp;        ComboBox&lt;String&gt; strategies = new ComboBox&lt;&gt;();</b>
+<b class="nc"><i>309</i>&nbsp;        strategies.addItem(&quot;AND&quot;);</b>
+<b class="nc"><i>310</i>&nbsp;        strategies.addItem(&quot;OR&quot;);</b>
+<b class="nc"><i>311</i>&nbsp;        strategies.addItem(&quot;XOR&quot;);</b>
+<b class="nc"><i>312</i>&nbsp;        strategies.addItem(&quot;NAND&quot;);</b>
+<b class="nc"><i>313</i>&nbsp;        strategies.addItem(&quot;NOR&quot;);</b>
+<b class="nc"><i>314</i>&nbsp;        strategies.addItem(&quot;XNOR&quot;);</b>
+<i>315</i>&nbsp;
+<b class="nc"><i>316</i>&nbsp;        panel.addComponent(strategies);</b>
+<b class="nc"><i>317</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>318</i>&nbsp;
+<b class="nc"><i>319</i>&nbsp;        Button insert = new Button(&quot;Insert&quot;, () -&gt; {</b>
+<b class="nc"><i>320</i>&nbsp;            int selected = strategies.getSelectedIndex();</b>
+<i>321</i>&nbsp;            try {
+<b class="nc"><i>322</i>&nbsp;                Class&lt;? extends LogicGateStrategy&gt; c = classes.get(selected);</b>
+<b class="nc"><i>323</i>&nbsp;                Constructor&lt;? extends LogicGateStrategy&gt; constructor = c.getConstructor();</b>
+<b class="nc"><i>324</i>&nbsp;                LogicGateStrategy strat = constructor.newInstance();</b>
+<b class="nc"><i>325</i>&nbsp;                consumer.accept(new LogicGateTile(position, strat));</b>
+<b class="nc"><i>326</i>&nbsp;            } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {</b>
+<i>327</i>&nbsp;//                        e.printStackTrace();
+<b class="nc"><i>328</i>&nbsp;            }</b>
+<b class="nc"><i>329</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>330</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>331</i>&nbsp;        });</b>
+<b class="nc"><i>332</i>&nbsp;        panel.addComponent(insert.withBorder(Borders.doubleLine()));</b>
+<i>333</i>&nbsp;
+<b class="nc"><i>334</i>&nbsp;        Button cancel = new Button(&quot;Cancel&quot;, () -&gt; {</b>
+<b class="nc"><i>335</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>336</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>337</i>&nbsp;        });</b>
+<b class="nc"><i>338</i>&nbsp;        panel.addComponent(cancel.withBorder(Borders.doubleLine()));</b>
+<i>339</i>&nbsp;
+<b class="nc"><i>340</i>&nbsp;        window.setFocusedInteractable(strategies);</b>
+<i>341</i>&nbsp;
+<b class="nc"><i>342</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>343</i>&nbsp;        textGUI.setActiveWindow(window);</b>
+<b class="nc"><i>344</i>&nbsp;    }</b>
+<i>345</i>&nbsp;
+<i>346</i>&nbsp;    public void addInsertCustomMenu(Position position, Consumer&lt;Tile&gt; consumer, Runnable onExit) {
+<b class="nc"><i>347</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<i>348</i>&nbsp;
+<b class="nc"><i>349</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>350</i>&nbsp;        window.setComponent(mainPanel);</b>
+<b class="nc"><i>351</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>352</i>&nbsp;
+<b class="nc"><i>353</i>&nbsp;        mainPanel.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));</b>
+<b class="nc"><i>354</i>&nbsp;        mainPanel.setLayoutManager(new GridLayout(2));</b>
+<i>355</i>&nbsp;
+<i>356</i>&nbsp;        // If alt+enter did this, then it must be correct
+<b class="nc"><i>357</i>&nbsp;        final String[] fileName = new String[1];</b>
+<i>358</i>&nbsp;
+<b class="nc"><i>359</i>&nbsp;        Label fileNameLabel = new Label(&quot;&quot;);</b>
+<b class="nc"><i>360</i>&nbsp;        Button cancelButton = new Button(&quot;Cancel&quot;, () -&gt; {</b>
+<b class="nc"><i>361</i>&nbsp;            fileName[0] = null;</b>
+<b class="nc"><i>362</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>363</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>364</i>&nbsp;        });</b>
+<b class="nc"><i>365</i>&nbsp;        final Border[] borderedCancelButton = {cancelButton.withBorder(Borders.doubleLine())};</b>
+<i>366</i>&nbsp;
+<b class="nc"><i>367</i>&nbsp;        Button openButton = new Button(&quot;Load Circuit&quot;, () -&gt; {</b>
+<b class="nc"><i>368</i>&nbsp;            Circuit circuit = null;</b>
+<i>369</i>&nbsp;            try {
+<b class="nc"><i>370</i>&nbsp;                circuit = CircuitController.loadCircuit(fileName[0]);</b>
+<b class="nc"><i>371</i>&nbsp;                circuit.setPosition(position);</b>
+<b class="nc"><i>372</i>&nbsp;                consumer.accept(circuit);</b>
+<b class="nc"><i>373</i>&nbsp;                textGUI.removeWindow(window);</b>
+<b class="nc"><i>374</i>&nbsp;                onExit.run();</b>
+<b class="nc"><i>375</i>&nbsp;            } catch (InvalidCircuitException e) {</b>
+<i>376</i>&nbsp;//                e.printStackTrace();
+<b class="nc"><i>377</i>&nbsp;                this.addConfirmation(&quot;Failed to load circuit\nCircuit&#39;s version may mismatch the current one&quot;, onExit);</b>
+<b class="nc"><i>378</i>&nbsp;                textGUI.removeWindow(window);</b>
+<b class="nc"><i>379</i>&nbsp;            }</b>
+<b class="nc"><i>380</i>&nbsp;        });</b>
+<i>381</i>&nbsp;
+<b class="nc"><i>382</i>&nbsp;        Button selectFile = new Button(&quot;Load Custom&quot;, () -&gt; {</b>
+<b class="nc"><i>383</i>&nbsp;            File input1 = new FileDialogBuilder()</b>
+<b class="nc"><i>384</i>&nbsp;                    .setTitle(&quot;Load Custom&quot;)</b>
+<b class="nc"><i>385</i>&nbsp;                    .setDescription(&quot;Choose a file&quot;)</b>
+<b class="nc"><i>386</i>&nbsp;                    .setActionLabel(&quot;Open&quot;)</b>
+<b class="nc"><i>387</i>&nbsp;                    .setSelectedFile(new File(&quot;circuits/&quot;))</b>
+<b class="nc"><i>388</i>&nbsp;                    .build()</b>
+<b class="nc"><i>389</i>&nbsp;                    .showDialog(textGUI);</b>
+<i>390</i>&nbsp;
+<b class="nc"><i>391</i>&nbsp;            if (input1 != null) {</b>
+<b class="nc"><i>392</i>&nbsp;                if (fileName[0] == null) {</b>
+<b class="nc"><i>393</i>&nbsp;                    mainPanel.removeComponent(borderedCancelButton[0]);</b>
+<i>394</i>&nbsp;
+<b class="nc"><i>395</i>&nbsp;                    mainPanel.addComponent(fileNameLabel);</b>
+<b class="nc"><i>396</i>&nbsp;                    mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<b class="nc"><i>397</i>&nbsp;                    mainPanel.addComponent(openButton.withBorder(Borders.doubleLine()));</b>
+<i>398</i>&nbsp;
+<b class="nc"><i>399</i>&nbsp;                    borderedCancelButton[0] = cancelButton.withBorder(Borders.singleLine());</b>
+<b class="nc"><i>400</i>&nbsp;                    mainPanel.addComponent(borderedCancelButton[0]);</b>
+<i>401</i>&nbsp;                }
+<i>402</i>&nbsp;
+<b class="nc"><i>403</i>&nbsp;                fileName[0] = input1.getAbsolutePath();</b>
+<b class="nc"><i>404</i>&nbsp;                fileNameLabel.setText(&quot;Loading custom:\n&quot; + fileName[0]);</b>
+<i>405</i>&nbsp;            }
+<i>406</i>&nbsp;
+<b class="nc"><i>407</i>&nbsp;        });</b>
+<b class="nc"><i>408</i>&nbsp;        mainPanel.addComponent(selectFile.withBorder(Borders.doubleLine(&quot;Select from a file&quot;)));</b>
+<b class="nc"><i>409</i>&nbsp;        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>410</i>&nbsp;
+<b class="nc"><i>411</i>&nbsp;        mainPanel.addComponent(new EmptySpace(TerminalSize.ONE));</b>
+<b class="nc"><i>412</i>&nbsp;        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>413</i>&nbsp;
+<b class="nc"><i>414</i>&nbsp;        mainPanel.addComponent(borderedCancelButton[0]);</b>
+<i>415</i>&nbsp;
+<b class="nc"><i>416</i>&nbsp;        window.setFocusedInteractable(selectFile);</b>
+<b class="nc"><i>417</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>418</i>&nbsp;    }</b>
+<i>419</i>&nbsp;
+<i>420</i>&nbsp;    public void addConfirmation(String message, Runnable onExit) {
+<b class="nc"><i>421</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<i>422</i>&nbsp;
+<b class="nc"><i>423</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>424</i>&nbsp;        window.setComponent(mainPanel);</b>
+<b class="nc"><i>425</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>426</i>&nbsp;
+<b class="nc"><i>427</i>&nbsp;        mainPanel.addComponent(new Label(message));</b>
+<i>428</i>&nbsp;
+<b class="nc"><i>429</i>&nbsp;        mainPanel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>430</i>&nbsp;
+<b class="nc"><i>431</i>&nbsp;        Button acceptButton = new Button(&quot;Ok&quot;, () -&gt; {</b>
+<b class="nc"><i>432</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>433</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>434</i>&nbsp;        });</b>
+<b class="nc"><i>435</i>&nbsp;        mainPanel.addComponent(acceptButton.withBorder(Borders.doubleLine()));</b>
+<i>436</i>&nbsp;
+<b class="nc"><i>437</i>&nbsp;        window.setFocusedInteractable(acceptButton);</b>
+<b class="nc"><i>438</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>439</i>&nbsp;    }</b>
+<i>440</i>&nbsp;
+<i>441</i>&nbsp;    public void addSaveCircuitMenu(Consumer&lt;SaveCircuitListener&gt; consumer, String oldName, Runnable onExit) {
+<b class="nc"><i>442</i>&nbsp;        Panel mainPanel = new Panel();</b>
+<i>443</i>&nbsp;
+<b class="nc"><i>444</i>&nbsp;        mainPanel.setLayoutManager(new GridLayout(2));</b>
+<i>445</i>&nbsp;
+<b class="nc"><i>446</i>&nbsp;        TextBox fileTextbox = new TextBox(new TerminalSize(45, 1), oldName != null ? oldName : &quot;circuit.ser&quot;);</b>
+<b class="nc"><i>447</i>&nbsp;        Border borderedTextBox = fileTextbox.withBorder(Borders.singleLine(&quot;Circuits will be created in the &#39;circuits&#39; directory&quot;));</b>
+<b class="nc"><i>448</i>&nbsp;        mainPanel.addComponent(borderedTextBox);</b>
+<b class="nc"><i>449</i>&nbsp;        mainPanel.addComponent(new EmptySpace(new TerminalSize(0, 4)));</b>
+<i>450</i>&nbsp;
+<b class="nc"><i>451</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>452</i>&nbsp;        window.setComponent(mainPanel);</b>
+<b class="nc"><i>453</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>454</i>&nbsp;
+<b class="nc"><i>455</i>&nbsp;        mainPanel.addComponent(new Button(&quot;Save Circuit&quot;, () -&gt; {</b>
+<b class="nc"><i>456</i>&nbsp;            String filename = new File(&quot;circuits/&quot; + fileTextbox.getLine(0)).getAbsolutePath();</b>
+<b class="nc"><i>457</i>&nbsp;            consumer.accept(new SaveCircuitListener() {</b>
+<i>458</i>&nbsp;                @Override
+<i>459</i>&nbsp;                public String getFileName() {
+<b class="nc"><i>460</i>&nbsp;                    return filename;</b>
+<i>461</i>&nbsp;                }
+<i>462</i>&nbsp;
+<i>463</i>&nbsp;                @Override
+<i>464</i>&nbsp;                public void notifySuccess() {
+<b class="nc"><i>465</i>&nbsp;                    addConfirmation(&quot;Circuit saved successfully as:\n&quot; + filename, onExit);</b>
+<i>466</i>&nbsp;                }
+<i>467</i>&nbsp;
+<i>468</i>&nbsp;                @Override
+<i>469</i>&nbsp;                public void notifyFailure() {
+<b class="nc"><i>470</i>&nbsp;                    addConfirmation(&quot;Failed to save circuit as:\n&quot; + filename, onExit);</b>
+<i>471</i>&nbsp;                }
+<i>472</i>&nbsp;            });
+<b class="nc"><i>473</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>474</i>&nbsp;        }).withBorder(Borders.doubleLine()));</b>
+<i>475</i>&nbsp;
+<b class="nc"><i>476</i>&nbsp;        mainPanel.addComponent(new Button(&quot;Cancel&quot;, () -&gt; {</b>
+<b class="nc"><i>477</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>478</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>479</i>&nbsp;        }).withBorder(Borders.singleLine()));</b>
+<i>480</i>&nbsp;
+<b class="nc"><i>481</i>&nbsp;        window.setFocusedInteractable(fileTextbox);</b>
+<b class="nc"><i>482</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>483</i>&nbsp;    }</b>
+<i>484</i>&nbsp;
+<i>485</i>&nbsp;    public void addNumberInput(Consumer&lt;Long&gt; consumer, String message, String regex_pattern, long startingValue, Runnable onExit) {
+<b class="nc"><i>486</i>&nbsp;        Panel panel = new Panel();</b>
+<i>487</i>&nbsp;
+<b class="nc"><i>488</i>&nbsp;        Window window = new BasicWindow();</b>
+<b class="nc"><i>489</i>&nbsp;        window.setComponent(panel);</b>
+<b class="nc"><i>490</i>&nbsp;        window.setHints(Arrays.asList(Window.Hint.CENTERED));</b>
+<i>491</i>&nbsp;
+<b class="nc"><i>492</i>&nbsp;        panel.setLayoutManager(new GridLayout(2));</b>
+<i>493</i>&nbsp;
+<b class="nc"><i>494</i>&nbsp;        panel.addComponent(new Label(message));</b>
+<b class="nc"><i>495</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>496</i>&nbsp;
+<b class="nc"><i>497</i>&nbsp;        final TextBox textBox = new TextBox().setText(String.valueOf(startingValue));</b>
+<b class="nc"><i>498</i>&nbsp;        textBox.setValidationPattern(Pattern.compile(regex_pattern));</b>
+<b class="nc"><i>499</i>&nbsp;        panel.addComponent(textBox);</b>
+<b class="nc"><i>500</i>&nbsp;        panel.addComponent(new EmptySpace(TerminalSize.ZERO));</b>
+<i>501</i>&nbsp;
+<b class="nc"><i>502</i>&nbsp;        panel.addComponent(new Button(&quot;Ok&quot;, () -&gt; {</b>
+<b class="nc"><i>503</i>&nbsp;            if (!textBox.getText().equals(&quot;&quot;)) {</b>
+<b class="nc"><i>504</i>&nbsp;                consumer.accept(Long.parseLong(textBox.getText()));</b>
+<b class="nc"><i>505</i>&nbsp;                textGUI.removeWindow(window);</b>
+<b class="nc"><i>506</i>&nbsp;                onExit.run();</b>
+<i>507</i>&nbsp;            }
+<i>508</i>&nbsp;            else {
+<b class="nc"><i>509</i>&nbsp;                addConfirmation(&quot;Textbox must not be empty&quot;, () -&gt; {});</b>
+<i>510</i>&nbsp;            }
+<b class="nc"><i>511</i>&nbsp;        }).withBorder(Borders.doubleLine()));</b>
+<i>512</i>&nbsp;
+<b class="nc"><i>513</i>&nbsp;        panel.addComponent(new Button(&quot;Cancel&quot;, () -&gt; {</b>
+<b class="nc"><i>514</i>&nbsp;            textGUI.removeWindow(window);</b>
+<b class="nc"><i>515</i>&nbsp;            onExit.run();</b>
+<b class="nc"><i>516</i>&nbsp;        }).withBorder(Borders.singleLine()));</b>
+<i>517</i>&nbsp;
+<b class="nc"><i>518</i>&nbsp;        window.setFocusedInteractable(textBox);</b>
+<b class="nc"><i>519</i>&nbsp;        textGUI.addWindow(window);</b>
+<b class="nc"><i>520</i>&nbsp;    }</b>
+<i>521</i>&nbsp;
+<i>522</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
+</div>
+</body>
+</html>

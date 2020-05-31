@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: LogicGateTile (com.lpoo.redstonetools.model.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -40,14 +37,6 @@
 </tr>
 <tr>
   <td class="name">LogicGateTile</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/ 1)
-  </span>
-</td>
 <td class="coverageStat">
   <span class="percent">
     80%
@@ -65,7 +54,103 @@
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$5UpLqJya</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$aEAg2GXY</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$Bby34g6Y</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$cfEFJCEK</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$DPGwslDM</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$f0jAaeQz</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$gYZgSyqH</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$iwSfRTmP</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$LpsOOVSF</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$mp8TMFN0</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$nFu7W8kX</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$nWtKUrKp</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$qgEOiVjP</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$QgFCfxpt</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$RhW2QElK</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$ssz9eQ0g</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$tPtYSYwN</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$TzyQOAi5</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$Ug8q28O5</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$urbgG85K</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$vPth6nmC</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$w4rY6qr9</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$wCONPiJu</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$x28JEbNp</td>
+  </tr>
+  <tr>
+    <td class="name">LogicGateTile$MockitoMock$924442638$auxiliary$z6Gaf9lz</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (27/ 30)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -83,113 +168,124 @@
 <i>9</i>&nbsp;
 <i>10</i>&nbsp;public class LogicGateTile extends OrientedTile {
 <i>11</i>&nbsp;
-<i>12</i>&nbsp;    private LogicGateStrategy strategy;
-<i>13</i>&nbsp;    private boolean active;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;    private Map&lt;Side, Integer&gt; powers;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * &lt;h1&gt;Logic being implemented by the logic gate&lt;/h1&gt;
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    private LogicGateStrategy strategy;
 <i>16</i>&nbsp;
 <i>17</i>&nbsp;    /**
-<i>18</i>&nbsp;     * &lt;h1&gt;Logic Gate tile constructor&lt;/h1&gt;
-<i>19</i>&nbsp;     * By default a repeater has the left and right side as input and up side as an output
-<i>20</i>&nbsp;     * The input and output sides can&#39;t be changed, but the logic gate can be rotated
-<i>21</i>&nbsp;     *
-<i>22</i>&nbsp;     * @param position  Position of the tile
-<i>23</i>&nbsp;     */
-<i>24</i>&nbsp;    public LogicGateTile(Position position, LogicGateStrategy strategy) {
-<b class="fc"><i>25</i>&nbsp;        super(position);</b>
-<b class="fc"><i>26</i>&nbsp;        this.sides.put(Side.LEFT, SideType.INPUT);</b>
-<b class="fc"><i>27</i>&nbsp;        this.sides.put(Side.RIGHT, SideType.INPUT);</b>
-<b class="fc"><i>28</i>&nbsp;        this.sides.put(Side.UP, SideType.OUTPUT);</b>
-<b class="fc"><i>29</i>&nbsp;        this.strategy = strategy;</b>
-<i>30</i>&nbsp;
-<b class="fc"><i>31</i>&nbsp;        this.powers = new HashMap&lt;&gt;();</b>
-<b class="fc"><i>32</i>&nbsp;        this.powers.put(Side.UP, Power.getMin());</b>
-<b class="fc"><i>33</i>&nbsp;        this.powers.put(Side.DOWN, Power.getMin());</b>
-<b class="fc"><i>34</i>&nbsp;        this.powers.put(Side.LEFT, Power.getMin());</b>
-<b class="fc"><i>35</i>&nbsp;        this.powers.put(Side.RIGHT, Power.getMin());</b>
-<i>36</i>&nbsp;        //this.updateTick = -1;
-<b class="fc"><i>37</i>&nbsp;        this.active = strategy.logic(this.powers, this.sides);</b>
-<b class="fc"><i>38</i>&nbsp;    }</b>
-<i>39</i>&nbsp;
-<i>40</i>&nbsp;    public LogicGateStrategy getStrategy() {
-<b class="nc"><i>41</i>&nbsp;        return strategy;</b>
-<i>42</i>&nbsp;    }
-<i>43</i>&nbsp;
-<i>44</i>&nbsp;    public void setStrategy(LogicGateStrategy strategy) {
-<b class="nc"><i>45</i>&nbsp;        this.strategy = strategy;</b>
-<b class="nc"><i>46</i>&nbsp;    }</b>
+<i>18</i>&nbsp;     * &lt;h1&gt;If logic gate is outputting power&lt;/h1&gt;
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    private boolean active;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * &lt;h1&gt;Table of power levels being received by the logic gate&lt;/h1&gt;
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private Map&lt;Side, Integer&gt; powers;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * &lt;h1&gt;Logic Gate tile constructor&lt;/h1&gt;
+<i>29</i>&nbsp;     * By default a repeater has the left and right side as input and up side as an output
+<i>30</i>&nbsp;     * The input and output sides can&#39;t be changed, but the logic gate can be rotated
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param position  Position of the tile
+<i>33</i>&nbsp;     * @param strategy  Logic Gate strategy in use
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public LogicGateTile(Position position, LogicGateStrategy strategy) {
+<b class="fc"><i>36</i>&nbsp;        super(position);</b>
+<b class="fc"><i>37</i>&nbsp;        this.sides.put(Side.LEFT, SideType.INPUT);</b>
+<b class="fc"><i>38</i>&nbsp;        this.sides.put(Side.RIGHT, SideType.INPUT);</b>
+<b class="fc"><i>39</i>&nbsp;        this.sides.put(Side.UP, SideType.OUTPUT);</b>
+<b class="fc"><i>40</i>&nbsp;        this.strategy = strategy;</b>
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;        this.powers = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>43</i>&nbsp;        this.powers.put(Side.UP, Power.getMin());</b>
+<b class="fc"><i>44</i>&nbsp;        this.powers.put(Side.DOWN, Power.getMin());</b>
+<b class="fc"><i>45</i>&nbsp;        this.powers.put(Side.LEFT, Power.getMin());</b>
+<b class="fc"><i>46</i>&nbsp;        this.powers.put(Side.RIGHT, Power.getMin());</b>
 <i>47</i>&nbsp;
-<i>48</i>&nbsp;    @Override
-<i>49</i>&nbsp;    public String getName() {
-<b class="fc"><i>50</i>&nbsp;        return strategy.getName();</b>
-<i>51</i>&nbsp;    }
-<i>52</i>&nbsp;
-<i>53</i>&nbsp;    @Override
-<i>54</i>&nbsp;    public String getInfo() {
-<b class="fc"><i>55</i>&nbsp;        return &quot;Active : &quot; + this.active;</b>
-<i>56</i>&nbsp;    }
-<i>57</i>&nbsp;
-<i>58</i>&nbsp;    @Override
-<i>59</i>&nbsp;    public TileType getType() {
-<b class="fc"><i>60</i>&nbsp;        return TileType.LOGIC_GATE;</b>
-<i>61</i>&nbsp;    }
-<i>62</i>&nbsp;
-<i>63</i>&nbsp;    @Override
-<i>64</i>&nbsp;    public int getPower(Side side) {
-<b class="fc"><i>65</i>&nbsp;        if (outputsPower(side)) return (this.active) ? Power.getMax() : Power.getMin();</b>
-<b class="fc"><i>66</i>&nbsp;        return Power.getMin();</b>
+<b class="fc"><i>48</i>&nbsp;        this.active = strategy.logic(this.powers, this.sides);</b>
+<b class="fc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    public LogicGateStrategy getStrategy() {
+<b class="fc"><i>52</i>&nbsp;        return strategy;</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    public void setStrategy(LogicGateStrategy strategy) {
+<b class="nc"><i>56</i>&nbsp;        this.strategy = strategy;</b>
+<b class="nc"><i>57</i>&nbsp;    }</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    @Override
+<i>60</i>&nbsp;    public String getName() {
+<b class="fc"><i>61</i>&nbsp;        return strategy.getName();</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    @Override
+<i>65</i>&nbsp;    public String getInfo() {
+<b class="nc"><i>66</i>&nbsp;        return &quot;Active : &quot; + this.active;</b>
 <i>67</i>&nbsp;    }
 <i>68</i>&nbsp;
-<i>69</i>&nbsp;    /**
-<i>70</i>&nbsp;     * &lt;h1&gt;Set logic gate status&lt;/h1&gt;
-<i>71</i>&nbsp;     *
-<i>72</i>&nbsp;     * @param status    New logic gate status
-<i>73</i>&nbsp;     */
-<i>74</i>&nbsp;    public void setStatus(boolean status) {
-<b class="fc"><i>75</i>&nbsp;        this.active = status;</b>
-<b class="fc"><i>76</i>&nbsp;    }</b>
-<i>77</i>&nbsp;
-<i>78</i>&nbsp;    /**
-<i>79</i>&nbsp;     * &lt;h1&gt;Triggers a tile update&lt;/h1&gt;
-<i>80</i>&nbsp;     * Checks if logic gate needs to be updated
-<i>81</i>&nbsp;     *
-<i>82</i>&nbsp;     * @param circuit   Circuit where updates are taking place
-<i>83</i>&nbsp;     * @param power     Power received on the update
-<i>84</i>&nbsp;     * @param side      Side from which repeater received an update
-<i>85</i>&nbsp;     * @return  true if repeater was updated, false otherwise
-<i>86</i>&nbsp;     */
-<i>87</i>&nbsp;    @Override
-<i>88</i>&nbsp;    public boolean update(Circuit circuit, int power, Side side) {
-<b class="fc"><i>89</i>&nbsp;        boolean needs_update = Power.differentStates(powers.getOrDefault(side, Power.getMin()), power);</b>
-<b class="fc"><i>90</i>&nbsp;        if (acceptsPower(side) &amp;&amp; needs_update) {</b>
-<b class="fc"><i>91</i>&nbsp;            return onChange(circuit, power, side);</b>
-<i>92</i>&nbsp;        }
-<b class="fc"><i>93</i>&nbsp;        return false;</b>
-<i>94</i>&nbsp;    }
-<i>95</i>&nbsp;
-<i>96</i>&nbsp;    /**
-<i>97</i>&nbsp;     * &lt;h1&gt;Updates the tile&lt;/h1&gt;
-<i>98</i>&nbsp;     * Checks if the update is necessary, updating it if so
-<i>99</i>&nbsp;     *
-<i>100</i>&nbsp;     * @param circuit   Circuit where updates are taking place
-<i>101</i>&nbsp;     * @param power     Power received on the update
-<i>102</i>&nbsp;     * @param side      Side from which repeater received an update
-<i>103</i>&nbsp;     * @return  true if repeater was updated, false otherwise
-<i>104</i>&nbsp;     */
-<i>105</i>&nbsp;    @Override
-<i>106</i>&nbsp;    protected boolean onChange(Circuit circuit, int power, Side side) {
-<b class="fc"><i>107</i>&nbsp;        this.powers.put(side, power);</b>
-<b class="fc"><i>108</i>&nbsp;        boolean old_status = this.active;</b>
-<b class="fc"><i>109</i>&nbsp;        this.setStatus(this.strategy.logic(this.powers, this.sides));</b>
-<b class="fc"><i>110</i>&nbsp;        return this.active != old_status;</b>
-<i>111</i>&nbsp;    }
-<i>112</i>&nbsp;}
+<i>69</i>&nbsp;    @Override
+<i>70</i>&nbsp;    public TileType getType() {
+<b class="fc"><i>71</i>&nbsp;        return TileType.LOGIC_GATE;</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    @Override
+<i>75</i>&nbsp;    public int getPower(Side side) {
+<b class="fc"><i>76</i>&nbsp;        if (outputsPower(side)) return (this.active) ? Power.getMax() : Power.getMin();</b>
+<b class="fc"><i>77</i>&nbsp;        return Power.getMin();</b>
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    /**
+<i>81</i>&nbsp;     * &lt;h1&gt;Set logic gate status&lt;/h1&gt;
+<i>82</i>&nbsp;     *
+<i>83</i>&nbsp;     * @param status    New logic gate status
+<i>84</i>&nbsp;     */
+<i>85</i>&nbsp;    public void setStatus(boolean status) {
+<b class="fc"><i>86</i>&nbsp;        this.active = status;</b>
+<b class="fc"><i>87</i>&nbsp;    }</b>
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    /**
+<i>90</i>&nbsp;     * &lt;h1&gt;Triggers a tile update&lt;/h1&gt;
+<i>91</i>&nbsp;     * Checks if logic gate needs to be updated
+<i>92</i>&nbsp;     *
+<i>93</i>&nbsp;     * @param circuit   Circuit where updates are taking place
+<i>94</i>&nbsp;     * @param power     Power received on the update
+<i>95</i>&nbsp;     * @param side      Side from which repeater received an update
+<i>96</i>&nbsp;     * @return  true if repeater was updated, false otherwise
+<i>97</i>&nbsp;     */
+<i>98</i>&nbsp;    @Override
+<i>99</i>&nbsp;    public boolean update(Circuit circuit, int power, Side side) {
+<b class="fc"><i>100</i>&nbsp;        boolean needs_update = Power.differentStates(powers.getOrDefault(side, Power.getMin()), power);</b>
+<b class="fc"><i>101</i>&nbsp;        if (acceptsPower(side) &amp;&amp; needs_update) {</b>
+<b class="fc"><i>102</i>&nbsp;            return onChange(circuit, power, side);</b>
+<i>103</i>&nbsp;        }
+<b class="fc"><i>104</i>&nbsp;        return false;</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * &lt;h1&gt;Updates the tile&lt;/h1&gt;
+<i>109</i>&nbsp;     * Checks if the update is necessary, updating it if so
+<i>110</i>&nbsp;     *
+<i>111</i>&nbsp;     * @param circuit   Circuit where updates are taking place
+<i>112</i>&nbsp;     * @param power     Power received on the update
+<i>113</i>&nbsp;     * @param side      Side from which repeater received an update
+<i>114</i>&nbsp;     * @return  true if repeater was updated, false otherwise
+<i>115</i>&nbsp;     */
+<i>116</i>&nbsp;    @Override
+<i>117</i>&nbsp;    public boolean onChange(Circuit circuit, int power, Side side) {
+<b class="fc"><i>118</i>&nbsp;        this.powers.put(side, power);</b>
+<b class="fc"><i>119</i>&nbsp;        boolean old_status = this.active;</b>
+<b class="fc"><i>120</i>&nbsp;        this.setStatus(this.strategy.logic(this.powers, this.sides));</b>
+<b class="fc"><i>121</i>&nbsp;        return this.active != old_status;</b>
+<i>122</i>&nbsp;    }
+<i>123</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

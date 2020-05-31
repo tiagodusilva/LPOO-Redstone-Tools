@@ -42,26 +42,26 @@
   <td class="name">InteractionCommand</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 5)
+    (7/ 7)
   </span>
 </td>
 </tr>
@@ -80,20 +80,20 @@
 <i>6</i>&nbsp;
 <i>7</i>&nbsp;public class InteractionCommand implements Command {
 <i>8</i>&nbsp;
-<i>9</i>&nbsp;    private Position position;
-<i>10</i>&nbsp;    private CircuitController circuitController;
-<i>11</i>&nbsp;    private Circuit circuit;
+<i>9</i>&nbsp;    private final Position position;
+<i>10</i>&nbsp;    private final CircuitController circuitController;
+<i>11</i>&nbsp;    private final Circuit circuit;
 <i>12</i>&nbsp;
-<b class="nc"><i>13</i>&nbsp;    public InteractionCommand(CircuitController circuitController, Circuit circuit, Position position) {</b>
-<b class="nc"><i>14</i>&nbsp;        this.circuitController = circuitController;</b>
-<b class="nc"><i>15</i>&nbsp;        this.circuit = circuit;</b>
-<b class="nc"><i>16</i>&nbsp;        this.position = position;</b>
-<i>17</i>&nbsp;    }
+<b class="fc"><i>13</i>&nbsp;    public InteractionCommand(CircuitController circuitController, Circuit circuit, Position position) {</b>
+<b class="fc"><i>14</i>&nbsp;        this.circuitController = circuitController;</b>
+<b class="fc"><i>15</i>&nbsp;        this.circuit = circuit;</b>
+<b class="fc"><i>16</i>&nbsp;        this.position = position;</b>
+<b class="fc"><i>17</i>&nbsp;    }</b>
 <i>18</i>&nbsp;
 <i>19</i>&nbsp;    @Override
 <i>20</i>&nbsp;    public void execute() {
-<b class="nc"><i>21</i>&nbsp;        circuitController.interact(circuit, position);</b>
-<i>22</i>&nbsp;    }
+<b class="fc"><i>21</i>&nbsp;        circuitController.interact(circuit, position);</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
 <i>23</i>&nbsp;
 <i>24</i>&nbsp;}
 </div>
@@ -101,7 +101,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

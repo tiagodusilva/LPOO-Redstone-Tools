@@ -1,7 +1,6 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.MainController;
-import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.controller.command.EnterStateCommand;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.model.circuit.Circuit;

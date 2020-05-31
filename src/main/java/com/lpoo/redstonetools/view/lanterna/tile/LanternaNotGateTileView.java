@@ -1,9 +1,6 @@
 package com.lpoo.redstonetools.view.lanterna.tile;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
-import com.lpoo.redstonetools.model.tile.RepeaterTile;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Power;
 

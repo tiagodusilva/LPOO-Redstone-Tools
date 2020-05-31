@@ -5,92 +5,94 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class WireTileTest {
 
     private WireTile wire;
 
-    private Position expectedWirePosition;
-
-    @Before
+    @BeforeEach
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
 
-        expectedWirePosition = Mockito.mock(Position.class);
-        Mockito.when(expectedWirePosition.getX()).thenReturn(1);
-        Mockito.when(expectedWirePosition.getY()).thenReturn(2);
-
         this.wire = new WireTile(position);
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testWire() {
-        Assert.assertEquals(expectedWirePosition.getX(), wire.getPosition().getX());
-        Assert.assertEquals(expectedWirePosition.getY(), wire.getPosition().getY());
-        Assert.assertEquals("wire", wire.getName());
-        Assert.assertEquals("Power : " + Power.getMin(), wire.getInfo());
-        Assert.assertEquals(TileType.WIRE, wire.getType());
-        Assert.assertTrue(wire.isWire());
+        Assertions.assertEquals(1, wire.getPosition().getX());
+        Assertions.assertEquals(2, wire.getPosition().getY());
+        Assertions.assertEquals(TileType.WIRE, wire.getType());
+        Assertions.assertTrue(wire.isWire());
+        Assertions.assertFalse(wire.isTickedTile());
     }
 
     @Test
-    public void testWirePower() {
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
+    public void testPower() {
         for (Side side : Side.values()) {
-            Assert.assertTrue(wire.acceptsPower(side));
-            Assert.assertTrue(wire.outputsPower(side));
-            Assert.assertEquals(Power.getMin(), wire.getPower(side));
+            Assertions.assertTrue(wire.acceptsPower(side));
+            Assertions.assertTrue(wire.outputsPower(side));
+            Assertions.assertEquals(Power.getMin(), wire.getPower(side));
         }
 
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(wire.onChange(circuit, Power.getMax(), Side.UP));
+        Assertions.assertTrue(wire.onChange(circuit, Power.getMax(), Side.UP));
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.getMax(), wire.getPower(side));
+            Assertions.assertEquals(Power.getMax(), wire.getPower(side));
         }
 
-        Assert.assertTrue(wire.onChange(circuit, Power.decrease(Power.getMax()), Side.LEFT));
+        Assertions.assertTrue(wire.onChange(circuit, Power.decrease(Power.getMax()), Side.LEFT));
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.decrease(Power.getMax()), wire.getPower(side));
+            Assertions.assertEquals(Power.decrease(Power.getMax()), wire.getPower(side));
         }
     }
 
     @Test
-    public void testWireUpdate() {
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
+    public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.getMin());
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.getMin());
 
-        Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
-        Assert.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
-        Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), wire.getPower(Side.UP));
+        Assertions.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
+        Assertions.assertEquals(Power.getMin(), wire.getPower(Side.UP));
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.getMax());
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.getMax());
 
-        Assert.assertEquals(Power.getMin(), wire.getPower(Side.UP));
-        Assert.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
-        Assert.assertEquals(Power.getMax(), wire.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), wire.getPower(Side.UP));
+        Assertions.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
+        Assertions.assertEquals(Power.getMax(), wire.getPower(Side.UP));
 
-        Assert.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
-        Assert.assertEquals(Power.getMax(), wire.getPower(Side.UP));
+        Assertions.assertFalse(wire.update(circuit, Power.getMin(), Side.UP));
+        Assertions.assertEquals(Power.getMax(), wire.getPower(Side.UP));
 
-        Mockito.when(circuit.getSurroundingPower(wire.getPosition())).thenReturn(Power.decrease(Power.getMax()));
+        Mockito.when(circuit.getSurroundingWirePower(wire.getPosition())).thenReturn(Power.decrease(Power.getMax()));
 
-        Assert.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
-        Assert.assertEquals(Power.decrease(Power.getMax()), wire.getPower(Side.UP));
+        Assertions.assertTrue(wire.update(circuit, Power.getMin(), Side.UP));
+        Assertions.assertEquals(Power.decrease(Power.getMax()), wire.getPower(Side.UP));
     }
 
     @Test
-    public void testWireConnections() {
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
+    public void testConnections() {
         for (Side side : Side.values()) {
-            Assert.assertFalse(wire.isConnected(side));
+            Assertions.assertFalse(wire.isConnected(side));
         }
 
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -102,10 +104,9 @@ public class WireTileTest {
 
         wire.updateConnections(circuit);
 
-        Assert.assertTrue(wire.isConnected(Side.UP));
-        Assert.assertFalse(wire.isConnected(Side.DOWN));
-        Assert.assertTrue(wire.isConnected(Side.RIGHT));
-        Assert.assertFalse(wire.isConnected(Side.LEFT));
+        Assertions.assertTrue(wire.isConnected(Side.UP));
+        Assertions.assertFalse(wire.isConnected(Side.DOWN));
+        Assertions.assertTrue(wire.isConnected(Side.RIGHT));
+        Assertions.assertFalse(wire.isConnected(Side.LEFT));
     }
-
 }

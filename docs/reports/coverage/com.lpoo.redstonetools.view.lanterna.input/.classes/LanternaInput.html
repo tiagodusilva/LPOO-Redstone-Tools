@@ -39,18 +39,18 @@
   <td class="name">LanternaInput</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    97.1%
   </span>
   <span class="absValue">
-    (0/ 68)
+    (101/ 104)
   </span>
 </td>
 </tr>
@@ -58,37 +58,82 @@
     <td class="name">LanternaInput$1</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$0C3qONnM</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$3CIWS8IK</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$94I6Z8az</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$B1pvtPjW</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$BSjNpBj4</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$BZdkErDL</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$cJ9fYer8</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$CJC2mpzd</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$F2pHcgig</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$fp8bxGpS</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$ldlFTWXT</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$Q5Ckti2L</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$u238HKHZ</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaInput$MockitoMock$421703180$auxiliary$y8eCEnY4</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 3)
+    (3/ 3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    97.1%
   </span>
   <span class="absValue">
-    (0/ 69)
+    (102/ 105)
   </span>
 </td>
 </tr>
@@ -101,145 +146,193 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.input;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.googlecode.lanterna.input.KeyStroke;
-<i>4</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
-<i>5</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
-<i>6</i>&nbsp;import com.lpoo.redstonetools.controller.event.InputEvent;
-<i>7</i>&nbsp;import com.lpoo.redstonetools.model.tile.*;
-<i>8</i>&nbsp;import com.lpoo.redstonetools.model.tile.strategy.*;
-<i>9</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
-<i>10</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
-<i>11</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
-<i>12</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
-<i>13</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;import java.io.IOException;
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;public class LanternaInput extends Thread {
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    Screen screen;
-<i>20</i>&nbsp;    LanternaCircuitView lanternaCircuitView;
-<i>21</i>&nbsp;
-<b class="nc"><i>22</i>&nbsp;    public LanternaInput(LanternaCircuitView lanternaCircuitView) {</b>
-<b class="nc"><i>23</i>&nbsp;        this.lanternaCircuitView = lanternaCircuitView;</b>
-<i>24</i>&nbsp;    }
-<i>25</i>&nbsp;
-<i>26</i>&nbsp;    @Override
-<i>27</i>&nbsp;    public void run() {
-<b class="nc"><i>28</i>&nbsp;        super.run();</b>
+<i>4</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.controller.event.InputEvent;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.tile.*;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.tile.strategy.*;
+<i>8</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>9</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
+<i>10</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
+<i>11</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
+<i>12</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.io.IOException;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;public class LanternaInput extends Thread {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    LanternaCircuitView lanternaCircuitView;
+<i>19</i>&nbsp;
+<b class="fc"><i>20</i>&nbsp;    public LanternaInput(LanternaCircuitView lanternaCircuitView) {</b>
+<b class="fc"><i>21</i>&nbsp;        this.lanternaCircuitView = lanternaCircuitView;</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Override
+<i>25</i>&nbsp;    public void run() {
+<b class="fc"><i>26</i>&nbsp;        boolean moveView = false;</b>
+<i>27</i>&nbsp;
+<b class="fc"><i>28</i>&nbsp;        while (!isInterrupted()) {</b>
 <i>29</i>&nbsp;
-<b class="nc"><i>30</i>&nbsp;        while (!isInterrupted()) {</b>
-<i>31</i>&nbsp;
-<b class="nc"><i>32</i>&nbsp;            KeyStroke key = null;</b>
-<i>33</i>&nbsp;            try {
-<b class="nc"><i>34</i>&nbsp;                key = lanternaCircuitView.getScreen().readInput();</b>
-<b class="nc"><i>35</i>&nbsp;                switch (key.getKeyType()) {</b>
-<i>36</i>&nbsp;                    case Character:
-<b class="nc"><i>37</i>&nbsp;                        switch (key.getCharacter()) {</b>
-<i>38</i>&nbsp;                            case &#39;w&#39;:
-<b class="nc"><i>39</i>&nbsp;                                new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();</b>
-<b class="nc"><i>40</i>&nbsp;                                break;</b>
-<i>41</i>&nbsp;                            case &#39;a&#39;:
-<b class="nc"><i>42</i>&nbsp;                                new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();</b>
-<b class="nc"><i>43</i>&nbsp;                                break;</b>
-<i>44</i>&nbsp;                            case &#39;s&#39;:
-<b class="nc"><i>45</i>&nbsp;                                new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();</b>
-<b class="nc"><i>46</i>&nbsp;                                break;</b>
-<i>47</i>&nbsp;                            case &#39;d&#39;:
-<b class="nc"><i>48</i>&nbsp;                                new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();</b>
-<b class="nc"><i>49</i>&nbsp;                                break;</b>
-<i>50</i>&nbsp;                            case &#39;t&#39;:
-<b class="nc"><i>51</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));</b>
-<b class="nc"><i>52</i>&nbsp;                                break;</b>
-<i>53</i>&nbsp;                            case &#39;q&#39;:
-<b class="nc"><i>54</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_LEFT, lanternaCircuitView.getSelectedTile().clone()));</b>
-<b class="nc"><i>55</i>&nbsp;                                break;</b>
-<i>56</i>&nbsp;                            case &#39;e&#39;:
-<b class="nc"><i>57</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_RIGHT, lanternaCircuitView.getSelectedTile().clone()));</b>
-<b class="nc"><i>58</i>&nbsp;                                break;</b>
-<i>59</i>&nbsp;                            case &#39;1&#39;:
-<b class="nc"><i>60</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new WireTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>61</i>&nbsp;                                break;</b>
-<i>62</i>&nbsp;                            case &#39;2&#39;:
-<b class="nc"><i>63</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ConstantSourceTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>64</i>&nbsp;                                break;</b>
-<i>65</i>&nbsp;                            case &#39;3&#39;:
-<b class="nc"><i>66</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LeverTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>67</i>&nbsp;                                break;</b>
-<i>68</i>&nbsp;                            case &#39;4&#39;:
-<b class="nc"><i>69</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new RepeaterTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>70</i>&nbsp;                                break;</b>
-<i>71</i>&nbsp;                            case &#39;6&#39;:
-<b class="nc"><i>72</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ANDGateStrategy())));</b>
-<b class="nc"><i>73</i>&nbsp;                                break;</b>
-<i>74</i>&nbsp;                            case &#39;7&#39;:
-<b class="nc"><i>75</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ORGateStrategy())));</b>
-<b class="nc"><i>76</i>&nbsp;                                break;</b>
-<i>77</i>&nbsp;                            case &#39;8&#39;:
-<b class="nc"><i>78</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NANDGateStrategy())));</b>
-<b class="nc"><i>79</i>&nbsp;                                break;</b>
-<i>80</i>&nbsp;                            case &#39;9&#39;:
-<b class="nc"><i>81</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NORGateStrategy())));</b>
-<b class="nc"><i>82</i>&nbsp;                                break;</b>
-<i>83</i>&nbsp;                            case &#39;0&#39;:
-<b class="nc"><i>84</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XORGateStrategy())));</b>
-<b class="nc"><i>85</i>&nbsp;                                break;</b>
-<i>86</i>&nbsp;                            case &#39;\&#39;&#39;:
-<b class="nc"><i>87</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XNORGateStrategy())));</b>
-<b class="nc"><i>88</i>&nbsp;                                break;</b>
-<i>89</i>&nbsp;                            case &#39;5&#39;:
-<b class="nc"><i>90</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NotGateTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>91</i>&nbsp;                                break;</b>
-<i>92</i>&nbsp;                            case &#39;p&#39;:
-<b class="nc"><i>93</i>&nbsp;                                new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();</b>
-<b class="nc"><i>94</i>&nbsp;                                break;</b>
-<i>95</i>&nbsp;                            default:
-<b class="nc"><i>96</i>&nbsp;                                break;</b>
-<i>97</i>&nbsp;                        }
-<i>98</i>&nbsp;                        break;
-<i>99</i>&nbsp;                    case ArrowUp:
-<b class="nc"><i>100</i>&nbsp;                        new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();</b>
-<b class="nc"><i>101</i>&nbsp;                        break;</b>
-<i>102</i>&nbsp;                    case ArrowLeft:
-<b class="nc"><i>103</i>&nbsp;                        new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();</b>
-<b class="nc"><i>104</i>&nbsp;                        break;</b>
-<i>105</i>&nbsp;                    case ArrowDown:
-<b class="nc"><i>106</i>&nbsp;                        new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();</b>
-<b class="nc"><i>107</i>&nbsp;                        break;</b>
-<i>108</i>&nbsp;                    case ArrowRight:
-<b class="nc"><i>109</i>&nbsp;                        new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();</b>
-<b class="nc"><i>110</i>&nbsp;                        break;</b>
-<i>111</i>&nbsp;                    case Enter:
-<b class="nc"><i>112</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));</b>
-<b class="nc"><i>113</i>&nbsp;                        break;</b>
-<i>114</i>&nbsp;                    case Insert:
-<b class="nc"><i>115</i>&nbsp;                        break;</b>
-<i>116</i>&nbsp;                    case Delete:
-<b class="nc"><i>117</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));</b>
-<b class="nc"><i>118</i>&nbsp;                        break;</b>
-<i>119</i>&nbsp;                    case Escape:
-<i>120</i>&nbsp;                    case EOF:
-<b class="nc"><i>121</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.QUIT, null));</b>
-<b class="nc"><i>122</i>&nbsp;                        break;</b>
-<i>123</i>&nbsp;                    default:
-<i>124</i>&nbsp;                        break;
-<i>125</i>&nbsp;                }
-<b class="nc"><i>126</i>&nbsp;            } catch (IOException e) {</b>
-<b class="nc"><i>127</i>&nbsp;                e.printStackTrace();</b>
-<i>128</i>&nbsp;            }
-<b class="nc"><i>129</i>&nbsp;            catch (RuntimeException e) {</b>
-<b class="nc"><i>130</i>&nbsp;                break;</b>
-<b class="nc"><i>131</i>&nbsp;            }</b>
-<i>132</i>&nbsp;
-<b class="nc"><i>133</i>&nbsp;        }</b>
-<i>134</i>&nbsp;
-<i>135</i>&nbsp;    }
-<i>136</i>&nbsp;}
+<b class="fc"><i>30</i>&nbsp;            if (lanternaCircuitView.inMenu()) {</b>
+<b class="nc"><i>31</i>&nbsp;                Thread.yield();</b>
+<b class="nc"><i>32</i>&nbsp;                continue;</b>
+<i>33</i>&nbsp;            }
+<i>34</i>&nbsp;
+<b class="fc"><i>35</i>&nbsp;            KeyStroke key = null;</b>
+<i>36</i>&nbsp;            try {
+<b class="fc"><i>37</i>&nbsp;                key = lanternaCircuitView.getScreen().readInput();</b>
+<b class="fc"><i>38</i>&nbsp;                switch (key.getKeyType()) {</b>
+<i>39</i>&nbsp;                    case Character:
+<b class="fc"><i>40</i>&nbsp;                        switch (key.getCharacter()) {</b>
+<i>41</i>&nbsp;                            case &#39;z&#39;:
+<b class="fc"><i>42</i>&nbsp;                                moveView = !moveView;</b>
+<b class="fc"><i>43</i>&nbsp;                                break;</b>
+<i>44</i>&nbsp;                            case &#39;+&#39;:
+<b class="fc"><i>45</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));</b>
+<b class="fc"><i>46</i>&nbsp;                                break;</b>
+<i>47</i>&nbsp;                            case &#39;q&#39;:
+<b class="fc"><i>48</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_LEFT, lanternaCircuitView.getSelectedTile().clone()));</b>
+<b class="fc"><i>49</i>&nbsp;                                break;</b>
+<i>50</i>&nbsp;                            case &#39;e&#39;:
+<b class="fc"><i>51</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ROTATE_RIGHT, lanternaCircuitView.getSelectedTile().clone()));</b>
+<b class="fc"><i>52</i>&nbsp;                                break;</b>
+<i>53</i>&nbsp;                            case &#39;w&#39;:
+<b class="fc"><i>54</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new WireTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>55</i>&nbsp;                                break;</b>
+<i>56</i>&nbsp;                            case &#39;x&#39;:
+<b class="fc"><i>57</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new CrossWireTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>58</i>&nbsp;                                break;</b>
+<i>59</i>&nbsp;                            case &#39;s&#39;:
+<b class="fc"><i>60</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ConstantSourceTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>61</i>&nbsp;                                break;</b>
+<i>62</i>&nbsp;                            case &#39;l&#39;:
+<b class="fc"><i>63</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LeverTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>64</i>&nbsp;                                break;</b>
+<i>65</i>&nbsp;                            case &#39;r&#39;:
+<b class="fc"><i>66</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new RepeaterTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>67</i>&nbsp;                                break;</b>
+<i>68</i>&nbsp;                            case &#39;1&#39;:
+<b class="fc"><i>69</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NotGateTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>70</i>&nbsp;                                break;</b>
+<i>71</i>&nbsp;                            case &#39;2&#39;:
+<b class="fc"><i>72</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ANDGateStrategy())));</b>
+<b class="fc"><i>73</i>&nbsp;                                break;</b>
+<i>74</i>&nbsp;                            case &#39;3&#39;:
+<b class="fc"><i>75</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new ORGateStrategy())));</b>
+<b class="fc"><i>76</i>&nbsp;                                break;</b>
+<i>77</i>&nbsp;                            case &#39;4&#39;:
+<b class="fc"><i>78</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NANDGateStrategy())));</b>
+<b class="fc"><i>79</i>&nbsp;                                break;</b>
+<i>80</i>&nbsp;                            case &#39;5&#39;:
+<b class="fc"><i>81</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new NORGateStrategy())));</b>
+<b class="fc"><i>82</i>&nbsp;                                break;</b>
+<i>83</i>&nbsp;                            case &#39;6&#39;:
+<b class="fc"><i>84</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XORGateStrategy())));</b>
+<b class="fc"><i>85</i>&nbsp;                                break;</b>
+<i>86</i>&nbsp;                            case &#39;7&#39;:
+<b class="fc"><i>87</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new LogicGateTile(lanternaCircuitView.getSelectedTile().clone(), new XNORGateStrategy())));</b>
+<b class="fc"><i>88</i>&nbsp;                                break;</b>
+<i>89</i>&nbsp;                            case &#39;c&#39;:
+<b class="fc"><i>90</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new ComparatorTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>91</i>&nbsp;                                break;</b>
+<i>92</i>&nbsp;                            case &#39;n&#39;:
+<b class="fc"><i>93</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new CounterTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>94</i>&nbsp;                                break;</b>
+<i>95</i>&nbsp;                            case &#39;t&#39;:
+<b class="fc"><i>96</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new TimerTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>97</i>&nbsp;                                break;</b>
+<i>98</i>&nbsp;                            case &#39;i&#39;:
+<b class="fc"><i>99</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new IOTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>100</i>&nbsp;                                break;</b>
+<i>101</i>&nbsp;                            case &#39;d&#39;:
+<b class="fc"><i>102</i>&nbsp;                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new DigitTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>103</i>&nbsp;                                break;</b>
+<i>104</i>&nbsp;                            case &#39;p&#39;:
+<b class="fc"><i>105</i>&nbsp;                                new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();</b>
+<b class="fc"><i>106</i>&nbsp;                                break;</b>
+<i>107</i>&nbsp;                            case &#39;g&#39;:
+<b class="fc"><i>108</i>&nbsp;                                lanternaCircuitView.showSaveCircuitMenu();</b>
+<b class="fc"><i>109</i>&nbsp;                                break;</b>
+<i>110</i>&nbsp;                            case &#39;o&#39;:
+<b class="fc"><i>111</i>&nbsp;                                lanternaCircuitView.showInsertCustomMenu(lanternaCircuitView.getSelectedTile().clone());</b>
+<b class="fc"><i>112</i>&nbsp;                                break;</b>
+<i>113</i>&nbsp;                            case &#39;h&#39;:
+<b class="fc"><i>114</i>&nbsp;                                lanternaCircuitView.showHelpMenu();</b>
+<b class="fc"><i>115</i>&nbsp;                                break;</b>
+<i>116</i>&nbsp;                            case &#39;f&#39;:
+<b class="fc"><i>117</i>&nbsp;                                lanternaCircuitView.showTileInfo(lanternaCircuitView.getSelectedTile().clone());</b>
+<b class="fc"><i>118</i>&nbsp;                                break;</b>
+<i>119</i>&nbsp;                            case &#39;m&#39;:
+<b class="fc"><i>120</i>&nbsp;                                lanternaCircuitView.showSetDelayMenu(lanternaCircuitView.getSelectedTile().clone());</b>
+<b class="fc"><i>121</i>&nbsp;                                break;</b>
+<i>122</i>&nbsp;                            case &#39;a&#39;:
+<b class="fc"><i>123</i>&nbsp;                                lanternaCircuitView.toggleAutoAdvance();</b>
+<b class="fc"><i>124</i>&nbsp;                                break;</b>
+<i>125</i>&nbsp;                            case &#39;0&#39;:
+<b class="fc"><i>126</i>&nbsp;                                lanternaCircuitView.showInsertGateMenu(lanternaCircuitView.getSelectedTile().clone());</b>
+<b class="fc"><i>127</i>&nbsp;                                break;</b>
+<i>128</i>&nbsp;                            default:
+<b class="nc"><i>129</i>&nbsp;                                break;</b>
+<i>130</i>&nbsp;                        }
+<i>131</i>&nbsp;                        break;
+<i>132</i>&nbsp;                    case ArrowUp:
+<b class="fc"><i>133</i>&nbsp;                        if (moveView)</b>
+<b class="fc"><i>134</i>&nbsp;                            new MoveViewWindowCommand(lanternaCircuitView, Side.DOWN).execute();</b>
+<i>135</i>&nbsp;                        else
+<b class="fc"><i>136</i>&nbsp;                            new MoveSelectionCommand(lanternaCircuitView, Side.UP).execute();</b>
+<b class="fc"><i>137</i>&nbsp;                        break;</b>
+<i>138</i>&nbsp;                    case ArrowLeft:
+<b class="fc"><i>139</i>&nbsp;                        if (moveView)</b>
+<b class="fc"><i>140</i>&nbsp;                            new MoveViewWindowCommand(lanternaCircuitView, Side.RIGHT).execute();</b>
+<i>141</i>&nbsp;                        else
+<b class="fc"><i>142</i>&nbsp;                            new MoveSelectionCommand(lanternaCircuitView, Side.LEFT).execute();</b>
+<b class="fc"><i>143</i>&nbsp;                        break;</b>
+<i>144</i>&nbsp;                    case ArrowDown:
+<b class="fc"><i>145</i>&nbsp;                        if (moveView)</b>
+<b class="fc"><i>146</i>&nbsp;                            new MoveViewWindowCommand(lanternaCircuitView, Side.UP).execute();</b>
+<i>147</i>&nbsp;                        else
+<b class="fc"><i>148</i>&nbsp;                            new MoveSelectionCommand(lanternaCircuitView, Side.DOWN).execute();</b>
+<b class="fc"><i>149</i>&nbsp;                        break;</b>
+<i>150</i>&nbsp;                    case ArrowRight:
+<b class="fc"><i>151</i>&nbsp;                        if (moveView)</b>
+<b class="fc"><i>152</i>&nbsp;                            new MoveViewWindowCommand(lanternaCircuitView, Side.LEFT).execute();</b>
+<i>153</i>&nbsp;                        else
+<b class="fc"><i>154</i>&nbsp;                            new MoveSelectionCommand(lanternaCircuitView, Side.RIGHT).execute();</b>
+<b class="fc"><i>155</i>&nbsp;                        break;</b>
+<i>156</i>&nbsp;                    case Enter:
+<b class="fc"><i>157</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.INTERACT, lanternaCircuitView.getSelectedTile().clone()));</b>
+<b class="fc"><i>158</i>&nbsp;                        break;</b>
+<i>159</i>&nbsp;                    case Insert:
+<b class="fc"><i>160</i>&nbsp;                        lanternaCircuitView.showInsertMenu(lanternaCircuitView.getSelectedTile().clone());</b>
+<b class="fc"><i>161</i>&nbsp;                        break;</b>
+<i>162</i>&nbsp;                    case Delete:
+<b class="fc"><i>163</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new NullTile(lanternaCircuitView.getSelectedTile().clone())));</b>
+<b class="fc"><i>164</i>&nbsp;                        break;</b>
+<i>165</i>&nbsp;                    case Escape:
+<b class="fc"><i>166</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.ENTER_STATE, null));</b>
+<b class="fc"><i>167</i>&nbsp;                        break;</b>
+<i>168</i>&nbsp;                    case EOF:
+<b class="fc"><i>169</i>&nbsp;                        lanternaCircuitView.pushEvent(new Event(InputEvent.QUIT, null));</b>
+<b class="fc"><i>170</i>&nbsp;                        break;</b>
+<i>171</i>&nbsp;                    default:
+<i>172</i>&nbsp;                        break;
+<i>173</i>&nbsp;                }
+<b class="fc"><i>174</i>&nbsp;            } catch (IOException e) {</b>
+<b class="fc"><i>175</i>&nbsp;                e.printStackTrace();</b>
+<i>176</i>&nbsp;            }
+<b class="fc"><i>177</i>&nbsp;            catch (RuntimeException e) {</b>
+<b class="fc"><i>178</i>&nbsp;                break;</b>
+<b class="fc"><i>179</i>&nbsp;            }</b>
+<i>180</i>&nbsp;
+<b class="fc"><i>181</i>&nbsp;        }</b>
+<i>182</i>&nbsp;
+<b class="fc"><i>183</i>&nbsp;    }</b>
+<i>184</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

@@ -45,7 +45,7 @@ public abstract class Power {
      * @return True when power == getMin()
      *      False otherwise
      */
-    public static boolean isOff(int value) { return value == getMin(); }
+    public static boolean isOff(int value) { return value <= getMin(); }
 
     /**
      *<h1>Compares if a power is On and the other is Off</h1>

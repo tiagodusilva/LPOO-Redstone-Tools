@@ -5,11 +5,11 @@ import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
 import com.lpoo.redstonetools.model.tile.*;
 import com.lpoo.redstonetools.model.tile.strategy.*;
+import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
 import com.lpoo.redstonetools.view.lanterna.command.LanternaToggleShowPowerCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveSelectionCommand;
 import com.lpoo.redstonetools.view.lanterna.command.MoveViewWindowCommand;
-import com.lpoo.redstonetools.model.utils.Side;
-import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
 
 import java.io.IOException;
 
@@ -23,8 +23,6 @@ public class LanternaInput extends Thread {
 
     @Override
     public void run() {
-        super.run();
-
         boolean moveView = false;
 
         while (!isInterrupted()) {
@@ -100,6 +98,9 @@ public class LanternaInput extends Thread {
                             case 'i':
                                 lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new IOTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
+                            case 'd':
+                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new DigitTile(lanternaCircuitView.getSelectedTile().clone())));
+                                break;
                             case 'p':
                                 new LanternaToggleShowPowerCommand(lanternaCircuitView).execute();
                                 break;
@@ -123,9 +124,6 @@ public class LanternaInput extends Thread {
                                 break;
                             case '0':
                                 lanternaCircuitView.showInsertGateMenu(lanternaCircuitView.getSelectedTile().clone());
-                                break;
-                            case 'd':
-                                lanternaCircuitView.pushEvent(new Event(InputEvent.ADD_TILE, new DigitTile(lanternaCircuitView.getSelectedTile().clone())));
                                 break;
                             default:
                                 break;

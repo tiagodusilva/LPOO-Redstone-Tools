@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: LanternaConstantSourceTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,82 @@
   <td class="name">LanternaConstantSourceTileView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/ 4)
+    (5/ 5)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$3COgNfyz</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$5Gucvqg5</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$d1Zb5c7c</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$dsHz1EiR</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$eI4loYuS</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$IVRJFG0E</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$jpCSkMP8</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$KTS40C84</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$LKIFfZDr</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$sMglJuxM</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$smIFuOvI</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$t1FrUks7</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaConstantSourceTileView$MockitoMock$340161463$auxiliary$uIe0zrZ8</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -74,30 +123,26 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.googlecode.lanterna.TextColor;
-<i>4</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
-<i>5</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
-<i>6</i>&nbsp;import com.lpoo.redstonetools.model.tile.ConstantSourceTile;
-<i>7</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
-<i>8</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
-<i>9</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
-<i>10</i>&nbsp;
-<b class="nc"><i>11</i>&nbsp;public class LanternaConstantSourceTileView extends LanternaTileView {</b>
+<i>3</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>6</i>&nbsp;
+<b class="fc"><i>7</i>&nbsp;public class LanternaConstantSourceTileView extends LanternaTileView {</b>
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    @Override
+<i>10</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<b class="fc"><i>11</i>&nbsp;        renderFrame(graphics, column, row);</b>
 <i>12</i>&nbsp;
-<i>13</i>&nbsp;    @Override
-<i>14</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
-<b class="nc"><i>15</i>&nbsp;        renderFrame(graphics, column, row);</b>
-<i>16</i>&nbsp;
-<b class="nc"><i>17</i>&nbsp;        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));</b>
-<b class="nc"><i>18</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39;\u0424&#39;);</b>
-<i>19</i>&nbsp;    }
-<i>20</i>&nbsp;}
+<b class="fc"><i>13</i>&nbsp;        graphics.setForegroundColor(getPowerColor(Power.getMax()));</b>
+<b class="fc"><i>14</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39;\u0424&#39;);</b>
+<b class="fc"><i>15</i>&nbsp;    }</b>
+<i>16</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

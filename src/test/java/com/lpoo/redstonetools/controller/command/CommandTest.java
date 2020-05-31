@@ -6,12 +6,14 @@ import com.lpoo.redstonetools.controller.state.State;
 import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
-import org.junit.Test;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class CommandTest {
-
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testAddTileCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -25,6 +27,8 @@ public class CommandTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testRotateRightCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -38,6 +42,8 @@ public class CommandTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testRotateLeftCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -51,6 +57,8 @@ public class CommandTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testInteractionCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -64,6 +72,8 @@ public class CommandTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testEnterStateCommand() {
         State state = Mockito.mock(State.class);
         MainController controller = Mockito.mock(MainController.class);
@@ -76,6 +86,8 @@ public class CommandTest {
     }
 
     @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testAdvanceTickCommand() {
         CircuitController controller = Mockito.mock(CircuitController.class);
         Circuit circuit = Mockito.mock(Circuit.class);
@@ -85,5 +97,20 @@ public class CommandTest {
         command.execute();
 
         Mockito.verify(controller, Mockito.times(1)).advanceTick(circuit);
+    }
+
+    @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
+    public void testSetDelayCommand() {
+        CircuitController controller = Mockito.mock(CircuitController.class);
+        Circuit circuit = Mockito.mock(Circuit.class);
+        Position position = Mockito.mock(Position.class);
+
+        SetDelayCommand command = new SetDelayCommand(controller, circuit, position, 6L);
+
+        command.execute();
+
+        Mockito.verify(controller, Mockito.times(1)).setDelay(circuit, position, 6L);
     }
 }

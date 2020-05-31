@@ -4,15 +4,18 @@ import com.lpoo.redstonetools.model.Model;
 import com.lpoo.redstonetools.model.tile.IOTile;
 import com.lpoo.redstonetools.model.tile.NullTile;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.utils.*;
+import com.lpoo.redstonetools.model.utils.Position;
+import com.lpoo.redstonetools.model.utils.Power;
+import com.lpoo.redstonetools.model.utils.Side;
+import com.lpoo.redstonetools.model.utils.TileType;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.io.Serializable;
 
 /**
  *  <h1>Circuit model class</h1>
@@ -132,7 +135,7 @@ public class Circuit extends Tile implements Model, Serializable {
 
     /**
      * <h1>Sets the timestamp of the circuit</h1>
-     * @param timestamp
+     * @param timestamp     Time circuit was last loaded
      */
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
@@ -313,6 +316,8 @@ public class Circuit extends Tile implements Model, Serializable {
      * Gets the maximum power level received from the neighbour wires
      *
      * @param position  Position of the tile to check surroundings
+     * @param side      Side to get power from
+     *
      * @return  Maximum power level in the neighbourhood
      */
     public int getSurroundingWirePower(Position position, Side side) {
@@ -419,7 +424,7 @@ public class Circuit extends Tile implements Model, Serializable {
             if (toReplace.getType() == TileType.IO) return false;
 
             ioTiles.remove(previous, position);
-            ioTiles.put(side, position);
+            setIO(side, position);
         }
         return true;
     }
@@ -604,18 +609,5 @@ public class Circuit extends Tile implements Model, Serializable {
         Tile tile = getIO(side);
         boolean needs_update = tile.getPower(side) != power;
         return acceptsPower(side) && needs_update;
-    }
-
-    /**
-     * <h1>Updates the tile</h1>
-     *
-     * @param circuit   Outer circuit where updates are taking place
-     * @param power     Power received on the update
-     * @param side      Side from which inner circuit received an update
-     * @return  false
-     */
-    @Override
-    public boolean onChange(Circuit circuit, int power, Side side) {
-        return false;
     }
 }
