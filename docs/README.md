@@ -100,6 +100,7 @@ The welcoming screen.
 It is via the menu that you can create a new circuit or load existing circuits.
 
 ### Screenshots
+TODO: UPDOOT ALL OF THIS
 #### Lanterna Menu
 ![Lanterna Menu Screenshot](./images/screenshots/lanterna/LanternaMenu.png)
 

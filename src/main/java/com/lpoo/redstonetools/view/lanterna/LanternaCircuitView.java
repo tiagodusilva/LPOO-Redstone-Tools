@@ -210,6 +210,7 @@ public class LanternaCircuitView extends CircuitView {
         // Render highlighted
         Tile highlighted = circuit.getTile(selectedTile);
         graphics.setBackgroundColor(TextColor.ANSI.MAGENTA);
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
         renderers.getOrDefault(highlighted.getType(), new LanternaNullTileView()).render(highlighted,
                 (selectedTile.getY() - viewWindow.getY()) * 3,
                 (selectedTile.getX() - viewWindow.getX()) * 3, graphics);
