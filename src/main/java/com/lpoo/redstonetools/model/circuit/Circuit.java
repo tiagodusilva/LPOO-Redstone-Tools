@@ -135,7 +135,7 @@ public class Circuit extends Tile implements Model, Serializable {
 
     /**
      * <h1>Sets the timestamp of the circuit</h1>
-     * @param timestamp
+     * @param timestamp     Time circuit was last loaded
      */
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
@@ -316,6 +316,8 @@ public class Circuit extends Tile implements Model, Serializable {
      * Gets the maximum power level received from the neighbour wires
      *
      * @param position  Position of the tile to check surroundings
+     * @param side      Side to get power from
+     *
      * @return  Maximum power level in the neighbourhood
      */
     public int getSurroundingWirePower(Position position, Side side) {
