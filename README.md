@@ -7,6 +7,7 @@
 - [Install Instructions](#install-instructions)
 - [RedstoneTools Controls](#redstonetools-controls)
 - [Extensive Report](#extensive-report)
+- [Gameplay](#gameplay)
 - [Screenshots](#screenshots)
 
 # Changelog
@@ -28,6 +29,10 @@ Navigate the menus using the arrow keys and Enter. After you open a circuit, a h
 
 # Extensive Report
 [Go to Report](./docs/README.md)
+
+# Gameplay
+
+![Gameplay gif](./docs/gifs/demonstration.gif)
 
 # Screenshots
 Lanterna Start Menu  

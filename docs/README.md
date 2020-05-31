@@ -12,6 +12,7 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
     1. [Circuit](#circuit)
     1. [Menu](#menu)
     1. [Config File](#config-file)
+    1. [Gameplay](#gameplay)
     1. [Screenshots](#screenshots)
         1. [LanternaMenu](#lanterna-menu)
         1. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
@@ -112,6 +113,10 @@ It is via the menu that you can create a new circuit or load existing circuits.
 
 ## Config File
 This project has a config file that allows the user to specify the target framerate and to toggle "dynamic FPS". The latter tries to stick to the framerate schedule as best as possible, for example if the last game loop took 4ms and we want a frame every 16ms, the program would halt for only 12ms instead of the full 16ms. This option runs better on higher end hardware.
+
+# Gameplay
+
+![Gameplay gif](./gifs/demonstration.gif)
 
 ## Screenshots
 
