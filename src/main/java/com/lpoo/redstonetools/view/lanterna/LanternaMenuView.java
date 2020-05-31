@@ -17,7 +17,11 @@ public class LanternaMenuView extends MenuView {
         this.screen = screen;
         textGUI = lanternaMenuBuilder.getTextGUI();
 
-        lanternaMenuBuilder.addStartingMenu((circuit) -> pushEvent(new Event(InputEvent.ENTER_STATE, circuit)), () -> pushEvent(new Event(InputEvent.QUIT, null)), () -> {});
+        lanternaMenuBuilder.addStartingMenu(
+                (circuit) -> pushEvent(new Event(InputEvent.ENTER_STATE, circuit)),
+                () -> pushEvent(new Event(InputEvent.QUIT, null)),
+                () -> {}
+        );
     }
 
     @Override

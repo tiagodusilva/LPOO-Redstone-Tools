@@ -6,53 +6,61 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
 ## Table of Contents
 1. [Implemented Features](#Implemented-Features)
     1. [Power](#power)
-    2. [Tiles](#tiles)
+    1. [Tiles](#tiles)
         1. [Generic Tiles](#generic-tiles)
-        2. [Specific Tiles](#specific-tiles)
-    3. [Circuit](#circuit)
-    4. [Menu](#menu)
-    5. [Screenshots](#screenshots)
+        1. [Specific Tiles](#specific-tiles)
+    1. [Circuit](#circuit)
+    1. [Menu](#menu)
+    1. [Screenshots](#screenshots)
         1. [LanternaMenu](#lanterna-menu)
-        2. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
-2. [Planned Features](#planned-features)
-3. [Design](#design)
+        1. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
+1. [Planned Features](#planned-features)
+1. [Design](#design)
     1. [Used Patterns](#used-patterns)
-    2. [Model View Controller](#model-view-controller-(mvc))
-    3. [Game States](#game-states)
-    4. [Changing the View](#changing-the-view)
-    5. [Logic Gates' Similar Behaviour](#logic-gates-similar-behaviour)
-    6. [Event System](#event-system)
-    7. [Commands](#commands)
-    8. [So many Renderers](#so-many-renderers)
-    9. [Circuit Updates](#circuit-updates)
-4. [Known Code Smells and Refactoring Suggestions](#known-code-smells-and-refactoring-suggestions)
-5. [Testing](#testing)
-6. [Self-evaluation](#self-evaluation)
+    1. [Model View Controller](#model-view-controller-(mvc))
+    1. [Game States](#game-states)
+    1. [Changing the View](#changing-the-view)
+    1. [Logic Gates' Similar Behaviour](#logic-gates-similar-behaviour)
+    1. [Event System](#event-system)
+    1. [Commands](#commands)
+    1. [So many Renderers](#so-many-renderers)
+    1. [Circuit Updates](#circuit-updates)
+    1. [Dealing with Empty Spaces](#dealing-with-empty-spaces)
+    1. [Custom Circuits or Subcircuits](#custom-circuits-or-subcircuits)
+1. [Known Code Smells and Refactoring Suggestions](#known-code-smells-and-refactoring-suggestions)
+1. [Testing](#testing)
+1. [Self-evaluation](#self-evaluation)
 
 ## Implemented Features
 The features already implemented are listed below.
 
 ### Power
-Our version of the world's electricity, it is the signal propagated on the circuit to emulate real world's [digital electronics](https://en.wikipedia.org/wiki/Digital_electronics), it was inspired by Minecraft's [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits).
+Our version of the world's electricity, it is the signal propagated on the circuit to emulate real world's [digital electronics](https://en.wikipedia.org/wiki/Digital_electronics). Tt was inspired by Minecraft's [redstone circuits](https://minecraft.fandom.com/wiki/Redstone_Circuits).
 
-As such, this power system has two modes:
-- *Redstone Mode* - The power decays from wire to wire, until it reaches the minimum power level, power level varies between 0 and 15 (*0x0-0xF*).
-- *Electric Mode* - The power doesn't decay, it simulates lossless transport, taking two possible values, *ON* or *OFF*.
+As such, the power level decays from wire to wire, until it reaches the minimum power level, power levels vary between 0 and 15 (*0x0-0xF*).
 
 ### Tiles
 A tile is the basic component of a circuit, having its own behaviour and functionalities.
 #### Generic Tiles
-- [Tile](../src/main/java/com/lpoo/redstonetools/model/tile/OrientedTile.java) - The most generic tile, stating the behaviours and functionalities every tile should have.
-- [OrientedTile](../src/main/java/com/lpoo/redstonetools/model/tile/OrientedTile.java) - An upgraded version of the generic tile *Tile*, capable of having configurable input and output sides, making possible to a tile receive power from only one specific side and not every side, etc.
+- [Tile](../src/main/java/com/lpoo/redstonetools/model/tile/OrientedTile.java)  
+The most generic tile, stating the behaviours and functionalities every tile should have.
+- [OrientedTile](../src/main/java/com/lpoo/redstonetools/model/tile/OrientedTile.java)  
+An upgraded version of the generic tile *Tile*, capable of having configurable input and output sides, making possible to a tile receive power from only one specific side and not every side, etc.
 
 #### Specific Tiles
-- [NullTile](../src/main/java/com/lpoo/redstonetools/model/tile/NullTile.java) - A filler tile, has no behaviour or functionality, it serves as the default tile of a circuit.
-- [ConstantSourceTile](../code/src/main/java/com/lpoo/redstonetools/model/tile/ConstantSourceTile.java) - A tile that provides a constant source of power.
-- [WireTile](../src/main/java/com/lpoo/redstonetools/model/tile/WireTile.java) - Main power transporting tile.
-- [LeverTile](../src/main/java/com/lpoo/redstonetools/model/tile/LeverTile.java) - An alternating power source tile, the lever functions the same as the constant source but can be toggled on whether outputs power or not.
-- [RepeaterTile](../src/main/java/com/lpoo/redstonetools/model/tile/RepeaterTile.java) - An extensor of power, it transform any power received into a maximum strength power signal, as long as the input power signal is higher than the minimum power.  
+- [NullTile](../src/main/java/com/lpoo/redstonetools/model/tile/NullTile.java)  
+A filler tile, has no behaviour or functionality, it serves as the default tile of a circuit.
+- [ConstantSourceTile](../code/src/main/java/com/lpoo/redstonetools/model/tile/ConstantSourceTile.java)  
+A tile that provides a constant source of power.
+- [WireTile](../src/main/java/com/lpoo/redstonetools/model/tile/WireTile.java)  
+Main power transporting tile.
+- [LeverTile](../src/main/java/com/lpoo/redstonetools/model/tile/LeverTile.java)  
+An alternating power source tile, the lever functions the same as the constant source but can be toggled on whether outputs power or not.
+- [RepeaterTile](../src/main/java/com/lpoo/redstonetools/model/tile/RepeaterTile.java)  
+An extensor of power, it transform any power received into a maximum strength power signal, as long as the input power signal is higher than the minimum power.  
     This tile is an *OrientedTile* that receives power from one side, and outputs on the opposite side.
-- [LogicGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/LogicGateTile.java) - It is an *OrientedTile* that receives power from two opposing sides and outputs from one of the other remaining sides.  
+- [LogicGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/LogicGateTile.java)  
+It is an *OrientedTile* that receives power from two opposing sides and outputs from one of the other remaining sides.  
     As a logic gate, its behaviour is dependent on the logic gate it is currently simulating, the possible behaviours are:
     - *AND* Gate - Outputs power if it receives power higher than the minimum power level from both input sides.
     - *OR* Gate - Outputs power if it receives power higher than the minimum power level in any of the input sides.
@@ -60,8 +68,28 @@ A tile is the basic component of a circuit, having its own behaviour and functio
     - *NOR* Gate - Negates the *OR* gate, behaving on the opposite way of the later.
     - *XOR* Gate - Outputs power if it receives power higher than the minimum power lever in only one of the input sides.
     - *XNOR* Gate - Negates the *XOR* gate, behaving on the opposite way of the later.
-- [NotGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/NotGateTile.java) - It is an *OrientedTile* that receives power from one side and outputs on the opposite side, similar to the *RepeaterTile*.  
+- [NotGateTile](../src/main/java/com/lpoo/redstonetools/model/tile/NotGateTile.java)  
+It is an *OrientedTile* that receives power from one side and outputs on the opposite side, similar to the *RepeaterTile*.  
     It behaves as power inverter, outputs power level if it receives it doesn't receive an higher power level than the minimum from the input, and doesn't output if it receives any power higher than the minimum power level from the input.
+- [Comparator](../src/main/java/com/lpoo/redstonetools/model/tile/ComparatorTile.java)  
+TODO: DETAILS
+For more details, check it's [original inspiration](https://minecraft.gamepedia.com/Redstone_Comparator), as its behaviours were mimicked as accurately as possible (excluding interactions with inventories/non-redstone blocks).
+- [Counter](../src/main/java/com/lpoo/redstonetools/model/tile/CounterTile.java)  
+It is an *OrientedTile* that receives power from one side and outputs on the opposite side.  
+Every *delay - 1* pulses received on the input, it outputs a maximum signal. So for a delay of 5, every 4 pulses it will emit power. 
+The only exception being delay 1, which will always output forever once it has received at least one pulse. 
+- [Timer](../src/main/java/com/lpoo/redstonetools/model/tile/TimerTile.java)  
+It is an *OrientedTile* that receives power from one side and outputs on the opposite side. It has two modes, **pulse** and **switch**, described below.  
+Every *delay - 1* pulses, it outputs a pulse (pulse mode) or toggles its output (switch mode). So for a delay of 5, every 4 it will "trigger". 
+The only exception being delay 1, which will always output forever once a tick has passed.
+The input side of the timer resets its behaviour, and keeps it stopped until the signal disappears. 
+- [Digit](../src/main/java/com/lpoo/redstonetools/model/tile/DigitTile.java)  
+The digit's only purpose is to display the power level received on a given Tile, from all sides, and can be used as a visual output.
+- [IO Tile](../src/main/java/com/lpoo/redstonetools/model/tile/IOTile.java)  
+They allow for power to be transmitted to and from its circuit and an outside one. They are the core Tile for creating Subcircuits.  
+These tiles can be in either Input mode (blue), Output mode (orange) or none, but can only target one side each. As such, you can only have one active IOTile per side, one pointing to each right, left, up and down directions.
+- [Subcircuits](../src/main/java/com/lpoo/redstonetools/model/circuit/Circuit.java)  
+This Tile allows for virtually anything we could program under our current system, as users can save their on circuits and reuse them as a single Tile in a different circuit.
 
 ### Circuit
 The powerhouse of the ~~cell~~ project.  
@@ -69,7 +97,7 @@ A circuit is a composition of tiles and handles all the interactions between til
 
 ### Menu
 The welcoming screen.  
-It is via the menu that you can create a new circuit or ~~load existing circuits~~ (loading not implemeneted yet, there is a temporary dynamically created circuit if this option is chosen).
+It is via the menu that you can create a new circuit or load existing circuits.
 
 ### Screenshots
 #### Lanterna Menu
@@ -81,10 +109,6 @@ From left to right, top to bottom:
 1. *Wire* and demonstration of all possible connections the wire can have.  
 2. *Constant Source*, *Lever* (not active), *Lever* (active), *Repeater*, *NOT Gate*, *AND Gate*, *OR Gate*, *NAND Gate*, *NOR Gate*, *XOR Gate*, *XNOR Gate*.
 3. Demonstration of decaying power on the wire, changing the intensity of its colour and current selected tile shown with magenta background.
-
-#### Temporary Pre-existing Circuit
-(*Note*: Temporary, as the name indicates, just for test purposes and to ease the visualization while file loading isn't implemented)
-![Pre-existing Circuit on loading cirucit](./images/screenshots/lanterna/PreExistingCircuit.png)
 
 ## Planned Features
 - [x] Create circuits
@@ -104,9 +128,10 @@ From left to right, top to bottom:
   - [x] Comparator (compares strength of two signals)
   - [x] Counter (emits signal every N pulses received)
   - [x] Timer (emits signal every N ticks)
-- [ ] Support custom gates (reduce circuit into a tile)
+- [x] Support custom gates (reduce circuit into a tile)
 - [x] Detect and handle unstable circuits
-- [x] Variable strength signals (0-15), loosing strength at each wire travelled
+- [x] Variable strength signal (0-15), losing strength every wire travelled
+- [x] Auto advancing time
 
 ## Design
 
@@ -119,6 +144,7 @@ From left to right, top to bottom:
     - [Structural Patterns](https://refactoring.guru/design-patterns/structural-patterns)
         - [Bridge](https://refactoring.guru/design-patterns/bridge)
         - [Flyweight](https://refactoring.guru/design-patterns/flyweight)
+        - [Composite](https://refactoring.guru/design-patterns/composite)
     - [Behavioral Patterns](https://refactoring.guru/design-patterns/behavioral-patterns)
         - [Chain of Responsibility](https://refactoring.guru/design-patterns/chain-of-responsibility)
         - [Command](https://refactoring.guru/design-patterns/command)
@@ -126,6 +152,7 @@ From left to right, top to bottom:
         - [Observer](https://refactoring.guru/design-patterns/observer)
         - [State](https://refactoring.guru/design-patterns/state)
         - [Template Method](https://refactoring.guru/design-patterns/template-method)
+        - [Null Object](https://sourcemaking.com/design_patterns/null_object)
 - [Architectural Patterns](https://web.fe.up.pt/~arestivo/presentation/patterns/#architectural-patterns)
     - [Model-View-Controller (MVC)](https://web.fe.up.pt/~arestivo/presentation/patterns/#58)
 
@@ -346,8 +373,59 @@ These patterns can be found in the following files:
 - All the Tile's subclasses
 
 #### Consequences
-
 Really hard to know exactly how many Tile updates an action may have. Removes the dependancy between a Tile and its neighbors, as the CircuitController serves as mediator between them (**Mediator Pattern**).
+
+### Dealing with Empty Spaces
+
+#### Problem in Context
+Our solution to simluating the circuits relies heavily on interaction between neighboring tiles, as such, we needed to make sure that these interactions would always work as expected, to avoid unintended behaviour or worse.
+
+#### The Pattern
+The **Null Object Pattern** came naturally in this scenario, as it allows us to specify exactly the behaviour for whenever a Tile doesn't exist (or should be neutral).
+
+#### The Implementation
+This pattern was implemented in the aptly named Null Tile, which always answers calls such as `acceptsPower()` or `outputsPower()` with *false* and to `getPower()` with `Power.getMin()`. This ensures the compatibility with the remaining systems is preserved. It also came in handy for broken tiles (tiles previously causing unstable circuits that got "fried"), as they behave exactly as a NullTile would. Therefore, a broken tile is just a NullTile with a different rendering.
+
+![UML showcasing Null Object design](./images/designs/null_object/null_object_UML.svg)
+
+These patterns can be found in the following files:
+- [Tile](../src/main/java/com/lpoo/redstonetools/model/tile/Tile.java)
+- [NullTile](../src/main/java/com/lpoo/redstonetools/model/tile/NullTile.java)
+- [LanternaNullTileView](../src/main/java/com/lpoo/redstonetools/view/lanterna/tile/LanternaNullTileView.java)
+- All the remaining Tile's subclasses
+
+#### Consequences
+Allows the Circuit to not test for *null*s, adds support for tiles whose behaviour should be neutral and permits an exclusive TileView for them.
+
+The circuit became larger (both in RAM and when saved to disk), as more objects needed to be created and stored. This is a bigger issue because we can't reuse the same NullTile, as they must save their own Position within the Circuit.
+
+### Custom Circuits or Subcircuits
+
+#### Problem in Context
+We wanted to implement a feature that a allowed a user more freedom and not limit the tiles available to them. As such we needed a method that allowed custom content to be created.
+
+#### The Pattern
+The **Composite Pattern** was the obvious choice, given the tree structure of our problem: A circuit running another circuit that could be running even more...
+The **Chain of Command Pattern** also came unintentionally, as every time we wanted to update/check on a subcircuit, we delegated said responsability to it.
+
+#### The Implementation
+To allow for subcircuits we first created *IO Tiles*, whose purpuose is to connect power from inside a circuit to the outside (and vice-versa). To then create a subcircuit we made *Circuit* extend the abstract *Tile*, implementing and overriding all the required methods.
+
+As a Circuit is made of numerous objects that extend Tile, it can also be made of multiple Circuits now. Due to the especially complex nature of this object, some changes in the CircuitController were necessary. All these changes revolved around notifying/updating neighbouring tiles.
+
+When updating a circuit tile, we delegate the responsability of propagating to the subcircuit. If the subcircuit then needs to propagate some change to the outside, it delegates that responsability back to the initial circuit.
+
+![UML showcasing Composite design](./images/designs/composite/composite_UML.svg)
+
+These patterns can be found in the following files:
+- [Tile](../src/main/java/com/lpoo/redstonetools/model/tile/Tile.java)
+- [IO Tile](../src/main/java/com/lpoo/redstonetools/model/tile/IOTile.java)
+- [Circuit](../src/main/java/com/lpoo/redstonetools/model/circuit/circuit.java)
+- [Circuit Controller](../src/main/java/com/lpoo/redstonetools/controller/circuit/CircuitController.java)
+
+#### Consequences
+More complex CircuitController but allowed this important feature to come to fruition. It allows complex tiles to be created both by a user (by using the interface) or the programmer (by simply extending Circuit).
+
 
 ## Known Code Smells and Refactoring Suggestions
 ### View Shouldn't Handle Changing Power Behaviour
@@ -385,3 +463,5 @@ The tests results can be checked below:
 
 ## Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!
+
+As of Release v2.02, our total work count went up to 120 hours each.
