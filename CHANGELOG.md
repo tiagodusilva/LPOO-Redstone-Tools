@@ -1,4 +1,14 @@
 # Changelog
+## v2.02
+ - Fixed: Loss of color on the highlighted tile frame
+ - Changed: Refactored Lanterna View
+ - Changed: Junit Engine (transitioned to Junit5 from Junit4)
+ - Fixed: Revamped all tests
+ - Added: Missing tests
+ - Updated: Both README.md
+ - Updated: Coverage and mutation test results
+ - Updated: JavaDocs
+
 ## v2.01
  - Added: Digit
  - Added: Automatic advancing tick
