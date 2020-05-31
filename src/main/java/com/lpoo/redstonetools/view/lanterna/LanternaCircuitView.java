@@ -106,6 +106,8 @@ public class LanternaCircuitView extends CircuitView {
         this.inMenu = inMenu;
     }
 
+    public void exitMenu() { this.inMenu = false; }
+
     public Screen getScreen() {
         return screen;
     }
@@ -229,25 +231,25 @@ public class LanternaCircuitView extends CircuitView {
     }
 
     public void showHelpMenu() {
-        lanternaMenuBuilder.addHelpWindow(() -> inMenu = false);
+        lanternaMenuBuilder.addHelpWindow(this::exitMenu);
         inMenu = true;
     }
 
     public void showInsertMenu(Position insertAt) {
         Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
-        lanternaMenuBuilder.addInsertMenu(insertAt, c, () -> inMenu = false);
+        lanternaMenuBuilder.addInsertMenu(insertAt, c, this::exitMenu);
         inMenu = true;
     }
 
     public void showInsertGateMenu(Position insertAt) {
         Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
-        lanternaMenuBuilder.addInsertGateMenu(insertAt, c, () -> inMenu = false);
+        lanternaMenuBuilder.addInsertGateMenu(insertAt, c, this::exitMenu);
         inMenu = true;
     }
 
     public void showInsertCustomMenu(Position insertAt) {
         Consumer<Tile> c = (tile) -> pushEvent(new Event(InputEvent.ADD_TILE, tile));
-        lanternaMenuBuilder.addInsertCustomMenu(insertAt, c, () -> inMenu = false);
+        lanternaMenuBuilder.addInsertCustomMenu(insertAt, c, this::exitMenu);
         inMenu = true;
     }
 
@@ -262,7 +264,7 @@ public class LanternaCircuitView extends CircuitView {
             }
         }
         Consumer<SaveCircuitListener> c = (listener) -> pushEvent(new Event(InputEvent.SAVE, listener));
-        lanternaMenuBuilder.addSaveCircuitMenu(c, circuit.getCircuitName(),() -> inMenu = false);
+        lanternaMenuBuilder.addSaveCircuitMenu(c, circuit.getCircuitName(),this::exitMenu);
         inMenu = true;
         if (alive) {
             lanternaAutoAdvanceTime = new LanternaAutoAdvanceTime(this);
@@ -273,7 +275,7 @@ public class LanternaCircuitView extends CircuitView {
     public void showTileInfo(Position position) {
         Tile tile = circuit.getTile(position);
         if (tile.getType() != TileType.NULL) {
-            lanternaMenuBuilder.addConfirmation(tile.getInfo(), () -> inMenu = false);
+            lanternaMenuBuilder.addConfirmation(tile.getInfo(), this::exitMenu);
             inMenu = true;
         }
     }
@@ -284,12 +286,12 @@ public class LanternaCircuitView extends CircuitView {
         switch (tile.getType()) {
             case TIMER:
                 c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
-                lanternaMenuBuilder.addNumberInput(c, "Timer delay", "[1-9][0-9]{0,4}", ((TimerTile) tile).getDelay(), () -> inMenu = false);
+                lanternaMenuBuilder.addNumberInput(c, "Timer delay", "[1-9][0-9]{0,4}", ((TimerTile) tile).getDelay(), this::exitMenu);
                 inMenu = true;
                 break;
             case COUNTER:
                 c = (delay) -> pushEvent(new Event(InputEvent.SET_DELAY, new AbstractMap.SimpleEntry<>(position, delay)));
-                lanternaMenuBuilder.addNumberInput(c, "Counter delay", "[1-9][0-9]{0,4}", ((CounterTile) tile).getDelay(), () -> inMenu = false);
+                lanternaMenuBuilder.addNumberInput(c, "Counter delay", "[1-9][0-9]{0,4}", ((CounterTile) tile).getDelay(), this::exitMenu);
                 inMenu = true;
                 break;
             default:

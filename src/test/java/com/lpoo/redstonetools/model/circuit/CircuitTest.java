@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
+
 public class CircuitTest {
 
     private Circuit circuit;
@@ -62,6 +64,20 @@ public class CircuitTest {
     @Test
     @Tag("model")
     @Tag("unit-test") @Tag("fast")
+    public void testCircuitProperties() {
+        circuit.setCircuitName("a random name");
+
+        LocalDateTime now = LocalDateTime.now();
+
+        circuit.setTimestamp(now);
+
+        Assertions.assertEquals("a random name", circuit.getCircuitName());
+        Assertions.assertEquals(now, circuit.getTimestamp());
+    }
+
+    @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testCircuitBounds() {
         Position position = Mockito.mock(Position.class);
 
@@ -79,6 +95,26 @@ public class CircuitTest {
 
         Mockito.when(position.getX()).thenReturn(WIDTH - 1);
         Mockito.when(position.getY()).thenReturn(HEIGHT);
+        Assertions.assertFalse(circuit.isInBounds(position));
+
+        Mockito.when(position.getX()).thenReturn(WIDTH + 10);
+        Mockito.when(position.getY()).thenReturn(HEIGHT);
+        Assertions.assertFalse(circuit.isInBounds(position));
+
+        Mockito.when(position.getX()).thenReturn(WIDTH);
+        Mockito.when(position.getY()).thenReturn(HEIGHT-1);
+        Assertions.assertFalse(circuit.isInBounds(position));
+
+        Mockito.when(position.getX()).thenReturn(WIDTH);
+        Mockito.when(position.getY()).thenReturn(HEIGHT);
+        Assertions.assertFalse(circuit.isInBounds(position));
+
+        Mockito.when(position.getX()).thenReturn(WIDTH);
+        Mockito.when(position.getY()).thenReturn(HEIGHT + 10);
+        Assertions.assertFalse(circuit.isInBounds(position));
+
+        Mockito.when(position.getX()).thenReturn(WIDTH + 10);
+        Mockito.when(position.getY()).thenReturn(HEIGHT + 10);
         Assertions.assertFalse(circuit.isInBounds(position));
     }
 
@@ -109,6 +145,11 @@ public class CircuitTest {
         Mockito.when(tile2.getPosition()).thenReturn(position2);
 
         Assertions.assertFalse(circuit.addTile(tile2));
+
+        Mockito.verify(tile, Mockito.times(1)).isTickedTile();
+        Mockito.verify(tile, Mockito.times(1)).updateConnections(circuit);
+        Mockito.verify(tile2, Mockito.times(0)).isTickedTile();
+        Mockito.verify(tile2, Mockito.times(0)).updateConnections(circuit);
     }
 
     @Test
@@ -162,6 +203,9 @@ public class CircuitTest {
         Assertions.assertEquals(TileType.TIMER, circuit.getTile(position).getType());
 
         Assertions.assertEquals(1, circuit.getTickedTiles().size());
+
+        Mockito.verify(tile, Mockito.times(1)).isTickedTile();
+        Mockito.verify(tile, Mockito.times(1)).updateConnections(circuit);
     }
 
     @Test
@@ -913,6 +957,21 @@ public class CircuitTest {
         Assertions.assertNotEquals(leftIO, circuit.getIO(Side.UP));
         Assertions.assertNotEquals(rightIO, circuit.getIO(Side.UP));
         Assertions.assertNotEquals(upIO, circuit.getIO(Side.UP));
+    }
+
+    @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
+    public void testNextTick() {
+        Assertions.assertEquals(0, circuit.getTick());
+
+        Assertions.assertTrue(circuit.nextTick());
+
+        Assertions.assertEquals(1, circuit.getTick());
+
+        for (int i = 0; i < 6; i++) Assertions.assertTrue(circuit.nextTick());
+
+        Assertions.assertEquals(7, circuit.getTick());
     }
 
     @Property

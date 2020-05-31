@@ -77,6 +77,15 @@ public class CircuitControllerTest {
     @Test
     @Tag("controller")
     @Tag("unit-test") @Tag("fast")
+    public void testGetNewController() {
+        Mockito.when(controller.getNewController()).thenCallRealMethod();
+
+        Assertions.assertTrue(controller.getNewController() instanceof CircuitController);
+    }
+
+    @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
     public void testAddTileUnsuccessful() {
         Circuit circuit = Mockito.mock(Circuit.class);
         Tile tile = Mockito.mock(Tile.class);

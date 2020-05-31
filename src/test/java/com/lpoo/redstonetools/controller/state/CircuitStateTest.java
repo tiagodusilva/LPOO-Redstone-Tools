@@ -89,14 +89,21 @@ public class CircuitStateTest {
     public void testProcessEventsShortCircuit() {
         Event e1 = Mockito.mock(Event.class);
         Event e2 = Mockito.mock(Event.class);
+        Event e3 = Mockito.mock(Event.class);
 
         Queue<Event> events = new LinkedList<>();
         events.add(e1); events.add(e2);
+        events.add(e2); events.add(e1);
+        events.add(e2); events.add(e1);
+        events.add(e1); events.add(e3);
+        events.add(e1); events.add(e3);
 
         Mockito.when(view.getEvents()).thenReturn(events);
 
-        Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.QUIT);
+        Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.ENTER_STATE);
         Mockito.when(e2.getInputEvent()).thenReturn(InputEvent.ENTER_STATE);
+        Mockito.when(e3.getInputEvent()).thenReturn(InputEvent.QUIT);
+
 
         Assertions.assertFalse(state.exit());
 
@@ -105,11 +112,47 @@ public class CircuitStateTest {
         Mockito.verify(view, Mockito.times(1)).getEvents();
         Assertions.assertTrue(events.isEmpty());
 
-        Mockito.verify(e1, Mockito.times(1)).getInputEvent();
-        Mockito.verify(e2, Mockito.times(0)).getInputEvent();
+        Mockito.verify(e1, Mockito.times(4)).getInputEvent();
+        Mockito.verify(e2, Mockito.times(3)).getInputEvent();
+        Mockito.verify(e3, Mockito.times(1)).getInputEvent();
 
         Assertions.assertTrue(state.exit());
+    }
 
+    @Test
+    @Tag("controller")
+    @Tag("unit-test") @Tag("fast")
+    public void testProcessEventsMaxEventsPerProcess() {
+        Event e1 = Mockito.mock(Event.class);
+        Event e2 = Mockito.mock(Event.class);
+        Event e3 = Mockito.mock(Event.class);
+
+        Queue<Event> events = new LinkedList<>();
+        events.add(e1); events.add(e2);
+        events.add(e2); events.add(e1);
+        events.add(e2); events.add(e1);
+        events.add(e1); events.add(e1);
+        events.add(e1); events.add(e3);
+
+        Mockito.when(view.getEvents()).thenReturn(events);
+
+        Mockito.when(e1.getInputEvent()).thenReturn(InputEvent.ENTER_STATE);
+        Mockito.when(e2.getInputEvent()).thenReturn(InputEvent.ENTER_STATE);
+        Mockito.when(e3.getInputEvent()).thenReturn(InputEvent.QUIT);
+
+
+        Assertions.assertFalse(state.exit());
+
+        state.processEvents();
+
+        Mockito.verify(view, Mockito.times(1)).getEvents();
+        Assertions.assertFalse(events.isEmpty());
+
+        Mockito.verify(e1, Mockito.times(5)).getInputEvent();
+        Mockito.verify(e2, Mockito.times(3)).getInputEvent();
+        Mockito.verify(e3, Mockito.times(0)).getInputEvent();
+
+        Assertions.assertFalse(state.exit());
     }
 
     @Test

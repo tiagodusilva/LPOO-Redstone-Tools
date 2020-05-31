@@ -48,7 +48,7 @@ public class LanternaNullTileViewTest {
                 .renderBrokenFrame(Mockito.any(TextGraphics.class), Mockito.anyInt(), Mockito.anyInt());
 
         Mockito.verify(graphics, Mockito.times(1))
-                .setCharacter(Mockito.eq(3), Mockito.eq(-4), Mockito.anyChar());
+                .setCharacter(Mockito.eq(1), Mockito.eq(4), Mockito.anyChar());
 
         Mockito.verify(graphics, Mockito.times(2))
                 .setCharacter(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyChar());

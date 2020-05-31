@@ -98,6 +98,38 @@ public class IOTileTest {
     @Test
     @Tag("model")
     @Tag("unit-test") @Tag("fast")
+    public void testOnUpdate() {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        io.setIOType(SideType.INPUT);
+        Assertions.assertTrue(io.getIOType().isInput());
+
+        Assertions.assertEquals(Power.getMin(), io.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), io.getExteriorPower(Side.UP));
+
+        Mockito.when(circuit.getSurroundingPower(Mockito.any(Position.class))).thenReturn(2);
+
+        Assertions.assertTrue(io.update(circuit, 2, Side.UP));
+
+        Assertions.assertEquals(Power.getMin(), io.getPower(Side.UP));
+        Assertions.assertEquals(2, io.getExteriorPower(Side.UP));
+
+        Assertions.assertFalse(io.update(circuit, Power.getMax(), Side.UP));
+
+        Assertions.assertEquals(Power.getMin(), io.getPower(Side.RIGHT));
+        Assertions.assertEquals(2, io.getExteriorPower(Side.UP));
+
+        Mockito.when(circuit.getSurroundingPower(Mockito.any(Position.class))).thenReturn(7);
+
+        Assertions.assertTrue(io.update(circuit, 11, Side.UP));
+
+        Assertions.assertEquals(Power.getMin(), io.getPower(Side.LEFT));
+        Assertions.assertEquals(7, io.getExteriorPower(Side.UP));
+    }
+
+    @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
 

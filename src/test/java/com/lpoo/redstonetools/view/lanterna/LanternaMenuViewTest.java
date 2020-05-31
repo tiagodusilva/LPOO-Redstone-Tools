@@ -3,14 +3,14 @@ package com.lpoo.redstonetools.view.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;
-import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
-import com.lpoo.redstonetools.view.lanterna.LanternaMenuBuilder;
-import com.lpoo.redstonetools.view.lanterna.LanternaMenuView;
+import com.lpoo.redstonetools.model.circuit.Circuit;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class LanternaMenuViewTest {
 
@@ -34,9 +34,18 @@ public class LanternaMenuViewTest {
         this.builder = Mockito.mock(LanternaMenuBuilder.class);
         Mockito.when(builder.getTextGUI()).thenReturn(this.textGUI);
 
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        Mockito.doAnswer((Answer<Void>) invocation -> {
+            Consumer<Circuit> c = invocation.getArgument(0);
+            c.accept(circuit);
+            Runnable r = invocation.getArgument(1);
+            r.run();
+            return null;
+        }).when(builder).addStartingMenu(Mockito.any(), Mockito.any(Runnable.class), Mockito.any(Runnable.class));
 
         this.view = new LanternaMenuView(screen, builder);
-        Assertions.assertTrue(view.getEvents().isEmpty());
+
         Mockito.verify(builder, Mockito.times(1))
                 .addStartingMenu(Mockito.any(), Mockito.any(Runnable.class), Mockito.any(Runnable.class));
     }
@@ -44,9 +53,23 @@ public class LanternaMenuViewTest {
     @Test
     @Tag("view")
     @Tag("unit-test") @Tag("fast")
-    public void testRenderMenuNoException() {
+    public void testStartingMenu() {
+        Assertions.assertEquals(2, view.getEvents().size());
 
-        Assumptions.assumeTrue(view.getEvents().isEmpty());
+        Assertions.assertEquals(InputEvent.ENTER_STATE, view.getEvents().peek().getInputEvent());
+        Assertions.assertTrue(view.getEvents().peek().getObject() instanceof Circuit);
+
+        view.getEvents().remove();
+
+        Assertions.assertEquals(InputEvent.QUIT, view.getEvents().peek().getInputEvent());
+    }
+
+    @Test
+    @Tag("view")
+    @Tag("unit-test") @Tag("fast")
+    public void testRenderMenuNoException() {
+        view.cleanup();
+        Assertions.assertTrue(view.getEvents().isEmpty());
 
         view.render();
 
@@ -66,8 +89,9 @@ public class LanternaMenuViewTest {
     @Tag("view")
     @Tag("unit-test") @Tag("fast")
     public void testRenderMenuOnExceptionProcessInput() {
+        view.cleanup();
 
-        Assumptions.assumeTrue(view.getEvents().isEmpty());
+        Assertions.assertTrue(view.getEvents().isEmpty());
 
         IOException exception = Mockito.mock(IOException.class);
 
@@ -96,8 +120,9 @@ public class LanternaMenuViewTest {
     @Tag("view")
     @Tag("unit-test") @Tag("fast")
     public void testRenderMenuOnExceptionUpdateScreen() {
+        view.cleanup();
 
-        Assumptions.assumeTrue(view.getEvents().isEmpty());
+        Assertions.assertTrue(view.getEvents().isEmpty());
 
         IOException exception = Mockito.mock(IOException.class);
 
@@ -121,28 +146,4 @@ public class LanternaMenuViewTest {
 
         Mockito.verify(screen, Mockito.times(1)).doResizeIfNecessary();
     }
-
-    @Test
-    @Tag("view")
-    @Tag("unit-test") @Tag("fast")
-    public void testCleanup() {
-        Assumptions.assumeTrue(view.getEvents().isEmpty());
-
-        Event e1 = Mockito.mock(Event.class);
-        Event e2 = Mockito.mock(Event.class);
-        Event e3 = Mockito.mock(Event.class);
-        Event e4 = Mockito.mock(Event.class);
-
-        view.getEvents().add(e1);
-        view.getEvents().add(e2);
-        view.getEvents().add(e3);
-        view.getEvents().add(e4);
-
-        Assertions.assertEquals(4, view.getEvents().size());
-
-        view.cleanup();
-
-        Assertions.assertTrue(view.getEvents().isEmpty());
-    }
-
 }
