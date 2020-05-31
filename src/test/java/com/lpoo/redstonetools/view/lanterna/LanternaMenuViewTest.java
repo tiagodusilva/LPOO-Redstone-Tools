@@ -5,8 +5,6 @@ import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;
 import com.lpoo.redstonetools.controller.event.Event;
 import com.lpoo.redstonetools.controller.event.InputEvent;
-import com.lpoo.redstonetools.view.lanterna.LanternaMenuBuilder;
-import com.lpoo.redstonetools.view.lanterna.LanternaMenuView;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
