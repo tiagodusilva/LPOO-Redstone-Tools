@@ -102,14 +102,27 @@ It is via the menu that you can create a new circuit or load existing circuits.
 ### Screenshots
 TODO: UPDOOT ALL OF THIS
 #### Lanterna Menu
+The starting menu, with a circuit being loaded from a file.
+
 ![Lanterna Menu Screenshot](./images/screenshots/lanterna/LanternaMenu.png)
 
 #### Existing Tiles
 ![Existing Tiles Screenshot](./images/screenshots/lanterna/ExistingTiles.png)  
 From left to right, top to bottom:  
 1. *Wire* and demonstration of all possible connections the wire can have.  
-2. *Constant Source*, *Lever* (not active), *Lever* (active), *Repeater*, *NOT Gate*, *AND Gate*, *OR Gate*, *NAND Gate*, *NOR Gate*, *XOR Gate*, *XNOR Gate*.
-3. Demonstration of decaying power on the wire, changing the intensity of its colour and current selected tile shown with magenta background.
+1. *Constant Source*, *Lever* (not active), *Lever* (active), *Repeater*, *NOT Gate*, *AND Gate*, *OR Gate*, *NAND Gate*, *NOR Gate*, *XOR Gate*, *XNOR Gate*.
+1. *Comparator* (comparison), *Comparator* (subtract) , *Digit* (receiving power), *Digit* (not receiving), *Counter*, *Timer* (pulse mode), *Timer* (switch mode), *IO Tile* (incative facing up), *IO Tile* (outputting to the right), *IO Tile* (inputting from down), *Custom Tile* (one possible).
+1. Demonstration of decaying power on the wire, changing the intensity of its colour and current selected tile shown with magenta background.
+
+#### Help Menu
+The help menu accessible from a circuit by pressing `H`.
+
+![Help Menu Screenshot](./images/screenshots/lanterna/help_menu.png)
+
+#### Info Menu
+Every Tile has a string of information relating to its internal state, here's the most complex one, from a subcircuit.
+
+![Circuit Tile Screenshot](./images/screenshots/lanterna/subcircuit_info.png)
 
 ## Planned Features
 - [x] Create circuits
