@@ -74,101 +74,106 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.model.tile;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
-<i>4</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
-<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.SideType;
-<i>6</i>&nbsp;
-<i>7</i>&nbsp;import java.util.HashMap;
-<i>8</i>&nbsp;import java.util.Map;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;/**
-<i>11</i>&nbsp; *  &lt;h1&gt;Oriented Tile&lt;/h1&gt;
-<i>12</i>&nbsp; *  Oriented tile is a tile that orientation of the tile influences on the functionality
-<i>13</i>&nbsp; *  Oriented tile can have input sides, output sides and sides that don&#39;t interact
-<i>14</i>&nbsp; *
-<i>15</i>&nbsp; * @author g79
-<i>16</i>&nbsp; */
-<i>17</i>&nbsp;public abstract class OrientedTile extends Tile {
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    /**
-<i>20</i>&nbsp;     * &lt;h1&gt;Side and its type&lt;/h1&gt;
-<i>21</i>&nbsp;     * Stores the type of the side
-<i>22</i>&nbsp;     */
-<i>23</i>&nbsp;    protected Map&lt;Side, SideType&gt; sides;
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    /**
-<i>26</i>&nbsp;     * &lt;h1&gt;Oriented tile constructor&lt;/h1&gt;
-<i>27</i>&nbsp;     * By default all the sides are neither input or output
-<i>28</i>&nbsp;     *
-<i>29</i>&nbsp;     * @see SideType#DEFAULT
-<i>30</i>&nbsp;     *
-<i>31</i>&nbsp;     * @param position  Position of the tile
-<i>32</i>&nbsp;     */
-<i>33</i>&nbsp;    public OrientedTile(Position position) {
-<b class="fc"><i>34</i>&nbsp;        super(position);</b>
-<b class="fc"><i>35</i>&nbsp;        sides = new HashMap&lt;&gt;();</b>
-<b class="fc"><i>36</i>&nbsp;        for (Side side : Side.values())</b>
-<b class="fc"><i>37</i>&nbsp;            sides.put(side, SideType.DEFAULT);</b>
-<b class="fc"><i>38</i>&nbsp;    }</b>
-<i>39</i>&nbsp;
-<i>40</i>&nbsp;    /**
-<i>41</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the left&lt;/h1&gt;
-<i>42</i>&nbsp;     * In an oriented tile rotating a tile to the left is switching the types of the sides in counter clock-wise direction
-<i>43</i>&nbsp;     *
-<i>44</i>&nbsp;     * @return  true
-<i>45</i>&nbsp;     */
-<i>46</i>&nbsp;    @Override
-<i>47</i>&nbsp;    public boolean rotateLeft() {
-<b class="fc"><i>48</i>&nbsp;        SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);</b>
-<b class="fc"><i>49</i>&nbsp;        SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);</b>
-<b class="fc"><i>50</i>&nbsp;        sides.put(Side.LEFT, sides.getOrDefault(Side.UP, SideType.DEFAULT));</b>
-<b class="fc"><i>51</i>&nbsp;        sides.put(Side.RIGHT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));</b>
-<b class="fc"><i>52</i>&nbsp;        sides.put(Side.DOWN, leftType);</b>
-<b class="fc"><i>53</i>&nbsp;        sides.put(Side.UP, rightType);</b>
-<b class="fc"><i>54</i>&nbsp;        return true;</b>
-<i>55</i>&nbsp;    }
-<i>56</i>&nbsp;
-<i>57</i>&nbsp;    /**
-<i>58</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the left&lt;/h1&gt;
-<i>59</i>&nbsp;     * In an oriented tile rotating a tile to the left is switching the types of the sides in clock-wise direction
-<i>60</i>&nbsp;     *
-<i>61</i>&nbsp;     * @return  true
-<i>62</i>&nbsp;     */
-<i>63</i>&nbsp;    @Override
-<i>64</i>&nbsp;    public boolean rotateRight() {
-<b class="fc"><i>65</i>&nbsp;        SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);</b>
-<b class="fc"><i>66</i>&nbsp;        SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);</b>
-<b class="fc"><i>67</i>&nbsp;        sides.put(Side.RIGHT, sides.getOrDefault(Side.UP, SideType.DEFAULT));</b>
-<b class="fc"><i>68</i>&nbsp;        sides.put(Side.LEFT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));</b>
-<b class="fc"><i>69</i>&nbsp;        sides.put(Side.UP, leftType);</b>
-<b class="fc"><i>70</i>&nbsp;        sides.put(Side.DOWN, rightType);</b>
-<b class="fc"><i>71</i>&nbsp;        return true;</b>
-<i>72</i>&nbsp;    }
-<i>73</i>&nbsp;
-<i>74</i>&nbsp;    /**
-<i>75</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an input of power&lt;/h1&gt;
-<i>76</i>&nbsp;     *
-<i>77</i>&nbsp;     * @param side  Side of the tile to be checked
-<i>78</i>&nbsp;     * @return  true if the side is an input, false otherwise
-<i>79</i>&nbsp;     */
-<i>80</i>&nbsp;    @Override
-<b class="fc"><i>81</i>&nbsp;    public boolean acceptsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isInput(); }</b>
-<i>82</i>&nbsp;
-<i>83</i>&nbsp;    /**
-<i>84</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an output of power&lt;/h1&gt;
-<i>85</i>&nbsp;     *
-<i>86</i>&nbsp;     * @param side  Side of the tile to be checked
-<i>87</i>&nbsp;     * @return  true if the side is an output, false otherwise
-<i>88</i>&nbsp;     */
-<i>89</i>&nbsp;    @Override
-<b class="fc"><i>90</i>&nbsp;    public boolean outputsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isOutput(); }</b>
-<i>91</i>&nbsp;}
+<i>3</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.utils.Position;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.SideType;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.HashMap;
+<i>9</i>&nbsp;import java.util.Map;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; *  &lt;h1&gt;Oriented Tile&lt;/h1&gt;
+<i>13</i>&nbsp; *  Oriented tile is a tile that orientation of the tile influences on the functionality
+<i>14</i>&nbsp; *  Oriented tile can have input sides, output sides and sides that don&#39;t interact
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * @author g79
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public abstract class OrientedTile extends Tile {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * &lt;h1&gt;Side and its type&lt;/h1&gt;
+<i>22</i>&nbsp;     * Stores the type of the side
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    protected Map&lt;Side, SideType&gt; sides;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * &lt;h1&gt;Oriented tile constructor&lt;/h1&gt;
+<i>28</i>&nbsp;     * By default all the sides are neither input or output
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @see SideType#DEFAULT
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param position  Position of the tile
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    public OrientedTile(Position position) {
+<b class="fc"><i>35</i>&nbsp;        super(position);</b>
+<b class="fc"><i>36</i>&nbsp;        sides = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>37</i>&nbsp;        for (Side side : Side.values())</b>
+<b class="fc"><i>38</i>&nbsp;            sides.put(side, SideType.DEFAULT);</b>
+<b class="fc"><i>39</i>&nbsp;    }</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the left&lt;/h1&gt;
+<i>43</i>&nbsp;     * In an oriented tile rotating a tile to the left is switching the types of the sides in counter clock-wise direction
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @param circuit Circuit where rotation is taking place
+<i>46</i>&nbsp;     *
+<i>47</i>&nbsp;     * @return  true
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    @Override
+<i>50</i>&nbsp;    public boolean rotateLeft(Circuit circuit) {
+<b class="fc"><i>51</i>&nbsp;        SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);</b>
+<b class="fc"><i>52</i>&nbsp;        SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);</b>
+<b class="fc"><i>53</i>&nbsp;        sides.put(Side.LEFT, sides.getOrDefault(Side.UP, SideType.DEFAULT));</b>
+<b class="fc"><i>54</i>&nbsp;        sides.put(Side.RIGHT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));</b>
+<b class="fc"><i>55</i>&nbsp;        sides.put(Side.DOWN, leftType);</b>
+<b class="fc"><i>56</i>&nbsp;        sides.put(Side.UP, rightType);</b>
+<b class="fc"><i>57</i>&nbsp;        return true;</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * &lt;h1&gt;Rotates a tile to the right&lt;/h1&gt;
+<i>62</i>&nbsp;     * In an oriented tile rotating a tile to the right is switching the types of the sides in clock-wise direction
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param circuit Circuit where rotation is taking place
+<i>65</i>&nbsp;     *
+<i>66</i>&nbsp;     * @return  true
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    @Override
+<i>69</i>&nbsp;    public boolean rotateRight(Circuit circuit) {
+<b class="fc"><i>70</i>&nbsp;        SideType leftType = sides.getOrDefault(Side.LEFT, SideType.DEFAULT);</b>
+<b class="fc"><i>71</i>&nbsp;        SideType rightType = sides.getOrDefault(Side.RIGHT, SideType.DEFAULT);</b>
+<b class="fc"><i>72</i>&nbsp;        sides.put(Side.RIGHT, sides.getOrDefault(Side.UP, SideType.DEFAULT));</b>
+<b class="fc"><i>73</i>&nbsp;        sides.put(Side.LEFT, sides.getOrDefault(Side.DOWN, SideType.DEFAULT));</b>
+<b class="fc"><i>74</i>&nbsp;        sides.put(Side.UP, leftType);</b>
+<b class="fc"><i>75</i>&nbsp;        sides.put(Side.DOWN, rightType);</b>
+<b class="fc"><i>76</i>&nbsp;        return true;</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an input of power&lt;/h1&gt;
+<i>81</i>&nbsp;     *
+<i>82</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>83</i>&nbsp;     * @return  true if the side is an input, false otherwise
+<i>84</i>&nbsp;     */
+<i>85</i>&nbsp;    @Override
+<b class="fc"><i>86</i>&nbsp;    public boolean acceptsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isInput(); }</b>
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an output of power&lt;/h1&gt;
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>92</i>&nbsp;     * @return  true if the side is an output, false otherwise
+<i>93</i>&nbsp;     */
+<i>94</i>&nbsp;    @Override
+<b class="fc"><i>95</i>&nbsp;    public boolean outputsPower(Side side) { return sides.getOrDefault(side, SideType.DEFAULT).isOutput(); }</b>
+<i>96</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

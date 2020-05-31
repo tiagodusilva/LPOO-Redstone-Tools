@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaCrossWireTileView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna.tile</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaCrossWireTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaCrossWireTileView</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$3TqQkLa5</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$4TMOgmg2</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$69RPawUd</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$7JmvbWmi</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$7KzAvv9H</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$c7NmDXme</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$Gs9FmbCr</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$iz6Zs6ga</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$O4g9hmww</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$tC4sF9lu</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$Ug9zhA4z</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$VrES7lUn</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaCrossWireTileView$MockitoMock$17125824$auxiliary$ZTIr3ecy</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.TextColor;
+<i>4</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>7</i>&nbsp;
+<b class="fc"><i>8</i>&nbsp;public class LanternaCrossWireTileView extends LanternaTileView {</b>
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    @Override
+<i>11</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;        if (tile.isConnected(Side.UP)) {</b>
+<b class="fc"><i>14</i>&nbsp;            graphics.setForegroundColor(getPowerColor(tile.getPower(Side.UP)));</b>
+<b class="fc"><i>15</i>&nbsp;            graphics.setCharacter(column + 1, row, &#39;\u2551&#39;);</b>
+<i>16</i>&nbsp;        }
+<b class="fc"><i>17</i>&nbsp;        if (tile.isConnected(Side.DOWN)) {</b>
+<b class="fc"><i>18</i>&nbsp;            graphics.setForegroundColor(getPowerColor(tile.getPower(Side.DOWN)));</b>
+<b class="fc"><i>19</i>&nbsp;            graphics.setCharacter(column + 1, row + 2, &#39;\u2551&#39;);</b>
+<i>20</i>&nbsp;        }
+<b class="fc"><i>21</i>&nbsp;        if (tile.isConnected(Side.RIGHT)) {</b>
+<b class="fc"><i>22</i>&nbsp;            graphics.setForegroundColor(getPowerColor(tile.getPower(Side.RIGHT)));</b>
+<b class="fc"><i>23</i>&nbsp;            graphics.setCharacter(column + 2, row + 1, &#39;\u2550&#39;);</b>
+<i>24</i>&nbsp;        }
+<b class="fc"><i>25</i>&nbsp;        if (tile.isConnected(Side.LEFT)) {</b>
+<b class="fc"><i>26</i>&nbsp;            graphics.setForegroundColor(getPowerColor(tile.getPower(Side.LEFT)));</b>
+<b class="fc"><i>27</i>&nbsp;            graphics.setCharacter(column, row + 1, &#39;\u2550&#39;);</b>
+<i>28</i>&nbsp;        }
+<i>29</i>&nbsp;
+<b class="fc"><i>30</i>&nbsp;        graphics.setForegroundColor(TextColor.Factory.fromString(&quot;#AFAFAF&quot;));</b>
+<b class="fc"><i>31</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39;\u256C&#39;);</b>
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
+</div>
+</body>
+</html>

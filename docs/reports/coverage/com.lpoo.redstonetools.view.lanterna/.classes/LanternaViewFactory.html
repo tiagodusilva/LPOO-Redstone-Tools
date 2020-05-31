@@ -61,7 +61,7 @@
     0%
   </span>
   <span class="absValue">
-    (0/ 20)
+    (0/ 23)
   </span>
 </td>
 </tr>
@@ -75,73 +75,82 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.googlecode.lanterna.TerminalSize;
-<i>4</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
-<i>5</i>&nbsp;import com.googlecode.lanterna.screen.TerminalScreen;
-<i>6</i>&nbsp;import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-<i>7</i>&nbsp;import com.googlecode.lanterna.terminal.Terminal;
-<i>8</i>&nbsp;import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-<i>9</i>&nbsp;import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
-<i>10</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
-<i>11</i>&nbsp;import com.lpoo.redstonetools.view.CircuitView;
-<i>12</i>&nbsp;import com.lpoo.redstonetools.view.MenuView;
-<i>13</i>&nbsp;import com.lpoo.redstonetools.view.ViewFactory;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;import java.awt.*;
-<i>16</i>&nbsp;import java.io.IOException;
+<i>4</i>&nbsp;import com.googlecode.lanterna.TextColor;
+<i>5</i>&nbsp;import com.googlecode.lanterna.gui2.DefaultWindowManager;
+<i>6</i>&nbsp;import com.googlecode.lanterna.gui2.EmptySpace;
+<i>7</i>&nbsp;import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+<i>8</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
+<i>9</i>&nbsp;import com.googlecode.lanterna.screen.TerminalScreen;
+<i>10</i>&nbsp;import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+<i>11</i>&nbsp;import com.googlecode.lanterna.terminal.Terminal;
+<i>12</i>&nbsp;import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
+<i>13</i>&nbsp;import com.lpoo.redstonetools.model.circuit.Circuit;
+<i>14</i>&nbsp;import com.lpoo.redstonetools.view.CircuitView;
+<i>15</i>&nbsp;import com.lpoo.redstonetools.view.MenuView;
+<i>16</i>&nbsp;import com.lpoo.redstonetools.view.ViewFactory;
 <i>17</i>&nbsp;
-<i>18</i>&nbsp;public class LanternaViewFactory implements ViewFactory {
-<i>19</i>&nbsp;
-<i>20</i>&nbsp;    Terminal terminal;
-<i>21</i>&nbsp;    Screen screen;
+<i>18</i>&nbsp;import java.awt.*;
+<i>19</i>&nbsp;import java.io.IOException;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;public class LanternaViewFactory implements ViewFactory {
 <i>22</i>&nbsp;
-<b class="nc"><i>23</i>&nbsp;    public LanternaViewFactory() {</b>
-<i>24</i>&nbsp;        try {
-<b class="nc"><i>25</i>&nbsp;            Font font = new Font(&quot;Consolas&quot;, Font.PLAIN, 15);</b>
-<b class="nc"><i>26</i>&nbsp;            SwingTerminalFontConfiguration cfg = SwingTerminalFontConfiguration.getDefault();/*new SwingTerminalFontConfiguration(</b>
-<i>27</i>&nbsp;                    true,
-<i>28</i>&nbsp;                    SwingTerminalFontConfiguration.BoldMode.NOTHING,
-<i>29</i>&nbsp;                    font);*/
-<i>30</i>&nbsp;
-<b class="nc"><i>31</i>&nbsp;            this.terminal = new DefaultTerminalFactory()</b>
-<b class="nc"><i>32</i>&nbsp;                    .setInitialTerminalSize(new TerminalSize(100, 40))</b>
-<b class="nc"><i>33</i>&nbsp;                    .setTerminalEmulatorFontConfiguration(cfg)</b>
-<b class="nc"><i>34</i>&nbsp;                    .createTerminal();</b>
-<b class="nc"><i>35</i>&nbsp;            this.screen = new TerminalScreen(terminal);</b>
-<i>36</i>&nbsp;
-<b class="nc"><i>37</i>&nbsp;            this.screen.setCursorPosition(null);   // we don&#39;t need a cursor</b>
-<b class="nc"><i>38</i>&nbsp;            this.screen.startScreen();             // screens must be started</b>
-<b class="nc"><i>39</i>&nbsp;            this.screen.doResizeIfNecessary();     // resize screen if necessary</b>
-<b class="nc"><i>40</i>&nbsp;        } catch (</b>
-<i>41</i>&nbsp;                IOException e) {
-<b class="nc"><i>42</i>&nbsp;            e.printStackTrace();</b>
-<b class="nc"><i>43</i>&nbsp;        }</b>
-<i>44</i>&nbsp;    }
-<i>45</i>&nbsp;
-<i>46</i>&nbsp;    @Override
-<i>47</i>&nbsp;    public CircuitView getCircuitView(Circuit circuit) {
-<b class="nc"><i>48</i>&nbsp;        return new LanternaCircuitView(screen, circuit);</b>
-<i>49</i>&nbsp;    }
-<i>50</i>&nbsp;
-<i>51</i>&nbsp;    @Override
-<i>52</i>&nbsp;    public MenuView getMenuView() {
-<b class="nc"><i>53</i>&nbsp;        return new LanternaMenuView(screen);</b>
-<i>54</i>&nbsp;    }
-<i>55</i>&nbsp;
-<i>56</i>&nbsp;    @Override
-<i>57</i>&nbsp;    public void terminate() {
-<i>58</i>&nbsp;        try {
-<b class="nc"><i>59</i>&nbsp;            terminal.close();</b>
-<b class="nc"><i>60</i>&nbsp;        } catch (IOException e) {</b>
-<b class="nc"><i>61</i>&nbsp;            e.printStackTrace();</b>
-<b class="nc"><i>62</i>&nbsp;        }</b>
+<i>23</i>&nbsp;    private Terminal terminal;
+<i>24</i>&nbsp;    private Screen screen;
+<i>25</i>&nbsp;    private MultiWindowTextGUI textGUI;
+<i>26</i>&nbsp;    private LanternaMenuBuilder lanternaMenuBuilder;
+<i>27</i>&nbsp;
+<b class="nc"><i>28</i>&nbsp;    public LanternaViewFactory() {</b>
+<i>29</i>&nbsp;        try {
+<b class="nc"><i>30</i>&nbsp;            Font font = new Font(&quot;Consolas&quot;, Font.PLAIN, 15);</b>
+<b class="nc"><i>31</i>&nbsp;            SwingTerminalFontConfiguration cfg = SwingTerminalFontConfiguration.getDefault();/*new SwingTerminalFontConfiguration(</b>
+<i>32</i>&nbsp;                    true,
+<i>33</i>&nbsp;                    SwingTerminalFontConfiguration.BoldMode.NOTHING,
+<i>34</i>&nbsp;                    font);*/
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;            this.terminal = new DefaultTerminalFactory()</b>
+<b class="nc"><i>37</i>&nbsp;                    .setInitialTerminalSize(new TerminalSize(100, 40))</b>
+<b class="nc"><i>38</i>&nbsp;                    .setTerminalEmulatorFontConfiguration(cfg)</b>
+<b class="nc"><i>39</i>&nbsp;                    .setTerminalEmulatorTitle(&quot;RedstoneTools&quot;)</b>
+<b class="nc"><i>40</i>&nbsp;                    .createTerminal();</b>
+<b class="nc"><i>41</i>&nbsp;            this.screen = new TerminalScreen(terminal);</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;            this.screen.setCursorPosition(null);   // we don&#39;t need a cursor</b>
+<b class="nc"><i>44</i>&nbsp;            this.screen.startScreen();             // screens must be started</b>
+<b class="nc"><i>45</i>&nbsp;            this.screen.doResizeIfNecessary();     // resize screen if necessary</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;            textGUI = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK));</b>
+<b class="nc"><i>48</i>&nbsp;            lanternaMenuBuilder = new LanternaMenuBuilder(textGUI);</b>
+<b class="nc"><i>49</i>&nbsp;        } catch (</b>
+<i>50</i>&nbsp;                IOException e) {
+<b class="nc"><i>51</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>52</i>&nbsp;        }</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @Override
+<i>56</i>&nbsp;    public CircuitView getCircuitView(Circuit circuit) {
+<b class="nc"><i>57</i>&nbsp;        return new LanternaCircuitView(screen, lanternaMenuBuilder, circuit);</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @Override
+<i>61</i>&nbsp;    public MenuView getMenuView() {
+<b class="nc"><i>62</i>&nbsp;        return new LanternaMenuView(screen, lanternaMenuBuilder);</b>
 <i>63</i>&nbsp;    }
-<i>64</i>&nbsp;}
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    @Override
+<i>66</i>&nbsp;    public void terminate() {
+<i>67</i>&nbsp;        try {
+<b class="nc"><i>68</i>&nbsp;            terminal.close();</b>
+<b class="nc"><i>69</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>70</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>71</i>&nbsp;        }</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

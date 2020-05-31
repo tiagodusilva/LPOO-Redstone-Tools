@@ -55,7 +55,7 @@ public class ComparatorTile extends OrientedTile {
         this.sides.put(Side.DOWN, SideType.INPUT);
         this.sides.put(Side.RIGHT, SideType.OUTPUT);
 
-        updateRear();
+        this.updateRear();
 
         this.forceUpdate = false;
 

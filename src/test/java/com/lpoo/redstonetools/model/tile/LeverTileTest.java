@@ -5,77 +5,111 @@ import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import net.jqwik.api.*;
+import net.jqwik.api.constraints.Positive;
+import net.jqwik.api.lifecycle.BeforeProperty;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class LeverTileTest {
 
     private LeverTile lever;
 
-    private Position expectedLeverPosition;
-
-    @Before
+    @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
 
-        expectedLeverPosition = Mockito.mock(Position.class);
-        Mockito.when(expectedLeverPosition.getX()).thenReturn(1);
-        Mockito.when(expectedLeverPosition.getY()).thenReturn(2);
-
         this.lever = new LeverTile(position);
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testLever() {
-        Assert.assertEquals(expectedLeverPosition.getX(), lever.getPosition().getX());
-        Assert.assertEquals(expectedLeverPosition.getY(), lever.getPosition().getY());
-        Assert.assertEquals("lever", lever.getName());
-        Assert.assertEquals("Power : " + Power.getMin(), lever.getInfo());
-        Assert.assertEquals(TileType.LEVER, lever.getType());
+        Assertions.assertEquals(1, lever.getPosition().getX());
+        Assertions.assertEquals(2, lever.getPosition().getY());
+        Assertions.assertEquals(TileType.LEVER, lever.getType());
+        Assertions.assertFalse(lever.isWire());
+        Assertions.assertFalse(lever.isTickedTile());
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testLeverInteract() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertFalse(lever.isActivated());
-        lever.interact(circuit);
-        Assert.assertTrue(lever.isActivated());
-        lever.interact(circuit);
-        Assert.assertFalse(lever.isActivated());
+        Assertions.assertFalse(lever.isActivated());
+        Assertions.assertTrue(lever.interact(circuit));
+        Assertions.assertTrue(lever.isActivated());
+        Assertions.assertTrue(lever.interact(circuit));
+        Assertions.assertFalse(lever.isActivated());
+    }
 
-        for (int i = 0; i < 6; i++) {
-            lever.interact(circuit);
-        }
-        Assert.assertFalse(lever.isActivated());
+    @Provide
+    Arbitrary<Integer> evenPositiveInt() {
+        return Arbitraries.integers().between(0, 5000).filter(n -> n % 2 == 0);
+    }
 
-        for (int i = 0; i < 9; i++) {
-            lever.interact(circuit);
+    @Property
+    @net.jqwik.api.Tag("model")
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
+    public void testInteractEvenTimes(@ForAll("evenPositiveInt") int interacts) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        boolean previous_status = lever.isActivated();
+
+        for (int i = 0; i < interacts; i++) {
+            Assertions.assertTrue(lever.interact(circuit));
         }
-        Assert.assertTrue(lever.isActivated());
+
+        Assertions.assertEquals(previous_status, lever.isActivated());
+    }
+
+    @Provide
+    Arbitrary<Integer> oddPositiveInt() {
+        return Arbitraries.integers().between(0, 5000).filter(n -> n % 2 != 0);
+    }
+
+    @Property
+    @net.jqwik.api.Tag("model")
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
+    public void testInteractOddTimes(@ForAll("oddPositiveInt") @Positive int interacts) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        boolean previous_status = lever.isActivated();
+
+        for (int i = 0; i < interacts; i++) {
+            Assertions.assertTrue(lever.interact(circuit));
+        }
+
+        Assertions.assertNotEquals(previous_status, lever.isActivated());
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testLeverPower() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         for (Side side : Side.values()) {
-            Assert.assertFalse(lever.acceptsPower(side));
-            Assert.assertTrue(lever.outputsPower(side));
-            Assert.assertEquals(Power.getMin(), lever.getPower(side));
+            Assertions.assertFalse(lever.acceptsPower(side));
+            Assertions.assertTrue(lever.outputsPower(side));
+            Assertions.assertEquals(Power.getMin(), lever.getPower(side));
         }
 
         lever.interact(circuit);
 
         for (Side side : Side.values()) {
-            Assert.assertFalse(lever.acceptsPower(side));
-            Assert.assertTrue(lever.outputsPower(side));
-            Assert.assertEquals(Power.getMax(), lever.getPower(side));
+            Assertions.assertFalse(lever.acceptsPower(side));
+            Assertions.assertTrue(lever.outputsPower(side));
+            Assertions.assertEquals(Power.getMax(), lever.getPower(side));
         }
     }
-
 }

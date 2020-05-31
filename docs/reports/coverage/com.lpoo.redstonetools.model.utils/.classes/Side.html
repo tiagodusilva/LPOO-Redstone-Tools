@@ -42,15 +42,15 @@
     100%
   </span>
   <span class="absValue">
-    (3/ 3)
+    (5/ 5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    87.5%
+    86.7%
   </span>
   <span class="absValue">
-    (7/ 8)
+    (13/ 15)
   </span>
 </td>
 </tr>
@@ -80,15 +80,15 @@
     100%
   </span>
   <span class="absValue">
-    (4/ 4)
+    (6/ 6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    88.9%
+    87.5%
   </span>
   <span class="absValue">
-    (8/ 9)
+    (14/ 16)
   </span>
 </td>
 </tr>
@@ -128,13 +128,41 @@
 <b class="nc"><i>28</i>&nbsp;        return Side.UP;</b>
 <i>29</i>&nbsp;    }
 <i>30</i>&nbsp;
-<i>31</i>&nbsp;}
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * &lt;h1&gt;Get side at the right of the side&lt;/h1&gt;
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @return Side on the right (rotating 90º clockwise)
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    public Side atRight() {
+<b class="fc"><i>37</i>&nbsp;        switch (this) {</b>
+<i>38</i>&nbsp;            case UP:
+<b class="fc"><i>39</i>&nbsp;                return Side.RIGHT;</b>
+<i>40</i>&nbsp;            case DOWN:
+<b class="fc"><i>41</i>&nbsp;                return Side.LEFT;</b>
+<i>42</i>&nbsp;            case LEFT:
+<b class="fc"><i>43</i>&nbsp;                return Side.UP;</b>
+<i>44</i>&nbsp;            case RIGHT:
+<b class="fc"><i>45</i>&nbsp;                return Side.DOWN;</b>
+<i>46</i>&nbsp;        }
+<b class="nc"><i>47</i>&nbsp;        return Side.UP;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * &lt;h1&gt;Get side at the left of the side&lt;/h1&gt;
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @return Side on the right (rotating 90º counter clockwise)
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public Side atLeft() {
+<b class="fc"><i>56</i>&nbsp;        return atRight().opposite();</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

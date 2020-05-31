@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: LanternaTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,79 @@
   <td class="name">LanternaTileView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    81.8%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (9/ 11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    95.3%
   </span>
   <span class="absValue">
-    (0/ 6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/ 41)
+    (61/ 64)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$E5R6267K</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$EWWRH2EA</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$JqjK3t7L</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$NgDbxbqM</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$nKkfhW2g</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$ofLvEdXw</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$oMemi4BI</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$Qn2Akvee</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$rvUCIz0s</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$SgDf7UK7</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$UkaGeMwh</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaTileView$MockitoMock$351793369$auxiliary$wnDJvNIA</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    81.8%
+  </span>
+  <span class="absValue">
+    (9/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.3%
+  </span>
+  <span class="absValue">
+    (61/ 64)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -80,83 +126,120 @@
 <i>6</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
 <i>7</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
 <i>8</i>&nbsp;
-<b class="nc"><i>9</i>&nbsp;public abstract class LanternaTileView {</b>
+<b class="fc"><i>9</i>&nbsp;public abstract class LanternaTileView {</b>
 <i>10</i>&nbsp;
 <i>11</i>&nbsp;    public abstract void render(Tile tile, int row, int column, TextGraphics graphics);
 <i>12</i>&nbsp;
-<i>13</i>&nbsp;    public String getOutputColor() {
-<b class="nc"><i>14</i>&nbsp;        return &quot;#CC6E1C&quot;;</b>
-<i>15</i>&nbsp;    }
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;    public String getInputColor() {
-<b class="nc"><i>18</i>&nbsp;        return &quot;#3497E2&quot;;</b>
-<i>19</i>&nbsp;    }
-<i>20</i>&nbsp;
-<i>21</i>&nbsp;    public String getPowerColor(int power) {
-<b class="nc"><i>22</i>&nbsp;        if (power == Power.getMin())</b>
-<b class="nc"><i>23</i>&nbsp;            return &quot;#500000&quot;;</b>
-<i>24</i>&nbsp;
-<b class="nc"><i>25</i>&nbsp;        String red_component = Integer.toHexString((int) (120 + Power.normalize(power) * (240 - 120)));</b>
-<b class="nc"><i>26</i>&nbsp;        if (red_component.length() == 1)</b>
-<b class="nc"><i>27</i>&nbsp;            red_component += &#39;0&#39;;</b>
-<b class="nc"><i>28</i>&nbsp;        return &quot;#&quot; + red_component + &quot;0000&quot;;</b>
-<i>29</i>&nbsp;    }
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    public void renderFrame(TextGraphics graphics, int column, int row) {
-<b class="nc"><i>32</i>&nbsp;        graphics.putString(column, row, &quot;\u250F\u2501\u2513&quot;);</b>
-<b class="nc"><i>33</i>&nbsp;        graphics.putString(column, row + 1, &quot;\u2503 \u2503&quot;);</b>
-<b class="nc"><i>34</i>&nbsp;        graphics.putString(column, row + 2, &quot;\u2517\u2501\u251B&quot;);</b>
-<i>35</i>&nbsp;    }
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    public void renderPowerSensitiveFrame(TextGraphics graphics, Tile tile, int column, int row) {
-<b class="nc"><i>38</i>&nbsp;        TextColor color = graphics.getForegroundColor();</b>
+<b class="fc"><i>13</i>&nbsp;    private final TextColor foregroundColor = TextColor.ANSI.WHITE;</b>
+<b class="fc"><i>14</i>&nbsp;    private final TextColor backgroundColor = TextColor.ANSI.BLACK;</b>
+<b class="fc"><i>15</i>&nbsp;    private final TextColor outputColor = TextColor.Factory.fromString(&quot;#CC6E1C&quot;);</b>
+<b class="fc"><i>16</i>&nbsp;    private final TextColor inputColor = TextColor.Factory.fromString(&quot;#3497E2&quot;);</b>
+<b class="fc"><i>17</i>&nbsp;    private final TextColor baseRedstoneColor = TextColor.Factory.fromString(&quot;#500000&quot;);</b>
+<b class="fc"><i>18</i>&nbsp;    private final TextColor brokenColor = TextColor.Factory.fromString(&quot;#f9ed04&quot;);</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    public TextColor getOutputColor() {
+<b class="fc"><i>21</i>&nbsp;        return outputColor;</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public TextColor getInputColor() {
+<b class="fc"><i>25</i>&nbsp;        return inputColor;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    public TextColor getBrokenColor() {
+<b class="fc"><i>29</i>&nbsp;        return brokenColor;</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    public TextColor getForegroundColor() {
+<b class="nc"><i>33</i>&nbsp;        return foregroundColor;</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    public TextColor getBackgroundColor() {
+<b class="nc"><i>37</i>&nbsp;        return backgroundColor;</b>
+<i>38</i>&nbsp;    }
 <i>39</i>&nbsp;
-<b class="nc"><i>40</i>&nbsp;        graphics.putString(column, row, &quot;\u250F\u2501\u2513&quot;);</b>
-<b class="nc"><i>41</i>&nbsp;        graphics.putString(column, row + 1, &quot;\u2503 \u2503&quot;);</b>
-<b class="nc"><i>42</i>&nbsp;        graphics.putString(column, row + 2, &quot;\u2517\u2501\u251B&quot;);</b>
+<i>40</i>&nbsp;    public TextColor getPowerColor(int power) {
+<b class="fc"><i>41</i>&nbsp;        if (power == Power.getMin())</b>
+<b class="fc"><i>42</i>&nbsp;            return baseRedstoneColor;</b>
 <i>43</i>&nbsp;
-<i>44</i>&nbsp;        // Code smell, but the alternative would be quite more costly
-<b class="nc"><i>45</i>&nbsp;        if (tile.acceptsPower(Side.UP)) {</b>
-<b class="nc"><i>46</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));</b>
-<b class="nc"><i>47</i>&nbsp;            graphics.setCharacter(column + 1, row, &#39;\u2568&#39;);</b>
-<b class="nc"><i>48</i>&nbsp;        } else if (tile.outputsPower(Side.UP)) {</b>
-<b class="nc"><i>49</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));</b>
-<b class="nc"><i>50</i>&nbsp;            graphics.setCharacter(column + 1, row, &#39;\u2568&#39;);</b>
-<i>51</i>&nbsp;        }
+<b class="fc"><i>44</i>&nbsp;        String red_component = Integer.toHexString((int) (120 + Power.normalize(power) * (240 - 120)));</b>
+<b class="fc"><i>45</i>&nbsp;        if (red_component.length() == 1)</b>
+<b class="nc"><i>46</i>&nbsp;            red_component = &quot;0&quot; + red_component;</b>
+<b class="fc"><i>47</i>&nbsp;        return TextColor.Factory.fromString(&quot;#&quot; + red_component + &quot;0000&quot;);</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public void renderBrokenFrame(TextGraphics graphics, int column, int row) {
+<b class="fc"><i>51</i>&nbsp;        TextColor color = graphics.getForegroundColor();</b>
 <i>52</i>&nbsp;
-<b class="nc"><i>53</i>&nbsp;        if (tile.acceptsPower(Side.DOWN)) {</b>
-<b class="nc"><i>54</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));</b>
-<b class="nc"><i>55</i>&nbsp;            graphics.setCharacter(column + 1, row + 2, &#39;\u2565&#39;);</b>
-<b class="nc"><i>56</i>&nbsp;        } else if (tile.outputsPower(Side.DOWN)) {</b>
-<b class="nc"><i>57</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));</b>
-<b class="nc"><i>58</i>&nbsp;            graphics.setCharacter(column + 1, row + 2, &#39;\u2565&#39;);</b>
-<i>59</i>&nbsp;        }
+<b class="fc"><i>53</i>&nbsp;        graphics.setForegroundColor(getBrokenColor());</b>
+<b class="fc"><i>54</i>&nbsp;        graphics.putString(column, row, &quot;\u250F\u254D\u2513&quot;);</b>
+<b class="fc"><i>55</i>&nbsp;        graphics.putString(column, row + 1, &quot;\u254F \u254F&quot;);</b>
+<b class="fc"><i>56</i>&nbsp;        graphics.putString(column, row + 2, &quot;\u2517\u254D\u251B&quot;);</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        graphics.setForegroundColor(color);</b>
+<b class="fc"><i>59</i>&nbsp;    }</b>
 <i>60</i>&nbsp;
-<b class="nc"><i>61</i>&nbsp;        if (tile.acceptsPower(Side.RIGHT)) {</b>
-<b class="nc"><i>62</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));</b>
-<b class="nc"><i>63</i>&nbsp;            graphics.setCharacter(column + 2, row + 1, &#39;\u255e&#39;);</b>
-<b class="nc"><i>64</i>&nbsp;        } else if (tile.outputsPower(Side.RIGHT)) {</b>
-<b class="nc"><i>65</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));</b>
-<b class="nc"><i>66</i>&nbsp;            graphics.setCharacter(column + 2, row + 1, &#39;\u255e&#39;);</b>
-<i>67</i>&nbsp;        }
-<i>68</i>&nbsp;
-<b class="nc"><i>69</i>&nbsp;        if (tile.acceptsPower(Side.LEFT)) {</b>
-<b class="nc"><i>70</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getInputColor()));</b>
-<b class="nc"><i>71</i>&nbsp;            graphics.setCharacter(column, row + 1, &#39;\u2561&#39;);</b>
-<b class="nc"><i>72</i>&nbsp;        } else if (tile.outputsPower(Side.LEFT)) {</b>
-<b class="nc"><i>73</i>&nbsp;            graphics.setForegroundColor(TextColor.Factory.fromString(getOutputColor()));</b>
-<b class="nc"><i>74</i>&nbsp;            graphics.setCharacter(column, row + 1, &#39;\u2561&#39;);</b>
-<i>75</i>&nbsp;        }
+<i>61</i>&nbsp;    public void renderFrame(TextGraphics graphics, int column, int row) {
+<b class="fc"><i>62</i>&nbsp;        graphics.putString(column, row, &quot;\u250F\u2501\u2513&quot;);</b>
+<b class="fc"><i>63</i>&nbsp;        graphics.putString(column, row + 1, &quot;\u2503 \u2503&quot;);</b>
+<b class="fc"><i>64</i>&nbsp;        graphics.putString(column, row + 2, &quot;\u2517\u2501\u251B&quot;);</b>
+<b class="fc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public void renderPowerSensitiveFrame(TextGraphics graphics, Tile tile, int column, int row, TextColor frameColor) {
+<b class="fc"><i>68</i>&nbsp;        TextColor color = graphics.getForegroundColor();</b>
+<b class="fc"><i>69</i>&nbsp;        graphics.setForegroundColor(frameColor);</b>
+<b class="fc"><i>70</i>&nbsp;        renderPowerSensitiveFrame(graphics, tile, column, row);</b>
+<b class="fc"><i>71</i>&nbsp;        graphics.setForegroundColor(color);</b>
+<b class="fc"><i>72</i>&nbsp;    }</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    public void renderPowerSensitiveFrame(TextGraphics graphics, Tile tile, int column, int row) {
+<b class="fc"><i>75</i>&nbsp;        TextColor color = graphics.getForegroundColor();</b>
 <i>76</i>&nbsp;
-<b class="nc"><i>77</i>&nbsp;        graphics.setForegroundColor(color);</b>
-<i>78</i>&nbsp;    }
-<i>79</i>&nbsp;}
+<b class="fc"><i>77</i>&nbsp;        graphics.putString(column, row, &quot;\u250F\u2501\u2513&quot;);</b>
+<b class="fc"><i>78</i>&nbsp;        graphics.putString(column, row + 1, &quot;\u2503 \u2503&quot;);</b>
+<b class="fc"><i>79</i>&nbsp;        graphics.putString(column, row + 2, &quot;\u2517\u2501\u251B&quot;);</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;        // Code smell, but the alternative would be quite more costly
+<b class="fc"><i>82</i>&nbsp;        if (tile.acceptsPower(Side.UP)) {</b>
+<b class="fc"><i>83</i>&nbsp;            graphics.setForegroundColor(getInputColor());</b>
+<b class="fc"><i>84</i>&nbsp;            graphics.setCharacter(column + 1, row, &#39;\u2568&#39;);</b>
+<b class="fc"><i>85</i>&nbsp;        } else if (tile.outputsPower(Side.UP)) {</b>
+<b class="fc"><i>86</i>&nbsp;            graphics.setForegroundColor(getOutputColor());</b>
+<b class="fc"><i>87</i>&nbsp;            graphics.setCharacter(column + 1, row, &#39;\u2568&#39;);</b>
+<i>88</i>&nbsp;        }
+<i>89</i>&nbsp;
+<b class="fc"><i>90</i>&nbsp;        if (tile.acceptsPower(Side.DOWN)) {</b>
+<b class="fc"><i>91</i>&nbsp;            graphics.setForegroundColor(getInputColor());</b>
+<b class="fc"><i>92</i>&nbsp;            graphics.setCharacter(column + 1, row + 2, &#39;\u2565&#39;);</b>
+<b class="fc"><i>93</i>&nbsp;        } else if (tile.outputsPower(Side.DOWN)) {</b>
+<b class="fc"><i>94</i>&nbsp;            graphics.setForegroundColor(getOutputColor());</b>
+<b class="fc"><i>95</i>&nbsp;            graphics.setCharacter(column + 1, row + 2, &#39;\u2565&#39;);</b>
+<i>96</i>&nbsp;        }
+<i>97</i>&nbsp;
+<b class="fc"><i>98</i>&nbsp;        if (tile.acceptsPower(Side.RIGHT)) {</b>
+<b class="fc"><i>99</i>&nbsp;            graphics.setForegroundColor(getInputColor());</b>
+<b class="fc"><i>100</i>&nbsp;            graphics.setCharacter(column + 2, row + 1, &#39;\u255e&#39;);</b>
+<b class="fc"><i>101</i>&nbsp;        } else if (tile.outputsPower(Side.RIGHT)) {</b>
+<b class="fc"><i>102</i>&nbsp;            graphics.setForegroundColor(getOutputColor());</b>
+<b class="fc"><i>103</i>&nbsp;            graphics.setCharacter(column + 2, row + 1, &#39;\u255e&#39;);</b>
+<i>104</i>&nbsp;        }
+<i>105</i>&nbsp;
+<b class="fc"><i>106</i>&nbsp;        if (tile.acceptsPower(Side.LEFT)) {</b>
+<b class="fc"><i>107</i>&nbsp;            graphics.setForegroundColor(getInputColor());</b>
+<b class="fc"><i>108</i>&nbsp;            graphics.setCharacter(column, row + 1, &#39;\u2561&#39;);</b>
+<b class="fc"><i>109</i>&nbsp;        } else if (tile.outputsPower(Side.LEFT)) {</b>
+<b class="fc"><i>110</i>&nbsp;            graphics.setForegroundColor(getOutputColor());</b>
+<b class="fc"><i>111</i>&nbsp;            graphics.setCharacter(column, row + 1, &#39;\u2561&#39;);</b>
+<i>112</i>&nbsp;        }
+<i>113</i>&nbsp;
+<b class="fc"><i>114</i>&nbsp;        graphics.setForegroundColor(color);</b>
+<b class="fc"><i>115</i>&nbsp;    }</b>
+<i>116</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.lpoo.redstonetools.view.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.lpoo.redstonetools.controller.circuit.CircuitController;
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
@@ -26,6 +27,121 @@ public class LanternaMenuBuilder {
 
     public LanternaMenuBuilder(MultiWindowTextGUI textGUI) {
         this.textGUI = textGUI;
+    }
+
+    public MultiWindowTextGUI getTextGUI() {
+        return textGUI;
+    }
+
+    public void addStartingMenu(Consumer<Circuit> onSelect, Runnable onClose, Runnable onExit) {
+        File input;
+
+        final Panel[] mainPanel = {new Panel()};
+        Label fileNameLabel = new Label("");
+        Label circuitSizeLabel = new Label("");
+
+        final Circuit[] circuit = {null};
+        final String[] fileName = {null};
+
+        final boolean[] createdAnyCircuit = {false};
+
+        // Create window to hold the panel
+        Window window = new BasicWindow();
+        window.setComponent(mainPanel[0]);
+        window.setHints(Arrays.asList(Window.Hint.CENTERED));
+
+        Button quitButton = new Button("Close game", () -> {
+            textGUI.removeWindow(window);
+            onExit.run();
+            onClose.run();
+        });
+        Border borderedQuitButton = quitButton.withBorder(Borders.doubleLine());
+
+        Runnable createCircuit = () -> {
+            if (!createdAnyCircuit[0]) {
+                createdAnyCircuit[0] = true;
+                mainPanel[0].removeComponent(borderedQuitButton);
+
+                mainPanel[0].addComponent(fileNameLabel);
+                mainPanel[0].addComponent(circuitSizeLabel);
+                mainPanel[0].addComponent(new Button("Open Circuit", () -> {
+                    textGUI.removeWindow(window);
+                    onSelect.accept(circuit[0]);
+                }).withBorder(Borders.doubleLine()));
+
+                mainPanel[0].addComponent(new EmptySpace(new TerminalSize(0, 1)));
+                mainPanel[0].addComponent(quitButton.withBorder(Borders.singleLine()));
+            }
+
+            if (fileName[0].equals(""))
+                fileNameLabel.setText("Blank Circuit");
+            else
+                fileNameLabel.setText("Loaded from:\n" + fileName[0]);
+            circuitSizeLabel.setText("Circuit size: " + circuit[0].getWidth() + "x" + circuit[0].getHeight());
+        };
+
+        Panel selectPanel = new Panel();
+        mainPanel[0].addComponent(selectPanel.withBorder(Borders.singleLine("Select a Circuit")));
+        selectPanel.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));
+
+        Button selectFileButton = new Button("Select File", () -> {
+            File input1 = new FileDialogBuilder()
+                    .setTitle("Open File")
+                    .setDescription("Choose a file")
+                    .setActionLabel("Open")
+                    .setSelectedFile(new File("circuits/"))
+                    .build()
+                    .showDialog(textGUI);
+
+            if (input1 != null) {
+                fileName[0] = input1.getAbsolutePath();
+                try {
+                    Circuit aux = CircuitController.loadCircuit(input1.getAbsolutePath());
+                    aux.setCircuitName(input1.getName());
+                    circuit[0] = aux;
+                    createCircuit.run();
+                } catch (InvalidCircuitException e) {
+                    new MessageDialogBuilder()
+                            .setTitle("Failed to Load Circuit")
+                            .setText("Circuit's version may mismatch the current one\n\nPlease select a valid .ser file")
+                            .build()
+                            .showDialog(textGUI);
+                }
+            }
+
+        });
+        selectPanel.addComponent(selectFileButton.withBorder(Borders.singleLine("Select from a file")));
+        window.setFocusedInteractable(selectFileButton);
+
+        Panel rightPanel = new Panel();
+        selectPanel.addComponent(rightPanel.withBorder(Borders.singleLine("New Blank Circuit")));
+        rightPanel.setLayoutManager(new GridLayout(2));
+
+        rightPanel.addComponent(new Label("Width").setLabelWidth(5));
+        final TextBox widthTxt = new TextBox().setText("20").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
+
+        rightPanel.addComponent(new Label("Height").setLabelWidth(5));
+        final TextBox heightTxt = new TextBox().setText("10").setValidationPattern(Pattern.compile("[1-9][0-9]{0,2}")).addTo(rightPanel);
+
+        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+        rightPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+
+        rightPanel.addComponent(new Button("Create Blank", () -> {
+            fileName[0] = "";
+            if (widthTxt.getText().equals("") || heightTxt.getText().equals("")) {
+                this.addConfirmation("Textboxes must not be empty", () -> {});
+            }
+            else {
+                circuit[0] = new Circuit(Integer.parseInt(widthTxt.getText()), Integer.parseInt(heightTxt.getText()));
+                circuit[0].setCircuitName("blank.ser");
+                createCircuit.run();
+            }
+        }).withBorder(Borders.singleLine()));
+
+        mainPanel[0].addComponent(new EmptySpace(new TerminalSize(0, 1)));
+        mainPanel[0].addComponent(borderedQuitButton);
+
+        textGUI.addWindow(window);
     }
 
     public void addHelpWindow(Runnable onExit) {

@@ -1,7 +1,6 @@
 package com.lpoo.redstonetools.controller.state;
 
 import com.lpoo.redstonetools.MainController;
-import com.lpoo.redstonetools.view.ViewFactory;
 
 public abstract class State {
 

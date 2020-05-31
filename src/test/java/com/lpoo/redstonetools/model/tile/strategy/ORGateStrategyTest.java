@@ -3,15 +3,17 @@ package com.lpoo.redstonetools.model.tile.strategy;
 import com.lpoo.redstonetools.model.utils.Power;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.SideType;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ORGateStrategyTest {
-
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testLogic() {
         Map<Side, Integer> inputs = new HashMap<>();
         Map<Side, SideType> sideTypes = new HashMap<>();
@@ -25,9 +27,9 @@ public class ORGateStrategyTest {
 
         ORGateStrategy strategy = new ORGateStrategy();
 
-        Assert.assertEquals(LogicGateStrategyType.OR, strategy.getType());
+        Assertions.assertEquals(LogicGateStrategyType.OR, strategy.getType());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assertions.assertFalse(strategy.logic(inputs, sideTypes));
 
         // All side outputs
         for (Side side : Side.values()) {
@@ -37,35 +39,35 @@ public class ORGateStrategyTest {
         inputs.put(Side.LEFT, Power.getMax());
         inputs.put(Side.DOWN, Power.getMax());
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assertions.assertFalse(strategy.logic(inputs, sideTypes));
 
         // Input doesn't have power
         sideTypes.put(Side.RIGHT, SideType.INPUT);
         sideTypes.put(Side.UP, SideType.INPUT);
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assertions.assertFalse(strategy.logic(inputs, sideTypes));
 
         // Input sides have power
         inputs.put(Side.RIGHT, Power.getMax());
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assertions.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.UP, Power.getMax());
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assertions.assertTrue(strategy.logic(inputs, sideTypes));
 
         sideTypes.put(Side.LEFT, SideType.INPUT);
         inputs.put(Side.LEFT, Power.getMin());
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assertions.assertTrue(strategy.logic(inputs, sideTypes));
 
         inputs.put(Side.LEFT, 1);
 
-        Assert.assertTrue(strategy.logic(inputs, sideTypes));
+        Assertions.assertTrue(strategy.logic(inputs, sideTypes));
 
         for (Side side : Side.values()) {
             inputs.put(side, Power.getMin());
         }
 
-        Assert.assertFalse(strategy.logic(inputs, sideTypes));
+        Assertions.assertFalse(strategy.logic(inputs, sideTypes));
     }
 }

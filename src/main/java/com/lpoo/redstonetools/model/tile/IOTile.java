@@ -133,13 +133,13 @@ public class IOTile extends Tile {
     @Override
     public boolean interact(Circuit circuit) {
         SideType oldState = ioType;
-        ioType = ioType.next();
+        setIOType(ioType.next());
 
         while (ioType != oldState) {
 
             if (circuit.updateOnIOInteract(position)) return true;
 
-            ioType = ioType.next();
+            setIOType(ioType.next());
         }
         return false;
     }

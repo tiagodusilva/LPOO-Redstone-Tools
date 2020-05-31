@@ -2,7 +2,9 @@ package com.lpoo.redstonetools.controller.circuit;
 
 import com.lpoo.redstonetools.exception.InvalidCircuitException;
 import com.lpoo.redstonetools.model.circuit.Circuit;
-import com.lpoo.redstonetools.model.tile.*;
+import com.lpoo.redstonetools.model.tile.IOTile;
+import com.lpoo.redstonetools.model.tile.NullTile;
+import com.lpoo.redstonetools.model.tile.Tile;
 import com.lpoo.redstonetools.model.utils.Position;
 import com.lpoo.redstonetools.model.utils.Side;
 import com.lpoo.redstonetools.model.utils.TileType;
@@ -22,10 +24,22 @@ import java.util.Map;
  */
 public class CircuitController {
 
+    /**
+     * <h1>Maximum number of updates in a run</h1>
+     * Maximum number of updates a position can have in a single update event
+     */
     private static final int MAX_UPDATES = 10;
+
+    /**
+     * <h1>Controller update tracker</h1>
+     * Used to keep track of the number of updates of certain position to detect infinite loops and
+     * unstable circuits
+     */
     private Map<Position, Integer> updateTracker;
 
-
+    /**
+     * <h1>Circuit controller constructor</h1>
+     */
     public CircuitController() {
         updateTracker = new HashMap<>();
     }
@@ -330,7 +344,6 @@ public class CircuitController {
     public void setDelay(Circuit circuit, Position position, long delay) {
         if (!circuit.isInBounds(position))
             return;
-        System.out.println("delay: " + delay);
         Tile tile = circuit.getTile(position);
         tile.setDelay(delay);
 

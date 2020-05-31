@@ -3,14 +3,9 @@ package com.lpoo.redstonetools.view.lanterna.tile;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.lpoo.redstonetools.model.tile.Tile;
-import com.lpoo.redstonetools.model.tile.WireTile;
 import com.lpoo.redstonetools.model.utils.Side;
 
 public class LanternaCrossWireTileView extends LanternaTileView {
-
-    public LanternaCrossWireTileView() {
-        super();
-    }
 
     @Override
     public void render(Tile tile, int row, int column, TextGraphics graphics) {

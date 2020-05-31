@@ -43,7 +43,7 @@ public abstract class LanternaTileView {
 
         String red_component = Integer.toHexString((int) (120 + Power.normalize(power) * (240 - 120)));
         if (red_component.length() == 1)
-            red_component += '0';
+            red_component = "0" + red_component;
         return TextColor.Factory.fromString("#" + red_component + "0000");
     }
 

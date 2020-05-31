@@ -42,26 +42,26 @@
   <td class="name">NANDGateStrategy</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/ 4)
+    (3/ 4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    90%
   </span>
   <span class="absValue">
-    (0/ 8)
+    (9/ 10)
   </span>
 </td>
 </tr>
@@ -80,34 +80,36 @@
 <i>6</i>&nbsp;
 <i>7</i>&nbsp;import java.util.Map;
 <i>8</i>&nbsp;
-<b class="nc"><i>9</i>&nbsp;public class NANDGateStrategy implements LogicGateStrategy {</b>
+<b class="fc"><i>9</i>&nbsp;public class NANDGateStrategy implements LogicGateStrategy {</b>
 <i>10</i>&nbsp;    @Override
 <i>11</i>&nbsp;    public boolean logic(Map&lt;Side, Integer&gt; inputs, Map&lt;Side, SideType&gt; sideTypes) {
-<b class="nc"><i>12</i>&nbsp;        boolean output = true;</b>
-<b class="nc"><i>13</i>&nbsp;        for (Side side : Side.values()) {</b>
-<b class="nc"><i>14</i>&nbsp;            if (sideTypes.getOrDefault(side, SideType.DEFAULT).isInput()) {</b>
-<b class="nc"><i>15</i>&nbsp;                output &amp;= Power.isOn(inputs.getOrDefault(side, Power.getMin()));</b>
-<i>16</i>&nbsp;            }
-<i>17</i>&nbsp;        }
-<b class="nc"><i>18</i>&nbsp;        return !output;</b>
-<i>19</i>&nbsp;    }
-<i>20</i>&nbsp;
-<i>21</i>&nbsp;    @Override
-<i>22</i>&nbsp;    public String getName() {
-<b class="nc"><i>23</i>&nbsp;        return &quot;nand_gate&quot;;</b>
-<i>24</i>&nbsp;    }
-<i>25</i>&nbsp;
-<i>26</i>&nbsp;    @Override
-<i>27</i>&nbsp;    public LogicGateStrategyType getType() {
-<b class="nc"><i>28</i>&nbsp;        return LogicGateStrategyType.NAND;</b>
-<i>29</i>&nbsp;    }
-<i>30</i>&nbsp;}
+<b class="fc"><i>12</i>&nbsp;        boolean output = true;</b>
+<b class="fc"><i>13</i>&nbsp;        boolean has_input = false;</b>
+<b class="fc"><i>14</i>&nbsp;        for (Side side : Side.values()) {</b>
+<b class="fc"><i>15</i>&nbsp;            if (sideTypes.getOrDefault(side, SideType.DEFAULT).isInput()) {</b>
+<b class="fc"><i>16</i>&nbsp;                output &amp;= Power.isOn(inputs.getOrDefault(side, Power.getMin()));</b>
+<b class="fc"><i>17</i>&nbsp;                has_input = true;</b>
+<i>18</i>&nbsp;            }
+<i>19</i>&nbsp;        }
+<b class="fc"><i>20</i>&nbsp;        return !(has_input &amp;&amp; output);</b>
+<i>21</i>&nbsp;    }
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @Override
+<i>24</i>&nbsp;    public String getName() {
+<b class="nc"><i>25</i>&nbsp;        return &quot;nand_gate&quot;;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public LogicGateStrategyType getType() {
+<b class="fc"><i>30</i>&nbsp;        return LogicGateStrategyType.NAND;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

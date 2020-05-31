@@ -4,9 +4,13 @@ import com.lpoo.redstonetools.model.circuit.Circuit;
 import com.lpoo.redstonetools.model.tile.strategy.LogicGateStrategy;
 import com.lpoo.redstonetools.model.tile.strategy.LogicGateStrategyType;
 import com.lpoo.redstonetools.model.utils.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.lifecycle.BeforeProperty;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Map;
@@ -17,20 +21,7 @@ public class LogicGateTileTest {
 
         @Override
         public boolean logic(Map<Side, Integer> inputs, Map<Side, SideType> sideTypes) {
-            int last_power = -1;
-            // Tests if it is receiving power and if the powers that it receives are all exactly equal
-            for (Side side : Side.values()) {
-                if (sideTypes.getOrDefault(side, SideType.DEFAULT).isInput()) {
-                    if (last_power != -1) {
-                        int current = inputs.getOrDefault(side, Power.getMin());
-                        if (current != last_power) return false;
-                        last_power = current;
-                    } else {
-                        last_power = inputs.getOrDefault(side, Power.getMin());
-                    }
-                }
-            }
-            return last_power != -1;
+            return !Power.isOn(inputs.getOrDefault(Side.LEFT, Power.getMin()));
         }
 
         @Override
@@ -46,146 +37,169 @@ public class LogicGateTileTest {
 
     private LogicGateTile logicGate;
 
-    private Position expectedLogicGatePosition;
-
-    @Before
+    @BeforeEach
+    @BeforeProperty
     public void setup() {
         Position position = Mockito.mock(Position.class);
         Mockito.when(position.getX()).thenReturn(1);
         Mockito.when(position.getY()).thenReturn(2);
 
-        expectedLogicGatePosition = Mockito.mock(Position.class);
-        Mockito.when(expectedLogicGatePosition.getX()).thenReturn(1);
-        Mockito.when(expectedLogicGatePosition.getY()).thenReturn(2);
-
         this.logicGate = new LogicGateTile(position, new StubLogicGateStrategy());
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testLogicGate() {
-        Assert.assertEquals(expectedLogicGatePosition.getX(), logicGate.getPosition().getX());
-        Assert.assertEquals(expectedLogicGatePosition.getY(), logicGate.getPosition().getY());
-        Assert.assertEquals("stub", logicGate.getName());
-        Assert.assertEquals("Active : true", logicGate.getInfo());
-        Assert.assertEquals(TileType.LOGIC_GATE, logicGate.getType());
+        Assertions.assertEquals(1, logicGate.getPosition().getX());
+        Assertions.assertEquals(2, logicGate.getPosition().getY());
+        Assertions.assertEquals("stub", logicGate.getName());
+        Assertions.assertEquals(TileType.LOGIC_GATE, logicGate.getType());
+        Assertions.assertFalse(logicGate.isWire());
+        Assertions.assertFalse(logicGate.isTickedTile());
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testPower() {
-        Assert.assertTrue(logicGate.acceptsPower(Side.LEFT));
-        Assert.assertTrue(logicGate.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(logicGate.acceptsPower(Side.UP));
-        Assert.assertFalse(logicGate.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.LEFT));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.UP));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.DOWN));
 
-        Assert.assertFalse(logicGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(logicGate.outputsPower(Side.RIGHT));
-        Assert.assertTrue(logicGate.outputsPower(Side.UP));
-        Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(logicGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(logicGate.outputsPower(Side.RIGHT));
+        Assertions.assertTrue(logicGate.outputsPower(Side.UP));
+        Assertions.assertFalse(logicGate.outputsPower(Side.DOWN));
 
         for (Side side : Side.values()) {
             if (logicGate.outputsPower(side)) {
-                Assert.assertEquals(Power.getMax(), logicGate.getPower(side));
+                Assertions.assertEquals(Power.getMax(), logicGate.getPower(side));
             } else {
-                Assert.assertEquals(Power.getMin(), logicGate.getPower(side));
+                Assertions.assertEquals(Power.getMin(), logicGate.getPower(side));
             }
         }
 
-        // Force activation of logic gate
+        // Force deactivation of logic gate
         logicGate.setStatus(false);
 
         for (Side side : Side.values()) {
-            Assert.assertEquals(Power.getMin(), logicGate.getPower(side));
+            Assertions.assertEquals(Power.getMin(), logicGate.getPower(side));
         }
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testRotation() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertTrue(logicGate.acceptsPower(Side.LEFT));
-        Assert.assertTrue(logicGate.acceptsPower(Side.RIGHT));
-        Assert.assertFalse(logicGate.acceptsPower(Side.UP));
-        Assert.assertFalse(logicGate.acceptsPower(Side.DOWN));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.LEFT));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.RIGHT));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.UP));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(logicGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(logicGate.outputsPower(Side.RIGHT));
-        Assert.assertTrue(logicGate.outputsPower(Side.UP));
-        Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(logicGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(logicGate.outputsPower(Side.RIGHT));
+        Assertions.assertTrue(logicGate.outputsPower(Side.UP));
+        Assertions.assertFalse(logicGate.outputsPower(Side.DOWN));
 
         logicGate.rotateRight(circuit);
 
-        Assert.assertFalse(logicGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(logicGate.acceptsPower(Side.RIGHT));
-        Assert.assertTrue(logicGate.acceptsPower(Side.UP));
-        Assert.assertTrue(logicGate.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.RIGHT));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.UP));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertFalse(logicGate.outputsPower(Side.LEFT));
-        Assert.assertTrue(logicGate.outputsPower(Side.RIGHT));
-        Assert.assertFalse(logicGate.outputsPower(Side.UP));
-        Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
+        Assertions.assertFalse(logicGate.outputsPower(Side.LEFT));
+        Assertions.assertTrue(logicGate.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(logicGate.outputsPower(Side.UP));
+        Assertions.assertFalse(logicGate.outputsPower(Side.DOWN));
 
         logicGate.rotateLeft(circuit); logicGate.rotateLeft(circuit);
 
-        Assert.assertFalse(logicGate.acceptsPower(Side.LEFT));
-        Assert.assertFalse(logicGate.acceptsPower(Side.RIGHT));
-        Assert.assertTrue(logicGate.acceptsPower(Side.UP));
-        Assert.assertTrue(logicGate.acceptsPower(Side.DOWN));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.LEFT));
+        Assertions.assertFalse(logicGate.acceptsPower(Side.RIGHT));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.UP));
+        Assertions.assertTrue(logicGate.acceptsPower(Side.DOWN));
 
 
-        Assert.assertTrue(logicGate.outputsPower(Side.LEFT));
-        Assert.assertFalse(logicGate.outputsPower(Side.RIGHT));
-        Assert.assertFalse(logicGate.outputsPower(Side.UP));
-        Assert.assertFalse(logicGate.outputsPower(Side.DOWN));
+        Assertions.assertTrue(logicGate.outputsPower(Side.LEFT));
+        Assertions.assertFalse(logicGate.outputsPower(Side.RIGHT));
+        Assertions.assertFalse(logicGate.outputsPower(Side.UP));
+        Assertions.assertFalse(logicGate.outputsPower(Side.DOWN));
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testOnChange() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
-        Assert.assertFalse(logicGate.onChange(circuit, Power.getMin(), Side.LEFT));
+        Assertions.assertFalse(logicGate.onChange(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
-        Assert.assertTrue(logicGate.onChange(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertTrue(logicGate.onChange(circuit, Power.getMax(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
 
-        Assert.assertTrue(logicGate.onChange(circuit, Power.getMax(), Side.RIGHT));
+        Assertions.assertTrue(logicGate.onChange(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
-        Assert.assertTrue(logicGate.onChange(circuit, 13, Side.RIGHT));
+        Assertions.assertFalse(logicGate.onChange(circuit, Power.getMax(), Side.RIGHT));
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+
+        Assertions.assertFalse(logicGate.onChange(circuit, Power.getMin(), Side.RIGHT));
+
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+    }
+
+    @Property
+    @net.jqwik.api.Tag("model")
+    @net.jqwik.api.Tag("unit-test") @net.jqwik.api.Tag("slow")
+    public void testUpdateOnNonInputSides(@ForAll int power) {
+        Circuit circuit = Mockito.mock(Circuit.class);
+
+        LogicGateTile logicGateSpy = Mockito.spy(logicGate);
+
+        Assertions.assertFalse(logicGateSpy.update(circuit, power, Side.UP));
+        Assertions.assertFalse(logicGateSpy.update(circuit, power, Side.DOWN));
+
+        Mockito.verify(logicGateSpy, Mockito.times(0)).onChange(Mockito.eq(circuit), Mockito.eq(power), Mockito.any(Side.class));
     }
 
     @Test
+    @Tag("model")
+    @Tag("unit-test") @Tag("fast")
     public void testUpdate() {
         Circuit circuit = Mockito.mock(Circuit.class);
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
         for (Side side : Side.values()) {
-            Assert.assertFalse(logicGate.update(circuit, Power.getMin(), side));
+            Assertions.assertFalse(logicGate.update(circuit, Power.getMin(), side));
         }
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
 
-        Assert.assertFalse(logicGate.update(circuit, Power.getMax(), Side.DOWN));
-        Assert.assertFalse(logicGate.update(circuit, Power.getMax(), Side.UP));
+        Assertions.assertTrue(logicGate.update(circuit, Power.getMax(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
 
-        Assert.assertTrue(logicGate.update(circuit, Power.getMax(), Side.LEFT));
+        Assertions.assertFalse(logicGate.update(circuit, 13, Side.LEFT));
 
-        Assert.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMin(), logicGate.getPower(Side.UP));
 
-        Assert.assertTrue(logicGate.update(circuit, Power.getMax(), Side.RIGHT));
+        Assertions.assertTrue(logicGate.update(circuit, Power.getMin(), Side.LEFT));
 
-        Assert.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
+        Assertions.assertEquals(Power.getMax(), logicGate.getPower(Side.UP));
     }
 }
