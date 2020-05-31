@@ -114,6 +114,8 @@ public class LanternaCircuitView extends CircuitView {
         return selectedTile;
     }
 
+    public Position getViewWindow() { return viewWindow; }
+
     public void toggleAutoAdvance() {
         if (lanternaAutoAdvanceTime.isAlive()) {
             lanternaAutoAdvanceTime.interrupt();
@@ -270,7 +272,7 @@ public class LanternaCircuitView extends CircuitView {
     public void showTileInfo(Position position) {
         Tile tile = circuit.getTile(position);
         if (tile.getType() != TileType.NULL) {
-            lanternaMenuBuilder.addConfirmation(circuit.getTile(position).getInfo(), () -> inMenu = false);
+            lanternaMenuBuilder.addConfirmation(tile.getInfo(), () -> inMenu = false);
             inMenu = true;
         }
     }
