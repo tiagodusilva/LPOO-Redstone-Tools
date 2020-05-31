@@ -11,6 +11,7 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
         1. [Specific Tiles](#specific-tiles)
     1. [Circuit](#circuit)
     1. [Menu](#menu)
+    1. [Config File](#config-file)
     1. [Screenshots](#screenshots)
         1. [LanternaMenu](#lanterna-menu)
         1. [Temporary Pre-existing Circuit](temporary-pre-existing-circuit)
@@ -108,6 +109,9 @@ A circuit is a composition of tiles and handles all the interactions between til
 ## Menu
 The welcoming screen.  
 It is via the menu that you can create a new circuit or load existing circuits.
+
+## Config File
+This project has a config file that allows the user to specify the target framerate and to toggle "dynamic FPS". The latter tries to stick to the framerate schedule as best as possible, for example if the last game loop took 4ms and we want a frame every 16ms, the program would halt for only 12ms instead of the full 16ms. This option runs better on higher end hardware.
 
 ## Screenshots
 
@@ -304,6 +308,8 @@ Using LanternCircuitView mentioned above as an example, whenever the user presse
 
 Every View has a Queue of Events, consisting of an Enum indicating what action needs to be taken (InputEvent) and an Object used to pass additional information on some actions. The need for this will be made more apparent on the following [Commands](#commands) chapter. Every game loop, the GameController calls `State.processEvents()`, in which the State (the mediator) processes every Event in the Queue and handles it (currently the chain of command goes no further, as even the QUIT event is also handled inside the State superclass).
 
+![UML showcasing Chain of Command design](./images/designs/chain_of_command/chain_of_command_UML.svg)
+
 These patterns can be found in the following files:
 - [State](../src/main/java/com/lpoo/redstonetools/controller/state/State.java")
 - [CircuitState](../src/main/java/com/lpoo/redstonetools/controller/state/CircuitState.java")
@@ -474,6 +480,12 @@ All the code related to instantiating the various Lanterna menus has been conden
 The ammount of *Runnable*s, *Consumer*s, *Lambda*s and even anonymous classes required contribute to this factor even further. At the very least, these have agilized the provided menus to fit various different contextes and made them extremely generalized.
 
 This code smell is too difficult to clean under the given deadline, and has already suffered a major refactor. This refactor was responsible for cleaning the Lanterna Views, introducing dependency injection to facilitate the testing of those classes and uniting all code relative to the menus.
+
+## Inneficient Commands
+
+All the commands used in our Event System and the various States have a strong disadvantage: every time we need to run one, we have to create an object that will never be used again. This also affects our ability to test their use in the States.
+
+A better implementation would be in a style of Java's **Consumer**s, as they would only need to be instanteated once, and from thereon after simply use a method like **Consumer**'s `accept()`, which would allow us to feed it an argument and run the command at once. This would also have been a great use for the **Lazy Initialization** design pattern. 
 
 
 # Testing
