@@ -29,6 +29,10 @@ Developed by [Telmo Baptista](https://github.com/Telmooo) and [Tiago Silva](http
     1. [Custom Circuits or Subcircuits](#custom-circuits-or-subcircuits)
 1. [Known Code Smells and Refactoring Suggestions](#known-code-smells-and-refactoring-suggestions)
 1. [Testing](#testing)
+    1. [Steps of Testing](#steps-of-testing)
+    1. [Property Testing](#property-testing)
+    1. [Coverage](#coverage)
+    1. [Mutation Test](#mutation-testing)
 1. [Self-evaluation](#self-evaluation)
 
 # Implemented Features
@@ -72,17 +76,23 @@ It is an *OrientedTile* that receives power from two opposing sides and outputs 
 It is an *OrientedTile* that receives power from one side and outputs on the opposite side, similar to the *RepeaterTile*.  
     It behaves as power inverter, outputs power level if it receives it doesn't receive an higher power level than the minimum from the input, and doesn't output if it receives any power higher than the minimum power level from the input.
 - [Comparator](../src/main/java/com/lpoo/redstonetools/model/tile/ComparatorTile.java)  
-TODO: DETAILS
-For more details, check it's [original inspiration](https://minecraft.gamepedia.com/Redstone_Comparator), as its behaviours were mimicked as accurately as possible (excluding interactions with inventories/non-redstone blocks).
+It is an *OrientedTile* that receives power from three sides and outputs from another. It has two modes of operation:
+  - **Comparison:**  
+  > Compares its rear input to its two side inputs. If either side input is greater than the rear input, the comparator output turns off. If neither side input is greater than the rear input, the comparator outputs the same signal strength as its rear input.  
+  >     -- [Minecraft Wiki](https://minecraft.gamepedia.com/Redstone_Comparator#Compare_signal_strength) 
+  - **Subtraction:**  
+  >  Subtracts the signal strength of the higher side input from the signal strength of the rear input.  
+  >     -- [Minecraft Wiki](https://minecraft.gamepedia.com/Redstone_Comparator#Subtract_signal_strength)
+
 - [Counter](../src/main/java/com/lpoo/redstonetools/model/tile/CounterTile.java)  
 It is an *OrientedTile* that receives power from one side and outputs on the opposite side.  
 Every *delay - 1* pulses received on the input, it outputs a maximum signal. So for a delay of 5, every 4 pulses it will emit power. 
 The only exception being delay 1, which will always output forever once it has received at least one pulse. 
 - [Timer](../src/main/java/com/lpoo/redstonetools/model/tile/TimerTile.java)  
 It is an *OrientedTile* that receives power from one side and outputs on the opposite side. It has two modes, **pulse** and **switch**, described below.  
-Every *delay - 1* pulses, it outputs a pulse (pulse mode) or toggles its output (switch mode). So for a delay of 5, every 4 it will "trigger". 
+Every *delay - 1* ticks, it outputs a pulse (pulse mode) or toggles its output (switch mode). So for a delay of 5, every 4 it will "trigger". 
 The only exception being delay 1, which will always output forever once a tick has passed.
-The input side of the timer resets its behaviour, and keeps it stopped until the signal disappears. 
+The input side of the timer resets its behaviour, and keeps it stopped while the signal is active. 
 - [Digit](../src/main/java/com/lpoo/redstonetools/model/tile/DigitTile.java)  
 The digit's only purpose is to display the power level received on a given Tile, from all sides, and can be used as a visual output.
 - [IO Tile](../src/main/java/com/lpoo/redstonetools/model/tile/IOTile.java)  
@@ -111,7 +121,7 @@ The starting menu, with a circuit being loaded from a file.
 From left to right, top to bottom:  
 1. *Wire* and demonstration of all possible connections the wire can have.  
 1. *Constant Source*, *Lever* (not active), *Lever* (active), *Repeater*, *NOT Gate*, *AND Gate*, *OR Gate*, *NAND Gate*, *NOR Gate*, *XOR Gate*, *XNOR Gate*.
-1. *Comparator* (comparison), *Comparator* (subtract) , *Digit* (receiving power), *Digit* (not receiving), *Counter*, *Timer* (pulse mode), *Timer* (switch mode), *IO Tile* (incative facing up), *IO Tile* (outputting to the right), *IO Tile* (inputting from down), *Custom Tile* (one possible).
+1. *Comparator* (comparison), *Comparator* (subtraction) , *Digit* (receiving power), *Digit* (not receiving), *Counter*, *Timer* (pulse mode), *Timer* (switch mode), *IO Tile* (incative facing up), *IO Tile* (outputting to the right), *IO Tile* (inputting from down), *Custom Tile* (one possible).
 1. Demonstration of decaying power on the wire, changing the intensity of its colour and current selected tile shown with magenta background.
 
 ### Help Menu
@@ -467,20 +477,33 @@ This code smell is too difficult to clean under the given deadline, and has alre
 
 
 # Testing
-Due to the early problems on designing a good *Model-View-Controller* (MVC), the Unit Tests aren't covering all the parts of the *MVC*, at the time, being limited to the Model.
+Thanks to our extensive implementation of the *Model-View-Controller* (MVC), the Unit Tests can cover all the Model, Controller and most of the View (excluded are [LanternaMenuBuilder](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaMenuBuilder.java) as explained [previously](#mega-menu-builder) and [LanternaViewFactory](../src/main/java/com/lpoo/redstonetools/view/lanterna/LanternaViewFactory.java) as it is responsible for instantiating Lanterna's objects).
 
-While creating [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) guarantees more safety when applying changes, as it verifies if the components changed are still working as intended, in situations where a single component change of behaviour causes the tests for the previous behaviour to fail doesn't always mean the change is wrong. In our situation, where a simple change of behaviour of a tile can make all the tests made to verify the behaviour fail, it is harder to create concrete tests, limiting the tests on more abstract behaviours.  
-With this we can separate the tests on two parts:
-- *Generic Tests* - These tests mostly verify update triggers and notifications, these tests shouldn't be changed frequently, testing generic concepts.
-- *Concrete Tests* - These tests are the ones responsible for testing concrete behaviour of tiles. Because of their nature, these tests may need to be changed frequently, as a minor change in a tile can change its whole behaviour, thus changing all the expected values.
+## Steps of Testing
+While creating [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) guarantees more safety when applying changes, as it verifies if the components changed are still working as intended. However due to the nature of some controllers, such as the [CircuitController](../src/main/java/com/lpoo/redstonetools/controller/circuit/CircuitController.java), the tests lean on a more abstract behaviour (testing if the correct calls are being made and triggered the anticipated events but doesn't test if the update itself is correctly done).
 
-The next step of Unit Testing is making [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing) in order to test how the tiles behave when put in a group (*circuit*), similar to the Concrete Tests, the integration tests may need to be changed frequently, due to the unit's nature. A small change on a tile's behaviour could cause a completely different circuit behaviour (ex. adding delay to the repeater).
+The next step of Testing is [Integration Testing](https://en.wikipedia.org/wiki/Integration_testing) in order to test how two larger modules (e.g.: Model and Controller) interact between themselves, but still has a medium level of abstraction (e.g.: the Controller interacts with a partially mocked Model and vice-versa, to safely test only certain components at a time).
+
+The final step of Testing is [System Testing](https://en.wikipedia.org/wiki/System_testing) in order to ensure that the desired behaviour is implemented and that there are no inconsistensies between the various units when integrated together (e.g.: test if an unstable loop is detected). This phase requires that all previous steps have been successful.
+
+## Property Testing
+Another approach to Testing is [Property Testing](https://en.wikipedia.org/wiki/Property_testing) in order to garantee that given an arbitrary input, the object under test must remain consistent.
+
+The simplest and most comprehensive example is one of the property tests of the [LeverTile](../src/test/java/com/lpoo/redstonetools/model/tile/LeverTileTest.java), where we know that if the Lever is toggled an even ammount of times it must return to the same initial state, but if toggled an odd ammout it must return to the oppossite of the initial state.
+
+## Coverage
 
 The tests results can be checked below:
 - [Coverage Result](./reports/coverage/)  
 ![Coverage Results](./images/testing/coverage.png)
 
-- [Mutation Testing Result](./reports/pitest/model_mutation/) (only has model, for now)
+## Mutation Testing
+
+Unfortunately, due to pitest's lack of support for jqwik tests, there were some mutations that survived the other set of tests. Furthermore, as pitest does not support Junit5, a conversion had to be made as well.
+
+Many of the surviving mutations were caused by a change in getters/setters whose tests are pointless (e.g.: getInfo() on tiles), unreachable code (e.g.: mutation in the `default` branch of a complete `switch` statement) or extraordinarily hard to test code (e.g.: threaded functions or Lanterna's menus).
+
+- [Mutation Testing Result](./reports/pitest/model_mutation/)
 
 # Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!
