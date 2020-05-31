@@ -87,11 +87,11 @@ It is an *OrientedTile* that receives power from three sides and outputs from an
 
 - [Counter](../src/main/java/com/lpoo/redstonetools/model/tile/CounterTile.java)  
 It is an *OrientedTile* that receives power from one side and outputs on the opposite side.  
-Every *delay - 1* pulses received on the input, it outputs a maximum signal. So for a delay of 5, every 4 pulses it will emit power. 
+Every *delay* pulses received on the input, it outputs a maximum signal. So for a delay of 5, every 4 pulses it will emit power. 
 The only exception being delay 1, which will always output forever once it has received at least one pulse. 
 - [Timer](../src/main/java/com/lpoo/redstonetools/model/tile/TimerTile.java)  
 It is an *OrientedTile* that receives power from one side and outputs on the opposite side. It has two modes, **pulse** and **switch**, described below.  
-Every *delay - 1* ticks, it outputs a pulse (pulse mode) or toggles its output (switch mode). So for a delay of 5, every 4 it will "trigger". 
+Every *delay* ticks, it outputs a pulse (pulse mode) or toggles its output (switch mode). So for a delay of 5, every 4 it will "trigger". 
 The only exception being delay 1, which will always output forever once a tick has passed.
 The input side of the timer resets its behaviour, and keeps it stopped while the signal is active. 
 - [Digit](../src/main/java/com/lpoo/redstonetools/model/tile/DigitTile.java)  
