@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: NullTile (com.lpoo.redstonetools.model.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,112 @@
   <td class="name">NullTile</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    88.9%
   </span>
   <span class="absValue">
-    (1/ 1)
+    (8/ 9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    92.3%
   </span>
   <span class="absValue">
-    (7/ 7)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (8/ 8)
+    (12/ 13)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$2bzjyV43</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$Bf50I74H</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$bHGRfxt0</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$bpxQVvml</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$bYPob4RV</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$e7eeZbuN</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$FsQsDoUa</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$GLiaXvgv</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$gw5kpQc7</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$HKg1G1Vs</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$K8RyLLUk</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$kTSKJK7S</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$n5LXgbE1</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$PVL62jMo</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$rrqTXkaf</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$SKMjrj27</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$UEOZUJAg</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$uMr3Nk52</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$vhsXTbkK</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$vzTIhWaa</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$Xkcl6pHp</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$xp0rjG9v</td>
+  </tr>
+  <tr>
+    <td class="name">NullTile$MockitoMock$1890477962$auxiliary$ZvPrG96B</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/ 13)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -88,75 +167,104 @@
 <i>14</i>&nbsp;public class NullTile extends Tile {
 <i>15</i>&nbsp;
 <i>16</i>&nbsp;    /**
-<i>17</i>&nbsp;     * &lt;h1&gt;Empty tile constructor&lt;/h1&gt;
-<i>18</i>&nbsp;     *
-<i>19</i>&nbsp;     * @param position  Position of the tile
+<i>17</i>&nbsp;     * &lt;h1&gt;Indicates if it&#39;s broken&lt;/h1&gt;
+<i>18</i>&nbsp;     * If not broken, just representing empty space
+<i>19</i>&nbsp;     * otherwise it&#39;s a Tile that got short-circuited
 <i>20</i>&nbsp;     */
-<i>21</i>&nbsp;    public NullTile(Position position) {
-<b class="fc"><i>22</i>&nbsp;        super(position);</b>
-<b class="fc"><i>23</i>&nbsp;    }</b>
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    /**
-<i>26</i>&nbsp;     * &lt;h1&gt;Get name of the tile&lt;/h1&gt;
-<i>27</i>&nbsp;     *
-<i>28</i>&nbsp;     * @return  &quot;null&quot;
-<i>29</i>&nbsp;     */
-<i>30</i>&nbsp;    @Override
-<b class="fc"><i>31</i>&nbsp;    public String getName() { return &quot;null&quot;; }</b>
+<i>21</i>&nbsp;    private boolean broken;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * &lt;h1&gt;Empty tile constructor&lt;/h1&gt;
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * @param position  Position of the tile
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    public NullTile(Position position) {
+<b class="fc"><i>29</i>&nbsp;        super(position);</b>
+<b class="fc"><i>30</i>&nbsp;        broken = false;</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
 <i>32</i>&nbsp;
 <i>33</i>&nbsp;    /**
-<i>34</i>&nbsp;     * &lt;h1&gt;Get tile information&lt;/h1&gt;
-<i>35</i>&nbsp;     * Empty tile has no information
+<i>34</i>&nbsp;     * &lt;h1&gt;Tile constructor&lt;/h1&gt;
+<i>35</i>&nbsp;     * If broken is true then it represents a broken tile, otherwise it represents an empty tile
 <i>36</i>&nbsp;     *
-<i>37</i>&nbsp;     * @return &quot;&quot;
-<i>38</i>&nbsp;     */
-<i>39</i>&nbsp;    @Override
-<b class="fc"><i>40</i>&nbsp;    public String getInfo() { return &quot;&quot;; }</b>
-<i>41</i>&nbsp;
-<i>42</i>&nbsp;    /**
-<i>43</i>&nbsp;     * &lt;h1&gt;Get tile type&lt;/h1&gt;
-<i>44</i>&nbsp;     *
-<i>45</i>&nbsp;     * @see TileType
-<i>46</i>&nbsp;     *
-<i>47</i>&nbsp;     * @return  Null type
-<i>48</i>&nbsp;     */
-<i>49</i>&nbsp;    @Override
-<b class="fc"><i>50</i>&nbsp;    public TileType getType() { return TileType.NULL; }</b>
-<i>51</i>&nbsp;
-<i>52</i>&nbsp;    /**
-<i>53</i>&nbsp;     * &lt;h1&gt;Get the power level emitted on the side specified&lt;/h1&gt;
-<i>54</i>&nbsp;     * Empty tile doesn&#39;t emit power
-<i>55</i>&nbsp;     *
-<i>56</i>&nbsp;     * @param side  Side of the tile
-<i>57</i>&nbsp;     * @return  Minimum power
+<i>37</i>&nbsp;     * @param position  Position of the tile
+<i>38</i>&nbsp;     * @param broken    If tile is broken
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public NullTile(Position position, boolean broken) {
+<b class="fc"><i>41</i>&nbsp;        super(position);</b>
+<b class="fc"><i>42</i>&nbsp;        this.broken = broken;</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * &lt;h1&gt;If tile is broken due to unstable circuitry&lt;/h1&gt;
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @return true if tile represents a broken tile, false otherwise
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public boolean isBroken() {
+<b class="fc"><i>51</i>&nbsp;        return broken;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * &lt;h1&gt;Get name of the tile&lt;/h1&gt;
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @return  &quot;null&quot;
 <i>58</i>&nbsp;     */
 <i>59</i>&nbsp;    @Override
-<b class="fc"><i>60</i>&nbsp;    public int getPower(Side side) { return Power.getMin(); }</b>
+<b class="nc"><i>60</i>&nbsp;    public String getName() { return &quot;null&quot;; }</b>
 <i>61</i>&nbsp;
 <i>62</i>&nbsp;    /**
-<i>63</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an input of power&lt;/h1&gt;
-<i>64</i>&nbsp;     *
-<i>65</i>&nbsp;     * @param side  Side of the tile to be checked
-<i>66</i>&nbsp;     * @return  false
+<i>63</i>&nbsp;     * &lt;h1&gt;Get tile information&lt;/h1&gt;
+<i>64</i>&nbsp;     * Empty tile has no information
+<i>65</i>&nbsp;     *
+<i>66</i>&nbsp;     * @return &quot;&quot;
 <i>67</i>&nbsp;     */
 <i>68</i>&nbsp;    @Override
-<b class="fc"><i>69</i>&nbsp;    public boolean acceptsPower(Side side) { return false; }</b>
+<b class="fc"><i>69</i>&nbsp;    public String getInfo() { return &quot;&quot;; }</b>
 <i>70</i>&nbsp;
 <i>71</i>&nbsp;    /**
-<i>72</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an output of power&lt;/h1&gt;
+<i>72</i>&nbsp;     * &lt;h1&gt;Get tile type&lt;/h1&gt;
 <i>73</i>&nbsp;     *
-<i>74</i>&nbsp;     * @param side  Side of the tile to be checked
-<i>75</i>&nbsp;     * @return  false
-<i>76</i>&nbsp;     */
-<i>77</i>&nbsp;    @Override
-<b class="fc"><i>78</i>&nbsp;    public boolean outputsPower(Side side) { return false; }</b>
-<i>79</i>&nbsp;}
+<i>74</i>&nbsp;     * @see TileType
+<i>75</i>&nbsp;     *
+<i>76</i>&nbsp;     * @return  Null type
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    @Override
+<b class="fc"><i>79</i>&nbsp;    public TileType getType() { return TileType.NULL; }</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * &lt;h1&gt;Get the power level emitted on the side specified&lt;/h1&gt;
+<i>83</i>&nbsp;     * Empty tile doesn&#39;t emit power
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @param side  Side of the tile
+<i>86</i>&nbsp;     * @return  Minimum power
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    @Override
+<b class="fc"><i>89</i>&nbsp;    public int getPower(Side side) { return Power.getMin(); }</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    /**
+<i>92</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an input of power&lt;/h1&gt;
+<i>93</i>&nbsp;     *
+<i>94</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>95</i>&nbsp;     * @return  false
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;    @Override
+<b class="fc"><i>98</i>&nbsp;    public boolean acceptsPower(Side side) { return false; }</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    /**
+<i>101</i>&nbsp;     * &lt;h1&gt;Checks if side specified is an output of power&lt;/h1&gt;
+<i>102</i>&nbsp;     *
+<i>103</i>&nbsp;     * @param side  Side of the tile to be checked
+<i>104</i>&nbsp;     * @return  false
+<i>105</i>&nbsp;     */
+<i>106</i>&nbsp;    @Override
+<b class="fc"><i>107</i>&nbsp;    public boolean outputsPower(Side side) { return false; }</b>
+<i>108</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>

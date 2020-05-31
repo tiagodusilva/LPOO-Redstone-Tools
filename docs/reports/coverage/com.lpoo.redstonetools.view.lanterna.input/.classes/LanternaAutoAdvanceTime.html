@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaAutoAdvanceTime</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna.input</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaAutoAdvanceTime (com.lpoo.redstonetools.view.lanterna.input)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaAutoAdvanceTime</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.8%
+  </span>
+  <span class="absValue">
+    (9/ 11)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$01QIASQn</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$848VyCvs</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$d6tiCmwq</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$eXLBoTSv</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$fZSR3k4b</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$hDPPrytI</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$IcS9GEBn</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$iMlUDvGS</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$l2ugKSGj</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$Vo6O6h0Z</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$Y78DmgQA</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$z0PK83QR</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$zVTitegF</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaAutoAdvanceTime$MockitoMock$2122489532$auxiliary$ZY4ECkjD</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.8%
+  </span>
+  <span class="absValue">
+    (9/ 11)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.input;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.lpoo.redstonetools.controller.event.Event;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.controller.event.InputEvent;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.view.lanterna.LanternaCircuitView;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public class LanternaAutoAdvanceTime extends Thread {
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    LanternaCircuitView lanternaCircuitView;
+<b class="fc"><i>10</i>&nbsp;    private final long updateFrequency = 1000 / 8;</b>
+<i>11</i>&nbsp;
+<b class="fc"><i>12</i>&nbsp;    public LanternaAutoAdvanceTime(LanternaCircuitView lanternaCircuitView) {</b>
+<b class="fc"><i>13</i>&nbsp;        this.lanternaCircuitView = lanternaCircuitView;</b>
+<b class="fc"><i>14</i>&nbsp;    }</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @Override
+<i>17</i>&nbsp;    public void run() {
+<b class="fc"><i>18</i>&nbsp;        while (!isInterrupted()) {</b>
+<b class="fc"><i>19</i>&nbsp;            lanternaCircuitView.pushEvent(new Event(InputEvent.ADVANCE_TICK, null));</b>
+<i>20</i>&nbsp;            try {
+<b class="fc"><i>21</i>&nbsp;                Thread.sleep(updateFrequency);</b>
+<b class="nc"><i>22</i>&nbsp;            } catch (InterruptedException e) {</b>
+<i>23</i>&nbsp;                // e.printStackTrace();
+<b class="nc"><i>24</i>&nbsp;                return;</b>
+<b class="fc"><i>25</i>&nbsp;            }</b>
+<i>26</i>&nbsp;        }
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
+</div>
+</body>
+</html>

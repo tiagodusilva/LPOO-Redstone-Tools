@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LanternaIOTileView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.lpoo.redstonetools.view.lanterna.tile</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LanternaIOTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LanternaIOTileView</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$20iXOB1U</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$29O6hctm</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$3h6GIPx0</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$7QKXbcZr</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$bSRKeODj</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$dfyr02q6</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$KORaIBSY</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$lbqlrLuA</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$mvUz8vsa</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$SgmOdclw</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$U6ZGQkQl</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$wM9ubTJx</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaIOTileView$MockitoMock$870712362$auxiliary$Xk7LXmtE</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.googlecode.lanterna.TextColor;
+<i>4</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.tile.IOTile;
+<i>6</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>7</i>&nbsp;import com.lpoo.redstonetools.model.utils.Side;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.HashMap;
+<i>10</i>&nbsp;import java.util.Map;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public class LanternaIOTileView extends LanternaTileView{
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    private Map&lt;Side, Character&gt; characterMap;
+<i>15</i>&nbsp;
+<b class="fc"><i>16</i>&nbsp;    public LanternaIOTileView() {</b>
+<b class="fc"><i>17</i>&nbsp;        characterMap = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>18</i>&nbsp;        characterMap.put(Side.UP, &#39;\u23F6&#39;);</b>
+<b class="fc"><i>19</i>&nbsp;        characterMap.put(Side.LEFT, &#39;\u23F4&#39;);</b>
+<b class="fc"><i>20</i>&nbsp;        characterMap.put(Side.DOWN, &#39;\u23F7&#39;);</b>
+<b class="fc"><i>21</i>&nbsp;        characterMap.put(Side.RIGHT, &#39;\u23F5&#39;);</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Override
+<i>25</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<b class="fc"><i>26</i>&nbsp;        TextColor color = tile.acceptsPower(Side.UP) ? getOutputColor() : (tile.outputsPower(Side.UP) ? getInputColor() : getForegroundColor());</b>
+<b class="fc"><i>27</i>&nbsp;        renderPowerSensitiveFrame(graphics, tile, column, row, color);</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;        graphics.setForegroundColor(color);</b>
+<b class="fc"><i>30</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, characterMap.getOrDefault(((IOTile)tile).getIOSide(), &#39;\u262D&#39;));</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
+</div>
+</body>
+</html>

@@ -506,8 +506,10 @@ The simplest and most comprehensive example is one of the property tests of the 
 ## Coverage
 
 The tests results can be checked below:
-- [Coverage Result](./reports/coverage/)  
+
 ![Coverage Results](./images/testing/coverage.png)
+
+- [Coverage Result](./reports/coverage)  
 
 ## Mutation Testing
 
@@ -515,7 +517,10 @@ Unfortunately, due to pitest's lack of support for jqwik tests, there were some 
 
 Many of the surviving mutations were caused by a change in getters/setters whose tests are pointless (e.g.: getInfo() on tiles), unreachable code (e.g.: mutation in the `default` branch of a complete `switch` statement) or extraordinarily hard to test code (e.g.: threaded functions or Lanterna's menus).
 
-- [Mutation Testing Result](./reports/pitest/model_mutation/)
+![Pitest Result](./images/testing/pitest_coverage.png)
+
+- [Pitest Testing Result](./reports/pitest/model_mutation/)
+
 
 # Self-evaluation
 This project was developed with maximum synergy, using [communication tools](https://discordapp.com/) to plan every feature while constantly reviewing each other code by live programming every time it was possible as well as an extra review of code by using [Github](https://github.com/)'s pull request system. Thus, it can be said each one did 100% of the work!

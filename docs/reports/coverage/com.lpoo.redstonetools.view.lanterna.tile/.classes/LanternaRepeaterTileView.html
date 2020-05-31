@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: LanternaRepeaterTileView (com.lpoo.redstonetools.view.lanterna.tile)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,82 @@
   <td class="name">LanternaRepeaterTileView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/ 4)
+    (5/ 5)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$0xDvEFyj</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$4Ks74jfW</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$6ExZpGea</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$cFfuZrFh</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$hIJH5rml</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$iQLJdvzq</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$K6JSaOHe</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$mzeNvKmC</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$oYBJOY2B</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$VRFz9Diz</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$WJ80VAcx</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$yO3b38eD</td>
+  </tr>
+  <tr>
+    <td class="name">LanternaRepeaterTileView$MockitoMock$583798701$auxiliary$ZJAJcHpN</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -74,29 +123,26 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.lpoo.redstonetools.view.lanterna.tile;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.googlecode.lanterna.TextColor;
-<i>4</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
-<i>5</i>&nbsp;import com.googlecode.lanterna.screen.Screen;
-<i>6</i>&nbsp;import com.lpoo.redstonetools.model.tile.RepeaterTile;
-<i>7</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
-<i>8</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
-<i>9</i>&nbsp;
-<b class="nc"><i>10</i>&nbsp;public class LanternaRepeaterTileView extends LanternaTileView {</b>
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;    @Override
-<i>13</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
-<b class="nc"><i>14</i>&nbsp;        renderPowerSensitiveFrame(graphics, tile, column, row);</b>
-<i>15</i>&nbsp;
-<b class="nc"><i>16</i>&nbsp;        graphics.setForegroundColor(TextColor.Factory.fromString(getPowerColor(Power.getMax())));</b>
-<b class="nc"><i>17</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39;R&#39;);</b>
-<i>18</i>&nbsp;    }
-<i>19</i>&nbsp;}
+<i>3</i>&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+<i>4</i>&nbsp;import com.lpoo.redstonetools.model.tile.Tile;
+<i>5</i>&nbsp;import com.lpoo.redstonetools.model.utils.Power;
+<i>6</i>&nbsp;
+<b class="fc"><i>7</i>&nbsp;public class LanternaRepeaterTileView extends LanternaTileView {</b>
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    @Override
+<i>10</i>&nbsp;    public void render(Tile tile, int row, int column, TextGraphics graphics) {
+<b class="fc"><i>11</i>&nbsp;        renderPowerSensitiveFrame(graphics, tile, column, row);</b>
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;        graphics.setForegroundColor(getPowerColor(Power.getMax()));</b>
+<b class="fc"><i>14</i>&nbsp;        graphics.setCharacter(column + 1, row + 1, &#39;R&#39;);</b>
+<b class="fc"><i>15</i>&nbsp;    }</b>
+<i>16</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-05-03 20:20</div>
+    <div style="float:right;">generated on 2020-05-31 21:44</div>
 </div>
 </body>
 </html>
