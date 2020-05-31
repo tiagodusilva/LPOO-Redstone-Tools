@@ -521,6 +521,12 @@ The tests results can be checked below:
 
 - [Coverage Result](./reports/coverage)  
 
+## Gradle Test Profiler
+
+![Gradle Profiler Result](./images/testing/gradle_tests.png)
+
+- [Gradle Profiler Result](./reports/gradle_tests)
+
 ## Mutation Testing
 
 Unfortunately, due to pitest's lack of support for jqwik tests, there were some mutations that survived the other set of tests. Furthermore, as pitest does not support Junit5, a conversion had to be made as well.
