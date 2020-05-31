@@ -26,6 +26,8 @@ public class ComparatorTileTest {
         Mockito.when(position.getY()).thenReturn(2);
 
         this.comparator = Mockito.mock(ComparatorTile.class, Mockito.withSettings().useConstructor(position).defaultAnswer(Mockito.CALLS_REAL_METHODS));
+
+        Assertions.assertEquals(Side.LEFT, comparator.getRear());
     }
 
     @Test
@@ -97,7 +99,7 @@ public class ComparatorTileTest {
         Assertions.assertFalse(comparator.outputsPower(Side.UP));
         Assertions.assertFalse(comparator.outputsPower(Side.DOWN));
 
-        comparator.rotateRight(circuit);
+        Assertions.assertTrue(comparator.rotateRight(circuit));
 
         Assertions.assertTrue(comparator.acceptsPower(Side.LEFT));
         Assertions.assertTrue(comparator.acceptsPower(Side.RIGHT));
@@ -112,7 +114,8 @@ public class ComparatorTileTest {
 
         Mockito.verify(comparator, Mockito.times(1)).updateRear();
 
-        comparator.rotateLeft(circuit); comparator.rotateLeft(circuit);
+        Assertions.assertTrue(comparator.rotateLeft(circuit));
+        Assertions.assertTrue(comparator.rotateLeft(circuit));
 
         Assertions.assertTrue(comparator.acceptsPower(Side.LEFT));
         Assertions.assertTrue(comparator.acceptsPower(Side.RIGHT));

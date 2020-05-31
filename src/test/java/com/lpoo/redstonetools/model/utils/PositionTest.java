@@ -39,6 +39,9 @@ public class PositionTest {
         Position position2 = new Position(5, 6);
         Position position3 = new Position(5, 4);
 
+        Assertions.assertEquals(position1, position1);
+        Assertions.assertNotEquals(position1, null);
+        Assertions.assertNotEquals(position1, 0);
         Assertions.assertEquals(position1, position2);
         Assertions.assertNotEquals(position1, position3);
         Assertions.assertNotEquals(position2, position3);

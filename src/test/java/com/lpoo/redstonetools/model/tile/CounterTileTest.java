@@ -121,31 +121,39 @@ public class CounterTileTest {
 
         counter.setDelay(3);
 
+        Assertions.assertEquals(3, counter.getDelay());
+
         Assertions.assertEquals(0, counter.getCounter());
 
         Assertions.assertFalse(counter.onChange(circuit, Power.getMax(), Side.LEFT));
 
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(Power.getMax(), counter.getPrevIn());
 
         Assertions.assertFalse(counter.onChange(circuit, 5, Side.LEFT));
 
         Assertions.assertEquals(2, counter.getCounter());
+        Assertions.assertEquals(5, counter.getPrevIn());
 
         Assertions.assertFalse(counter.onChange(circuit, Power.getMin(), Side.LEFT));
 
         Assertions.assertEquals(2, counter.getCounter());
+        Assertions.assertEquals(Power.getMin(), counter.getPrevIn());
 
         Assertions.assertTrue(counter.onChange(circuit, 8, Side.LEFT));
 
         Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertEquals(8, counter.getPrevIn());
 
         Assertions.assertFalse(counter.onChange(circuit, Power.getMin(), Side.LEFT));
 
         Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertEquals(Power.getMin(), counter.getPrevIn());
 
         Assertions.assertFalse(counter.onChange(circuit, Power.getMin(), Side.LEFT));
 
         Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertEquals(Power.getMin(), counter.getPrevIn());
     }
 
     @Property
@@ -154,6 +162,7 @@ public class CounterTileTest {
     public void testOnChangeProperty(@ForAll int power, @ForAll Side side) {
         Circuit circuit = Mockito.mock(Circuit.class);
         counter.setDelay(2);
+        Assertions.assertEquals(2, counter.getDelay());
         if (Power.isOn(power)) {
             Assertions.assertFalse(counter.onChange(circuit, power, side));
             Assertions.assertEquals(1, counter.getCounter());
@@ -176,16 +185,25 @@ public class CounterTileTest {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         counter.setDelay(3);
+        Assertions.assertEquals(3, counter.getDelay());
+
         Assertions.assertEquals(0, counter.getCounter());
         Assertions.assertFalse(counter.onChange(circuit, Power.getMax(), Side.LEFT));
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(Power.getMax(), counter.getPrevIn());
 
         counter.setDelay(2);
+        Assertions.assertEquals(2, counter.getDelay());
+
         Assertions.assertEquals(0, counter.getCounter());
         Assertions.assertFalse(counter.onChange(circuit, Power.getMax(), Side.LEFT));
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(Power.getMax(), counter.getPrevIn());
+
         Assertions.assertTrue(counter.onChange(circuit, Power.getMax(), Side.LEFT));
         Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertEquals(Power.getMax(), counter.getPrevIn());
+
     }
 
     @Test
@@ -195,6 +213,8 @@ public class CounterTileTest {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         counter.setDelay(1);
+        Assertions.assertEquals(1, counter.getDelay());
+
         Assertions.assertTrue(counter.onChange(circuit, Power.getMax(), Side.LEFT));
         Assertions.assertEquals(0, counter.getCounter());
         Assertions.assertFalse(counter.onChange(circuit, Power.getMax(), Side.LEFT));
@@ -228,6 +248,8 @@ public class CounterTileTest {
         Circuit circuit = Mockito.mock(Circuit.class);
 
         counter.setDelay(4);
+        Assertions.assertEquals(4, counter.getDelay());
+
         Assertions.assertEquals(Power.getMin(), counter.getPower(Side.RIGHT));
 
         for (Side side : Side.values()) {
@@ -238,28 +260,33 @@ public class CounterTileTest {
             Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
         }
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(3, counter.getPulsesLeft());
 
         for (Side side : Side.values()) {
             Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
         }
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(3, counter.getPulsesLeft());
 
         for (Side side : Side.values()) {
             Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
         }
         Assertions.assertEquals(1, counter.getCounter());
+        Assertions.assertEquals(3, counter.getPulsesLeft());
 
         for (Side side : Side.values()) {
             Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
             Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
         }
         Assertions.assertEquals(2, counter.getCounter());
+        Assertions.assertEquals(2, counter.getPulsesLeft());
 
         for (Side side : Side.values()) {
             Assertions.assertFalse(counter.update(circuit, Power.getMin(), side));
             Assertions.assertFalse(counter.update(circuit, Power.getMax(), side));
         }
         Assertions.assertEquals(3, counter.getCounter());
+        Assertions.assertEquals(1, counter.getPulsesLeft());
 
         Assertions.assertEquals(Power.getMin(), counter.getPower(Side.RIGHT));
 
@@ -274,6 +301,7 @@ public class CounterTileTest {
             }
         }
         Assertions.assertEquals(0, counter.getCounter());
+        Assertions.assertEquals(4, counter.getPulsesLeft());
 
         Assertions.assertEquals(Power.getMax(), counter.getPower(Side.RIGHT));
 

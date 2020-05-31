@@ -161,6 +161,18 @@ public class NotTileTest {
 
         notGate.setStatus(false);
 
+        Assertions.assertFalse(notGate.update(circuit, Power.getMin(), Side.UP));
+
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+
+        Assertions.assertFalse(notGate.update(circuit, Power.getMin(), Side.DOWN));
+
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+
+        Assertions.assertFalse(notGate.update(circuit, Power.getMin(), Side.RIGHT));
+
+        Assertions.assertEquals(Power.getMin(), notGate.getPower(Side.RIGHT));
+
         Assertions.assertTrue(notGate.update(circuit, Power.getMin(), Side.LEFT));
 
         Assertions.assertEquals(Power.getMax(), notGate.getPower(Side.RIGHT));

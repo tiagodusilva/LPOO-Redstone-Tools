@@ -162,6 +162,28 @@ public class RepeaterTileTest {
 
         for (Side side : Side.values()) {
             Assertions.assertFalse(repeater.update(circuit, Power.getMin(), side));
+            Assertions.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+            Assertions.assertFalse(repeater.getStatus());
         }
+
+        Assertions.assertFalse(repeater.update(circuit, 5, Side.RIGHT));
+
+        Assertions.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.getStatus());
+
+        Assertions.assertTrue(repeater.update(circuit, 5, Side.LEFT));
+
+        Assertions.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.getStatus());
+
+        Assertions.assertFalse(repeater.update(circuit, 12, Side.LEFT));
+
+        Assertions.assertEquals(Power.getMax(), repeater.getPower(Side.RIGHT));
+        Assertions.assertTrue(repeater.getStatus());
+
+        Assertions.assertTrue(repeater.update(circuit, Power.getMin(), Side.LEFT));
+
+        Assertions.assertEquals(Power.getMin(), repeater.getPower(Side.RIGHT));
+        Assertions.assertFalse(repeater.getStatus());
     }
 }

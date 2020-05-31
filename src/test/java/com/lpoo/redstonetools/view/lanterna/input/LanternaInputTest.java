@@ -3212,4 +3212,166 @@ public class LanternaInputTest {
         Mockito.verify(view, Mockito.times(0)).moveViewWindow(Mockito.any(Side.class));
         Mockito.verify(view, Mockito.times(0)).moveSelectedTile(Mockito.any(Side.class));
     }
+
+    @Test
+    @Tag("view") @Tag("model")
+    @Tag("integration-test") @Tag("fast")
+    public void testInputOnIOException() {
+        LanternaCircuitView view = Mockito.mock(LanternaCircuitView.class);
+
+        Position position = Mockito.mock(Position.class);
+        Position clone = Mockito.mock(Position.class);
+
+        Mockito.when(view.getSelectedTile()).thenReturn(position);
+        Mockito.when(position.clone()).thenReturn(clone);
+
+        Mockito.when(view.inMenu()).thenReturn(false);
+
+        Screen screen = Mockito.mock(Screen.class);
+        Mockito.when(view.getScreen()).thenReturn(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+
+        IOException exception = Mockito.mock(IOException.class);
+
+        try {
+            Mockito.when(screen.readInput()).thenThrow(exception);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.EOF);
+        Mockito.when(key.getCharacter()).thenReturn('f');
+
+        LanternaInput input = Mockito.mock(LanternaInput.class, Mockito.withSettings().useConstructor(view));
+
+        Mockito.doCallRealMethod().when(input).run();
+
+        Mockito.when(input.isInterrupted()).thenReturn(false);
+
+        Mockito.doAnswer((Answer<Void>) invocation -> {
+            Event event = invocation.getArgument(0);
+            Assertions.assertEquals(InputEvent.QUIT, event.getInputEvent());
+            return null;
+        }).when(view).pushEvent(Mockito.any(Event.class));
+
+        Mockito.doAnswer((Answer<Void>) invocation -> {
+            Mockito.when(input.isInterrupted()).thenReturn(true);
+            return null;
+        }).when(view).inMenu();
+
+        input.run();
+
+        Mockito.verify(input, Mockito.times(2)).isInterrupted();
+        Mockito.verify(view, Mockito.times(1)).getScreen();
+        try {
+            Mockito.verify(screen, Mockito.times(1)).readInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Mockito.verify(key, Mockito.times(0)).getKeyType();
+        Mockito.verify(key, Mockito.times(0)).getCharacter();
+
+        Mockito.verify(view, Mockito.times(0))
+                .pushEvent(Mockito.any(Event.class));
+        Mockito.verify(view, Mockito.times(0))
+                .pushEvent(Mockito.any());
+
+        Mockito.verify(view, Mockito.times(0)).getSelectedTile();
+        Mockito.verify(position, Mockito.times(0)).clone();
+
+        Mockito.verify(view, Mockito.times(0)).showSaveCircuitMenu();
+        Mockito.verify(view, Mockito.times(0)).showInsertCustomMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showHelpMenu();
+        Mockito.verify(view, Mockito.times(0)).showTileInfo(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showSetDelayMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).toggleAutoAdvance();
+        Mockito.verify(view, Mockito.times(0)).showInsertGateMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showInsertMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).toggleShowPower();
+        Mockito.verify(view, Mockito.times(0)).moveViewWindow(Mockito.any(Side.class));
+        Mockito.verify(view, Mockito.times(0)).moveSelectedTile(Mockito.any(Side.class));
+
+        Mockito.verify(exception, Mockito.times(1)).printStackTrace();
+    }
+
+    @Test
+    @Tag("view") @Tag("model")
+    @Tag("integration-test") @Tag("fast")
+    public void testInputOnRuntimeException() {
+        LanternaCircuitView view = Mockito.mock(LanternaCircuitView.class);
+
+        Position position = Mockito.mock(Position.class);
+        Position clone = Mockito.mock(Position.class);
+
+        Mockito.when(view.getSelectedTile()).thenReturn(position);
+        Mockito.when(position.clone()).thenReturn(clone);
+
+        Mockito.when(view.inMenu()).thenReturn(false);
+
+        Screen screen = Mockito.mock(Screen.class);
+        Mockito.when(view.getScreen()).thenReturn(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+
+        RuntimeException exception = Mockito.mock(RuntimeException.class);
+
+        try {
+            Mockito.when(screen.readInput()).thenThrow(exception);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.EOF);
+        Mockito.when(key.getCharacter()).thenReturn('f');
+
+        LanternaInput input = Mockito.mock(LanternaInput.class, Mockito.withSettings().useConstructor(view));
+
+        Mockito.doCallRealMethod().when(input).run();
+
+        Mockito.when(input.isInterrupted()).thenReturn(false);
+
+        Mockito.doAnswer((Answer<Void>) invocation -> {
+            Event event = invocation.getArgument(0);
+            Assertions.assertEquals(InputEvent.QUIT, event.getInputEvent());
+            return null;
+        }).when(view).pushEvent(Mockito.any(Event.class));
+
+        Mockito.doAnswer((Answer<Void>) invocation -> {
+            Mockito.when(input.isInterrupted()).thenReturn(true);
+            return null;
+        }).when(view).inMenu();
+
+        input.run();
+
+        Mockito.verify(input, Mockito.times(1)).isInterrupted();
+        Mockito.verify(view, Mockito.times(1)).getScreen();
+        try {
+            Mockito.verify(screen, Mockito.times(1)).readInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Mockito.verify(key, Mockito.times(0)).getKeyType();
+        Mockito.verify(key, Mockito.times(0)).getCharacter();
+
+        Mockito.verify(view, Mockito.times(0))
+                .pushEvent(Mockito.any(Event.class));
+        Mockito.verify(view, Mockito.times(0))
+                .pushEvent(Mockito.any());
+
+        Mockito.verify(view, Mockito.times(0)).getSelectedTile();
+        Mockito.verify(position, Mockito.times(0)).clone();
+
+        Mockito.verify(view, Mockito.times(0)).showSaveCircuitMenu();
+        Mockito.verify(view, Mockito.times(0)).showInsertCustomMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showHelpMenu();
+        Mockito.verify(view, Mockito.times(0)).showTileInfo(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showSetDelayMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).toggleAutoAdvance();
+        Mockito.verify(view, Mockito.times(0)).showInsertGateMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).showInsertMenu(Mockito.any(Position.class));
+        Mockito.verify(view, Mockito.times(0)).toggleShowPower();
+        Mockito.verify(view, Mockito.times(0)).moveViewWindow(Mockito.any(Side.class));
+        Mockito.verify(view, Mockito.times(0)).moveSelectedTile(Mockito.any(Side.class));
+
+        Mockito.verify(exception, Mockito.times(0)).printStackTrace();
+    }
 }
